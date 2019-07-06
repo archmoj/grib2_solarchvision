@@ -1,0 +1,8 @@
+domain=GDWPS
+begin=0
+end=48
+step=6
+auto=GIF
+levels+=surface
+
+layers+=swellwavesheight

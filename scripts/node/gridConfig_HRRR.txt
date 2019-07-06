@@ -1,0 +1,14 @@
+domain=HRRR
+begin=0
+end=18
+step=2
+auto=GIF
+levels+=surface
+
+layers+=drybulb
+layers+=relhum
+layers+=meanpressure
+layers+=windU
+layers+=windV
+layers+=precipitation
+layers+=flowXprecipitation

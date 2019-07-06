@@ -1,0 +1,23 @@
+domain=HRDPS_east
+begin=12
+end=48
+step=3
+auto=GIF
+levels+=surface
+
+layers+=drybulb
+layers+=meanpressure
+layers+=windU
+layers+=windV
+layers+=precipitation
+layers+=cloudcover
+layers+=albedo
+layers+=glohorrad
+layers+=difhorrad
+layers+=dirnorrad
+layers+=dirnoreff
+layers+=south00
+layers+=windspd
+layers+=flowXmeanpressure
+layers+=flowXprecipitation
+year=2019 month=7 day=6 run=00Z tmpdir=C:/SOLARCHVISION/grib2_solarchvision/temp/ outdir=C:/SOLARCHVISION/grib2_solarchvision/output/ 

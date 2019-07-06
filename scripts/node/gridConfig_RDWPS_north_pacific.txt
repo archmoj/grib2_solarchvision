@@ -1,0 +1,17 @@
+domain=RDWPS_north_pacific
+begin=0
+end=48
+step=3
+auto=GIF
+levels+=surface
+
+layers+=windwavesheight
+layers+=swellwavesheight
+layers+=combwavesheight
+layers+=peakwaveperiod
+layers+=windwaveperiod
+layers+=swellwaveperiod
+layers+=windU
+layers+=windV
+layers+=meanpressure
+layers+=flowXmeanpressure
