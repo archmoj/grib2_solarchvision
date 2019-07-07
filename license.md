@@ -1,13 +1,13 @@
-# GRIB2_SOLARCHVISION_2016 Copyright (C) Mojtaba Samimi (M.Arch)
+# GRIB2_SOLARCHVISION Copyright (C) Mojtaba Samimi (M.Arch)
 ## Developed in Summer 2016 at [solarchvision.com](http://solarchvision.com/)
 Brossard, Quebec, Canada.
 
 ## Acknowledgement
-The author would like to acknowledge the assistance from Mr. Lewis Poulin of
-the Quebec High Impact Weather Laboratory of Environment Canada for his help
-(during 2014 - 2016 time period) in learning more about deterministic and ensemble
-weather forecast datasets, summarized in part in one of his [CMC presentations](http://collaboration.cmc.ec.gc.ca/cmc/cmoi/product_guide/docs/REFcsts/) made
-at the International Conference for Enhanced Building Operations, Montreal, 2013.
+The author would like to acknowledge the assistance from Mr. Lewis Poulin at
+the Canadian Meteorological Center for his assistance between 2014 and 2016 in
+learning more about deterministic and ensemble numerical weather forecast datasets,
+summarized in part in his [presentations](http://collaboration.cmc.ec.gc.ca/cmc/cmoi/product_guide/docs/REFcsts/ICEBO2013_Montreal_LewisPoulin_20131010-track4B-Session19_final.pdf) at the 2013 International Conference for
+Enhanced Building Operations, Montreal, 2013.
 
 ## Programming language
 This SOLARCHVISION project is mainly developed in [Processing v.2](https://processing.org/) on top of Java.
@@ -16,7 +16,7 @@ This SOLARCHVISION project is mainly developed in [Processing v.2](https://proce
 The grib2_solarchvision_2016 software application is freed by
 its author on July 6, 2019 under GNU GPL v.2.0.
 
-### [Francais](https://www.gnu.org/licenses/old-licenses/gpl-2.0.fr.html) | [English](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+### [Français](https://www.gnu.org/licenses/old-licenses/gpl-2.0.fr.html) | [English](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
