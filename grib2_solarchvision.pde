@@ -8,8 +8,8 @@
 import processing.pdf.*;
 PGraphics pdfExport;
 
-import gifAnimation.*;
-GifMaker gifExport;
+//import gifAnimation.*;
+//GifMaker gifExport;
 
 import java.util.Calendar;
 
@@ -2034,7 +2034,7 @@ void draw () {
       }
       if (Current_levelID == DATA_numLevels) exit();
     }
-
+/*
     else if (automated == AUTO_GIF) {
       if (Current_timeID == 0) {
         gifExport = new GifMaker(this,
@@ -2066,7 +2066,7 @@ void draw () {
       if (Current_levelID == DATA_numLevels) exit();
 
     }
-
+*/
     if (UI_BAR_d_Update == true) {
       if (automated == USER_INT) {
         //////////////////////////////////////
