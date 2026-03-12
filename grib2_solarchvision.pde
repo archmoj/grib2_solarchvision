@@ -40,11 +40,11 @@ String[] args = {
 
   "run=00Z",
   "begin=6",
-  "end=6",
+  "end=24",
   "step=6",
   "auto=USER",
-  "tmpdir=/temp/",
-  "outdir=/screenshot/",
+  "tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
+  "outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
 
   //"layers+=swellwavesheight",
   //"layers+=windwavesheight",
@@ -53,12 +53,24 @@ String[] args = {
   //"layers+=peakwaveperiod",
   //"layers+=windwaveperiod",
   //"layers+=swellwaveperiod",
-  //"layers+=windU",
-  //"layers+=windV",
 
-  "layers+=drybulb",
+  "layers+=windU",
+  "layers+=windV",
+
+  //"layers+=drybulb",
+  //"layers+=meanpressure",
+  "layers+=precipitation",
   //"layers+=cloudcover",
+  //"layers+=albedo",
+  //"layers+=glohorrad",
+  //"layers+=difhorrad",
+  //"layers+=dirnorrad",
   //"layers+=dirnoreff",
+  //"layers+=south00",
+  //"layers+=windspd",
+  //"layers+=flowXmeanpressure",
+  "layers+=flowXprecipitation",
+
 
   //"layers+=pastprecip",
 
