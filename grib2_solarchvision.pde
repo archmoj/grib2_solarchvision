@@ -23,7 +23,11 @@ String BaseFolder = "/home/solarch/org/grib2_solarchvision";
 //String[] args = split(join(loadStrings(BaseFolder + "/scripts/node/gridConfig.txt"), " "), ' ');
 
 String[] args = {
+  //"domain=NAM11",
+  //"domain=NAM12",
+  //"domain=NAM32",
   //"domain=HRRR",
+  //"domain=GFS",
   //"domain=GEPS",
   //"domain=REPS",
   //"domain=GDPS",
@@ -271,7 +275,7 @@ String[][] DATA_allDomains = {
   //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_1hr.pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
   //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "b.pl", "gfs", "0p25", "pgrb2b", "25", "1", "1", "384" },
 
-  { "NAM11", "NAM11", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_ak.pl", "nam", "awak3d", "grb2", "11", "1", "3", "60" },
+  { "NAM11", "NAM11", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_ak.pl", "nam", "awak3d", "grib2", "11", "1", "3", "60" },
 
   { "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_conusnest.pl", "nam", "conusnest.hiresf", "grib2", "11", "1", "3", "60" },
   //{ "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_hawaiinest.pl", "nam", "hawaiinest.hiresf", "grib2", "11", "1", "3", "60" },
@@ -2157,7 +2161,7 @@ String getGrib2Link () {
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GFS")) {
       l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
-      l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2);
+      l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "%2F" + nf(DATA_ModelRun, 2) + "%2Fatmos";
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("WAVE")) {
       l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
@@ -2167,7 +2171,10 @@ String getGrib2Link () {
       l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
       l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2);
     }
-    l += "%2Fconus";
+
+    if(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRRR")) {
+      l += "%2Fconus";
+    }
   }
 
   println(l);
@@ -2341,16 +2348,16 @@ String getGrib2Filename (int k, int l, int h) {
       return_txt = "gep01" + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "f" + nf(k, 2);
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GFS")) {
-      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".f" + nf(k, 3);
+      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".anl";
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM11")) {
-      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) +"." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + ".tm" + nf(DATA_ModelRun, 2);
+      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM12")) {
-      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) +"." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM32")) {
-      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) +"." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("WAVE")) {
       return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
