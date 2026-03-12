@@ -1187,10 +1187,10 @@ int[] DATA_allLevels = new int[0];
   }
 }
 
-int SOLARCHVISION_H_Pixel = 550;
+int SOLARCHVISION_H_Pixel = 750;
 int SOLARCHVISION_W_Pixel = int(SOLARCHVISION_H_Pixel * 2.0);
 
-float MessageSize =  SOLARCHVISION_W_Pixel / 120.0; // screen width
+float MessageSize =  12.0;
 
 int SOLARCHVISION_A_Pixel = 0; //int(1.5 * MessageSize); // menu bar
 int SOLARCHVISION_B_Pixel = int(3.0 * MessageSize); // 3D tool bar
@@ -1222,7 +1222,7 @@ String[] postprocessList;
 
 void setup () {
   //size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
-  size(1100, 672, P2D);
+  size(1500, 912, P2D);
 
   LOAD_EARTH_IMAGES();
 
