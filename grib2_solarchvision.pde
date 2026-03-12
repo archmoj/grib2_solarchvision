@@ -18,23 +18,49 @@ import ucar.unidata.io.RandomAccessFile;
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
 
 
-String BaseFolder = "C:/SOLARCHVISION/grib2_solarchvision";
+String BaseFolder = "/home/solarch/org/grib2_solarchvision";
 
-String[] args = split(join(loadStrings(BaseFolder + "/scripts/node/gridConfig.txt"), " "), ' ');
-/*
+//String[] args = split(join(loadStrings(BaseFolder + "/scripts/node/gridConfig.txt"), " "), ' ');
+
 String[] args = {
-  "domain=HRDPS_west",
+  //"domain=HRRR",
+  //"domain=GEPS",
+  //"domain=REPS",
+  //"domain=GDPS",
+  "domain=RDPS",
+  //"domain=HRDPS_continental",
+  //"domain=GDWPS",
+  //"domain=RDWPS_lake_erie",
+  //"domain=RDWPS_lake_huron-michigan",
+  //"domain=RDWPS_lake_ontario",
+  //"domain=RDWPS_lake_superior",
+  //"domain=RDWPS_national",
+  //"domain=RDPA",
+  //"domain=HRDPA",
+
   "run=00Z",
   "begin=6",
   "end=6",
-  "step=3",
+  "step=6",
   "auto=USER",
   "tmpdir=/temp/",
   "outdir=/screenshot/",
 
+  //"layers+=swellwavesheight",
+  //"layers+=windwavesheight",
+  //"layers+=swellwavesheight",
+  //"layers+=combwavesheight",
+  //"layers+=peakwaveperiod",
+  //"layers+=windwaveperiod",
+  //"layers+=swellwaveperiod",
+  //"layers+=windU",
+  //"layers+=windV",
+
   "layers+=drybulb",
   //"layers+=cloudcover",
   //"layers+=dirnoreff",
+
+  //"layers+=pastprecip",
 
   "levels+=surface",
 
@@ -42,7 +68,7 @@ String[] args = {
   "month=" + nf(month(), 2),
   "day="   + nf(day()  , 2)
 };
-*/
+
 
 boolean log = false;
 
@@ -183,94 +209,81 @@ final int DOMAIN_PROPERTY11 = 11;
 
 String[][] DATA_allDomains = {
   // Note: for hindcast we should use previous date:1981-2010
-  //{ "CanSIPS_hindcast", "CanSIPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "ensemble/cansips/grib2/hindcast/raw", "cansips_hindcast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
-  { "CanSIPS_forecast", "CanSIPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "ensemble/cansips/grib2/forecast/raw", "cansips_forecast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
+  //{ "CanSIPS_hindcast", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/cansips/grib2/hindcast/raw", "cansips_hindcast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
+  { "CanSIPS_forecast", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/cansips/grib2/forecast/raw", "cansips_forecast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
 
-  { "GEPS", "GEPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "ensemble/naefs/grib2/raw", "CMC_naefs-geps-raw", "latlon1p0x1p0", "_allmbrs.grib2", "100", "21", "6", "384" },
+  { "GEPS", "GEPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/geps/grib2/raw", "CMC_geps-raw", "latlon0p5x0p5", "_allmbrs.grib2", "100", "21", "6", "384" },
 
-  { "REPS", "REPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "ensemble/reps/15km/grib2/raw", "CMC-reps-srpe-raw", "ps15km", "_allmbrs.grib2", "15", "21", "3", "72" },
+  { "REPS", "REPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/reps/10km/grib2", "MSC_REPS", "RLatLon0.09x0.09", ".grib2", "15", "21", "3", "72" },
 
-  { "GDPS", "GDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_gem_global/25km/grib2/lat_lon", "CMC_glb", "latlon.24x.24", ".grib2", "25", "1", "3", "240" },
-  //{ "GDPS", "GDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_gem_global/66km/grib2/lat_lon", "CMC_glb", "latlon.6x.6", ".grib2", "66", "1", "3", "144" },
-  //{ "GDPS", "GDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_gem_global/66km/grib2/polar_stereographic", "CMC_glb", "ps30km", ".grib2", "66", "1", "3", "144" },
+  { "GDPS", "GDPS", "CMC", "https://dd.weather.gc.ca/", "model_gem_global/15km/grib2/lat_lon", "CMC_glb", "latlon.15x.15", ".grib2", "25", "1", "3", "240" },
 
-  { "RDPS", "RDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_gem_regional/10km/grib2", "CMC_reg", "ps10km", ".grib2", "10", "1", "3", "54" },
+  { "RDPS", "RDPS", "CMC", "https://dd.weather.gc.ca/", "model_gem_regional/10km/grib2", "CMC_reg", "ps10km", ".grib2", "10", "1", "3", "54" },
 
-  { "HRDPS_arctic", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/arctic/grib2", "CMC_hrdps_arctic", "ps2.5km", "-00.grib2", "2.5", "1", "1", "24" },
-  { "HRDPS_lancaster", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/lancaster/grib2", "CMC_hrdps_lancaster", "ps2.5km", "-00.grib2", "2.5", "1", "1", "30" },
-  { "HRDPS_maritimes", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/maritimes/grib2", "CMC_hrdps_maritimes", "ps2.5km", "-00.grib2", "2.5", "1", "1", "48" },
-  { "HRDPS_east", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/east/grib2", "CMC_hrdps_east", "ps2.5km", "-00.grib2", "2.5", "1", "1", "48" },
-  { "HRDPS_prairies", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/prairies/grib2", "CMC_hrdps_prairies", "ps2.5km", "-00.grib2", "2.5", "1", "1", "48" },
-  { "HRDPS_west", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/west/grib2", "CMC_hrdps_west", "ps2.5km", "-00.grib2", "2.5", "1", "1", "48" },
-  { "HRDPS_continental", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/continental/grib2", "CMC_hrdps_continental", "ps2.5km", "-00.grib2", "2.5", "1", "1", "48" },
-  { "HRDPS_north", "HRDPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_hrdps/north/grib2", "CMC_hrdps_north", "ps2.5km", "-00.grib2", "2.5", "1", "1", "30" },
+  { "HRDPS_continental", "HRDPS", "CMC", "https://dd.weather.gc.ca/", "model_hrdps/continental/2.5km", "MSC_HRDPS", "RLatLon0.0225", ".grib2", "2.5", "1", "1", "48" },
 
-  { "GDWPS", "GDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/ocean/global/grib2", "CMC_gdwps_global", "latlon0.25x0.25", ".grib2", "25", "1", "3", "48" },
+  { "GDWPS", "GDWPS", "CMC", "https://dd.weather.gc.ca/", "model_gdwps/25km", "MSC_GDWPS", "LatLon0.25", ".grib2", "25", "1", "3", "48" },
 
-  { "RDWPS_lake_erie", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/great_lakes/erie/grib2", "CMC_rdwps_lake-erie", "latlon0.05x0.05", ".grib2", "5", "1", "6", "48" },
-  { "RDWPS_lake_huron", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/great_lakes/huron/grib2", "CMC_rdwps_lake-huron", "latlon0.05x0.08", ".grib2", "5", "1", "6", "48" },
-  { "RDWPS_lake_ontario", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/great_lakes/ontario/grib2", "CMC_rdwps_lake-ontario", "latlon0.05x0.08", ".grib2", "5", "1", "6", "48" },
-  { "RDWPS_north_atlantic", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/ocean/atlantic_north/grib2", "CMC_rdwps_north-atlantic", "latlon0.15x0.15", ".grib2", "5", "1", "6", "48" },
-  { "RDWPS_north_pacific", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/ocean/pacific_north/grib2", "CMC_rdwps_north-pacific", "latlon0.5x0.5", ".grib2", "40", "1", "6", "48" },
-  { "RDWPS_arctic", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/ocean/arctic/grib2", "CMC_rdwps_arctic", "latlon0.04x0.08", ".grib2", "5", "1", "6", "48" },
-  { "RDWPS_gulf_st_lawrence", "RDWPS", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "model_wave/ocean/gulf-st-lawrence/grib2", "CMC_rdwps_gulf-st-lawrence", "latlon0.05x0.05", ".grib2", "5", "1", "6", "48" },
+  { "RDWPS_lake_erie", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/erie/1km", "MSC_RDWPS-Lake-Erie", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
+  { "RDWPS_lake_huron-michigan", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/huron-michigan/1km", "MSC_RDWPS-Lake-Huron-Michigan", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
+  { "RDWPS_lake_ontario", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/ontario/1km", "MSC_RDWPS-Lake-Ontario", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
+  { "RDWPS_lake_superior", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/superior/1km", "MSC_RDWPS-Lake-Superior", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
+  { "RDWPS_national", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/national/2.5km", "MSC_RDWPS", "RLatLon0.0225", ".grib2", "5", "1", "6", "48" },
 
-  { "RDPA", "RDPA", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "analysis/precip/rdpa/grib2/polar_stereographic/06", "CMC_RDPA", "ps10km", "000.grib2", "5", "1", "6", "1" },
-  //{ "RDPA", "RDPA", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "analysis/precip/rdpa/grib2/polar_stereographic/24", "CMC_RDPA", "ps10km", "000.grib2", "5", "1", "6", "1" },
+  { "RDPA", "RDPA", "CMC", "https://dd.weather.gc.ca/", "model_rdpa/10km/06", "MSC_RDPA", "RLatLon0.09", ".grib2", "5", "1", "6", "1" },
 
-  { "HRDPA", "HRDPA", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "analysis/precip/hrdpa/grib2/polar_stereographic/06", "CMC_HRDPA", "ps2.5km", "000.grib2", "5", "1", "6", "1" },
-  //{ "HRDPA", "HRDPA", "CMC", "http://dd.weatheroffice.ec.gc.ca/", "analysis/precip/hrdpa/grib2/polar_stereographic/24", "CMC_HRDPA", "ps2.5km", "000.grib2", "5", "1", "6", "1" },
+  { "HRDPA", "HRDPA", "CMC", "https://dd.weather.gc.ca/", "model_hrdpa/2.5km/06", "MSC_HRDPA", "RLatLon0.0225", ".grib2", "5", "1", "6", "1" },
 
-  //{ "SNOW", "SNOW", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/RDPS", "reg", "", "15", "96", "6", "1" },
-  //{ "SNOW", "SNOW", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_west", "", "15", "96", "6", "1" },
-  //{ "SNOW", "SNOW", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_prairies", "", "15", "96", "6", "1" },
-  { "SNOW", "SNOW", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_east", "", "15", "96", "6", "1" },
-  //{ "SNOW", "SNOW", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_maritimes", "", "15", "96", "6", "1" },
+  //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/RDPS", "reg", "", "15", "96", "6", "1" },
+  //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_west", "", "15", "96", "6", "1" },
+  //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_prairies", "", "15", "96", "6", "1" },
+  { "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_east", "", "15", "96", "6", "1" },
+  //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_maritimes", "", "15", "96", "6", "1" },
 
-  { "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Assomption", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-DuLoup", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-GreatLakes", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Maskinonge", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Mip", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Nicolet", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Richelieu", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-RiveSudCanal", "000.csv", "1", "1", "24", "0" },
-  //{ "SHOP", "SHOP", "CMC", "http://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-SaintFrancois", "000.csv", "1", "1", "24", "0" },
+  { "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Assomption", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-DuLoup", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-GreatLakes", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Maskinonge", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Mip", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Nicolet", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Richelieu", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-RiveSudCanal", "000.csv", "1", "1", "24", "0" },
+  //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-SaintFrancois", "000.csv", "1", "1", "24", "0" },
 
-  { "GEFS", "GEFS", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_gens.pl", "gefs", "1p00", "pgrb2", "100", "1", "6", "384" },
+  { "GEFS", "GEFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_gens.pl", "gefs", "1p00", "pgrb2", "100", "1", "6", "384" },
 
-  //{ "GFS", "GFS", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "1p00", "pgrb2", "100", "1", "3", "384" },
-  //{ "GFS", "GFS", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p50", "pgrb2full", "50", "1", "3", "384" },
-  { "GFS", "GFS", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
-  //{ "GFS", "GFS", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_1hr.pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
-  //{ "GFS", "GFS", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "b.pl", "gfs", "0p25", "pgrb2b", "25", "1", "1", "384" },
+  //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "1p00", "pgrb2", "100", "1", "3", "384" },
+  //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p50", "pgrb2full", "50", "1", "3", "384" },
+  { "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
+  //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_1hr.pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
+  //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "b.pl", "gfs", "0p25", "pgrb2b", "25", "1", "1", "384" },
 
-  { "NAM11", "NAM11", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_ak.pl", "nam", "awak3d", "grb2", "11", "1", "3", "60" },
+  { "NAM11", "NAM11", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_ak.pl", "nam", "awak3d", "grb2", "11", "1", "3", "60" },
 
-  { "NAM12", "NAM12", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_conusnest.pl", "nam", "conusnest.hiresf", "grib2", "11", "1", "3", "60" },
-  //{ "NAM12", "NAM12", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_hawaiinest.pl", "nam", "hawaiinest.hiresf", "grib2", "11", "1", "3", "60" },
-  //{ "NAM12", "NAM12", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_priconest.pl", "nam", "priconest.hiresf", "grib2", "11", "1", "3", "60" },
+  { "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_conusnest.pl", "nam", "conusnest.hiresf", "grib2", "11", "1", "3", "60" },
+  //{ "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_hawaiinest.pl", "nam", "hawaiinest.hiresf", "grib2", "11", "1", "3", "60" },
+  //{ "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_priconest.pl", "nam", "priconest.hiresf", "grib2", "11", "1", "3", "60" },
 
-  { "NAM32", "NAM32", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "nam", "awip32", "grib2", "32", "1", "3", "84" },
+  { "NAM32", "NAM32", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "nam", "awip32", "grib2", "32", "1", "3", "84" },
 
-  { "RAP", "RAP", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "rap", "awp130pgrbf", "grib2", "13", "1", "1", "18" },
-  //{ "RAP", "RAP", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "32.pl", "rap", "awip32f", "grib2", "32", "1", "1", "18" },
+  { "RAP", "RAP", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "rap", "awp130pgrbf", "grib2", "13", "1", "1", "18" },
+  //{ "RAP", "RAP", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "32.pl", "rap", "awip32f", "grib2", "32", "1", "1", "18" },
 
-  { "HRRR", "HRRR", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_2d.pl", "hrrr", "wrfsfcf", "grib2", "3", "1", "1", "15" },
+  { "HRRR", "HRRR", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_2d.pl", "hrrr", "wrfsfcf", "grib2", "3", "1", "1", "15" },
 
-  { "SREF", "SREF", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_132.pl", "sref", "132", "pgrb", "16", "1", "3", "87" },
-  //{ "SREF", "SREF", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "sref", "221", "pgrb", "32", "1", "3", "87" },
-  //{ "SREF", "SREF", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "sref", "212", "pgrb", "32", "1", "1", "87" },
+  { "SREF", "SREF", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_132.pl", "sref", "132", "pgrb", "16", "1", "3", "87" },
+  //{ "SREF", "SREF", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "sref", "221", "pgrb", "32", "1", "3", "87" },
+  //{ "SREF", "SREF", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "sref", "212", "pgrb", "32", "1", "1", "87" },
 
-  { "WAVE", "WAVE", "NOAA", "http://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "wave", "nah", "grib.grib2", "25", "1", "6", "18"} // as 127 member ensembles
+  { "WAVE", "WAVE", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "wave", "nah", "grib.grib2", "25", "1", "6", "18"} // as 127 member ensembles
 };
 
 int Current_domainID = -1;
 
 String[][] DATA_ParameterLevel = {
   {"snowdensity-Dube141_1h", "", "", "", "", "", "", "", ""},
-  {"APCP-006-0700cutoff_SFC_0", "", "", "", "", "", "", "", ""},
+  {"APCP-Accum6h_Sfc", "", "", "", "", "", "", "", ""},
 
   {"PRATE_SFC_0", "", "", "", "", "", "", "", ""},
   {"APCP_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
@@ -322,11 +335,11 @@ String[][] DATA_ParameterLevel = {
   {"WVDIR_SFC_0", "", "", "", "", "", "", "", ""},
   {"SWDIR_SFC_0", "", "", "", "", "", "", "", ""},
   {"WVHGT_SFC_0", "", "", "", "", "", "", "", ""},
-  {"SWELL_SFC_0", "", "", "", "", "", "", "", ""},
+  {"SWHFSWEL_SFC_0", "", "", "", "", "", "", "", ""},
   {"HTSGW_SFC_0", "", "", "", "", "", "", "", ""},
   {"PWPER_SFC_0", "", "", "", "", "", "", "", ""},
-  {"WVPER_SFC_0", "", "", "", "", "", "", "", ""},
-  {"SWPER_SFC_0", "", "", "", "", "", "", "", ""},
+  {"PPERWW_SFC_0", "", "", "", "", "", "", "", ""},
+  {"PWPFSWEL_SFC_0", "", "", "", "", "", "", "", ""},
 
   {"HG_TGL_0", "", "", "", "", "", "", "", ""},
   {"WVX_TGL_0", "", "", "", "", "", "", "", ""},
@@ -1208,7 +1221,8 @@ String[] downloadList;
 String[] postprocessList;
 
 void setup () {
-  size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
+  //size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
+  size(1100, 672, P2D);
 
   LOAD_EARTH_IMAGES();
 
@@ -2099,23 +2113,25 @@ String getGrib2Link () {
   String l = "";
 
   if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("CMC")) {
+    String b = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "/WXO-DD/";
+
     if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
-      l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_" + DATA_Filename;
+      l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_" + DATA_Filename;
     }
     else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
              (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA")) ||
              (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SNOW"))) {
-      l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + DATA_Filename;
+      l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + DATA_Filename;
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
-      l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 2) + "/" + nf(DATA_ModelMonth, 2) + "/" + DATA_Filename;
+      l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 2) + "/" + nf(DATA_ModelMonth, 2) + "/" + DATA_Filename;
     }
     else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS")) ||
              (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS"))) {
-      l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_Filename;
+      l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_Filename;
     }
     else {
-      l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + nf(DATA_ModelTime, 3) + "/" + DATA_Filename;
+      l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + nf(DATA_ModelTime, 3) + "/" + DATA_Filename;
     }
   }
   else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("NOAA")) {
@@ -2139,6 +2155,7 @@ String getGrib2Link () {
       l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
       l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2);
     }
+    l += "%2Fconus";
   }
 
   println(l);
@@ -2279,7 +2296,19 @@ String getGrib2Filename (int k, int l, int h) {
       timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
       timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
 
-      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + nf(timeNow.get(Calendar.HOUR_OF_DAY), 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T06Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+    }
+    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + (F_L).replace("TGL_2", "AGL-2") + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+    }
+    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + (F_L).replace("TGL_2", "AGL-2m") + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+    }
+    else if (
+      (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS")) ||
+      (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS"))
+    ) {
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + (F_L).replace("TGL_10", "AGL-10m").replace("SFC_0", "Sfc") + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
     else {
       return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_P" + nf(k, 3) + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
@@ -2385,7 +2414,7 @@ String getGrib2Filename (int k, int l, int h) {
       }
     }
 
-    //return_txt += "&subregion=&leftlon=270&rightlon=300&toplat=50&bottomlat=40";
+    return_txt += "&leftlon=0&rightlon=360&toplat=90&bottomlat=-90";
   }
 
 /*
@@ -4358,7 +4387,7 @@ void DOWNLOAD_DATA_SWOB () {
           }
 
           if ((File_Found == -1) && (Download_RECENT_OBSERVED != 0)) {
-            String the_link = "http://dd.weatheroffice.gc.ca/observations/swob-ml/" + nf(THE_YEAR, 4) + nf(THE_MONTH, 2) + nf(THE_DAY, 2) + "/" + STATION_SWOB_INFO[f][6] + "/" + FN;
+            String the_link = "https://dd.weatheroffice.gc.ca/observations/swob-ml/" + nf(THE_YEAR, 4) + nf(THE_MONTH, 2) + nf(THE_DAY, 2) + "/" + STATION_SWOB_INFO[f][6] + "/" + FN;
             String the_target = RECENT_OBSERVED_directory + "/" + FN;
 
             println("Try downloading: " + the_link);
