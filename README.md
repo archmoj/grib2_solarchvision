@@ -55,7 +55,7 @@ git clone https://github.com/archmoj/grib2_solarchvision.git --depth 1
 [Processing v4](https://processing.org/download) must be installed, as
 GRIB2_SOLARCHVISION is a Processing sketch.
 
-In addition to [a NetCDF-Java jar file](https://downloads.unidata.ucar.edu/netcdf-java/) should be installed in Processing `sketchbook` folder under `sketchbook/libraries/grib/library/<netcdf jar file>`.
+In addition, `the grib library` should be installed in Processing `sketchbook` folder under `sketchbook/libraries/grib/library/<grib jar files>`.
 
 To find your Processing `sketchbook` folder, open the Processing application, go to `File > Preferences` (or `Processing > Settings` on Mac), and look at the top for "Sketchbook location".
 
