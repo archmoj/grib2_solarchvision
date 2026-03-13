@@ -2348,7 +2348,7 @@ String getGrib2Filename (int k, int l, int h) {
       return_txt = "gep01" + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "f" + nf(k, 2);
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GFS")) {
-      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".anl";
+      return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".f" + nf(k, 3);
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM11")) {
       return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
