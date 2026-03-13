@@ -28,6 +28,7 @@ String[] args = {
   //"domain=NAM32",
   //"domain=HRRR",
   //"domain=GFS",
+  //"domain=GEFS",
   //"domain=GEPS",
   //"domain=REPS",
   //"domain=GDPS",
@@ -267,7 +268,7 @@ String[][] DATA_allDomains = {
   //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-RiveSudCanal", "000.csv", "1", "1", "24", "0" },
   //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-SaintFrancois", "000.csv", "1", "1", "24", "0" },
 
-  { "GEFS", "GEFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_gens.pl", "gefs", "1p00", "pgrb2", "100", "1", "6", "384" },
+  { "GEFS", "GEFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_gefs_atmos_0p25s.pl", "gefs", "0p25", "pgrb2s.0p25", "100", "1", "6", "384" },
 
   //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "1p00", "pgrb2", "100", "1", "3", "384" },
   //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p50", "pgrb2full", "50", "1", "3", "384" },
@@ -2157,7 +2158,7 @@ String getGrib2Link () {
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEFS")) {
       l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
-      l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+      l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "%2F" + nf(DATA_ModelRun, 2) + "%2Fatmos%2Fpgrb2sp25";
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GFS")) {
       l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
@@ -2345,7 +2346,7 @@ String getGrib2Filename (int k, int l, int h) {
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEFS")) {
       //"gec00", "gep01", "gep02", ... "gep20"
 
-      return_txt = "gep01" + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "f" + nf(k, 2);
+      return_txt = "gep01" + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + ".f" + nf(k, 3);
     }
     else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GFS")) {
       return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".f" + nf(k, 3);
