@@ -48,8 +48,8 @@ String[] args = {
   "end=24",
   "step=3",
 
-  //"auto=USER",
-  "auto=GIF",
+  "auto=USER",
+  //"auto=GIF",
 
   "tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
   "outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
@@ -1242,8 +1242,8 @@ String[] postprocessList;
 
 void setup () {
   //size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
-  //size(1500, 912, P2D);
-  size(1500, 822, P2D);
+  size(1500, 912, P2D);
+  //size(1500, 822, P2D);
 
   LOAD_EARTH_IMAGES();
 
