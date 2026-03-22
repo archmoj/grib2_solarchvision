@@ -1,5 +1,5 @@
 /**
-* Copyright 2016-2019, Mojtaba Samimi @solarchvision
+* Copyright 2016-2026, Mojtaba Samimi @solarchvision
 * All rights reserved.
 *
 * Licensed under GPL.v2.0
@@ -8,8 +8,8 @@
 import processing.pdf.*;
 PGraphics pdfExport;
 
-//import gifAnimation.*;
-//GifMaker gifExport;
+import gifAnimation.*;
+GifMaker gifExport;
 
 import java.util.Calendar;
 
@@ -44,10 +44,13 @@ String[] args = {
   //"domain=HRDPA",
 
   "run=00Z",
-  "begin=6",
+  "begin=3",
   "end=24",
-  "step=6",
-  "auto=USER",
+  "step=3",
+
+  //"auto=USER",
+  "auto=GIF",
+
   "tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
   "outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
 
@@ -1239,7 +1242,8 @@ String[] postprocessList;
 
 void setup () {
   //size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
-  size(1500, 912, P2D);
+  //size(1500, 912, P2D);
+  size(1500, 822, P2D);
 
   LOAD_EARTH_IMAGES();
 
@@ -2065,7 +2069,7 @@ void draw () {
       }
       if (Current_levelID == DATA_numLevels) exit();
     }
-/*
+
     else if (automated == AUTO_GIF) {
       if (Current_timeID == 0) {
         gifExport = new GifMaker(this,
@@ -2097,7 +2101,7 @@ void draw () {
       if (Current_levelID == DATA_numLevels) exit();
 
     }
-*/
+
     if (UI_BAR_d_Update == true) {
       if (automated == USER_INT) {
         //////////////////////////////////////
