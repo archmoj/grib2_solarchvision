@@ -59,6 +59,8 @@ In addition, `the grib library` should be installed in Processing `sketchbook` f
 
 To find your Processing `sketchbook` folder, open the Processing application, go to `File > Preferences` (or `Processing > Settings` on Mac), and look at the top for "Sketchbook location".
 
+Finally, the [gif-animation](https://github.com/extrapixel/gif-animation) is required to be downloaded and installed in Processing `sketchbook` to allow GIF exports.
+
 ## Before running the program
 
 You should adjust the `BaseFolder` variable inside `grib2_solarchvision.pde`.
