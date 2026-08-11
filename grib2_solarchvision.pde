@@ -236,9 +236,9 @@ String[][] DATA_allDomains = {
 
   { "REPS", "REPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/reps/10km/grib2", "MSC_REPS", "RLatLon0.09x0.09", ".grib2", "15", "21", "3", "72" },
 
-  { "GDPS", "GDPS", "CMC", "https://dd.weather.gc.ca/", "model_gem_global/15km/grib2/lat_lon", "CMC_glb", "latlon.15x.15", ".grib2", "25", "1", "3", "240" },
+  { "GDPS", "GDPS", "CMC", "https://dd.weather.gc.ca/", "model_gdps/15km", "MSC_GDPS", "LatLon0.15", ".grib2", "25", "1", "3", "240" },
 
-  { "RDPS", "RDPS", "CMC", "https://dd.weather.gc.ca/", "model_gem_regional/10km/grib2", "CMC_reg", "ps10km", ".grib2", "10", "1", "3", "54" },
+  { "RDPS", "RDPS", "CMC", "https://dd.weather.gc.ca/", "model_rdps/10km", "MSC_RDPS", "RLatLon0.09", ".grib2", "10", "1", "3", "54" },
 
   { "HRDPS_continental", "HRDPS", "CMC", "https://dd.weather.gc.ca/", "model_hrdps/continental/2.5km", "MSC_HRDPS", "RLatLon0.0225", ".grib2", "2.5", "1", "1", "48" },
 
@@ -305,61 +305,61 @@ String[][] DATA_ParameterLevel = {
   {"snowdensity-Dube141_1h", "", "", "", "", "", "", "", ""},
   {"APCP-Accum6h_Sfc", "", "", "", "", "", "", "", ""},
 
-  {"PRATE_SFC_0", "", "", "", "", "", "", "", ""},
-  {"APCP_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"ARAIN_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"AFRAIN_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"AICEP_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"ASNOW_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
+  {"PRATE_Sfc", "", "", "", "", "", "", "", ""},
+  {"APCP_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"ARAIN_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"AFRAIN_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"AICEP_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"ASNOW_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
 
-  {"DSWRF_NTAT_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"NLWRS_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"NSWRS_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"DLWRF_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
-  {"DSWRF_SFC_0", "", "", "", "", "", "", "", ""}, // accumuative
+  {"DSWRF_NTAtm", "", "", "", "", "", "", "", ""}, // accumuative
+  {"NLWRS_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"NSWRS_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"DLWRF_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
+  {"DSWRF_Sfc", "", "", "", "", "", "", "", ""}, // accumuative
 
-  {"USWRF_NTAT_0", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
-  {"ULWRF_NTAT_0", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
-  {"SHTFL_SFC_0", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
-  {"LHTFL_SFC_0", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
+  {"USWRF_NTAtm", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
+  {"ULWRF_NTAtm", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
+  {"SHTFL_Sfc", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
+  {"LHTFL_Sfc", "", "", "", "", "", "", "", ""}, // not accumuative W/m2
 
-  {"SHOWA_SFC_0", "", "", "", "", "", "", "", ""},
-  {"4LFTX_SFC_0", "", "", "", "", "", "", "", ""},
+  {"SHOWA_Sfc", "", "", "", "", "", "", "", ""},
+  {"4LFTX_Sfc", "", "", "", "", "", "", "", ""},
   {"CAPE_ETAL_10000", "", "", "", "", "", "", "", ""},
   {"HLCY_ETAL_10000", "", "", "", "", "", "", "", ""},
 
-  {"WTMP_SFC_0", "", "", "", "", "", "", "", ""},
-  {"ICEC_SFC_0", "", "", "", "", "", "", "", ""},
-  {"LAND_SFC_0", "", "", "", "", "", "", "", ""},
+  {"WTMP_Sfc", "", "", "", "", "", "", "", ""},
+  {"ICEC_Sfc", "", "", "", "", "", "", "", ""},
+  {"LAND_Sfc", "", "", "", "", "", "", "", ""},
 
-  {"SNOD_SFC_0", "", "", "", "", "", "", "", ""},
-  {"WEASD_SFC_0", "", "", "", "", "", "", "", ""},
+  {"SNOD_Sfc", "", "", "", "", "", "", "", ""},
+  {"WEASD_Sfc", "", "", "", "", "", "", "", ""},
   {"TSOIL_DBLL_10c", "", "", "", "", "", "", "", ""},
   {"VSOILM_DBLL_10c", "", "", "", "", "", "", "", ""},
 
   {""         ,             "",             "",             "", "ABSV_ISBL_1000", "ABSV_ISBL_0850", "ABSV_ISBL_0700", "ABSV_ISBL_0500", "ABSV_ISBL_0250"},
   {""         ,             "",             "",             "", "VVEL_ISBL_1000", "VVEL_ISBL_0850", "VVEL_ISBL_0700", "VVEL_ISBL_0500", "VVEL_ISBL_0250"},
-  {"HGT_SFC_0",             "",             "",             "",  "HGT_ISBL_1000",  "HGT_ISBL_0850",  "HGT_ISBL_0700",  "HGT_ISBL_0500",  "HGT_ISBL_0250"},
+  {"HGT_Sfc",             "",             "",             "",  "HGT_ISBL_1000",  "HGT_ISBL_0850",  "HGT_ISBL_0700",  "HGT_ISBL_0500",  "HGT_ISBL_0250"},
 
-  {"TMP_TGL_2",    "TMP_TGL_40",  "TMP_TGL_80",  "TMP_TGL_120",  "TMP_ISBL_1000", "TMP_ISBL_0850",  "TMP_ISBL_0700",  "TMP_ISBL_0500",  "TMP_ISBL_0250"},
-  {"DPT_TGL_2",    "DPT_TGL_40",  "DPT_TGL_80",  "DPT_TGL_120",               "",              "",               "",               "",               ""},
-  {"DEPR_TGL_2",  "DEPR_TGL_40", "DEPR_TGL_80", "DEPR_TGL_120", "DEPR_ISBL_1000", "DEPR_ISBL_0850", "DEPR_ISBL_0700", "DEPR_ISBL_0500", "DEPR_ISBL_0250"},
-  {"SPFH_TGL_2",  "SPFH_TGL_40", "SPFH_TGL_80", "SPFH_TGL_120", "SPFH_ISBL_1000", "SPFH_ISBL_0850", "SPFH_ISBL_0700", "SPFH_ISBL_0500", "SPFH_ISBL_0250"},
-  {"RH_TGL_2",      "RH_TGL_40",   "RH_TGL_80",   "RH_TGL_120",   "RH_ISBL_1000",   "RH_ISBL_0850",   "RH_ISBL_0700",   "RH_ISBL_0500",   "RH_ISBL_0250"},
+  {"TMP_AGL-2m",    "TMP_AGL-40m",  "TMP_AGL-80m",  "TMP_AGL-120m",  "TMP_ISBL_1000", "TMP_ISBL_0850",  "TMP_ISBL_0700",  "TMP_ISBL_0500",  "TMP_ISBL_0250"},
+  {"DPT_AGL-2m",    "DPT_AGL-40m",  "DPT_AGL-80m",  "DPT_AGL-120m",               "",              "",               "",               "",               ""},
+  {"DEPR_AGL-2m",  "DEPR_AGL-40m", "DEPR_AGL-80m", "DEPR_AGL-120m", "DEPR_ISBL_1000", "DEPR_ISBL_0850", "DEPR_ISBL_0700", "DEPR_ISBL_0500", "DEPR_ISBL_0250"},
+  {"SPFH_AGL-2m",  "SPFH_AGL-40m", "SPFH_AGL-80m", "SPFH_AGL-120m", "SPFH_ISBL_1000", "SPFH_ISBL_0850", "SPFH_ISBL_0700", "SPFH_ISBL_0500", "SPFH_ISBL_0250"},
+  {"RH_AGL-2m",      "RH_AGL-40m",   "RH_AGL-80m",   "RH_AGL-120m",   "RH_ISBL_1000",   "RH_ISBL_0850",   "RH_ISBL_0700",   "RH_ISBL_0500",   "RH_ISBL_0250"},
 
-  {"UGRD_TGL_10", "UGRD_TGL_40", "UGRD_TGL_80", "UGRD_TGL_120", "UGRD_ISBL_1000", "UGRD_ISBL_0850", "UGRD_ISBL_0700", "UGRD_ISBL_0500", "UGRD_ISBL_0250"},
-  {"VGRD_TGL_10", "VGRD_TGL_40", "VGRD_TGL_80", "VGRD_TGL_120", "VGRD_ISBL_1000", "VGRD_ISBL_0850", "VGRD_ISBL_0700", "VGRD_ISBL_0500", "VGRD_ISBL_0250"},
-  {"WIND_TGL_10", "WIND_TGL_40", "WIND_TGL_80", "WIND_TGL_120", "WIND_ISBL_1000", "WIND_ISBL_0850", "WIND_ISBL_0700", "WIND_ISBL_0500", "WIND_ISBL_0250"},
-  {"WDIR_TGL_10", "WDIR_TGL_40", "WDIR_TGL_80", "WDIR_TGL_120", "WDIR_ISBL_1000", "WDIR_ISBL_0850", "WDIR_ISBL_0700", "WDIR_ISBL_0500", "WDIR_ISBL_0250"},
+  {"UGRD_AGL-10m", "UGRD_AGL-40m", "UGRD_AGL-80m", "UGRD_AGL-120m", "UGRD_ISBL_1000", "UGRD_ISBL_0850", "UGRD_ISBL_0700", "UGRD_ISBL_0500", "UGRD_ISBL_0250"},
+  {"VGRD_AGL-10m", "VGRD_AGL-40m", "VGRD_AGL-80m", "VGRD_AGL-120m", "VGRD_ISBL_1000", "VGRD_ISBL_0850", "VGRD_ISBL_0700", "VGRD_ISBL_0500", "VGRD_ISBL_0250"},
+  {"WIND_AGL-10m", "WIND_AGL-40m", "WIND_AGL-80m", "WIND_AGL-120m", "WIND_ISBL_1000", "WIND_ISBL_0850", "WIND_ISBL_0700", "WIND_ISBL_0500", "WIND_ISBL_0250"},
+  {"WDIR_AGL-10m", "WDIR_AGL-40m", "WDIR_AGL-80m", "WDIR_AGL-120m", "WDIR_ISBL_1000", "WDIR_ISBL_0850", "WDIR_ISBL_0700", "WDIR_ISBL_0500", "WDIR_ISBL_0250"},
 
-  {"WVDIR_SFC_0", "", "", "", "", "", "", "", ""},
-  {"SWDIR_SFC_0", "", "", "", "", "", "", "", ""},
-  {"WVHGT_SFC_0", "", "", "", "", "", "", "", ""},
-  {"SWHFSWEL_SFC_0", "", "", "", "", "", "", "", ""},
-  {"HTSGW_SFC_0", "", "", "", "", "", "", "", ""},
-  {"PWPER_SFC_0", "", "", "", "", "", "", "", ""},
-  {"PPERWW_SFC_0", "", "", "", "", "", "", "", ""},
-  {"PWPFSWEL_SFC_0", "", "", "", "", "", "", "", ""},
+  {"WVDIR_Sfc", "", "", "", "", "", "", "", ""},
+  {"SWDIR_Sfc", "", "", "", "", "", "", "", ""},
+  {"WVHGT_Sfc", "", "", "", "", "", "", "", ""},
+  {"SWHFSWEL_Sfc", "", "", "", "", "", "", "", ""},
+  {"HTSGW_Sfc", "", "", "", "", "", "", "", ""},
+  {"PWPER_Sfc", "", "", "", "", "", "", "", ""},
+  {"PPERWW_Sfc", "", "", "", "", "", "", "", ""},
+  {"PWPFSWEL_Sfc", "", "", "", "", "", "", "", ""},
 
   {"HG_TGL_0", "", "", "", "", "", "", "", ""},
   {"WVX_TGL_0", "", "", "", "", "", "", "", ""},
@@ -373,14 +373,14 @@ String[][] DATA_ParameterLevel = {
   {"TMPIL_TGL_0", "", "", "", "", "", "", "", ""},
 
   {"PRMSL_MSL_0", "", "", "", "", "", "", "", ""},
-  {"PRES_SFC_0", "", "", "", "", "", "", "", ""},
+  {"PRES_Sfc", "", "", "", "", "", "", "", ""},
   {"HGT", "", "", "", "", "", "", "", ""}, // cloud ceiling
   {"HGT", "", "", "", "", "", "", "", ""}, // cloud top
-  {"HCDC_SFC_0", "", "", "", "", "", "", "", ""},
-  {"MCDC_SFC_0", "", "", "", "", "", "", "", ""},
-  {"LCDC_SFC_0", "", "", "", "", "", "", "", ""},
-  {"TCDC_SFC_0", "", "", "", "", "", "", "", ""},
-  {"ALBDO_SFC_0", "", "", "", "", "", "", "", ""},
+  {"HCDC_Sfc", "", "", "", "", "", "", "", ""},
+  {"MCDC_Sfc", "", "", "", "", "", "", "", ""},
+  {"LCDC_Sfc", "", "", "", "", "", "", "", ""},
+  {"TCDC_Sfc", "", "", "", "", "", "", "", ""},
+  {"ALBDO_Sfc", "", "", "", "", "", "", "", ""},
 
   {"SOLAR_HOR", "", "", "", "", "", "", "", ""}, // to be post-processed
   {"SOLAR_DIF", "", "", "", "", "", "", "", ""}, // to be post-processed
@@ -397,12 +397,12 @@ String[][] DATA_ParameterLevel = {
   {"SOLAR_E00", "", "", "", "", "", "", "", ""}, // to be post-processed
   {"SOLAR_W00", "", "", "", "", "", "", "", ""}, // to be post-processed
 
-  {"WPOW_TGL_10", "WPOW_TGL_40", "WPOW_TGL_80", "WPOW_TGL_120", "WPOW_ISBL_1000", "WPOW_ISBL_0850", "WPOW_ISBL_0700", "WPOW_ISBL_0500", "WPOW_ISBL_0250"}, // to be post-processed
+  {"WPOW_AGL-10m", "WPOW_AGL-40m", "WPOW_AGL-80m", "WPOW_AGL-120m", "WPOW_ISBL_1000", "WPOW_ISBL_0850", "WPOW_ISBL_0700", "WPOW_ISBL_0500", "WPOW_ISBL_0250"}, // to be post-processed
 
-  {"FLOWxONLY_TGL_10", "FLOWxONLY_TGL_40", "FLOWxONLY_TGL_80", "FLOWxONLY_TGL_120", "FLOWxONLY_ISBL_1000", "FLOWxONLY_ISBL_0850", "FLOWxONLY_ISBL_0700", "FLOWxONLY_ISBL_0500", "FLOWxONLY_ISBL_0250"}, // to be post-processed
-  {"FLOWxPRM_TGL_10",  "FLOWxPRM_TGL_40",  "FLOWxPRM_TGL_80",  "FLOWxPRM_TGL_120",  "FLOWxPRM_ISBL_1000",  "FLOWxPRM_ISBL_0850",   "FLOWxPRM_ISBL_0700",  "FLOWxPRM_ISBL_0500",  "FLOWxPRM_ISBL_0250"}, // to be post-processed
-  {"FLOWxPCP_TGL_10",  "FLOWxPCP_TGL_40",  "FLOWxPCP_TGL_80",  "FLOWxPCP_TGL_120",  "FLOWxPCP_ISBL_1000",  "FLOWxPCP_ISBL_0850",   "FLOWxPCP_ISBL_0700",  "FLOWxPCP_ISBL_0500",  "FLOWxPCP_ISBL_0250"}, // to be post-processed
-  {"FLOWxEFF_TGL_10",  "FLOWxEFF_TGL_40",  "FLOWxEFF_TGL_80",  "FLOWxEFF_TGL_120",  "FLOWxEFF_ISBL_1000",  "FLOWxEFF_ISBL_0850",   "FLOWxEFF_ISBL_0700",  "FLOWxEFF_ISBL_0500",  "FLOWxEFF_ISBL_0250"}, // to be post-processed
+  {"FLOWxONLY_AGL-10m", "FLOWxONLY_AGL-40m", "FLOWxONLY_AGL-80m", "FLOWxONLY_AGL-120m", "FLOWxONLY_ISBL_1000", "FLOWxONLY_ISBL_0850", "FLOWxONLY_ISBL_0700", "FLOWxONLY_ISBL_0500", "FLOWxONLY_ISBL_0250"}, // to be post-processed
+  {"FLOWxPRM_AGL-10m",  "FLOWxPRM_AGL-40m",  "FLOWxPRM_AGL-80m",  "FLOWxPRM_AGL-120m",  "FLOWxPRM_ISBL_1000",  "FLOWxPRM_ISBL_0850",   "FLOWxPRM_ISBL_0700",  "FLOWxPRM_ISBL_0500",  "FLOWxPRM_ISBL_0250"}, // to be post-processed
+  {"FLOWxPCP_AGL-10m",  "FLOWxPCP_AGL-40m",  "FLOWxPCP_AGL-80m",  "FLOWxPCP_AGL-120m",  "FLOWxPCP_ISBL_1000",  "FLOWxPCP_ISBL_0850",   "FLOWxPCP_ISBL_0700",  "FLOWxPCP_ISBL_0500",  "FLOWxPCP_ISBL_0250"}, // to be post-processed
+  {"FLOWxEFF_AGL-10m",  "FLOWxEFF_AGL-40m",  "FLOWxEFF_AGL-80m",  "FLOWxEFF_AGL-120m",  "FLOWxEFF_ISBL_1000",  "FLOWxEFF_ISBL_0850",   "FLOWxEFF_ISBL_0700",  "FLOWxEFF_ISBL_0500",  "FLOWxEFF_ISBL_0250"}, // to be post-processed
 
 };
 
@@ -1189,10 +1189,10 @@ int[] DATA_allLevels = new int[0];
     for (int i = 0; i < DATA_ParameterLevel.length; i++) {
       for (int j = 0; j < DATA_ParameterLevel[i].length; j++) {
         if (DATA_ParameterLevel[i][j].equals("PRMSL_MSL_0")) { DATA_ParameterLevel[i][j] = "MSLMA_MSL_0"; }
-        if (DATA_ParameterLevel[i][j].equals("ARAIN_SFC_0")) { DATA_ParameterLevel[i][j] = "CRAIN_SFC_0"; }
-        if (DATA_ParameterLevel[i][j].equals("AFRAIN_SFC_0")) { DATA_ParameterLevel[i][j] = "CFRZR_SFC_0"; }
-        if (DATA_ParameterLevel[i][j].equals("AICEP_SFC_0")) { DATA_ParameterLevel[i][j] = "CICEP_SFC_0"; }
-        if (DATA_ParameterLevel[i][j].equals("ASNOW_SFC_0")) { DATA_ParameterLevel[i][j] = "CSNOW_SFC_0"; }
+        if (DATA_ParameterLevel[i][j].equals("ARAIN_Sfc")) { DATA_ParameterLevel[i][j] = "CRAIN_Sfc"; }
+        if (DATA_ParameterLevel[i][j].equals("AFRAIN_Sfc")) { DATA_ParameterLevel[i][j] = "CFRZR_Sfc"; }
+        if (DATA_ParameterLevel[i][j].equals("AICEP_Sfc")) { DATA_ParameterLevel[i][j] = "CICEP_Sfc"; }
+        if (DATA_ParameterLevel[i][j].equals("ASNOW_Sfc")) { DATA_ParameterLevel[i][j] = "CSNOW_Sfc"; }
       }
     }
   }
@@ -2197,7 +2197,7 @@ String getGrib2Filename (int k, int l, int h) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
-        F_L = "WEARN_SFC_0";
+        F_L = "WEARN_Sfc";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2206,7 +2206,7 @@ String getGrib2Filename (int k, int l, int h) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
-        F_L = "WEAFR_SFC_0";
+        F_L = "WEAFR_Sfc";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2215,7 +2215,7 @@ String getGrib2Filename (int k, int l, int h) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPS")) ||
            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
-        F_L = "WEAPE_SFC_0";
+        F_L = "WEAPE_Sfc";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2224,7 +2224,7 @@ String getGrib2Filename (int k, int l, int h) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
-        F_L = "WEASN_SFC_0";
+        F_L = "WEASN_Sfc";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2232,7 +2232,7 @@ String getGrib2Filename (int k, int l, int h) {
     if (l == LAYER_windU) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-        F_L = "UGRD_TGL_10m";
+        F_L = "UGRD_AGL-10mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2240,7 +2240,7 @@ String getGrib2Filename (int k, int l, int h) {
     if (l == LAYER_windV) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-        F_L = "VGRD_TGL_10m";
+        F_L = "VGRD_AGL-10mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2265,7 +2265,7 @@ String getGrib2Filename (int k, int l, int h) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS"))) {
-        F_L = "TMP_TGL_2m";
+        F_L = "TMP_AGL-2mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2273,7 +2273,7 @@ String getGrib2Filename (int k, int l, int h) {
     if (l == LAYER_dewpoint) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-        F_L = "DPT_TGL_2m";
+        F_L = "DPT_AGL-2mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2281,7 +2281,7 @@ String getGrib2Filename (int k, int l, int h) {
     if (l == LAYER_depression) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-        F_L = "DEPR_TGL_2m";
+        F_L = "DEPR_AGL-2mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2289,7 +2289,7 @@ String getGrib2Filename (int k, int l, int h) {
     if (l == LAYER_relhum) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-        F_L = "RH_TGL_2m";
+        F_L = "RH_AGL-2mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2297,7 +2297,7 @@ String getGrib2Filename (int k, int l, int h) {
     if (l == LAYER_spchum) {
       if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
           (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-        F_L = "SPFH_TGL_2m";
+        F_L = "SPFH_AGL-2mm";
         DATA_ParameterLevel[l][h] = F_L;
       }
     }
@@ -2322,17 +2322,51 @@ String getGrib2Filename (int k, int l, int h) {
 
       return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T06Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
-    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + (F_L).replace("TGL_2", "AGL-2") + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+    else if (
+      (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) ||
+      (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))
+    ) {
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
-    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
-      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + (F_L).replace("TGL_2", "AGL-2m") + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+    else if (
+      (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS")) ||
+      (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPS"))
+    ) {
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + 
+        F_L
+          .replace("UGRD_", "WindU_")
+          .replace("VGRD_", "WindV_")
+          .replace("WIND_", "WindSpeed_")
+          .replace("WDIR_", "WindDir_")
+          .replace("TCDC_", "TotalCloudCover_")
+          .replace("ALBDO_", "Albedo_")
+          .replace("PRMSL_", "Pressure_")
+          .replace("PRATE_", "PrecipRate_")
+          .replace("APCP_", "Precip-Accum_")
+          .replace("ARAIN_", "Rain-Accum_")
+          .replace("AFRAIN_", "FreezingRain-Accum_")
+          .replace("AICEP_", "IcePellets-Accum_")
+          .replace("ASNOW_", "Snow-Accum_")
+          .replace("DSWRF_", "DownwardShortwaveRadiationFlux-Accum_")
+          .replace("NLWRS_", "NetLongwaveRadiationFlux-Accum_")
+          .replace("NSWRS_", "NetShortwaveRadiationFlux-Accum_")
+          .replace("DLWRF_", "DownwardLongwaveRadiationFlux-Accum_")
+          .replace("DSWRF_", "DownwardShortwaveRadiationFlux-Accum_")
+          .replace("ULWRF_", "UpwardLongwaveRadiationFlux_")
+          .replace("USWRF_", "UpwardShortwaveRadiationFlux_")
+          .replace("HGT_", "GeopotentialHeight_")
+          .replace("RH_", "RelativeHumidity_")
+          .replace("SPFH_", "SpecificHumidity_")
+          .replace("DPT_", "DewPoint_")
+          .replace("DEPR_", "DewPointDepression_")
+          .replace("TMP_", "AirTemp_")
+          + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
     else if (
       (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS")) ||
       (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS"))
     ) {
-      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + (F_L).replace("TGL_10", "AGL-10m").replace("SFC_0", "Sfc") + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+      return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
     }
     else {
       return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_P" + nf(k, 3) + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
