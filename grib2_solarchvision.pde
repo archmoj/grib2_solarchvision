@@ -3221,6 +3221,8 @@ float[] getLonLat (float ix , float iy) {
     lat = asin_ang(z);
     lon = atan2_ang(y, x);
 
+    lon += 90;
+
     if (lon < lon1) lon += 360;
     else if (lon > lon2) lon -= 360;
 
@@ -3357,17 +3359,7 @@ float[] getIxIy (float lon, float lat) {
     float lat2 = gridLa2;
     float lon2 = gridLo2;
 
-//////////////////////
-//    gridSouthLat = -15;
-//    gridSouthLon = 45;
-//    gridRotation = 0;
-//////////////////////
-//    gridSouthLat = -31.758312;
-//    gridSouthLon = 267.59702 - 90;
-//    gridRotation = 0;
-//////////////////////
-
-    float t1 = gridSouthLon;
+    float t1 = gridSouthLon - 90;
     float t2 = -gridSouthLat - 90;
     float t3 = gridRotation - 90;
 
@@ -5450,13 +5442,13 @@ PImage create_EARTH_Background() {
 
         // for the moment I remarked this condition to make GDPS world background texture to be drawn completely.
         //if ((u > 1) || (u < 0) || (v > 1) || (v < 0)) draw_it = false;
-/*
+
         if (u > 1) u %= 1;
         else if (u < 0) u = 1 - (-u % 1);
 
         if (v > 1) v %= 1;
         else if (v < 0) v = 1 - (-v % 1);
-*/
+
         UV[k][0] = u;
         UV[k][1] = v;
 
