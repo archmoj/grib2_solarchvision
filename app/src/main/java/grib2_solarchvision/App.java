@@ -1,21 +1,39 @@
-/**
-* Copyright 2016-2026, Mojtaba Samimi @solarchvision
-* All rights reserved.
-*
-* Licensed under GPL.v2.0
-*/
+package grib2_solarchvision;
+
+
+import processing.core.*;
+import processing.data.*;
+import processing.event.*;
+import processing.opengl.*;
 
 import processing.pdf.*;
-PGraphics pdfExport;
-
 import gifAnimation.*;
-GifMaker gifExport;
-
 import java.util.Calendar;
-
-// The following libraries are needed for CMC grib2 models which are 'sadly' encoded in JPEG-2000!
 import ucar.unidata.io.RandomAccessFile;
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
+
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+
+public class App extends PApplet {
+
+PGraphics pdfExport;
+
+
+GifMaker gifExport;
+
+
+
+// The following libraries are needed for CMC grib2 models which are 'sadly' encoded in JPEG-2000!
+
+
 
 
 String BaseFolder = "/home/solarch/org/grib2_solarchvision";
@@ -94,20 +112,20 @@ boolean log = false;
 
 String[] asciiTable = {"NUL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", "BEL", "BS", "HT", "LF", "VT", "FF", "CR", "SO", "SI", "DLE", "DC1", "DC2", "DC3", "DC4", "NAK", "SYN", "ETB", "CAN", "EM", "SUB", "ESC", "FS", "GS", "RS", "US"};
 
-void cout (int c) {
+public void cout (int c) {
   if (!log) return;
-  if (c > 31) print(char(c));
+  if (c > 31) print(PApplet.parseChar(c));
   else {
     //print("[" + asciiTable[c] + "]");
     print("_");
   }
 }
 
-void sout(String a) {
+public void sout(String a) {
   if (log) println(a);
 }
 
-String[] getfiles (String _Folder) {
+public String[] getfiles (String _Folder) {
   sout("IN='" + _Folder + "'");
 
   File dir = new File(_Folder);
@@ -407,7 +425,7 @@ String[][] DATA_ParameterLevel = {
 };
 
 int num_Levels = 0;
-int addLevel () {
+public int addLevel () {
   num_Levels += 1;
   return(num_Levels - 1);
 }
@@ -423,7 +441,7 @@ int LEVEL_ISBL_0450  = addLevel();
 int LEVEL_ISBL_0250  = addLevel();
 
 int num_Layers = 0;
-int addLayer () {
+public int addLayer () {
   num_Layers += 1;
   return(num_Layers - 1);
 }
@@ -893,7 +911,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1].replace("Z", ""));
+        input_int = PApplet.parseInt(_tokens[1].replace("Z", ""));
         DATA_ModelRun = input_int;
         println("ModelRun is set to:", DATA_ModelRun);
       }
@@ -903,7 +921,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1]);
+        input_int = PApplet.parseInt(_tokens[1]);
         DATA_ModelBegin = input_int;
         println("ModelBegin is set to:", DATA_ModelBegin);
       }
@@ -913,7 +931,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1]);
+        input_int = PApplet.parseInt(_tokens[1]);
         DATA_ModelEnd = input_int;
         println("ModelEnd is set to:", DATA_ModelEnd);
       }
@@ -923,7 +941,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1]);
+        input_int = PApplet.parseInt(_tokens[1]);
         DATA_ModelStep = input_int;
         println("ModelStep is set to:", DATA_ModelStep);
       }
@@ -933,7 +951,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1]);
+        input_int = PApplet.parseInt(_tokens[1]);
         DATA_ModelDay = input_int;
         println("ModelDay is set to:", DATA_ModelDay);
       }
@@ -943,7 +961,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1]);
+        input_int = PApplet.parseInt(_tokens[1]);
         DATA_ModelMonth = input_int;
         println("ModelMonth is set to:", DATA_ModelMonth);
       }
@@ -953,7 +971,7 @@ int[] DATA_allLevels = new int[0];
     if (_at == 0) {
       _tokens = split(CAP_arg, '=');
       if (_tokens.length > 1) {
-        input_int = int(_tokens[1]);
+        input_int = PApplet.parseInt(_tokens[1]);
         DATA_ModelYear = input_int;
         println("ModelYear is set to:", DATA_ModelYear);
       }
@@ -1179,9 +1197,9 @@ int[] DATA_allLevels = new int[0];
 
   DATA_numLevels = DATA_allLevels.length;
   DATA_numLayers = DATA_allLayers.length;
-  DATA_numMembers = int(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY09]);
+  DATA_numMembers = PApplet.parseInt(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY09]);
   if (DATA_ModelStep == -1) { // use the default interval value of the model, if the interval is not defined by the arguments
-    DATA_ModelStep = int(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY10]);
+    DATA_ModelStep = PApplet.parseInt(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY10]);
   }
   DATA_numTimes = 1 + floor((DATA_ModelEnd - DATA_ModelBegin) / DATA_ModelStep);
 
@@ -1208,14 +1226,14 @@ int[] DATA_allLevels = new int[0];
 }
 
 int SOLARCHVISION_H_Pixel = 750;
-int SOLARCHVISION_W_Pixel = int(SOLARCHVISION_H_Pixel * 2.0);
+int SOLARCHVISION_W_Pixel = PApplet.parseInt(SOLARCHVISION_H_Pixel * 2.0f);
 
-float MessageSize =  12.0;
+float MessageSize =  12.0f;
 
 int SOLARCHVISION_A_Pixel = 0; //int(1.5 * MessageSize); // menu bar
-int SOLARCHVISION_B_Pixel = int(3.0 * MessageSize); // 3D tool bar
-int SOLARCHVISION_C_Pixel = int(3.0 * MessageSize); // command bar
-int SOLARCHVISION_D_Pixel = int(7.5 * MessageSize); // time bar
+int SOLARCHVISION_B_Pixel = PApplet.parseInt(3.0f * MessageSize); // 3D tool bar
+int SOLARCHVISION_C_Pixel = PApplet.parseInt(3.0f * MessageSize); // command bar
+int SOLARCHVISION_D_Pixel = PApplet.parseInt(7.5f * MessageSize); // time bar
 {
   if (automated != USER_INT) { // remove upper and lower bars
     SOLARCHVISION_A_Pixel = 0;
@@ -1240,9 +1258,9 @@ int pre_Current_timeID = -1;
 String[] downloadList;
 String[] postprocessList;
 
-void setup () {
+public void setup () {
   //size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
-  size(1500, 912, P2D);
+  /* size commented out by preprocessor */;
   //size(1500, 822, P2D);
 
   LOAD_EARTH_IMAGES();
@@ -1296,7 +1314,7 @@ boolean DATA_Postprocessed = false;
 
 int progressID = -1;
 
-void draw () {
+public void draw () {
   if ((DATA_Downloaded == false) || (DATA_Postprocessed == false)) {
     background(223);
 
@@ -1313,20 +1331,20 @@ void draw () {
     fill(255);
     rect(0, 3 * height / 4 - 20, width, 40);
 
-    float progressRatio = 1.0;
+    float progressRatio = 1.0f;
     if (DATA_Downloaded == false) {
       if (downloadList.length != 0) {
-        progressRatio = (progressID + 1) / float(downloadList.length);
+        progressRatio = (progressID + 1) / PApplet.parseFloat(downloadList.length);
       }
       fill(0, 127, 255);
     }
     else if (DATA_Postprocessed == false) {
       if (postprocessList.length != 0) {
-        progressRatio = (progressID + 1) / float(postprocessList.length);
+        progressRatio = (progressID + 1) / PApplet.parseFloat(postprocessList.length);
       }
       fill(255, 127, 0);
     }
-    if (progressRatio > 1.0) progressRatio = 1.0;
+    if (progressRatio > 1.0f) progressRatio = 1.0f;
     rect(0 , 3 * height / 4 - 20, width * progressRatio, 40);
 
     textAlign(CENTER, CENTER);
@@ -1526,7 +1544,7 @@ void draw () {
 
         imageMode(CENTER);
         if (DATA_allStatistics[Current_statisticID] == 0) {
-          tint(255, 255 / float(num_overlay));
+          tint(255, 255 / PApplet.parseFloat(num_overlay));
 
           if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
             img = create_gridImage_SHOP(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
@@ -1569,7 +1587,7 @@ void draw () {
           }
 
           if ((WindU_layerID != -1) && (WindV_layerID != -1)) {
-            float Aspect = (gridNy / float(gridNx)) / (DATA_Viewport_Width / (float) DATA_Viewport_Height);
+            float Aspect = (gridNy / PApplet.parseFloat(gridNx)) / (DATA_Viewport_Width / (float) DATA_Viewport_Height);
 
             int stp = 16;
 
@@ -1586,8 +1604,8 @@ void draw () {
                     float x = (Px - DATA_Viewport_Width / 2 - DATA_Viewport_CenX) / DATA_Viewport_Zoom + DATA_Viewport_Width / 2;
                     float y = (Py - DATA_Viewport_Height / 2 - DATA_Viewport_CenY) / DATA_Viewport_Zoom + DATA_Viewport_Height / 2;
 
-                    int ix = int(roundTo(gridNx * x / (float) DATA_Viewport_Width, 1));
-                    int iy = (gridNy - 1) - int(roundTo(gridNy * y / (float) DATA_Viewport_Height, 1));
+                    int ix = PApplet.parseInt(roundTo(gridNx * x / (float) DATA_Viewport_Width, 1));
+                    int iy = (gridNy - 1) - PApplet.parseInt(roundTo(gridNy * y / (float) DATA_Viewport_Height, 1));
 
                     if ((0 <= ix) && (ix < gridNx) && (0 <= iy) && (iy < gridNy)) {
                       pushMatrix();
@@ -1596,19 +1614,19 @@ void draw () {
                       float PRECIPITATION = allDataValues[Current_timeID][Precipitation_layerID][Current_levelID][Current_memberID][iy * gridNx + ix];
 
                       if (is_undefined_FLOAT(PRECIPITATION) == false) {
-                        float _val = -0.15 * PRECIPITATION;
+                        float _val = -0.15f * PRECIPITATION;
 
                         if (DATA_allLayers[Current_layerID] == LAYER_flowXdirecteffect) _val *= -1;
 
-                        float _u = 0.5 + 0.5 * 0.75 * _val;
+                        float _u = 0.5f + 0.5f * 0.75f * _val;
 
                         float[] COL = SOLARCHVISION_GET_COLOR_STYLE(PAL_TYPE, _u);
 
                         //fill(COL[1], COL[2], COL[3], COL[0]);
                         //fill(COL[1], COL[2], COL[3], 127);
-                        fill(COL[1], COL[2], COL[3], 255 / float(num_overlay));
+                        fill(COL[1], COL[2], COL[3], 255 / PApplet.parseFloat(num_overlay));
 
-                        float d = 0.2 * stp * pow(PRECIPITATION, 0.5);
+                        float d = 0.2f * stp * pow(PRECIPITATION, 0.5f);
 
                         ellipse(0, 0, d, d);
                       }
@@ -1632,8 +1650,8 @@ void draw () {
                   float x = (Px - DATA_Viewport_Width / 2 - DATA_Viewport_CenX) / DATA_Viewport_Zoom + DATA_Viewport_Width / 2;
                   float y = (Py - DATA_Viewport_Height / 2 - DATA_Viewport_CenY) / DATA_Viewport_Zoom + DATA_Viewport_Height / 2;
 
-                  int ix = int(roundTo(gridNx * x / (float) DATA_Viewport_Width, 1));
-                  int iy = (gridNy - 1) - int(roundTo(gridNy * y / (float) DATA_Viewport_Height, 1));
+                  int ix = PApplet.parseInt(roundTo(gridNx * x / (float) DATA_Viewport_Width, 1));
+                  int iy = (gridNy - 1) - PApplet.parseInt(roundTo(gridNy * y / (float) DATA_Viewport_Height, 1));
 
                   if ((0 <= ix) && (ix < gridNx) && (0 <= iy) && (iy < gridNy)) {
                     pushMatrix();
@@ -1646,37 +1664,37 @@ void draw () {
                     float WIND_V = allDataValues[Current_timeID][WindV_layerID][Current_levelID][Current_memberID][iy * gridNx + ix];
 
                     if (is_undefined_FLOAT(WIND_U) == false) {
-                      float WIND_SPEED = pow(WIND_U * WIND_U + WIND_V * WIND_V, 0.5);
+                      float WIND_SPEED = pow(WIND_U * WIND_U + WIND_V * WIND_V, 0.5f);
 
                       float teta = 180 + atan2_ang(WIND_U, WIND_V * Aspect);
                       float D_teta = 15;
-                      float R = WIND_SPEED * 0.15 * stp; // <<<<<<<<<<<<
+                      float R = WIND_SPEED * 0.15f * stp; // <<<<<<<<<<<<
 
                       if (R > 2) {
-                        float R_in = 0.0 * R;
-                        float x1 = (R_in * cos_ang(90 - (teta - 0.5 * D_teta)));
-                        float y1 = (R_in * -sin_ang(90 - (teta - 0.5 * D_teta)));
-                        float x2 = (R_in * cos_ang(90 - (teta + 0.5 * D_teta)));
-                        float y2 = (R_in * -sin_ang(90 - (teta + 0.5 * D_teta)));
+                        float R_in = 0.0f * R;
+                        float x1 = (R_in * cos_ang(90 - (teta - 0.5f * D_teta)));
+                        float y1 = (R_in * -sin_ang(90 - (teta - 0.5f * D_teta)));
+                        float x2 = (R_in * cos_ang(90 - (teta + 0.5f * D_teta)));
+                        float y2 = (R_in * -sin_ang(90 - (teta + 0.5f * D_teta)));
 
-                        float x4 = (R * cos_ang(90 - (teta - 0.5 * D_teta)));
-                        float y4 = (R * -sin_ang(90 - (teta - 0.5 * D_teta)));
-                        float x3 = (R * cos_ang(90 - (teta + 0.5 * D_teta)));
-                        float y3 = (R * -sin_ang(90 - (teta + 0.5 * D_teta)));
+                        float x4 = (R * cos_ang(90 - (teta - 0.5f * D_teta)));
+                        float y4 = (R * -sin_ang(90 - (teta - 0.5f * D_teta)));
+                        float x3 = (R * cos_ang(90 - (teta + 0.5f * D_teta)));
+                        float y3 = (R * -sin_ang(90 - (teta + 0.5f * D_teta)));
 
-                        float ox = -2 * (R * cos_ang(90 - teta)) / 3.0;
-                        float oy = -2 * (R * -sin_ang(90 - teta)) / 3.0;
+                        float ox = -2 * (R * cos_ang(90 - teta)) / 3.0f;
+                        float oy = -2 * (R * -sin_ang(90 - teta)) / 3.0f;
 
-                        float _val = 0.2 * WIND_SPEED;
+                        float _val = 0.2f * WIND_SPEED;
 
-                        if (DATA_allLayers[Current_layerID] == LAYER_flowXdirecteffect) _val *= 0.2 * (AIR_TEMPERATURE - 18);
+                        if (DATA_allLayers[Current_layerID] == LAYER_flowXdirecteffect) _val *= 0.2f * (AIR_TEMPERATURE - 18);
 
-                        float _u = 0.5 + 0.5 * 0.75 * _val;
+                        float _u = 0.5f + 0.5f * 0.75f * _val;
 
                         float[] COL = SOLARCHVISION_GET_COLOR_STYLE(PAL_TYPE, _u);
 
                         //fill(COL[1], COL[2], COL[3], COL[0]);
-                        fill(COL[1], COL[2], COL[3], 255 / float(num_overlay));
+                        fill(COL[1], COL[2], COL[3], 255 / PApplet.parseFloat(num_overlay));
 
                         quad(x1 + ox, y1 + oy, x2 + ox, y2 + oy, x3 + ox, y3 + oy, x4 + ox, y4 + oy);
                       }
@@ -1695,9 +1713,9 @@ void draw () {
           stroke(127);
 
           for (float lat = 90 - 5; lat > -90; lat -= 5) {
-            for (float lon = 180; lon > -180; lon -= 2.5) {
+            for (float lon = 180; lon > -180; lon -= 2.5f) {
               float[] Pa = getIxIy(lon, lat);
-              float[] Pb = getIxIy(lon - 2.5, lat);
+              float[] Pb = getIxIy(lon - 2.5f, lat);
 
               float ix1 = Pa[0];
               float iy1 = Pa[1];
@@ -1765,7 +1783,7 @@ void draw () {
           for (int n_Countries = 0; n_Countries < COUNTRIES_NUMBER; n_Countries += 1){
             //stroke(random(255));
 
-            for (int f = int(COUNTRIES_INFO[n_Countries][0]); f < int(COUNTRIES_INFO[n_Countries][1]) - 1; f += 1){
+            for (int f = PApplet.parseInt(COUNTRIES_INFO[n_Countries][0]); f < PApplet.parseInt(COUNTRIES_INFO[n_Countries][1]) - 1; f += 1){
               float lon1 = COUNTRIES_SEGMENTS[f][0];
               float lat1 = COUNTRIES_SEGMENTS[f][1];
 
@@ -1810,7 +1828,7 @@ void draw () {
           noStroke();
           fill(0);
 
-          textSize(12.5);
+          textSize(12.5f);
           textAlign(CENTER, CENTER);
           for (int q = 0; q < LOCATIONS_NUMBER; q++) {
             boolean display_it = true;
@@ -1830,11 +1848,11 @@ void draw () {
             */
 
             //if (float(LOCATIONS_INFO[q][5]) - 1 > DATA_Viewport_Zoom * 0.0025 * (gridNy * gridDy)) display_it = false;
-            if (float(LOCATIONS_INFO[q][5]) - 1 > DATA_Viewport_Zoom * 0.0010 * (gridNy * gridDy)) display_it = false;
+            if (PApplet.parseFloat(LOCATIONS_INFO[q][5]) - 1 > DATA_Viewport_Zoom * 0.0010f * (gridNy * gridDy)) display_it = false;
 
             if (display_it == true) {
-              float lat = float(LOCATIONS_INFO[q][3]);
-              float lon = float(LOCATIONS_INFO[q][4]);
+              float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
+              float lon = PApplet.parseFloat(LOCATIONS_INFO[q][4]);
 
               float[] P = getIxIy(lon, lat);
 
@@ -1898,8 +1916,8 @@ void draw () {
           float x = (get_GRID_Mouse_X() - DATA_Viewport_Width / 2 - DATA_Viewport_CenX) / DATA_Viewport_Zoom + DATA_Viewport_Width / 2;
           float y = (get_GRID_Mouse_Y() - DATA_Viewport_Height / 2 - DATA_Viewport_CenY) / DATA_Viewport_Zoom + DATA_Viewport_Height / 2;
 
-          int ix = int(roundTo(gridNx * x / (float) DATA_Viewport_Width, 1));
-          int iy = (gridNy - 1) - int(roundTo(gridNy * y / (float) DATA_Viewport_Height, 1));
+          int ix = PApplet.parseInt(roundTo(gridNx * x / (float) DATA_Viewport_Width, 1));
+          int iy = (gridNy - 1) - PApplet.parseInt(roundTo(gridNy * y / (float) DATA_Viewport_Height, 1));
 
           float[] P = getLonLat(ix, iy);
 
@@ -1963,22 +1981,22 @@ void draw () {
 
       noStroke();
       fill(255);
-      textSize(1.5 * MessageSize);
+      textSize(1.5f * MessageSize);
       textAlign(LEFT, CENTER);
-      text("SOLARCHVISION-GRIB2 DATA VISUALIZATION:", 10, SOLARCHVISION_A_Pixel + 0.5 * SOLARCHVISION_B_Pixel);
+      text("SOLARCHVISION-GRIB2 DATA VISUALIZATION:", 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
 
       noStroke();
       fill(255);
-      textSize(1.5 * MessageSize);
+      textSize(1.5f * MessageSize);
       textAlign(RIGHT, CENTER);
-      text(allDataTitles[Current_timeID][Current_layerID][Current_levelID][Current_memberID], SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + 0.5 * SOLARCHVISION_B_Pixel);
+      text(allDataTitles[Current_timeID][Current_layerID][Current_levelID][Current_memberID], SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
 
       noStroke();
       fill(191);
       rect(0, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel, width, SOLARCHVISION_C_Pixel);
 
       imageMode(CENTER);
-      image(gridPalettes[Current_layerID], 0.5 * SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5 * SOLARCHVISION_C_Pixel);
+      image(gridPalettes[Current_layerID], 0.5f * SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5f * SOLARCHVISION_C_Pixel);
       imageMode(CORNER);
 
       if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
@@ -1986,13 +2004,13 @@ void draw () {
       else {
         noStroke();
         fill(0);
-        textSize(1.5 * MessageSize);
+        textSize(1.5f * MessageSize);
         textAlign(LEFT, CENTER);
-        text(allParameterNamesAndUnits[Current_layerID][Current_levelID], 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5 * SOLARCHVISION_C_Pixel);
+        text(allParameterNamesAndUnits[Current_layerID][Current_levelID], 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5f * SOLARCHVISION_C_Pixel);
 
         noStroke();
         fill(0);
-        textSize(1.5 * MessageSize);
+        textSize(1.5f * MessageSize);
         textAlign(RIGHT, CENTER);
         text(
              nf(gridYear                 [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 4) + "-" +
@@ -2002,7 +2020,7 @@ void draw () {
              nf(gridMinute               [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 2) + ":" +
              nf(gridSecond               [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 2) + "Z-P" +
              nf(gridForecastConvertedTime[Current_timeID][Current_layerID][Current_levelID][Current_memberID], 3, 2)
-             , SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5 * SOLARCHVISION_C_Pixel);
+             , SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5f * SOLARCHVISION_C_Pixel);
 
       }
     }
@@ -2130,7 +2148,7 @@ void draw () {
 
 String DATA_Filename = "";
 
-String getGrib2Link () {
+public String getGrib2Link () {
   String l = "";
 
   if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("CMC")) {
@@ -2187,7 +2205,7 @@ String getGrib2Link () {
   return l;
 }
 
-String getGrib2Filename (int k, int l, int h) {
+public String getGrib2Filename (int k, int l, int h) {
   String return_txt = "";
 
   String F_L = DATA_ParameterLevel[l][h];
@@ -2493,7 +2511,7 @@ else return_txt = "";
   return return_txt;
 }
 
-void setAdjustParameters (int layerID) {
+public void setAdjustParameters (int layerID) {
   PAL_Multiplier = 1;
   PAL_Offset = 0;
   PAL_Scale = 1;
@@ -2505,171 +2523,171 @@ void setAdjustParameters (int layerID) {
 
   else if (DATA_allLayers[layerID] == LAYER_flowXmeanpressure) {
     PAL_Offset = 101325;
-    PAL_Scale = 0.0005;
+    PAL_Scale = 0.0005f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_meanpressure) {
     PAL_Offset = 101325;
-    PAL_Scale = 0.0005;
+    PAL_Scale = 0.0005f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_surfpressure) {
     PAL_Offset = 101325;
-    PAL_Scale = 0.00005;
+    PAL_Scale = 0.00005f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_surfshowalter) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.1;
+    PAL_Scale = -0.1f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_surflifted) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.1;
+    PAL_Scale = -0.1f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_convpotenergy) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.001;
+    PAL_Scale = -0.001f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_surfhelicity) {
-    PAL_Scale = 0.01;
+    PAL_Scale = 0.01f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_surfsensibleheat) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_surflatentheat) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solarcomingshort) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solarabsrbdshort) {
-    PAL_Scale = 0.002;
+    PAL_Scale = 0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solarabsrbdlong) {
-    PAL_Scale = 0.002;
+    PAL_Scale = 0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solarupshort) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solaruplong) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solardownshort) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_solardownlong) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_glohorrad) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_difhorrad) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_dirnorrad) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_tracker) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_fixlat) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_south45) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_south00) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_north00) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_east00) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_west00) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.002;
+    PAL_Scale = -0.002f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_difhoreff) {
-    PAL_Scale = 0.0001;
+    PAL_Scale = 0.0001f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_dirnoreff) {
-    PAL_Scale = 0.0001;
+    PAL_Scale = 0.0001f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_flowXdirecteffect) {
-    PAL_Scale = 0.0001;
+    PAL_Scale = 0.0001f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windpower) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.001;
+    PAL_Scale = -0.001f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_flowXprecipitation) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.4;
+    PAL_Scale = -0.4f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
@@ -2678,129 +2696,129 @@ void setAdjustParameters (int layerID) {
            (DATA_allLayers[layerID] == LAYER_freezingrain) ||
            (DATA_allLayers[layerID] == LAYER_icepellets) ||
            (DATA_allLayers[layerID] == LAYER_snow)) {
-    PAL_Scale = 0.4;
+    PAL_Scale = 0.4f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_preciprate) {
-    PAL_Scale = 0.4 * 3600;
+    PAL_Scale = 0.4f * 3600;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_pastprecip) {
-    PAL_Scale = 0.4 * 1 / 6.0;
+    PAL_Scale = 0.4f * 1 / 6.0f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_pastsnow) {
-    PAL_Scale = 0.4 * 1 / 6.0;
+    PAL_Scale = 0.4f * 1 / 6.0f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_cloudcover) {
-    PAL_Multiplier = 0.5;
-    PAL_Scale = 0.01;
+    PAL_Multiplier = 0.5f;
+    PAL_Scale = 0.01f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_cloudhigh) {
-    PAL_Multiplier = 0.5;
-    PAL_Scale = 0.01;
+    PAL_Multiplier = 0.5f;
+    PAL_Scale = 0.01f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_cloudmiddle) {
-    PAL_Multiplier = 0.5;
-    PAL_Scale = 0.01;
+    PAL_Multiplier = 0.5f;
+    PAL_Scale = 0.01f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_cloudlow) {
-    PAL_Multiplier = 0.5;
-    PAL_Scale = 0.01;
+    PAL_Multiplier = 0.5f;
+    PAL_Scale = 0.01f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_relhum) {
-    PAL_Scale = 0.04;
+    PAL_Scale = 0.04f;
     PAL_Offset = 50;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_albedo) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.04;
+    PAL_Scale = -0.04f;
     PAL_Offset = 50;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_land) {
-    PAL_Offset = 0.5;
+    PAL_Offset = 0.5f;
     PAL_Multiplier = -1;
-    PAL_Scale = -2.5;
+    PAL_Scale = -2.5f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_ice) {
-    PAL_Offset = 0.5;
-    PAL_Scale = 2.5;
+    PAL_Offset = 0.5f;
+    PAL_Scale = 2.5f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_depthsnow) {
     PAL_Offset = 0;
-    PAL_Scale = 0.125;
+    PAL_Scale = 0.125f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_watersnow) {
     PAL_Offset = 0;
-    PAL_Scale = 0.001;
+    PAL_Scale = 0.001f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_height) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.00075;
+    PAL_Scale = -0.00075f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_cloudtop) {
-    PAL_Scale = 0.001;
+    PAL_Scale = 0.001f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_cloudceiling) {
-    PAL_Scale = 0.001;
+    PAL_Scale = 0.001f;
   }
   else if (DATA_allLayers[layerID] == LAYER_combwavesheight) {
-    PAL_Scale = 0.4;
+    PAL_Scale = 0.4f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_swellwavesheight) {
-    PAL_Scale = 0.4;
+    PAL_Scale = 0.4f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windwavesheight) {
-    PAL_Scale = 0.4;
+    PAL_Scale = 0.4f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windwaveperiod) {
-    PAL_Scale = 0.1;
+    PAL_Scale = 0.1f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_swellwaveperiod) {
-    PAL_Scale = 0.1;
+    PAL_Scale = 0.1f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_peakwaveperiod) {
-    PAL_Scale = 0.1;
+    PAL_Scale = 0.1f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_spchum) {
     PAL_Scale = 200;
-    PAL_Offset = 0.01;
+    PAL_Offset = 0.01f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_soilmoisture) {
@@ -2810,65 +2828,65 @@ void setAdjustParameters (int layerID) {
 
   else if (DATA_allLayers[layerID] == LAYER_soiltemperature) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.05;
+    PAL_Scale = -0.05f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_watertemperature) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.05;
+    PAL_Scale = -0.05f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_drybulb) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.05;
+    PAL_Scale = -0.05f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_dewpoint) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.05;
+    PAL_Scale = -0.05f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_depression) {
     PAL_Multiplier = -1;
-    PAL_Scale = -0.05;
+    PAL_Scale = -0.05f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_swellwavedirtrue) {
     PAL_Offset = 180;
     PAL_Multiplier = -1;
-    PAL_Scale = -0.01;
+    PAL_Scale = -0.01f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windwavedirtrue) {
     PAL_Offset = 180;
     PAL_Multiplier = -1;
-    PAL_Scale = -0.01;
+    PAL_Scale = -0.01f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_winddir) {
     PAL_Offset = 180;
     PAL_Multiplier = -1;
-    PAL_Scale = -1 / 90.0;
+    PAL_Scale = -1 / 90.0f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windspd) {
-    PAL_Scale = 0.1;
+    PAL_Scale = 0.1f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windU) {
-    PAL_Scale = 0.1;
+    PAL_Scale = 0.1f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_windV) {
-    PAL_Scale = 0.1;
+    PAL_Scale = 0.1f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_verticalvelocity) {
   }
 
   else if (DATA_allLayers[layerID] == LAYER_absolutevorticity) {
-    PAL_Scale = 3600.0;
+    PAL_Scale = 3600.0f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_Water_level_above_mean_sea_level) {
@@ -2892,7 +2910,7 @@ void setAdjustParameters (int layerID) {
 
   else if (DATA_allLayers[layerID] == LAYER_Direction_of_the_water_velocity) {
     PAL_Offset = 180;
-    PAL_Scale = 1 / 90.0;
+    PAL_Scale = 1 / 90.0f;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_Froude_number) {
@@ -2906,34 +2924,34 @@ void setAdjustParameters (int layerID) {
   }
 
   else if (DATA_allLayers[layerID] == LAYER_Specific_discharge) {
-    PAL_Scale = 0.25;
+    PAL_Scale = 0.25f;
     Impact_TYPE = Impact_ACTIVE;
   }
 
   else if (DATA_allLayers[layerID] == LAYER_Water_Transport_Diffusion_Index) {
-    PAL_Scale = 100.0;
+    PAL_Scale = 100.0f;
     Impact_TYPE = Impact_ACTIVE;
   }
 }
 
-float AdjustValue (float _val) {
+public float AdjustValue (float _val) {
   float _u = PAL_Scale * (_val - PAL_Offset);
 
-  _u = 0.5 + 0.5 * _u;
+  _u = 0.5f + 0.5f * _u;
 
   if (PAL_DIR == -1) _u = 1 - _u;
-  if (PAL_DIR == -2) _u = 0.5 - 0.5 * _u;
-  if (PAL_DIR == 2) _u =  0.5 * _u;
+  if (PAL_DIR == -2) _u = 0.5f - 0.5f * _u;
+  if (PAL_DIR == 2) _u =  0.5f * _u;
 
   return _u;
 
 }
 
-void create_gridPalettes (int layerID) {
+public void create_gridPalettes (int layerID) {
   int pal_length = SOLARCHVISION_W_Pixel / 3;
 
   int RES1 = pal_length;
-  int RES2 = int(0.05 * pal_length);
+  int RES2 = PApplet.parseInt(0.05f * pal_length);
 
   PGraphics tmpGraphics = createGraphics(RES1, RES2);
 
@@ -2944,9 +2962,9 @@ void create_gridPalettes (int layerID) {
   setAdjustParameters(layerID);
 
   for (int q = 0; q < 11; q += 1) {
-    float _val = (q - 5) * 0.4;
+    float _val = (q - 5) * 0.4f;
 
-    if (Impact_TYPE == Impact_ACTIVE) _val = q * 0.2;
+    if (Impact_TYPE == Impact_ACTIVE) _val = q * 0.2f;
 
     _val *= PAL_Multiplier;
 
@@ -2961,8 +2979,8 @@ void create_gridPalettes (int layerID) {
     tmpGraphics.stroke(COL[1], COL[2], COL[3], COL[0]);
     tmpGraphics.fill(COL[1], COL[2], COL[3], COL[0]);
 
-    float x1 = q * (pal_length / 11.0);
-    float x2 = x1 + pal_length / 11.0;
+    float x1 = q * (pal_length / 11.0f);
+    float x2 = x1 + pal_length / 11.0f;
     float y1 = 0;
     float y2 = RES2;
 
@@ -2973,7 +2991,7 @@ void create_gridPalettes (int layerID) {
     tmpGraphics.vertex(x2, y1);
     tmpGraphics.endShape(CLOSE);
 
-    if (COL[1] + COL[2] + COL[3] > 1.75 * 255) {
+    if (COL[1] + COL[2] + COL[3] > 1.75f * 255) {
       tmpGraphics.stroke(127);
       tmpGraphics.fill(127);
       tmpGraphics.strokeWeight(0);
@@ -2985,17 +3003,17 @@ void create_gridPalettes (int layerID) {
 
     String txtNumber = "";
 
-    if (abs(_val) < 1) txtNumber = nf((roundTo(_val, 0.001)), 1, 3);
-    else if (abs(_val) < 100) txtNumber = nf((roundTo(_val, 0.1)), 1, 1);
-    else txtNumber = nf(int(roundTo(_val, 1)), 0);
+    if (abs(_val) < 1) txtNumber = nf((roundTo(_val, 0.001f)), 1, 3);
+    else if (abs(_val) < 100) txtNumber = nf((roundTo(_val, 0.1f)), 1, 1);
+    else txtNumber = nf(PApplet.parseInt(roundTo(_val, 1)), 0);
 
-    float txtSize = 0.5 * (y2 - y1);
-    if (abs(_val) > 1000) txtSize *= 0.75;
+    float txtSize = 0.5f * (y2 - y1);
+    if (abs(_val) > 1000) txtSize *= 0.75f;
 
     tmpGraphics.textSize(txtSize);
     tmpGraphics.textAlign(CENTER, CENTER);
 
-    tmpGraphics.text(txtNumber, 0.5 * (x1 + x2), 0.5 * (y1 + y2) - 0.1 * txtSize, 0);
+    tmpGraphics.text(txtNumber, 0.5f * (x1 + x2), 0.5f * (y1 + y2) - 0.1f * txtSize, 0);
 
   }
 
@@ -3026,7 +3044,7 @@ float PAL_Multiplier = 1;
 float PAL_Scale = 1;
 float PAL_Offset = 0;
 
-PImage create_gridImage_basic (int timeID, int layerID, int levelID, int memberID) {
+public PImage create_gridImage_basic (int timeID, int layerID, int levelID, int memberID) {
   int RES1 = gridNx;
   int RES2 = gridNy;
 
@@ -3061,7 +3079,7 @@ PImage create_gridImage_basic (int timeID, int layerID, int levelID, int memberI
   return img;
 }
 
-PImage create_gridImage_statistics (int[] timeIDs, int layerID, int[] levelIDs, int[] memberIDs, int num_overlay) {
+public PImage create_gridImage_statistics (int[] timeIDs, int layerID, int[] levelIDs, int[] memberIDs, int num_overlay) {
   int RES1 = gridNx;
   int RES2 = gridNy;
 
@@ -3110,7 +3128,7 @@ PImage create_gridImage_statistics (int[] timeIDs, int layerID, int[] levelIDs, 
   return img;
 }
 
-PImage create_gridImage_SHOP (int timeID, int layerID, int levelID, int memberID) {
+public PImage create_gridImage_SHOP (int timeID, int layerID, int levelID, int memberID) {
   int RES1 = gridNx;
   int RES2 = gridNy;
 
@@ -3151,7 +3169,7 @@ PImage create_gridImage_SHOP (int timeID, int layerID, int levelID, int memberID
   return graphic;
 }
 
-float[] getLonLat (float ix , float iy) {
+public float[] getLonLat (float ix , float iy) {
   float lon = 0;
   float lat = 0;
 
@@ -3163,8 +3181,8 @@ float[] getLonLat (float ix , float iy) {
     float lat2 = gridLa2;
     float lon2 = gridLo2;
 
-    lon = ix * (lon2 - lon1) / float(gridNx) + lon1;
-    lat = iy * (lat2 - lat1) / float(gridNy) + lat1;
+    lon = ix * (lon2 - lon1) / PApplet.parseFloat(gridNx) + lon1;
+    lat = iy * (lat2 - lat1) / PApplet.parseFloat(gridNy) + lat1;
   }
 
   if (gridTypeOfProjection == 1) { // Rotated latitude/longitude
@@ -3175,8 +3193,8 @@ float[] getLonLat (float ix , float iy) {
     float lat2 = gridLa2;
     float lon2 = gridLo2;
 
-    lon = ix * (lon2 - lon1) / float(gridNx) + lon1;
-    lat = iy * (lat2 - lat1) / float(gridNy) + lat1;
+    lon = ix * (lon2 - lon1) / PApplet.parseFloat(gridNx) + lon1;
+    lat = iy * (lat2 - lat1) / PApplet.parseFloat(gridNy) + lat1;
 
     float t1 = gridSouthLon;
     float t2 = -gridSouthLat - 90;
@@ -3242,13 +3260,13 @@ float[] getLonLat (float ix , float iy) {
     if (gridScanX == 0) dx = -dx;
     if (gridScanY == 0) dy = -dy;
 
-    float h = 1.0;
+    float h = 1.0f;
     if (gridPCF != 0) {
-      h = -1.0;
+      h = -1.0f;
       LonV -= 180;
     }
 
-    float de = (1.0 + sin_ang(abs(LatD))) * FLOAT_r_Earth_km;
+    float de = (1.0f + sin_ang(abs(LatD))) * FLOAT_r_Earth_km;
     float dr = de * cos_ang(Lat1) / (1 + h * sin_ang(Lat1));
 
     float xp = -h * (sin_ang(Lon1 - LonV)) * dr / dx;
@@ -3281,9 +3299,9 @@ float[] getLonLat (float ix , float iy) {
     if (gridScanX == 0) dx = -dx;
     if (gridScanY == 0) dy = -dy;
 
-    float h = 1.0;
+    float h = 1.0f;
     if (gridPCF != 0) {
-      h = -1.0;
+      h = -1.0f;
       LonV -= 180;
     }
 
@@ -3291,17 +3309,17 @@ float[] getLonLat (float ix , float iy) {
     float latin2r = gridSecondLatIn;
 
     float n = 0;
-    if (abs(latin1r - latin2r) < 0.000000001) {
+    if (abs(latin1r - latin2r) < 0.000000001f) {
       n = sin_ang(latin1r);
     }
     else {
-      n = log(cos_ang(latin1r) / cos_ang(latin2r)) / log(tan_ang(45 + 0.5 * latin2r) / tan_ang(45 + 0.5 * latin1r));
+      n = log(cos_ang(latin1r) / cos_ang(latin2r)) / log(tan_ang(45 + 0.5f * latin2r) / tan_ang(45 + 0.5f * latin1r));
     }
 
-    float f = (cos_ang(latin1r) * pow(tan_ang(45 + 0.5 * latin1r), n)) / n;
+    float f = (cos_ang(latin1r) * pow(tan_ang(45 + 0.5f * latin1r), n)) / n;
 
-    float rho_ooo = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5 * Lat1), -n);
-    float rho_ref = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5 * LatD), -n);
+    float rho_ooo = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5f * Lat1), -n);
+    float rho_ref = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5f * LatD), -n);
 
     float d_lon = Lon1 - LonV;
 
@@ -3318,7 +3336,7 @@ float[] getLonLat (float ix , float iy) {
     float rho_new = sqrt(x * x + tmp * tmp);
     if (n < 0) rho_new *= -1;
 
-    lat = 2.0 * atan_ang(pow(FLOAT_r_Earth_km * f / rho_new, 1.0 / n)) - 90;
+    lat = 2.0f * atan_ang(pow(FLOAT_r_Earth_km * f / rho_new, 1.0f / n)) - 90;
     lon = LonV + theta_new / n;
 
     lon = (lon + 360) % 360;
@@ -3330,7 +3348,7 @@ float[] getLonLat (float ix , float iy) {
   return P;
 }
 
-float[] getIxIy (float lon, float lat) {
+public float[] getIxIy (float lon, float lat) {
   float ix = 0;
   float iy = 0;
 
@@ -3417,9 +3435,9 @@ float[] getIxIy (float lon, float lat) {
     float LatD = gridLaD;
     float LonV = gridLoV;
 
-    float h = 1.0;
+    float h = 1.0f;
     if (gridPCF != 0) {
-      h = -1.0;
+      h = -1.0f;
       LonV -= 180;
     }
 
@@ -3429,7 +3447,7 @@ float[] getIxIy (float lon, float lat) {
     if (gridScanX == 0) dx = -dx;
     if (gridScanY == 0) dy = -dy;
 
-    float de = (1.0 + sin_ang(abs(LatD))) * FLOAT_r_Earth_km;
+    float de = (1.0f + sin_ang(abs(LatD))) * FLOAT_r_Earth_km;
     float dr = de * cos_ang(Lat1) / (1 + h * sin_ang(Lat1));
 
     float xp = -h * (sin_ang(Lon1 - LonV)) * dr / dx;
@@ -3441,7 +3459,7 @@ float[] getIxIy (float lon, float lat) {
     float dr2 = de2 * (1 - M) / (1 + M);
 
     float N = tan_ang((lon - LonV) / h);
-    float dj = -pow(dr2 / (N * N + 1), 0.5);
+    float dj = -pow(dr2 / (N * N + 1), 0.5f);
 
     float LonQ = (lon + 180) % 360;
 
@@ -3467,9 +3485,9 @@ float[] getIxIy (float lon, float lat) {
     if (gridScanX == 0) dx = -dx;
     if (gridScanY == 0) dy = -dy;
 
-    float h = 1.0;
+    float h = 1.0f;
     if (gridPCF != 0) {
-      h = -1.0;
+      h = -1.0f;
       LonV -= 180;
     }
 
@@ -3477,17 +3495,17 @@ float[] getIxIy (float lon, float lat) {
     float latin2r = gridSecondLatIn;
 
     float n = 0;
-    if (abs(latin1r - latin2r) < 0.000000001) {
+    if (abs(latin1r - latin2r) < 0.000000001f) {
       n = sin_ang(latin1r);
     }
     else {
-      n = log(cos_ang(latin1r) / cos_ang(latin2r)) / log(tan_ang(45 + 0.5 * latin2r) / tan_ang(45 + 0.5 * latin1r));
+      n = log(cos_ang(latin1r) / cos_ang(latin2r)) / log(tan_ang(45 + 0.5f * latin2r) / tan_ang(45 + 0.5f * latin1r));
     }
 
-    float f = (cos_ang(latin1r) * pow(tan_ang(45 + 0.5 * latin1r), n)) / n;
+    float f = (cos_ang(latin1r) * pow(tan_ang(45 + 0.5f * latin1r), n)) / n;
 
-    float rho_ooo = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5 * Lat1), -n);
-    float rho_ref = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5 * LatD), -n);
+    float rho_ooo = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5f * Lat1), -n);
+    float rho_ref = FLOAT_r_Earth_km * f * pow(tan_ang(45 + 0.5f * LatD), -n);
 
     float d_lon = Lon1 - LonV;
 
@@ -3500,7 +3518,7 @@ float[] getIxIy (float lon, float lat) {
 
     float theta_new = n * (lon - LonV);
 
-    float rho_new = FLOAT_r_Earth_km * f / pow(tan_ang(0.5 * (lat + 90)), n);
+    float rho_new = FLOAT_r_Earth_km * f / pow(tan_ang(0.5f * (lat + 90)), n);
 
     if (n < 0) rho_new *= -1;
 
@@ -3521,37 +3539,37 @@ float[] getIxIy (float lon, float lat) {
 
 }
 
-float asin_ang (float a) {
+public float asin_ang (float a) {
   return ((asin(a)) * 180/PI);
 }
 
-float acos_ang (float a) {
+public float acos_ang (float a) {
   return ((acos(a)) * 180/PI);
 }
 
-float atan_ang (float a) {
+public float atan_ang (float a) {
   return ((atan(a)) * 180/PI);
 }
 
-float atan2_ang (float a, float b) {
+public float atan2_ang (float a, float b) {
   return ((atan2(a, b)) * 180/PI);
 }
 
-float sin_ang (float a) {
+public float sin_ang (float a) {
   return sin(a * PI / 180);
 }
 
-float cos_ang (float a) {
+public float cos_ang (float a) {
   return cos(a * PI / 180);
 }
 
-float tan_ang (float a) {
+public float tan_ang (float a) {
   return tan(a * PI / 180);
 }
 
-float roundTo (float a, float b) {
-  float a_floor = (floor (a / (1.0 * b))) * b;
-  float a_ceil =  (ceil (a / (1.0 * b))) * b;
+public float roundTo (float a, float b) {
+  float a_floor = (floor (a / (1.0f * b))) * b;
+  float a_ceil =  (ceil (a / (1.0f * b))) * b;
   float c;
   if ((a - a_floor) > (a_ceil - a)) {
     c = a_ceil;
@@ -3563,9 +3581,9 @@ float roundTo (float a, float b) {
 
 String STRING_undefined = "N/A";
 float FLOAT_undefined = 2000000000; // it must be a positive big number that is not included in any data
-float FLOAT_max_defined = 0.95 * FLOAT_undefined;
+float FLOAT_max_defined = 0.95f * FLOAT_undefined;
 
-boolean is_undefined_FLOAT (float a) {
+public boolean is_undefined_FLOAT (float a) {
   boolean b = false;
   if (a > FLOAT_max_defined) {
     b = true;
@@ -3573,12 +3591,12 @@ boolean is_undefined_FLOAT (float a) {
   return b;
 }
 
-float FLOAT_r_Earth_km = 6367.470;
+float FLOAT_r_Earth_km = 6367.470f;
 
 int STUDY_O_scale = 127;
 
-float[] SOLARCHVISION_WBGRW (float _variable) {
-  _variable *= 600.0;
+public float[] SOLARCHVISION_WBGRW (float _variable) {
+  _variable *= 600.0f;
 
   float v;
   float[] COL = {
@@ -3590,32 +3608,32 @@ float[] SOLARCHVISION_WBGRW (float _variable) {
     COL[2] = 255;
     COL[3] = 255;
   } else if (_variable < 100) {
-    v = ((_variable) * 2.55);
+    v = ((_variable) * 2.55f);
     COL[1] = (255 - v);
     COL[2] = (255 - v);
     COL[3] = 255;
   } else if (_variable < 200) {
-    v = ((_variable - 100) * 2.55);
+    v = ((_variable - 100) * 2.55f);
     COL[1] = 0;
     COL[2] = v;
     COL[3] = 255;
   } else if (_variable < 300) {
-    v = ((_variable - 200) * 2.55);
+    v = ((_variable - 200) * 2.55f);
     COL[1] = 0;
     COL[2] = 255;
     COL[3] = (255 - v);
   } else if (_variable < 400) {
-    v = ((_variable - 300) * 2.55);
+    v = ((_variable - 300) * 2.55f);
     COL[1] = v;
     COL[2] = 255;
     COL[3] = 0;
   } else if (_variable < 500) {
-    v = ((_variable - 400) * 2.55);
+    v = ((_variable - 400) * 2.55f);
     COL[1] = 255;
     COL[2] = (255 - v);
     COL[3] = 0;
   } else if (_variable < 600) {
-    v = ((_variable - 500) * 2.55);
+    v = ((_variable - 500) * 2.55f);
     COL[1] = 255;
     COL[2] = v;
     COL[3] = v;
@@ -3628,8 +3646,8 @@ float[] SOLARCHVISION_WBGRW (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_BGR (float _variable) {
-  _variable *= 400.0;
+public float[] SOLARCHVISION_BGR (float _variable) {
+  _variable *= 400.0f;
 
   float v;
   float[] COL = {
@@ -3641,22 +3659,22 @@ float[] SOLARCHVISION_BGR (float _variable) {
     COL[2] = 0;
     COL[3] = 255;
   } else if (_variable < 100) {
-    v = ((_variable) * 2.55);
+    v = ((_variable) * 2.55f);
     COL[1] = 0;
     COL[2] = v;
     COL[3] = 255;
   } else if (_variable < 200) {
-    v = ((_variable - 100) * 2.55);
+    v = ((_variable - 100) * 2.55f);
     COL[1] = 0;
     COL[2] = 255;
     COL[3] = (255 - v);
   } else if (_variable < 300) {
-    v = ((_variable - 200) * 2.55);
+    v = ((_variable - 200) * 2.55f);
     COL[1] = v;
     COL[2] = 255;
     COL[3] = 0;
   } else if (_variable < 400) {
-    v = ((_variable - 300) * 2.55);
+    v = ((_variable - 300) * 2.55f);
     COL[1] = 255;
     COL[2] = (255 - v);
     COL[3] = 0;
@@ -3669,8 +3687,8 @@ float[] SOLARCHVISION_BGR (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_DBGR (float _variable) {
-  _variable *= 500.0;
+public float[] SOLARCHVISION_DBGR (float _variable) {
+  _variable *= 500.0f;
 
   float v;
   float[] COL = {
@@ -3681,27 +3699,27 @@ float[] SOLARCHVISION_DBGR (float _variable) {
     COL[2] = 0;
     COL[3] = 0;
   } else if (_variable < 100) {
-    v = ((_variable) * 2.55);
+    v = ((_variable) * 2.55f);
     COL[1] = 0;
     COL[2] = 0;
     COL[3] = v;
   } else if (_variable < 200) {
-    v = ((_variable - 100) * 2.55);
+    v = ((_variable - 100) * 2.55f);
     COL[1] = 0;
     COL[2] = v;
     COL[3] = 255;
   } else if (_variable < 300) {
-    v = ((_variable - 200) * 2.55);
+    v = ((_variable - 200) * 2.55f);
     COL[1] = 0;
     COL[2] = 255;
     COL[3] = (255 - v);
   } else if (_variable < 400) {
-    v = ((_variable - 300) * 2.55);
+    v = ((_variable - 300) * 2.55f);
     COL[1] = v;
     COL[2] = 255;
     COL[3] = 0;
   } else if (_variable < 500) {
-    v = ((_variable - 400) * 2.55);
+    v = ((_variable - 400) * 2.55f);
     COL[1] = 255;
     COL[2] = (255 - v);
     COL[3] = 0;
@@ -3714,8 +3732,8 @@ float[] SOLARCHVISION_DBGR (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_DWBGR (float _variable) {
-  _variable *= 600.0;
+public float[] SOLARCHVISION_DWBGR (float _variable) {
+  _variable *= 600.0f;
 
   float v;
   float[] COL = {
@@ -3726,32 +3744,32 @@ float[] SOLARCHVISION_DWBGR (float _variable) {
     COL[2] = 0;
     COL[3] = 0;
   } else if (_variable < 100) {
-    v = ((_variable) * 2.55);
+    v = ((_variable) * 2.55f);
     COL[1] = v;
     COL[2] = v;
     COL[3] = v;
   } else if (_variable < 200) {
-    v = ((_variable - 100) * 2.55);
+    v = ((_variable - 100) * 2.55f);
     COL[1] = (255 - v);
     COL[2] = (255 - v);
     COL[3] = 255;
   } else if (_variable < 300) {
-    v = ((_variable - 200) * 2.55);
+    v = ((_variable - 200) * 2.55f);
     COL[1] = 0;
     COL[2] = v;
     COL[3] = 255;
   } else if (_variable < 400) {
-    v = ((_variable - 300) * 2.55);
+    v = ((_variable - 300) * 2.55f);
     COL[1] = 0;
     COL[2] = 255;
     COL[3] = (255 - v);
   } else if (_variable < 500) {
-    v = ((_variable - 400) * 2.55);
+    v = ((_variable - 400) * 2.55f);
     COL[1] = v;
     COL[2] = 255;
     COL[3] = 0;
   } else if (_variable < 600) {
-    v = ((_variable - 500) * 2.55);
+    v = ((_variable - 500) * 2.55f);
     COL[1] = 255;
     COL[2] = (255 - v);
     COL[3] = 0;
@@ -3764,8 +3782,8 @@ float[] SOLARCHVISION_DWBGR (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_DWYR (float _variable) {
-  _variable *= 400.0;
+public float[] SOLARCHVISION_DWYR (float _variable) {
+  _variable *= 400.0f;
 
   float v;
   float[] COL = {
@@ -3776,23 +3794,23 @@ float[] SOLARCHVISION_DWYR (float _variable) {
     COL[2] = 0;
     COL[3] = 0;
   } else if (_variable < 100) {
-    v = ((_variable) * 2.55);
+    v = ((_variable) * 2.55f);
     COL[1] = v;
     COL[2] = v;
     COL[3] = v;
   } else if (_variable < 200) {
-    v = ((_variable - 100) * 2.55);
+    v = ((_variable - 100) * 2.55f);
     COL[1] = 255;
     COL[2] = 255;
     COL[3] = (255 - v);
   } else if (_variable < 300) {
-    v = ((_variable - 200) * 2.55);
+    v = ((_variable - 200) * 2.55f);
     COL[1] = 255;
     COL[2] = (255 - v);
     COL[3] = 0;
   } else if (_variable < 400) {
-    v = ((_variable - 300) * 2.55);
-    COL[1] = 255 - 0.5 * v;
+    v = ((_variable - 300) * 2.55f);
+    COL[1] = 255 - 0.5f * v;
     COL[2] = 0;
     COL[3] = 0;
   } else {
@@ -3804,8 +3822,8 @@ float[] SOLARCHVISION_DWYR (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_VDWBGR (float _variable) {
-  _variable *= 700.0;
+public float[] SOLARCHVISION_VDWBGR (float _variable) {
+  _variable *= 700.0f;
 
   float v;
   float[] COL = {
@@ -3816,37 +3834,37 @@ float[] SOLARCHVISION_VDWBGR (float _variable) {
     COL[2] = 0;
     COL[3] = 255;
   } else if (_variable < 100) {
-    v = ((_variable - 0) * 2.55);
+    v = ((_variable - 0) * 2.55f);
     COL[1] = (255 - v);
     COL[2] = 0;
     COL[3] = (255 - v);
   } else if (_variable < 200) {
-    v = ((_variable - 100) * 2.55);
+    v = ((_variable - 100) * 2.55f);
     COL[1] = v;
     COL[2] = v;
     COL[3] = v;
   } else if (_variable < 300) {
-    v = ((_variable - 200) * 2.55);
+    v = ((_variable - 200) * 2.55f);
     COL[1] = (255 - v);
     COL[2] = (255 - v);
     COL[3] = 255;
   } else if (_variable < 400) {
-    v = ((_variable - 300) * 2.55);
+    v = ((_variable - 300) * 2.55f);
     COL[1] = 0;
     COL[2] = v;
     COL[3] = 255;
   } else if (_variable < 500) {
-    v = ((_variable - 400) * 2.55);
+    v = ((_variable - 400) * 2.55f);
     COL[1] = 0;
     COL[2] = 255;
     COL[3] = (255 - v);
   } else if (_variable < 600) {
-    v = ((_variable - 500) * 2.55);
+    v = ((_variable - 500) * 2.55f);
     COL[1] = v;
     COL[2] = 255;
     COL[3] = 0;
   } else if (_variable < 700) {
-    v = ((_variable - 600) * 2.55);
+    v = ((_variable - 600) * 2.55f);
     COL[1] = 255;
     COL[2] = (255 - v);
     COL[3] = 0;
@@ -3859,14 +3877,14 @@ float[] SOLARCHVISION_VDWBGR (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_DRYWCBD (float _variable) {
-  _variable *= 1.5;
+public float[] SOLARCHVISION_DRYWCBD (float _variable) {
+  _variable *= 1.5f;
 
   float v;
   float[] COL = {
     255, 0, 0, 0
   };
-  if (_variable <= -2.75) {
+  if (_variable <= -2.75f) {
     COL[1] = 63;
     COL[2] = 0;
     COL[3] = 0;
@@ -3895,7 +3913,7 @@ float[] SOLARCHVISION_DRYWCBD (float _variable) {
     COL[1] = 0;
     COL[2] = 255 - v;
     COL[3] = 255;
-  } else if (_variable < 2.75) {
+  } else if (_variable < 2.75f) {
     v = ((_variable - 2) * 255);
     COL[1] = 0;
     COL[2] = 0;
@@ -3909,7 +3927,7 @@ float[] SOLARCHVISION_DRYWCBD (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_DBCW (float _variable) {
+public float[] SOLARCHVISION_DBCW (float _variable) {
   _variable = 1 - _variable;
   _variable *= -3;
 
@@ -3953,7 +3971,7 @@ float[] SOLARCHVISION_DBCW (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
+public float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
   float[] c = {
     255, 0, 0, 0
   };
@@ -3970,13 +3988,13 @@ float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
     c[2] = COL[2];
     c[3] = COL[3];
   } else if (COLOR_STYLE_Active == 18) {
-    float[] COL = SOLARCHVISION_DRYWCBD(2.0 * (j - 0.5));
+    float[] COL = SOLARCHVISION_DRYWCBD(2.0f * (j - 0.5f));
     c[0] = 255;
     c[1] = COL[3];
     c[2] = COL[2];
     c[3] = COL[1];
   } else if (COLOR_STYLE_Active == 17) {
-    float[] COL = SOLARCHVISION_DRYWCBD(2.0 * (j - 0.5));
+    float[] COL = SOLARCHVISION_DRYWCBD(2.0f * (j - 0.5f));
     c[0] = 255;
     c[1] = 255 - COL[3];
     c[2] = 255 - COL[2];
@@ -4014,9 +4032,9 @@ float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
   } else if (COLOR_STYLE_Active == 11) {
     float[] COL = SOLARCHVISION_BGR(j);
     c[0] = 127;
-    c[1] = 255 - 0.5 * COL[1];
-    c[2] = 255 - 0.5 * COL[2];
-    c[3] = 255 - 0.5 * COL[3];
+    c[1] = 255 - 0.5f * COL[1];
+    c[2] = 255 - 0.5f * COL[2];
+    c[3] = 255 - 0.5f * COL[3];
   } else if (COLOR_STYLE_Active == 10) {
     float[] COL = SOLARCHVISION_BGR(j);
     c[0] = 255;
@@ -4060,13 +4078,13 @@ float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
     c[2] = COL[2];
     c[3] = COL[3];
   } else if (COLOR_STYLE_Active == 2) {
-    float[] COL = SOLARCHVISION_DRYWCBD(2.0 * (j - 0.5));
+    float[] COL = SOLARCHVISION_DRYWCBD(2.0f * (j - 0.5f));
     c[0] = STUDY_O_scale;
     c[1] = COL[1];
     c[2] = COL[2];
     c[3] = COL[3];
   } else if (COLOR_STYLE_Active == 1) {
-    float[] COL = SOLARCHVISION_DRYWCBD(2.0 * (j - 0.5));
+    float[] COL = SOLARCHVISION_DRYWCBD(2.0f * (j - 0.5f));
     c[0] = 255;
     c[1] = COL[1];
     c[2] = COL[2];
@@ -4077,7 +4095,7 @@ float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
     c[2] = 0;
     c[3] = 0;
   } else if (COLOR_STYLE_Active == -1) {
-    float[] COL = SOLARCHVISION_DRYWCBD(2.0 * (j - 0.5));
+    float[] COL = SOLARCHVISION_DRYWCBD(2.0f * (j - 0.5f));
     c[0] = 255;
     c[1] = 255 - COL[3];
     c[2] = 255 - COL[2];
@@ -4087,7 +4105,7 @@ float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
   return c;
 }
 
-float[] SOLARCHVISION_DRYW (float _variable) {
+public float[] SOLARCHVISION_DRYW (float _variable) {
   _variable = 1 - _variable;
   _variable *= -3;
 
@@ -4123,7 +4141,7 @@ float[] SOLARCHVISION_DRYW (float _variable) {
   return COL;
 }
 
-float[] SOLARCHVISION_WYRD (float _variable) {
+public float[] SOLARCHVISION_WYRD (float _variable) {
   _variable *= -3;
 
   float v;
@@ -4158,42 +4176,42 @@ float[] SOLARCHVISION_WYRD (float _variable) {
   return COL;
 }
 
-float EquationOfTime (float DateAngle) {
+public float EquationOfTime (float DateAngle) {
   float b = DateAngle;
 
-  return 0.01  * (9.87 * sin_ang(2 * b) - 7.53 * cos_ang(b) - 1.5 * sin_ang(b));
+  return 0.01f  * (9.87f * sin_ang(2 * b) - 7.53f * cos_ang(b) - 1.5f * sin_ang(b));
 }
 
-float FLOAT_e = 2.7182818284;
+float FLOAT_e = 2.7182818284f;
 
-float[] SOLARCHVISION_SunPositionRadiation (float DateAngle, float HourAngleOrigin, float LocationLatitude, float SurfacePressure, float CloudCover) {
+public float[] SOLARCHVISION_SunPositionRadiation (float DateAngle, float HourAngleOrigin, float LocationLatitude, float SurfacePressure, float CloudCover) {
 // note the input variables are differnet from the other tools!
 
   float HourAngle = HourAngleOrigin + EquationOfTime(DateAngle);
 
-  float Declination = 23.45 * sin_ang(DateAngle - 180.0);
+  float Declination = 23.45f * sin_ang(DateAngle - 180.0f);
 
   float a = sin_ang(Declination);
-  float b = cos_ang(Declination) * -cos_ang(15.0 * HourAngleOrigin);
-  float c = cos_ang(Declination) *  sin_ang(15.0 * HourAngleOrigin);
+  float b = cos_ang(Declination) * -cos_ang(15.0f * HourAngleOrigin);
+  float c = cos_ang(Declination) *  sin_ang(15.0f * HourAngleOrigin);
 
   float x = c;
   float y = -(a * cos_ang(LocationLatitude) + b * sin_ang(LocationLatitude));
   float z = -a * sin_ang(LocationLatitude) + b * cos_ang(LocationLatitude);
 
-  float Io = 1367.0; // W/m²
-  Io = Io * (1.0 - (0.0334 * sin_ang(DateAngle)));
+  float Io = 1367.0f; // W/m²
+  Io = Io * (1.0f - (0.0334f * sin_ang(DateAngle)));
 
   float ALT_ = (asin_ang(z)) * PI / 180;
-  float ALT_true = ALT_ + 0.061359 * (0.1594 + 1.1230 * ALT_ + 0.065656 * ALT_ * ALT_) / (1 + 28.9344 * ALT_ + 277.3971 * ALT_ * ALT_);
+  float ALT_true = ALT_ + 0.061359f * (0.1594f + 1.1230f * ALT_ + 0.065656f * ALT_ * ALT_) / (1 + 28.9344f * ALT_ + 277.3971f * ALT_ * ALT_);
 
   //////////////////////////////////////////////
   float LocationElevation = 0; //<<<<<<<<<<<<<<<<<<<<<< should compute elevation from pressure!
   //////////////////////////////////////////////
 
-  float PPo = pow(FLOAT_e, (-LocationElevation / 8435.2));
+  float PPo = pow(FLOAT_e, (-LocationElevation / 8435.2f));
 
-  float Bb = ((sin_ang (ALT_true * 180 / PI)) + (0.50572 * pow((57.29578 * ALT_true + 6.07995), -1.6364)));
+  float Bb = ((sin_ang (ALT_true * 180 / PI)) + (0.50572f * pow((57.29578f * ALT_true + 6.07995f), -1.6364f)));
   float m = PPo / Bb;
 
   float StationTurbidity;
@@ -4201,18 +4219,18 @@ float[] SOLARCHVISION_SunPositionRadiation (float DateAngle, float HourAngleOrig
   //StationTurbidity = (2.0 - 0.2) * (0.01 * CloudCover) + 0.2;
   //StationTurbidity = (1.0 - 0.2) * (0.01 * CloudCover) + 0.2;
   //StationTurbidity = (2.0 - 0.4) * (0.01 * CloudCover) + 0.4;
-  StationTurbidity = (2.0 - 0.3) * (0.01 * CloudCover) + 0.3;
+  StationTurbidity = (2.0f - 0.3f) * (0.01f * CloudCover) + 0.3f;
 
   float AtmosphereRatio;
-  if (z < 0.01) AtmosphereRatio = 0.0;
+  if (z < 0.01f) AtmosphereRatio = 0.0f;
   else AtmosphereRatio = pow(FLOAT_e, (-m * StationTurbidity));
 
   float Idirect = Io * AtmosphereRatio; // Optical air mass: global Meteorological Database for Engineers, Planners and Education; Version 5.00 - Edition 2003
 
   float Idiffuse;
-  if (z < 0.01) Idiffuse = 0.0;
+  if (z < 0.01f) Idiffuse = 0.0f;
   //else Idiffuse = ((0.5 + 0.5 * (0.01 * CloudCover)) * z * (Io - Idirect)) / (1.0 - 1.4 * z * log(Idirect / Io));
-  else Idiffuse = (0.5 * z * (Io - Idirect)) / (1.0 - 1.4 * z * log(Idirect / Io));
+  else Idiffuse = (0.5f * z * (Io - Idirect)) / (1.0f - 1.4f * z * log(Idirect / Io));
 
   float[] return_array = {
     0, x, y, z, Idirect, Idiffuse
@@ -4220,16 +4238,16 @@ float[] SOLARCHVISION_SunPositionRadiation (float DateAngle, float HourAngleOrig
   return return_array;
 }
 
-float SolarAtSurface (float SunR1, float SunR2, float SunR3, float SunR4, float SunR5, float Alpha, float Beta, float THE_ALBEDO) {
+public float SolarAtSurface (float SunR1, float SunR2, float SunR3, float SunR4, float SunR5, float Alpha, float Beta, float THE_ALBEDO) {
   float return_value = 0;
 
   float[] VECT = {0, 0, 0};
 
-  if (abs(Alpha) > 89.99) {
+  if (abs(Alpha) > 89.99f) {
     VECT[0] = 0;
     VECT[1] = 0;
     VECT[2] = 1;
-  } else if (Alpha < -89.99) {
+  } else if (Alpha < -89.99f) {
     VECT[0] = 0;
     VECT[1] = 0;
     VECT[2] = -1;
@@ -4246,7 +4264,7 @@ float SolarAtSurface (float SunR1, float SunR2, float SunR3, float SunR4, float 
   float SunMask = fn_dot(fn_normalize(SunV), fn_normalize(VECT));
   if (SunMask <= 0) SunMask = 0; // removes backing faces
 
-  float SkyMask = (0.5 * (1.0 + (Alpha / 90.0)));
+  float SkyMask = (0.5f * (1.0f + (Alpha / 90.0f)));
 
   return_value = (SunR4 * SunMask) + (SunR5 * SkyMask);
 
@@ -4255,20 +4273,20 @@ float SolarAtSurface (float SunR1, float SunR2, float SunR3, float SunR4, float 
   float REF_SunMask = fn_dot(fn_normalize(REF_SunV), fn_normalize(VECT));
   if (REF_SunMask <= 0) REF_SunMask = 0; // removes backing faces
 
-  float REF_SkyMask = 1 - (0.5 * (1.0 + (Alpha / 90.0)));
+  float REF_SkyMask = 1 - (0.5f * (1.0f + (Alpha / 90.0f)));
 
   return_value += THE_ALBEDO * ((SunR4 * REF_SunMask) + (SunR5 * REF_SkyMask));
 
   return (return_value);
 }
 
-float[] fn_normalize (float[] a) {
+public float[] fn_normalize (float[] a) {
   float[] b = a;
   float d = 0;
   for (int i = 0; i < a.length; i++) {
     d += pow(a[i], 2);
   }
-  d = pow(d, 0.5);
+  d = pow(d, 0.5f);
 
   for (int i = 0; i < a.length; i++) {
     if (d != 0) b[i] = a[i]/d;
@@ -4280,7 +4298,7 @@ float[] fn_normalize (float[] a) {
   return b;
 }
 
-float fn_dot (float[] a, float b[]) {
+public float fn_dot (float[] a, float b[]) {
   float d = 0;
   for (int i = 0; i < min (a.length, b.length); i++) {
     d += a[i] * b[i];
@@ -4288,17 +4306,17 @@ float fn_dot (float[] a, float b[]) {
   return d;
 }
 
-int isInside (float x, float y, float x1, float y1, float x2, float y2) {
+public int isInside (float x, float y, float x1, float y1, float x2, float y2) {
   if ((x1 < x) && (x < x2) && (y1 < y) && (y < y2)) return 1;
   else return 0;
 }
 
-float dist_lon_lat (double lon1, double lat1, double lon2, double lat2) {
+public float dist_lon_lat (double lon1, double lat1, double lon2, double lat2) {
   float dLon = (float) (lon2 - lon1);
   float dLat = (float) (lat2 - lat1);
 
-  float a = sin_ang(dLon / 2.0);
-  float b = sin_ang(dLat / 2.0) * sin_ang(dLat / 2.0) + cos_ang((float) lat1) * cos_ang((float) lat2) * a * a;
+  float a = sin_ang(dLon / 2.0f);
+  float b = sin_ang(dLat / 2.0f) * sin_ang(dLat / 2.0f) + cos_ang((float) lat1) * cos_ang((float) lat2) * a * a;
   float d = 2 * atan2(sqrt(b), sqrt(1 - b)) * FLOAT_r_Earth_km;
 
   return(d);
@@ -4308,7 +4326,7 @@ int LOCATIONS_NUMBER = 0;
 
 String[][] LOCATIONS_INFO;
 
-void LOAD_LOCATIONS () {
+public void LOAD_LOCATIONS () {
   int n_Locations = 0;
 
   String[] FileALL = loadStrings(CITIES_Coordinates);
@@ -4350,7 +4368,7 @@ float SHOP_max_lat = -90;
 
 float SHOP_num_points = 0;
 
-void LOAD_SHOP_POSITIONS () {
+public void LOAD_SHOP_POSITIONS () {
   String[] fileStrings = loadStrings(SHOP_Coordinates); // loading the data as String array
 
   gridPositions = new float[fileStrings.length][2];
@@ -4360,8 +4378,8 @@ void LOAD_SHOP_POSITIONS () {
   for (int i = 0; i < fileStrings.length; i++) {
     String[] parts = split(fileStrings[i], ',');
 
-    float lon = float(parts[2]);
-    float lat = float(parts[1]);
+    float lon = PApplet.parseFloat(parts[2]);
+    float lat = PApplet.parseFloat(parts[1]);
 
     gridPositions[n][0] = lon;
     gridPositions[n][1] = lat;
@@ -4393,7 +4411,7 @@ void LOAD_SHOP_POSITIONS () {
 
 }
 
-void DOWNLOAD_DATA_SWOB () {
+public void DOWNLOAD_DATA_SWOB () {
   LOAD_SWOB_POSITIONS();
 
   { // downloads required SWOB files if they are not in the directory and then load the values into memory.
@@ -4466,7 +4484,7 @@ void DOWNLOAD_DATA_SWOB () {
   }
 }
 
-String [] DOWNLOAD_DATA_GRID (int progressID) {
+public String [] DOWNLOAD_DATA_GRID (int progressID) {
   String[] progressList = new String[0];
 
   int itemNumber = -1;
@@ -4497,7 +4515,7 @@ String [] DOWNLOAD_DATA_GRID (int progressID) {
                 String[] fileStrings = loadStrings(getGrib2Link());
                 for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
                   for (int i = 0; i < fileStrings.length; i++) {
-                    allDataValues[timeID][layerID][levelID][memberID][i] = float(fileStrings[i]);
+                    allDataValues[timeID][layerID][levelID][memberID][i] = PApplet.parseFloat(fileStrings[i]);
                   }
 
                   allDataTitles[timeID][layerID][levelID][memberID] = DATA_Filename;
@@ -4581,7 +4599,7 @@ String [] DOWNLOAD_DATA_GRID (int progressID) {
                     (DATA_allLayers[layerID] == LAYER_soiltemperature)) {
                   for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
                     for (int q = 0; q < gridNx * gridNy; q++) {
-                      allDataValues[timeID][layerID][levelID][memberID][q] -= 273.15; // °K > °C
+                      allDataValues[timeID][layerID][levelID][memberID][q] -= 273.15f; // °K > °C
                     }
                   }
                   allParameterNamesAndUnits[layerID][levelID] = allParameterNamesAndUnits[layerID][levelID].replace("(K)", "(C)");
@@ -4596,7 +4614,7 @@ String [] DOWNLOAD_DATA_GRID (int progressID) {
                     for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
                       for (int q = 0; q < gridNx * gridNy; q++) {
                         if (is_undefined_FLOAT(allDataValues[timeID][layerID][levelID][memberID][q]) == false) {
-                          allDataValues[timeID][layerID][levelID][memberID][q] *= 0.001 / 3.6; // J > W
+                          allDataValues[timeID][layerID][levelID][memberID][q] *= 0.001f / 3.6f; // J > W
                         }
                       }
                     }
@@ -4610,7 +4628,7 @@ String [] DOWNLOAD_DATA_GRID (int progressID) {
                     for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
                       for (int q = 0; q < gridNx * gridNy; q++) {
                         if (is_undefined_FLOAT(allDataValues[timeID][layerID][levelID][memberID][q]) == false) {
-                          allDataValues[timeID][layerID][levelID][memberID][q] *= 9.80665; // gpm > m
+                          allDataValues[timeID][layerID][levelID][memberID][q] *= 9.80665f; // gpm > m
                         }
                       }
                     }
@@ -4628,7 +4646,7 @@ String [] DOWNLOAD_DATA_GRID (int progressID) {
   return progressList;
 }
 
-void POST_PROCESS_RATES_FROM_ACCUMULATIONS () {
+public void POST_PROCESS_RATES_FROM_ACCUMULATIONS () {
   for (int timeID = DATA_numTimes - 1; timeID >= 0; timeID -= 1) {
     for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
       for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
@@ -4655,7 +4673,7 @@ void POST_PROCESS_RATES_FROM_ACCUMULATIONS () {
 
                 for (int q = 0; q < gridNx * gridNy; q++) {
                   if (is_undefined_FLOAT(allDataValues[timeID][layerID][levelID][memberID][q]) == false) {
-                    allDataValues[timeID][layerID][levelID][memberID][q] /= float(DATA_ModelStep); // converting to hourly rate
+                    allDataValues[timeID][layerID][levelID][memberID][q] /= PApplet.parseFloat(DATA_ModelStep); // converting to hourly rate
                   }
                 }
 
@@ -4675,7 +4693,7 @@ void POST_PROCESS_RATES_FROM_ACCUMULATIONS () {
   }
 }
 
-void FILL_INFO_FOR_POST_PROCESSED_LAYERS () {
+public void FILL_INFO_FOR_POST_PROCESSED_LAYERS () {
   for (int timeID = 0; timeID < DATA_numTimes; timeID += 1) {
     for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
       for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
@@ -4695,7 +4713,7 @@ void FILL_INFO_FOR_POST_PROCESSED_LAYERS () {
   }
 }
 
-String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
+public String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
   String[] progressList = new String[0];
 
   int itemNumber = -1;
@@ -4782,10 +4800,10 @@ String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
                   float WIND_U = allDataValues[timeID][WindU_layerID][levelID][memberID][iy * gridNx + ix];
                   float WIND_V = allDataValues[timeID][WindV_layerID][levelID][memberID][iy * gridNx + ix];
 
-                  float WIND_SPEED = pow(WIND_U * WIND_U + WIND_V * WIND_V, 0.5);
+                  float WIND_SPEED = pow(WIND_U * WIND_U + WIND_V * WIND_V, 0.5f);
 
                   if (WindPower_layerID != -1) {
-                    allDataValues[timeID][WindPower_layerID][levelID][memberID][q] = 0.5 * 1.23 * 1 * pow(WIND_SPEED, 3);
+                    allDataValues[timeID][WindPower_layerID][levelID][memberID][q] = 0.5f * 1.23f * 1 * pow(WIND_SPEED, 3);
                     if (q == 0) {
                       allDataTitles[timeID][WindPower_layerID][levelID][memberID] = FileStamp(timeID, WindPower_layerID, levelID, memberID); // <<<< should add title here!
                       allParameterNamesAndUnits[WindPower_layerID][levelID] = "Wind Power (W m-2)";
@@ -4850,9 +4868,9 @@ String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
                 int NOW_DAY = DATA_ModelDay;
 
                 //int ElapsedTime = timeID * DATA_ModelStep + DATA_ModelBegin + DATA_ModelRun;
-                float ElapsedTime = (timeID + 0.5) * DATA_ModelStep + DATA_ModelBegin + DATA_ModelRun;
+                float ElapsedTime = (timeID + 0.5f) * DATA_ModelStep + DATA_ModelBegin + DATA_ModelRun;
 
-                if (int(roundTo((ElapsedTime / 24), 1)) > 0) {
+                if (PApplet.parseInt(roundTo((ElapsedTime / 24), 1)) > 0) {
                   NOW_DAY += ElapsedTime / 24;
 
                   if (NOW_DAY > CalendarLength[NOW_MONTH - 1]) {
@@ -4863,7 +4881,7 @@ String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
                 }
                 // above we assumed long-term forecast is not available more than two months.
 
-                float DATE_ANGLE = (360 * ((286 + Convert2Date(NOW_MONTH, NOW_DAY)) % 365) / 365.0);
+                float DATE_ANGLE = (360 * ((286 + Convert2Date(NOW_MONTH, NOW_DAY)) % 365) / 365.0f);
 
                 for (int q = 0; q < gridNx * gridNy; q++) {
                   int ix = q % gridNx;
@@ -4918,7 +4936,7 @@ String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
                   }
                   else {
                     float SURFACE_ALBEDO = 0;
-                    if (SurfaceAlbedo_layerID != -1) SURFACE_ALBEDO = 0.01 * allDataValues[timeID][SurfaceAlbedo_layerID][levelID][memberID][iy * gridNx + ix];
+                    if (SurfaceAlbedo_layerID != -1) SURFACE_ALBEDO = 0.01f * allDataValues[timeID][SurfaceAlbedo_layerID][levelID][memberID][iy * gridNx + ix];
 
                     float SURFACE_PRESSURE = 101325;
                     if (SurfacePressure_layerID != -1) SURFACE_PRESSURE = allDataValues[timeID][SurfacePressure_layerID][levelID][memberID][iy * gridNx + ix];
@@ -5052,7 +5070,7 @@ int Y_click2 = -1;
 
 int dragging_started = 0;
 
-void mouseDragged () {
+public void mouseDragged () {
   if (automated == USER_INT) {
     if (dragging_started == 0) {
       int x = get_GRID_PastMouse_X();
@@ -5072,7 +5090,7 @@ void mouseDragged () {
   }
 }
 
-void mouseReleased () {
+public void mouseReleased () {
   if (automated == USER_INT) {
     int x = get_GRID_Mouse_X();
     int y = get_GRID_Mouse_Y();
@@ -5101,7 +5119,7 @@ float Wheel_Value = 0;
 
 int mouseWheelConsume = 0;
 
-void mouseWheel (MouseEvent event) {
+public void mouseWheel (MouseEvent event) {
   if (automated == USER_INT) {
     mouseWheelConsume += 1;
     if (mouseWheelConsume % 2 == 0) {
@@ -5112,8 +5130,8 @@ void mouseWheel (MouseEvent event) {
       if (isInside (get_GRID_Mouse_X(), get_GRID_Mouse_Y(), 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
         float refZoom = 1;
 
-        if (Wheel_Value > 0) refZoom = 1.1;
-        if (Wheel_Value < 0) refZoom = 1 / 1.1;
+        if (Wheel_Value > 0) refZoom = 1.1f;
+        if (Wheel_Value < 0) refZoom = 1 / 1.1f;
 
         if (refZoom != 1) {
           float x0 = get_GRID_Mouse_X() - DATA_Viewport_Width / 2;
@@ -5143,23 +5161,23 @@ void mouseWheel (MouseEvent event) {
   }
 }
 
-int get_GRID_Mouse_X () {
+public int get_GRID_Mouse_X () {
   return mouseX - DATA_Viewport_CornerX;
 }
 
-int get_GRID_Mouse_Y () {
+public int get_GRID_Mouse_Y () {
   return mouseY - DATA_Viewport_CornerY;
 }
 
-int get_GRID_PastMouse_X () {
+public int get_GRID_PastMouse_X () {
   return pmouseX - DATA_Viewport_CornerX;
 }
 
-int get_GRID_PastMouse_Y () {
+public int get_GRID_PastMouse_Y () {
   return pmouseY - DATA_Viewport_CornerY;
 }
 
-void keyPressed (KeyEvent e) {
+public void keyPressed (KeyEvent e) {
   if (automated == USER_INT) {
     if (e.isAltDown() == true) {
       if (key == CODED) {
@@ -5252,7 +5270,7 @@ void keyPressed (KeyEvent e) {
   }
 }
 
-String getOutputFolder (int timeID, int layerID, int levelID, int memberID) {
+public String getOutputFolder (int timeID, int layerID, int levelID, int memberID) {
   String s = OutputFolder;
 
   s += nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01] + nf(DATA_ModelRun, 2) + "Z";
@@ -5260,7 +5278,7 @@ String getOutputFolder (int timeID, int layerID, int levelID, int memberID) {
   return s;
 }
 
-void recordFrame (int timeID, int layerID, int levelID, int memberID) {
+public void recordFrame (int timeID, int layerID, int levelID, int memberID) {
   String s = getOutputFolder(Current_timeID, Current_layerID, Current_levelID, Current_memberID) + "/" + FileStamp(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
 
        if (automated == AUTO_BMP) s += ".bmp";
@@ -5273,14 +5291,14 @@ void recordFrame (int timeID, int layerID, int levelID, int memberID) {
   saveFrame(s);
 }
 
-String FileStamp (int timeID, int layerID, int levelID, int memberID) {
+public String FileStamp (int timeID, int layerID, int levelID, int memberID) {
   String b = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00] + nf(DATA_ModelRun, 2) + "Z" + "_" + DATA_ParameterLevel[DATA_allLayers[layerID]][DATA_allLevels[levelID]];
 
   if (automated != AUTO_GIF) {
     b += "_Fhr" + nf(timeID * DATA_ModelStep + DATA_ModelBegin, 3);
   }
 
-  if (int(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY09]) > 1) {
+  if (PApplet.parseInt(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY09]) > 1) {
     b += "_Mbr" + nf(Current_memberID, 2);
   }
   return b;
@@ -5291,7 +5309,7 @@ String[][] COUNTRIES_INFO;
 int COUNTRIES_NUMBER = 0;
 int SEGMENTS_NUMBER = 0;
 
-void LOAD_COUNTRIES () {
+public void LOAD_COUNTRIES () {
   int MAX_COUNTRIES_NUMBER = 1100;
   int MAX_SEGMENTS_NUMBER = 26000;
   COUNTRIES_INFO = new String[MAX_COUNTRIES_NUMBER][4];
@@ -5324,8 +5342,8 @@ void LOAD_COUNTRIES () {
       if (n_Segments < MAX_SEGMENTS_NUMBER) {
         n_Segments += 1;
 
-        COUNTRIES_SEGMENTS[n_Segments][0] = float(parts[0]); // Longitude
-        COUNTRIES_SEGMENTS[n_Segments][1] = float(parts[1]); // Latitude
+        COUNTRIES_SEGMENTS[n_Segments][0] = PApplet.parseFloat(parts[0]); // Longitude
+        COUNTRIES_SEGMENTS[n_Segments][1] = PApplet.parseFloat(parts[1]); // Latitude
 
         if (get_first_point == 1){
           pre_X = COUNTRIES_SEGMENTS[n_Segments][0];
@@ -5359,7 +5377,7 @@ void LOAD_COUNTRIES () {
   println("SEGMENTS_NUMBER =", SEGMENTS_NUMBER);
 }
 
-void LOAD_EARTH_IMAGES () {
+public void LOAD_EARTH_IMAGES () {
   int n = EARTH_IMAGES_Filenames.length;
 
   EARTH_IMAGES = new PImage [n];
@@ -5372,10 +5390,10 @@ void LOAD_EARTH_IMAGES () {
 
     String[] Parts = split(EARTH_IMAGES_Filenames[i], '_');
 
-    EARTH_IMAGES_BoundariesX[i][0] = -float(Parts[1]) * 0.001;
-    EARTH_IMAGES_BoundariesY[i][0] =  float(Parts[2]) * 0.001;
-    EARTH_IMAGES_BoundariesX[i][1] = -float(Parts[3]) * 0.001;
-    EARTH_IMAGES_BoundariesY[i][1] =  float(Parts[4]) * 0.001;
+    EARTH_IMAGES_BoundariesX[i][0] = -PApplet.parseFloat(Parts[1]) * 0.001f;
+    EARTH_IMAGES_BoundariesY[i][0] =  PApplet.parseFloat(Parts[2]) * 0.001f;
+    EARTH_IMAGES_BoundariesX[i][1] = -PApplet.parseFloat(Parts[3]) * 0.001f;
+    EARTH_IMAGES_BoundariesY[i][1] =  PApplet.parseFloat(Parts[4]) * 0.001f;
 
     println("Loading:", MapFilename);
 
@@ -5388,7 +5406,7 @@ PImage EARTH_Background_Image;
 
 boolean EARTH_Background_Update = true;
 
-void SOLARCHVISION_draw_EARTH () {
+public void SOLARCHVISION_draw_EARTH () {
   if (EARTH_Background_Update == true) {
     EARTH_Background_Image = create_EARTH_Background();
 
@@ -5401,8 +5419,8 @@ void SOLARCHVISION_draw_EARTH () {
 
 int BACKGROUND_TILE_PIXELS = 5; // in pixel
 
-PImage create_EARTH_Background() {
-  PGraphics graphic = createGraphics(int(DATA_Viewport_Width), int(DATA_Viewport_Height), P2D);
+public PImage create_EARTH_Background() {
+  PGraphics graphic = createGraphics(PApplet.parseInt(DATA_Viewport_Width), PApplet.parseInt(DATA_Viewport_Height), P2D);
 
   graphic.beginDraw();
 
@@ -5411,11 +5429,11 @@ PImage create_EARTH_Background() {
   float EARTH_IMAGES_OffsetX = EARTH_IMAGES_BoundariesX[n][0] + 180;
   float EARTH_IMAGES_OffsetY = EARTH_IMAGES_BoundariesY[n][1] - 90;
 
-  float EARTH_IMAGES_ScaleX = (EARTH_IMAGES_BoundariesX[n][1] - EARTH_IMAGES_BoundariesX[n][0]) / 360.0;
-  float EARTH_IMAGES_ScaleY = (EARTH_IMAGES_BoundariesY[n][1] - EARTH_IMAGES_BoundariesY[n][0]) / 180.0;
+  float EARTH_IMAGES_ScaleX = (EARTH_IMAGES_BoundariesX[n][1] - EARTH_IMAGES_BoundariesX[n][0]) / 360.0f;
+  float EARTH_IMAGES_ScaleY = (EARTH_IMAGES_BoundariesY[n][1] - EARTH_IMAGES_BoundariesY[n][0]) / 180.0f;
 
-  float CEN_lon = 0.5 * (EARTH_IMAGES_BoundariesX[n][0] + EARTH_IMAGES_BoundariesX[n][1]);
-  float CEN_lat = 0.5 * (EARTH_IMAGES_BoundariesY[n][0] + EARTH_IMAGES_BoundariesY[n][1]);
+  float CEN_lon = 0.5f * (EARTH_IMAGES_BoundariesX[n][0] + EARTH_IMAGES_BoundariesX[n][1]);
+  float CEN_lat = 0.5f * (EARTH_IMAGES_BoundariesY[n][0] + EARTH_IMAGES_BoundariesY[n][1]);
 
   int stp_i = BACKGROUND_TILE_PIXELS;
   int stp_j = stp_i;
@@ -5427,8 +5445,8 @@ PImage create_EARTH_Background() {
       float[][] UV = {{0, 0}, {0, 0}, {0, 0}, {0, 0}};
 
       for (int k = 0; k < 4; k++)  {
-        float x = (corners[k][0] - 0.5 * DATA_Viewport_Width - DATA_Viewport_CenX) / DATA_Viewport_Zoom + 0.5 * DATA_Viewport_Width;
-        float y = (corners[k][1] - 0.5 * DATA_Viewport_Height - DATA_Viewport_CenY) / DATA_Viewport_Zoom + 0.5 * DATA_Viewport_Height;
+        float x = (corners[k][0] - 0.5f * DATA_Viewport_Width - DATA_Viewport_CenX) / DATA_Viewport_Zoom + 0.5f * DATA_Viewport_Width;
+        float y = (corners[k][1] - 0.5f * DATA_Viewport_Height - DATA_Viewport_CenY) / DATA_Viewport_Zoom + 0.5f * DATA_Viewport_Height;
 
         float ix = gridNx * x / (float) DATA_Viewport_Width;
         float iy = (gridNy - 1) - gridNy * y / (float) DATA_Viewport_Height;
@@ -5437,8 +5455,8 @@ PImage create_EARTH_Background() {
         float lon = P[0];
         float lat = P[1];
 
-        float u = ((lon - CEN_lon) / EARTH_IMAGES_ScaleX / 360.0 + 0.5);
-        float v = (-(lat - CEN_lat) / EARTH_IMAGES_ScaleY / 180.0 + 0.5);
+        float u = ((lon - CEN_lon) / EARTH_IMAGES_ScaleX / 360.0f + 0.5f);
+        float v = (-(lat - CEN_lat) / EARTH_IMAGES_ScaleY / 180.0f + 0.5f);
 
         // for the moment I remarked this condition to make GDPS world background texture to be drawn completely.
         //if ((u > 1) || (u < 0) || (v > 1) || (v < 0)) draw_it = false;
@@ -5530,7 +5548,7 @@ String[][] UI_BAR_d_Items = {
   }
 };
 
-void SOLARCHVISION_draw_window_BAR_d () {
+public void SOLARCHVISION_draw_window_BAR_d () {
   ///// requires in case hot-keys pressed /////
   ////////////////////////////////////////////
   STUDY_timeBegin = Current_timeID;
@@ -5551,7 +5569,7 @@ void SOLARCHVISION_draw_window_BAR_d () {
   if (UI_BAR_d_Update == true) {
     UI_BAR_d_Update = false;
 
-    UI_BAR_d_tab = SOLARCHVISION_D_Pixel / float(UI_BAR_d_Items.length);
+    UI_BAR_d_tab = SOLARCHVISION_D_Pixel / PApplet.parseFloat(UI_BAR_d_Items.length);
 
     fill(191);
     noStroke();
@@ -5560,14 +5578,14 @@ void SOLARCHVISION_draw_window_BAR_d () {
     float displayBarHeight = MessageSize;
     float displayBarWidth = SOLARCHVISION_W_Pixel;
 
-    STUDY_X_control = 0.5 * displayBarWidth;
-    STUDY_Y_control = SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + 0.5 * UI_BAR_d_tab;
+    STUDY_X_control = 0.5f * displayBarWidth;
+    STUDY_Y_control = SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + 0.5f * UI_BAR_d_tab;
 
     for (int i = 0; i < UI_BAR_d_Items.length; i++) {
-      float x1 = STUDY_X_control - 0.5 * displayBarWidth;
-      float x2 = STUDY_X_control + 0.5 * displayBarWidth;
-      float y1 = STUDY_Y_control - 0.5 * displayBarHeight;
-      float y2 = STUDY_Y_control + 0.5 * displayBarHeight;
+      float x1 = STUDY_X_control - 0.5f * displayBarWidth;
+      float x2 = STUDY_X_control + 0.5f * displayBarWidth;
+      float y1 = STUDY_Y_control - 0.5f * displayBarHeight;
+      float y2 = STUDY_Y_control + 0.5f * displayBarHeight;
 
       fill(127);
       noStroke();
@@ -5576,20 +5594,20 @@ void SOLARCHVISION_draw_window_BAR_d () {
       textAlign(RIGHT, CENTER);
       stroke(0);
       fill(0);
-      textSize(1.25 * MessageSize);
+      textSize(1.25f * MessageSize);
 
-      text(UI_BAR_d_Items[i][0] + ": ", x1, STUDY_Y_control - 0.2 * MessageSize);
+      text(UI_BAR_d_Items[i][0] + ": ", x1, STUDY_Y_control - 0.2f * MessageSize);
 
       if (UI_BAR_d_Items[i][0].equals("ForecastHour")) {
         if (isInside(SOLARCHVISION_X_clicked, SOLARCHVISION_Y_clicked, x1, y1, x2, y2) == 1) {
           if (mouseButton == LEFT) {
-            STUDY_timeBegin = int(roundTo(DATA_numTimes * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_timeBegin = PApplet.parseInt(roundTo(DATA_numTimes * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
 
           if (mouseButton == RIGHT) {
-            STUDY_timeEnd = int(roundTo(DATA_numTimes * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_timeEnd = PApplet.parseInt(roundTo(DATA_numTimes * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
@@ -5618,8 +5636,8 @@ void SOLARCHVISION_draw_window_BAR_d () {
           Current_timeID = STUDY_timeBegin;
         }
 
-        float x_begin = x1 + (x2 - x1) * (STUDY_timeBegin) / float(DATA_numTimes);
-        float x_end = x1 + (x2 - x1) * (STUDY_timeEnd + 1) / float(DATA_numTimes);
+        float x_begin = x1 + (x2 - x1) * (STUDY_timeBegin) / PApplet.parseFloat(DATA_numTimes);
+        float x_end = x1 + (x2 - x1) * (STUDY_timeEnd + 1) / PApplet.parseFloat(DATA_numTimes);
 
         fill(0, 191, 0, 191);
         noStroke();
@@ -5635,24 +5653,24 @@ void SOLARCHVISION_draw_window_BAR_d () {
         textAlign(CENTER, CENTER);
         stroke(0);
         fill(0);
-        textSize(1.25 * MessageSize);
+        textSize(1.25f * MessageSize);
 
         for (int j = 0; j < DATA_numTimes; j += 1) {
           String txt = nf(j * DATA_ModelStep + DATA_ModelBegin, 0) + ":00";
-          text(txt, x1 + (x2 - x1) * (j + 0.5) / float(DATA_numTimes), STUDY_Y_control - 0.2 * MessageSize);
+          text(txt, x1 + (x2 - x1) * (j + 0.5f) / PApplet.parseFloat(DATA_numTimes), STUDY_Y_control - 0.2f * MessageSize);
         }
       }
 
       if (UI_BAR_d_Items[i][0].equals("ForecastMember")) {
         if (isInside(SOLARCHVISION_X_clicked, SOLARCHVISION_Y_clicked, x1, y1, x2, y2) == 1) {
           if (mouseButton == LEFT) {
-            STUDY_memberBegin = int(roundTo(DATA_numMembers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_memberBegin = PApplet.parseInt(roundTo(DATA_numMembers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
 
           if (mouseButton == RIGHT) {
-            STUDY_memberEnd = int(roundTo(DATA_numMembers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_memberEnd = PApplet.parseInt(roundTo(DATA_numMembers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
@@ -5681,8 +5699,8 @@ void SOLARCHVISION_draw_window_BAR_d () {
           Current_memberID = STUDY_memberBegin;
         }
 
-        float x_begin = x1 + (x2 - x1) * (STUDY_memberBegin) / float(DATA_numMembers);
-        float x_end = x1 + (x2 - x1) * (STUDY_memberEnd + 1) / float(DATA_numMembers);
+        float x_begin = x1 + (x2 - x1) * (STUDY_memberBegin) / PApplet.parseFloat(DATA_numMembers);
+        float x_end = x1 + (x2 - x1) * (STUDY_memberEnd + 1) / PApplet.parseFloat(DATA_numMembers);
 
         fill(0, 191, 0, 191);
         noStroke();
@@ -5698,24 +5716,24 @@ void SOLARCHVISION_draw_window_BAR_d () {
         textAlign(CENTER, CENTER);
         stroke(0);
         fill(0);
-        textSize(1.25 * MessageSize);
+        textSize(1.25f * MessageSize);
 
         for (int j = 0; j < DATA_numMembers; j += 1) {
           String txt = nf(j, 0);
-          text(txt, x1 + (x2 - x1) * (j + 0.5) / float(DATA_numMembers), STUDY_Y_control - 0.2 * MessageSize);
+          text(txt, x1 + (x2 - x1) * (j + 0.5f) / PApplet.parseFloat(DATA_numMembers), STUDY_Y_control - 0.2f * MessageSize);
         }
       }
 
       if (UI_BAR_d_Items[i][0].equals("ForecastLevel")) {
         if (isInside(SOLARCHVISION_X_clicked, SOLARCHVISION_Y_clicked, x1, y1, x2, y2) == 1) {
           if (mouseButton == LEFT) {
-            STUDY_levelBegin = int(roundTo(DATA_numLevels * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_levelBegin = PApplet.parseInt(roundTo(DATA_numLevels * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
 
           if (mouseButton == RIGHT) {
-            STUDY_levelEnd = int(roundTo(DATA_numLevels * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_levelEnd = PApplet.parseInt(roundTo(DATA_numLevels * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
@@ -5745,8 +5763,8 @@ void SOLARCHVISION_draw_window_BAR_d () {
 
         }
 
-        float x_begin = x1 + (x2 - x1) * (STUDY_levelBegin) / float(DATA_numLevels);
-        float x_end = x1 + (x2 - x1) * (STUDY_levelEnd + 1) / float(DATA_numLevels);
+        float x_begin = x1 + (x2 - x1) * (STUDY_levelBegin) / PApplet.parseFloat(DATA_numLevels);
+        float x_end = x1 + (x2 - x1) * (STUDY_levelEnd + 1) / PApplet.parseFloat(DATA_numLevels);
 
         fill(0, 191, 0, 191);
         noStroke();
@@ -5762,24 +5780,24 @@ void SOLARCHVISION_draw_window_BAR_d () {
         textAlign(CENTER, CENTER);
         stroke(0);
         fill(0);
-        textSize(1.25 * MessageSize);
+        textSize(1.25f * MessageSize);
 
         for (int j = 0; j < DATA_numLevels; j += 1) {
           String txt = "Level " + nf(j, 0);
-          text(txt, x1 + (x2 - x1) * (j + 0.5) / float(DATA_numLevels), STUDY_Y_control - 0.2 * MessageSize);
+          text(txt, x1 + (x2 - x1) * (j + 0.5f) / PApplet.parseFloat(DATA_numLevels), STUDY_Y_control - 0.2f * MessageSize);
         }
       }
 
       if (UI_BAR_d_Items[i][0].equals("ForecastLayer")) {
         if (isInside(SOLARCHVISION_X_clicked, SOLARCHVISION_Y_clicked, x1, y1, x2, y2) == 1) {
           if (mouseButton == LEFT) {
-            STUDY_layerBegin = int(roundTo(DATA_numLayers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_layerBegin = PApplet.parseInt(roundTo(DATA_numLayers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
 
           if (mouseButton == RIGHT) {
-            STUDY_layerEnd = int(roundTo(DATA_numLayers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_layerEnd = PApplet.parseInt(roundTo(DATA_numLayers * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
@@ -5809,8 +5827,8 @@ void SOLARCHVISION_draw_window_BAR_d () {
           STUDY_layerEnd = STUDY_layerBegin; // <<<<<<<<<<<<<<<<<< force it to only use one!
         }
 
-        float x_begin = x1 + (x2 - x1) * (STUDY_layerBegin) / float(DATA_numLayers);
-        float x_end = x1 + (x2 - x1) * (STUDY_layerEnd + 1) / float(DATA_numLayers);
+        float x_begin = x1 + (x2 - x1) * (STUDY_layerBegin) / PApplet.parseFloat(DATA_numLayers);
+        float x_end = x1 + (x2 - x1) * (STUDY_layerEnd + 1) / PApplet.parseFloat(DATA_numLayers);
 
         fill(0, 191, 0, 191);
         noStroke();
@@ -5826,24 +5844,24 @@ void SOLARCHVISION_draw_window_BAR_d () {
         textAlign(CENTER, CENTER);
         stroke(0);
         fill(0);
-        textSize(1.25 * MessageSize);
+        textSize(1.25f * MessageSize);
 
         for (int j = 0; j < DATA_numLayers; j += 1) {
           String txt = DATA_ParameterLevel[DATA_allLayers[j]][DATA_allLevels[Current_levelID]];
-          text(txt, x1 + (x2 - x1) * (j + 0.5) / float(DATA_numLayers), STUDY_Y_control - 0.2 * MessageSize);
+          text(txt, x1 + (x2 - x1) * (j + 0.5f) / PApplet.parseFloat(DATA_numLayers), STUDY_Y_control - 0.2f * MessageSize);
         }
       }
 
       if (UI_BAR_d_Items[i][0].equals("ForecastStatistic")) {
         if (isInside(SOLARCHVISION_X_clicked, SOLARCHVISION_Y_clicked, x1, y1, x2, y2) == 1) {
           if (mouseButton == LEFT) {
-            STUDY_statisticBegin = int(roundTo(DATA_allStatistics.length * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_statisticBegin = PApplet.parseInt(roundTo(DATA_allStatistics.length * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
 
           if (mouseButton == RIGHT) {
-            STUDY_statisticEnd = int(roundTo(DATA_allStatistics.length * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5, 1));
+            STUDY_statisticEnd = PApplet.parseInt(roundTo(DATA_allStatistics.length * (SOLARCHVISION_X_clicked - x1) / (x2 - x1) - 0.5f, 1));
 
             DATA_Viewport_Update = true;
           }
@@ -5874,8 +5892,8 @@ void SOLARCHVISION_draw_window_BAR_d () {
 
         }
 
-        float x_begin = x1 + (x2 - x1) * (STUDY_statisticBegin) / float(DATA_allStatistics.length);
-        float x_end = x1 + (x2 - x1) * (STUDY_statisticEnd + 1) / float(DATA_allStatistics.length);
+        float x_begin = x1 + (x2 - x1) * (STUDY_statisticBegin) / PApplet.parseFloat(DATA_allStatistics.length);
+        float x_end = x1 + (x2 - x1) * (STUDY_statisticEnd + 1) / PApplet.parseFloat(DATA_allStatistics.length);
 
         fill(0, 191, 0, 191);
         noStroke();
@@ -5891,11 +5909,11 @@ void SOLARCHVISION_draw_window_BAR_d () {
         textAlign(CENTER, CENTER);
         stroke(0);
         fill(0);
-        textSize(1.25 * MessageSize);
+        textSize(1.25f * MessageSize);
 
         for (int j = 0; j < DATA_allStatistics.length; j += 1) {
           String txt = STAT_N_Title[DATA_allStatistics[j]];
-          text(txt, x1 + (x2 - x1) * (j + 0.5) / float(DATA_allStatistics.length), STUDY_Y_control - 0.2 * MessageSize);
+          text(txt, x1 + (x2 - x1) * (j + 0.5f) / PApplet.parseFloat(DATA_allStatistics.length), STUDY_Y_control - 0.2f * MessageSize);
         }
       }
 
@@ -5907,7 +5925,7 @@ void SOLARCHVISION_draw_window_BAR_d () {
   }
 }
 
-float[] SOLARCHVISION_NORMAL (float[] _values) {
+public float[] SOLARCHVISION_NORMAL (float[] _values) {
   float[] weight_array = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
   };
@@ -5930,7 +5948,7 @@ float[] SOLARCHVISION_NORMAL (float[] _values) {
         weight_array[STAT_N_Ave] += _weight;
         return_array[STAT_N_Ave] += _values[i];
 
-        _weight = (0.5 * (NV + 1)) - abs((0.5 * (NV + 1)) - (i + 1));
+        _weight = (0.5f * (NV + 1)) - abs((0.5f * (NV + 1)) - (i + 1));
         weight_array[STAT_N_Middle] += _weight;
         return_array[STAT_N_Middle] += _values[i] * _weight;
 
@@ -5962,16 +5980,16 @@ float[] SOLARCHVISION_NORMAL (float[] _values) {
     if ((NV % 2) == 1) {
       return_array[STAT_N_M50] = _values[(floor(NV / 2))];
     } else {
-      return_array[STAT_N_M50] = 0.5 * (_values[(floor(NV / 2))] + _values[(floor(NV / 2) - 1)]);
+      return_array[STAT_N_M50] = 0.5f * (_values[(floor(NV / 2))] + _values[(floor(NV / 2) - 1)]);
     }
 
     int q;
 
-    q = int(roundTo((NV * 0.75), 1));
+    q = PApplet.parseInt(roundTo((NV * 0.75f), 1));
     if (q > NV - 1) q = NV - 1;
     return_array[STAT_N_M75] = _values[q];
 
-    q = int(roundTo((NV * 0.25), 1));
+    q = PApplet.parseInt(roundTo((NV * 0.25f), 1));
     if (q < 0) q = 0;
     return_array[STAT_N_M25] = _values[q];
   } else {
@@ -5986,7 +6004,7 @@ float[] SOLARCHVISION_NORMAL (float[] _values) {
 int STATION_SWOB_NUMBER = 0;
 String[][] STATION_SWOB_INFO;
 
-void LOAD_SWOB_POSITIONS () {
+public void LOAD_SWOB_POSITIONS () {
   try {
     String[] FileALL = loadStrings(SWOB_Coordinates);
 
@@ -6005,9 +6023,9 @@ void LOAD_SWOB_POSITIONS () {
       String StationNameEnglish = "";
       String StationNameFrench = "";
       String StationProvince = "";
-      float StationLatitude = 0.0;
-      float StationLongitude = 0.0;
-      float StationElevation = 0.0;
+      float StationLatitude = 0.0f;
+      float StationLongitude = 0.0f;
+      float StationElevation = 0.0f;
       String StationICAO = "";
       String StationWMO = "";
       String StationClimate = "";
@@ -6026,9 +6044,9 @@ void LOAD_SWOB_POSITIONS () {
         if (StationType.equals("Manned")) StationType = "MAN";
         if (StationType.equals("Auto")) StationType = "AUTO";
 
-        StationLatitude = float(parts[5]);
-        StationLongitude = float(parts[6]);
-        StationElevation = float(parts[7]);
+        StationLatitude = PApplet.parseFloat(parts[5]);
+        StationLongitude = PApplet.parseFloat(parts[6]);
+        StationElevation = PApplet.parseFloat(parts[7]);
 
         StationICAO = parts[8];
         StationWMO = parts[9];
@@ -6061,7 +6079,7 @@ void LOAD_SWOB_POSITIONS () {
 float[][][] RECENT_OBSERVED_Data = new float[DATA_numTimes][numberOfNearestStations_RECENT_OBSERVED][DATA_numLayers];
 int[][][] RECENT_OBSERVED_Flags = new int[DATA_numTimes][numberOfNearestStations_RECENT_OBSERVED][DATA_numLayers];
 
-void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_i = fhr & now_j = nearest station number e.g. 1st/2nd/etc.
+public void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_i = fhr & now_j = nearest station number e.g. 1st/2nd/etc.
 
   // finding indexes on the list
 
@@ -6104,10 +6122,10 @@ void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_
   String _TimeInstant = String.valueOf(children4[0].getContent());
   //println(_TimeInstant);
 
-  int THE_YEAR = int(_TimeInstant.substring(0, 4));
-  int THE_MONTH = int(_TimeInstant.substring(5, 7));
-  int THE_DAY = int(_TimeInstant.substring(8, 10));
-  int THE_HOUR = int(_TimeInstant.substring(11, 13));
+  int THE_YEAR = PApplet.parseInt(_TimeInstant.substring(0, 4));
+  int THE_MONTH = PApplet.parseInt(_TimeInstant.substring(5, 7));
+  int THE_DAY = PApplet.parseInt(_TimeInstant.substring(8, 10));
+  int THE_HOUR = PApplet.parseInt(_TimeInstant.substring(11, 13));
 
   //println(THE_YEAR, THE_MONTH, THE_DAY, THE_HOUR);
 
@@ -6149,7 +6167,7 @@ void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_
 
     if (CloudCover_layerID != -1) {
       if (_a1.equals("tot_cld_amt")) {
-        RECENT_OBSERVED_Data[now_i][now_j][CloudCover_layerID] = 0.1 * Float.valueOf(_a2);
+        RECENT_OBSERVED_Data[now_i][now_j][CloudCover_layerID] = 0.1f * Float.valueOf(_a2);
         RECENT_OBSERVED_Flags[now_i][now_j][CloudCover_layerID] = 1;
       }
     }
@@ -6180,7 +6198,7 @@ void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_
         if (_a2.equals(STRING_undefined)) {
         } else {
           //if (_a3.equals("W/m²")) {
-          RECENT_OBSERVED_Data[now_i][now_j][GlobalHorizontal_layerID] = 1000 * Float.valueOf(_a2) / 3.6; // we should check the units!
+          RECENT_OBSERVED_Data[now_i][now_j][GlobalHorizontal_layerID] = 1000 * Float.valueOf(_a2) / 3.6f; // we should check the units!
           RECENT_OBSERVED_Flags[now_i][now_j][GlobalHorizontal_layerID] = 1;
           //}
         }
@@ -6190,7 +6208,7 @@ void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_
         if (_a2.equals(STRING_undefined)) {
         } else {
           //if (_a3.equals("kJ/m²")) {
-          RECENT_OBSERVED_Data[now_i][now_j][GlobalHorizontal_layerID] = Float.valueOf(_a2) / 3.6; // we should check the units!
+          RECENT_OBSERVED_Data[now_i][now_j][GlobalHorizontal_layerID] = Float.valueOf(_a2) / 3.6f; // we should check the units!
           RECENT_OBSERVED_Flags[now_i][now_j][GlobalHorizontal_layerID] = 1;
           //}
         }
@@ -6199,7 +6217,7 @@ void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_
   }
 }
 
-boolean isAccumulativeLayer (int layerID) {
+public boolean isAccumulativeLayer (int layerID) {
   if ((DATA_allLayers[layerID] == LAYER_precipitation) ||
       (DATA_allLayers[layerID] == LAYER_rain) ||
       (DATA_allLayers[layerID] == LAYER_freezingrain) ||
@@ -6222,11 +6240,11 @@ boolean isAccumulativeLayer (int layerID) {
 
 }
 
-int U_NUMx2 (int m2, int m1) {
+public int U_NUMx2 (int m2, int m1) {
  return ((m2 << 8) + m1);
 }
 
-int S_NUMx2 (int m2, int m1) {
+public int S_NUMx2 (int m2, int m1) {
  long v = 0;
 
  if (m2 < 128) {
@@ -6241,11 +6259,11 @@ int S_NUMx2 (int m2, int m1) {
  return (int) v;
 }
 
-int U_NUMx4 (int m4, int m3, int m2, int m1) {
+public int U_NUMx4 (int m4, int m3, int m2, int m1) {
  return ((m4 << 24) + (m3 << 16) + (m2 << 8) + m1);
 }
 
-int S_NUMx4 (int m4, int m3, int m2, int m1) {
+public int S_NUMx4 (int m4, int m3, int m2, int m1) {
  long v = 0;
 
  if (m4 < 128) {
@@ -6260,11 +6278,11 @@ int S_NUMx4 (int m4, int m3, int m2, int m1) {
  return (int) v;
 }
 
-long U_NUMx8 (int m8, int m7, int m6, int m5, int m4, int m3, int m2, int m1) {
+public long U_NUMx8 (int m8, int m7, int m6, int m5, int m4, int m3, int m2, int m1) {
  return ((long) (m8 << 56) + (m7 << 48) + (m6 << 40) + (m5 << 32) + (m4 << 24) + (m3 << 16) + (m2 << 8) + m1);
 }
 
-int U_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
+public int U_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
 
 // println(m);
 
@@ -6279,7 +6297,7 @@ int U_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1
  return (int) v;
 }
 
-int S_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
+public int S_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
 
 // println(m);
 
@@ -6305,14 +6323,14 @@ int S_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1
  return (int) v;
 }
 
-int getNthBit (Byte valByte, int posBit) {
+public int getNthBit (Byte valByte, int posBit) {
   int valInt = valByte >> (8 - (posBit + 1)) & 0x0001;
 
   return valInt;
 
 }
 
-String IntToBinary32 (int n) {
+public String IntToBinary32 (int n) {
   String s1 = Integer.toBinaryString(n);
 
   String s2 = "";
@@ -6326,7 +6344,7 @@ String IntToBinary32 (int n) {
   return s2;
 }
 
-float IEEE32 (String s) {
+public float IEEE32 (String s) {
   float v_sign = pow(-1, Integer.parseInt(s.substring(0, 1), 2));
   //println("v_sign", v_sign);
 
@@ -6467,7 +6485,7 @@ class GRIB2CLASS {
   byte[] fileBytes;
   int nPointer;
 
-  void printMore (int startN, int displayMORE) {
+  public void printMore (int startN, int displayMORE) {
     for (int i = 0; i < displayMORE; i++) {
       cout(fileBytes[startN + i]);
     }
@@ -6484,7 +6502,7 @@ class GRIB2CLASS {
     println();
   }
 
-  int[] getGrib2Section (int SectionNumber) {
+  public int[] getGrib2Section (int SectionNumber) {
     println("-----------------------------");
 
     print("Section:\t");
@@ -6555,7 +6573,7 @@ class GRIB2CLASS {
     return SectionNumbers;
   }
 
-  void readGrib2Members (int numberOfMembers) {
+  public void readGrib2Members (int numberOfMembers) {
     final int GridDEF_NumberOfDataPoints = 7;
     final int GridDEF_NumberOfPointsAlongTheXaxis = 31;
     final int GridDEF_NumberOfPointsAlongTheYaxis = 35;
@@ -7058,17 +7076,17 @@ class GRIB2CLASS {
           this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_LatLon_ResolutionAndComponentFlags];
           println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
-          this.La1 = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 3]);
+          this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 3]);
           println("Latitude of first grid point:\t" + this.La1);
 
-          this.Lo1 = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 3]);
+          this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 3]);
           if (this.Lo1 == 180) this.Lo1 = -180;
           println("Longitude of first grid point:\t" + this.Lo1);
 
-          this.La2 = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 3]);
+          this.La2 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 3]);
           println("Latitude of last grid point:\t" + this.La2);
 
-          this.Lo2 = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 3]);
+          this.Lo2 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 3]);
           if (this.Lo2 < this.Lo1) this.Lo2 += 360;
           println("Longitude of last grid point:\t" + this.Lo2);
 
@@ -7078,24 +7096,24 @@ class GRIB2CLASS {
           this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_LatLon_ResolutionAndComponentFlags];
           println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
-          this.La1 = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 3]);
+          this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 3]);
           println("Latitude of first grid point:\t" + this.La1);
 
-          this.Lo1 = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 3]);
+          this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 3]);
           if (this.Lo1 == 180) this.Lo1 = -180;
           println("Longitude of first grid point:\t" + this.Lo1);
 
-          this.La2 = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 3]);
+          this.La2 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 3]);
           println("Latitude of last grid point:\t" + this.La2);
 
-          this.Lo2 = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 3]);
+          this.Lo2 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 3]);
           if (this.Lo2 < this.Lo1) this.Lo2 += 360;
           println("Longitude of last grid point:\t" + this.Lo2);
 
-          this.SouthLat = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_LatLon_SouthPoleLatitude], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 1], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 2], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 3]);
+          this.SouthLat = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_SouthPoleLatitude], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 1], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 2], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 3]);
           println("Latitude of the southern pole of projection:\t" + this.SouthLat);
 
-          this.SouthLon = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_LatLon_SouthPoleLongitude], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 1], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 2], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 3]);
+          this.SouthLon = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_SouthPoleLongitude], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 1], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 2], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 3]);
           println("Longitude of the southern pole of projection:\t" + this.SouthLon);
 
           this.Rotation = S_NUMx4(SectionNumbers[GridDEF_LatLon_RotationOfProjection], SectionNumbers[GridDEF_LatLon_RotationOfProjection + 1], SectionNumbers[GridDEF_LatLon_RotationOfProjection + 2], SectionNumbers[GridDEF_LatLon_RotationOfProjection + 3]);
@@ -7107,22 +7125,22 @@ class GRIB2CLASS {
           this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_Polar_ResolutionAndComponentFlags];
           println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
-          this.La1 = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 3]);
+          this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 3]);
           println("Latitude of first grid point:\t" + this.La1);
 
-          this.Lo1 = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 3]);
+          this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 3]);
           println("Longitude of first grid point:\t" + this.Lo1);
 
-          this.LaD = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 1], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 2], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 3]);
+          this.LaD = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 1], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 2], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 3]);
           println("Latitude where Dx and Dy are specified:\t" + this.LaD);
 
-          this.LoV = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Polar_OrientationOfTheGrid], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 1], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 2], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 3]);
+          this.LoV = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_OrientationOfTheGrid], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 1], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 2], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 3]);
           println("Orientation of the grid:\t" + this.LoV);
 
-          this.Dx = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Polar_XDirectionGridLength], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 1], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 2], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 3]);
+          this.Dx = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_XDirectionGridLength], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 1], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 2], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 3]);
           println("X-direction grid length (km):\t" + this.Dx);
 
-          this.Dy = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Polar_YDirectionGridLength], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 1], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 2], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 3]);
+          this.Dy = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_YDirectionGridLength], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 1], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 2], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 3]);
           println("Y-direction grid length (km):\t" + this.Dy);
 
           this.PCF = SectionNumbers[GridDEF_Polar_ProjectionCenterFlag];
@@ -7134,37 +7152,37 @@ class GRIB2CLASS {
           this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_Lambert_ResolutionAndComponentFlags];
           println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
-          this.La1 = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 3]);
+          this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 3]);
           println("Latitude of first grid point:\t" + this.La1);
 
-          this.Lo1 = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 3]);
+          this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 3]);
           println("Longitude of first grid point:\t" + this.Lo1);
 
-          this.LaD = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 1], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 2], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 3]);
+          this.LaD = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 1], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 2], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 3]);
           println("Latitude where Dx and Dy are specified:\t" + this.LaD);
 
-          this.LoV = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 1], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 2], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 3]);
+          this.LoV = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 1], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 2], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 3]);
           println("Orientation of the grid:\t" + this.LoV);
 
-          this.Dx = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Lambert_XDirectionGridLength], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 1], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 2], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 3]);
+          this.Dx = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_XDirectionGridLength], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 1], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 2], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 3]);
           println("X-direction grid length (km):\t" + this.Dx);
 
-          this.Dy = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Lambert_YDirectionGridLength], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 1], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 2], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 3]);
+          this.Dy = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_YDirectionGridLength], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 1], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 2], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 3]);
           println("Y-direction grid length (km):\t" + this.Dy);
 
           this.PCF = SectionNumbers[GridDEF_Lambert_ProjectionCenterFlag];
           println("Projection center flag:\t" + this.PCF);
 
-          this.FirstLatIn = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Lambert_1stLatitudeIn], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 3]);
+          this.FirstLatIn = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_1stLatitudeIn], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 3]);
           println("First latitude from the pole at which the secant cone cuts the sphere:\t" + this.FirstLatIn);
 
-          this.SecondLatIn = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Lambert_2ndLatitudeIn], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 3]);
+          this.SecondLatIn = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_2ndLatitudeIn], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 3]);
           println("Second latitude from the pole at which the secant cone cuts the sphere:\t" + this.SecondLatIn);
 
-          this.SouthLat = 0.000001 * S_NUMx4(SectionNumbers[GridDEF_Lambert_2ndLatitudeIn], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 3]);
+          this.SouthLat = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_2ndLatitudeIn], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 3]);
           println("Latitude of the southern pole of projection:\t" + this.SouthLat);
 
-          this.SouthLon = 0.000001 * U_NUMx4(SectionNumbers[GridDEF_Lambert_SouthPoleLongitude], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 1], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 2], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 3]);
+          this.SouthLon = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_SouthPoleLongitude], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 1], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 2], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 3]);
           println("Longitude of the southern pole of projection:\t" + this.SouthLon);
 
         }
@@ -8554,10 +8572,10 @@ class GRIB2CLASS {
         print("Indicator of unit of time range:\t");
         this.IndicatorOfUnitOfTimeRange = SectionNumbers[18];
         switch (this.IndicatorOfUnitOfTimeRange) {
-          case 0: println("Minute"); DayPortion = 1.0 / 60.0; break;
+          case 0: println("Minute"); DayPortion = 1.0f / 60.0f; break;
           case 1: println("Hour"); DayPortion = 1; break;
           case 2: println("Day"); DayPortion = 24; break;
-          case 3: println("Month"); DayPortion = 30.5 * 24; break;
+          case 3: println("Month"); DayPortion = 30.5f * 24; break;
           case 4: println("Year"); DayPortion = 365 * 24; break;
           case 5: println("Decade (10 years)"); DayPortion = 10 * 365 * 24; break;
           case 6: println("Normal (30 years)"); DayPortion = 30 * 365 * 24;break;
@@ -8565,7 +8583,7 @@ class GRIB2CLASS {
           case 10: println("3 hours"); DayPortion = 3; break;
           case 11: println("6 hours"); DayPortion = 6; break;
           case 12: println("12 hours"); DayPortion = 12; break;
-          case 13: println("Second"); DayPortion = 1.0 / 3600.0; break;
+          case 13: println("Second"); DayPortion = 1.0f / 3600.0f; break;
           case 255: println("Missing"); DayPortion = 0; break;
           default: println(this.IndicatorOfUnitOfTimeRange); break;
         }
@@ -8865,7 +8883,7 @@ class GRIB2CLASS {
             String b = binary(SectionNumbers[7 + i], 8);
 
             for (int j = 0; j < 8; j++) {
-              this.NullBitmapFlags[i * 8 + j] = int(b.substring(j, j + 1));
+              this.NullBitmapFlags[i * 8 + j] = PApplet.parseInt(b.substring(j, j + 1));
             }
           }
         }
@@ -8973,8 +8991,8 @@ class GRIB2CLASS {
             println();
           }
 
-          println("numXtiles:", (JPEG2000_Xsiz - JPEG2000_XTOsiz) / float(JPEG2000_XTsiz));
-          println("numYtiles:", (JPEG2000_Ysiz - JPEG2000_YTOsiz) / float(JPEG2000_YTsiz));
+          println("numXtiles:", (JPEG2000_Xsiz - JPEG2000_XTOsiz) / PApplet.parseFloat(JPEG2000_XTsiz));
+          println("numYtiles:", (JPEG2000_Ysiz - JPEG2000_YTOsiz) / PApplet.parseFloat(JPEG2000_YTsiz));
 
           println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 52 : Marker Coding style default
           n += 2;
@@ -9549,7 +9567,7 @@ int CalendarLength[] = {
   31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 };
 
-int Convert2Date (int _MONTH, int _DAY) {
+public int Convert2Date (int _MONTH, int _DAY) {
   int k = 0;
   for (int i = 0; i < (_MONTH - 1); i += 1) {
     for (int j = 0; j < CalendarLength[i]; j += 1) {
@@ -9561,4 +9579,17 @@ int Convert2Date (int _MONTH, int _DAY) {
 
   k = k % 365;
   return k;
+}
+
+
+  public void settings() { size(1500, 912, P2D); }
+
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "grib2_solarchvision.App" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 }
