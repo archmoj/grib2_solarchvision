@@ -10,9 +10,8 @@ developed by [Mojtaba Samimi
 -   [Installation](#installation)
     -   [Clone using SSH](#clone-using-ssh)
     -   [Clone using HTTPS](#clone-using-https)
-    -   [Requirements](#requirements)
     -   [Before running the program](#before-running-the-program)
-    -   [Run using Processing IDE](#run-using-processing-ide)
+    -   [Build using command line](#build-using-command-line)
     -   [Run using command line](#run-using-command-line)
 -   [Graphical User Interface](#graphical-user-interface)
 -   [Additional resources](#additional-resources)
@@ -50,27 +49,16 @@ or
 git clone https://github.com/archmoj/grib2_solarchvision.git --depth 1
 ```
 
-## Requirements
-
-[Processing v4](https://processing.org/download) must be installed, as
-GRIB2_SOLARCHVISION is a Processing sketch.
-
-In addition, `the grib library` should be installed in Processing `sketchbook` folder under `sketchbook/libraries/grib/library/<grib jar files>`.
-
-To find your Processing `sketchbook` folder, open the Processing application, go to `File > Preferences` (or `Processing > Settings` on Mac), and look at the top for "Sketchbook location".
-
-Finally, the [gif-animation](https://github.com/extrapixel/gif-animation) is required to be downloaded and installed in Processing `sketchbook` to allow GIF exports.
-
 ## Before running the program
 
-You should adjust the `BaseFolder` variable inside `grib2_solarchvision.pde`.
+You should adjust the `BaseFolder` variable inside `app/src/main/java/grib2_solarchvision/App.java`.
 
 ``` java
 String BaseFolder = "/home/solarch/org/grib2_solarchvision";
 ```
 
 Also to your screen resolution you may need to scale initial values of following
-variables and the size() function:
+variables and the settings() function:
 ``` java
 
 int SOLARCHVISION_H_Pixel = 750;
@@ -84,24 +72,19 @@ int SOLARCHVISION_C_Pixel = int(3.0 * MessageSize); // command bar
 int SOLARCHVISION_D_Pixel = int(7.5 * MessageSize); // time bar
 
 
-size(1500, 912, P2D);
+public void settings() { size(1500, 912, P2D); }
 ```
 
-## Run using Processing IDE
+## Build using command line
 
-The `grib2_solarchvision` sketch can be opened in the Processing IDE and
-executed using the Play button.
+``` sh
+./gradlew build
+```
 
 ## Run using command line
 
-To compile and run the `grib2_solarchvision` sketch, adjust
-`<PATH-TO-PROCESSING>` in the following command as needed.
-
-Please note that the command must be executed from the parent directory
-containing the `grib2_solarchvision` folder.
-
 ``` sh
-<PATH-TO-PROCESSING>/processing-java --sketch=grib2_solarchvision --run
+./gradlew run
 ```
 
 
