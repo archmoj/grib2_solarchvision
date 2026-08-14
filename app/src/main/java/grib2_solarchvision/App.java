@@ -1261,10 +1261,6 @@ public class App extends PApplet {
   String[] postprocessList;
 
   public void setup () {
-    //size(SOLARCHVISION_W_Pixel, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel, P2D);
-    /* size commented out by preprocessor */;
-    //size(1500, 822, P2D);
-
     windowTitle("grib2_solarchvision");
 
     LOAD_EARTH_IMAGES();
@@ -1329,7 +1325,7 @@ public class App extends PApplet {
       text("SOLARCHVISION", width / 2, height / 2);
       fill(0);
       textSize(30);
-      text("GRIB2 DATA VISUALIZATION & ANALYSIS TOOL\ndeveloped by Mojtaba Samimi (2016)", width / 2, height / 4);
+      text("GRIB2 DATA VISUALIZATION & ANALYSIS TOOL\ndeveloped by Mojtaba Samimi (© 2016-2026)", width / 2, height / 4);
 
       noStroke();
       fill(255);
@@ -9586,7 +9582,13 @@ public class App extends PApplet {
   }
 
 
-  public void settings() { size(1500, 912, P2D); }
+  public void settings() {
+    size(
+      1500, //SOLARCHVISION_W_Pixel
+      912, //SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel
+      P2D
+    );
+  }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "grib2_solarchvision.App" };
