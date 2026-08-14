@@ -112,7 +112,7 @@ public class App extends PApplet {
 
   String[] asciiTable = {"NUL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", "BEL", "BS", "HT", "LF", "VT", "FF", "CR", "SO", "SI", "DLE", "DC1", "DC2", "DC3", "DC4", "NAK", "SYN", "ETB", "CAN", "EM", "SUB", "ESC", "FS", "GS", "RS", "US"};
 
-  public void cout (int c) {
+  void cout (int c) {
     if (!log) return;
     if (c > 31) print(PApplet.parseChar(c));
     else {
@@ -121,11 +121,11 @@ public class App extends PApplet {
     }
   }
 
-  public void sout(String a) {
+  void sout(String a) {
     if (log) println(a);
   }
 
-  public String[] getfiles (String _Folder) {
+  String[] getfiles (String _Folder) {
     sout("IN='" + _Folder + "'");
 
     File dir = new File(_Folder);
@@ -425,7 +425,7 @@ public class App extends PApplet {
   };
 
   int num_Levels = 0;
-  public int addLevel () {
+  int addLevel () {
     num_Levels += 1;
     return(num_Levels - 1);
   }
@@ -441,7 +441,7 @@ public class App extends PApplet {
   int LEVEL_ISBL_0250  = addLevel();
 
   int num_Layers = 0;
-  public int addLayer () {
+  int addLayer () {
     num_Layers += 1;
     return(num_Layers - 1);
   }
@@ -2148,7 +2148,7 @@ public class App extends PApplet {
 
   String DATA_Filename = "";
 
-  public String getGrib2Link () {
+  String getGrib2Link () {
     String l = "";
 
     if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("CMC")) {
@@ -2205,7 +2205,7 @@ public class App extends PApplet {
     return l;
   }
 
-  public String getGrib2Filename (int k, int l, int h) {
+  String getGrib2Filename (int k, int l, int h) {
     String return_txt = "";
 
     String F_L = DATA_ParameterLevel[l][h];
@@ -2511,7 +2511,7 @@ public class App extends PApplet {
     return return_txt;
   }
 
-  public void setAdjustParameters (int layerID) {
+  void setAdjustParameters (int layerID) {
     PAL_Multiplier = 1;
     PAL_Offset = 0;
     PAL_Scale = 1;
@@ -2934,7 +2934,7 @@ public class App extends PApplet {
     }
   }
 
-  public float AdjustValue (float _val) {
+  float AdjustValue (float _val) {
     float _u = PAL_Scale * (_val - PAL_Offset);
 
     _u = 0.5f + 0.5f * _u;
@@ -2947,7 +2947,7 @@ public class App extends PApplet {
 
   }
 
-  public void create_gridPalettes (int layerID) {
+  void create_gridPalettes (int layerID) {
     int pal_length = SOLARCHVISION_W_Pixel / 3;
 
     int RES1 = pal_length;
@@ -3044,7 +3044,7 @@ public class App extends PApplet {
   float PAL_Scale = 1;
   float PAL_Offset = 0;
 
-  public PImage create_gridImage_basic (int timeID, int layerID, int levelID, int memberID) {
+  PImage create_gridImage_basic (int timeID, int layerID, int levelID, int memberID) {
     int RES1 = gridNx;
     int RES2 = gridNy;
 
@@ -3079,7 +3079,7 @@ public class App extends PApplet {
     return img;
   }
 
-  public PImage create_gridImage_statistics (int[] timeIDs, int layerID, int[] levelIDs, int[] memberIDs, int num_overlay) {
+  PImage create_gridImage_statistics (int[] timeIDs, int layerID, int[] levelIDs, int[] memberIDs, int num_overlay) {
     int RES1 = gridNx;
     int RES2 = gridNy;
 
@@ -3128,7 +3128,7 @@ public class App extends PApplet {
     return img;
   }
 
-  public PImage create_gridImage_SHOP (int timeID, int layerID, int levelID, int memberID) {
+  PImage create_gridImage_SHOP (int timeID, int layerID, int levelID, int memberID) {
     int RES1 = gridNx;
     int RES2 = gridNy;
 
@@ -3169,7 +3169,7 @@ public class App extends PApplet {
     return graphic;
   }
 
-  public float[] getLonLat (float ix , float iy) {
+  float[] getLonLat (float ix , float iy) {
     float lon = 0;
     float lat = 0;
 
@@ -3348,7 +3348,7 @@ public class App extends PApplet {
     return P;
   }
 
-  public float[] getIxIy (float lon, float lat) {
+  float[] getIxIy (float lon, float lat) {
     float ix = 0;
     float iy = 0;
 
@@ -3539,35 +3539,35 @@ public class App extends PApplet {
 
   }
 
-  public float asin_ang (float a) {
+  float asin_ang (float a) {
     return ((asin(a)) * 180/PI);
   }
 
-  public float acos_ang (float a) {
+  float acos_ang (float a) {
     return ((acos(a)) * 180/PI);
   }
 
-  public float atan_ang (float a) {
+  float atan_ang (float a) {
     return ((atan(a)) * 180/PI);
   }
 
-  public float atan2_ang (float a, float b) {
+  float atan2_ang (float a, float b) {
     return ((atan2(a, b)) * 180/PI);
   }
 
-  public float sin_ang (float a) {
+  float sin_ang (float a) {
     return sin(a * PI / 180);
   }
 
-  public float cos_ang (float a) {
+  float cos_ang (float a) {
     return cos(a * PI / 180);
   }
 
-  public float tan_ang (float a) {
+  float tan_ang (float a) {
     return tan(a * PI / 180);
   }
 
-  public float roundTo (float a, float b) {
+  float roundTo (float a, float b) {
     float a_floor = (floor (a / (1.0f * b))) * b;
     float a_ceil =  (ceil (a / (1.0f * b))) * b;
     float c;
@@ -3583,7 +3583,7 @@ public class App extends PApplet {
   float FLOAT_undefined = 2000000000; // it must be a positive big number that is not included in any data
   float FLOAT_max_defined = 0.95f * FLOAT_undefined;
 
-  public boolean is_undefined_FLOAT (float a) {
+  boolean is_undefined_FLOAT (float a) {
     boolean b = false;
     if (a > FLOAT_max_defined) {
       b = true;
@@ -3595,7 +3595,7 @@ public class App extends PApplet {
 
   int STUDY_O_scale = 127;
 
-  public float[] SOLARCHVISION_WBGRW (float _variable) {
+  float[] SOLARCHVISION_WBGRW (float _variable) {
     _variable *= 600.0f;
 
     float v;
@@ -3646,7 +3646,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_BGR (float _variable) {
+  float[] SOLARCHVISION_BGR (float _variable) {
     _variable *= 400.0f;
 
     float v;
@@ -3687,7 +3687,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_DBGR (float _variable) {
+  float[] SOLARCHVISION_DBGR (float _variable) {
     _variable *= 500.0f;
 
     float v;
@@ -3732,7 +3732,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_DWBGR (float _variable) {
+  float[] SOLARCHVISION_DWBGR (float _variable) {
     _variable *= 600.0f;
 
     float v;
@@ -3782,7 +3782,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_DWYR (float _variable) {
+  float[] SOLARCHVISION_DWYR (float _variable) {
     _variable *= 400.0f;
 
     float v;
@@ -3822,7 +3822,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_VDWBGR (float _variable) {
+  float[] SOLARCHVISION_VDWBGR (float _variable) {
     _variable *= 700.0f;
 
     float v;
@@ -3877,7 +3877,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_DRYWCBD (float _variable) {
+  float[] SOLARCHVISION_DRYWCBD (float _variable) {
     _variable *= 1.5f;
 
     float v;
@@ -3927,7 +3927,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_DBCW (float _variable) {
+  float[] SOLARCHVISION_DBCW (float _variable) {
     _variable = 1 - _variable;
     _variable *= -3;
 
@@ -3971,7 +3971,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
+  float[] SOLARCHVISION_GET_COLOR_STYLE (int COLOR_STYLE_Active, float j) {
     float[] c = {
       255, 0, 0, 0
     };
@@ -4105,7 +4105,7 @@ public class App extends PApplet {
     return c;
   }
 
-  public float[] SOLARCHVISION_DRYW (float _variable) {
+  float[] SOLARCHVISION_DRYW (float _variable) {
     _variable = 1 - _variable;
     _variable *= -3;
 
@@ -4141,7 +4141,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float[] SOLARCHVISION_WYRD (float _variable) {
+  float[] SOLARCHVISION_WYRD (float _variable) {
     _variable *= -3;
 
     float v;
@@ -4176,7 +4176,7 @@ public class App extends PApplet {
     return COL;
   }
 
-  public float EquationOfTime (float DateAngle) {
+  float EquationOfTime (float DateAngle) {
     float b = DateAngle;
 
     return 0.01f  * (9.87f * sin_ang(2 * b) - 7.53f * cos_ang(b) - 1.5f * sin_ang(b));
@@ -4184,7 +4184,7 @@ public class App extends PApplet {
 
   float FLOAT_e = 2.7182818284f;
 
-  public float[] SOLARCHVISION_SunPositionRadiation (float DateAngle, float HourAngleOrigin, float LocationLatitude, float SurfacePressure, float CloudCover) {
+  float[] SOLARCHVISION_SunPositionRadiation (float DateAngle, float HourAngleOrigin, float LocationLatitude, float SurfacePressure, float CloudCover) {
   // note the input variables are differnet from the other tools!
 
     float HourAngle = HourAngleOrigin + EquationOfTime(DateAngle);
@@ -4238,7 +4238,7 @@ public class App extends PApplet {
     return return_array;
   }
 
-  public float SolarAtSurface (float SunR1, float SunR2, float SunR3, float SunR4, float SunR5, float Alpha, float Beta, float THE_ALBEDO) {
+  float SolarAtSurface (float SunR1, float SunR2, float SunR3, float SunR4, float SunR5, float Alpha, float Beta, float THE_ALBEDO) {
     float return_value = 0;
 
     float[] VECT = {0, 0, 0};
@@ -4280,7 +4280,7 @@ public class App extends PApplet {
     return (return_value);
   }
 
-  public float[] fn_normalize (float[] a) {
+  float[] fn_normalize (float[] a) {
     float[] b = a;
     float d = 0;
     for (int i = 0; i < a.length; i++) {
@@ -4298,7 +4298,7 @@ public class App extends PApplet {
     return b;
   }
 
-  public float fn_dot (float[] a, float b[]) {
+  float fn_dot (float[] a, float b[]) {
     float d = 0;
     for (int i = 0; i < min (a.length, b.length); i++) {
       d += a[i] * b[i];
@@ -4306,12 +4306,12 @@ public class App extends PApplet {
     return d;
   }
 
-  public int isInside (float x, float y, float x1, float y1, float x2, float y2) {
+  int isInside (float x, float y, float x1, float y1, float x2, float y2) {
     if ((x1 < x) && (x < x2) && (y1 < y) && (y < y2)) return 1;
     else return 0;
   }
 
-  public float dist_lon_lat (double lon1, double lat1, double lon2, double lat2) {
+  float dist_lon_lat (double lon1, double lat1, double lon2, double lat2) {
     float dLon = (float) (lon2 - lon1);
     float dLat = (float) (lat2 - lat1);
 
@@ -4326,7 +4326,7 @@ public class App extends PApplet {
 
   String[][] LOCATIONS_INFO;
 
-  public void LOAD_LOCATIONS () {
+  void LOAD_LOCATIONS () {
     int n_Locations = 0;
 
     String[] FileALL = loadStrings(CITIES_Coordinates);
@@ -4368,7 +4368,7 @@ public class App extends PApplet {
 
   float SHOP_num_points = 0;
 
-  public void LOAD_SHOP_POSITIONS () {
+  void LOAD_SHOP_POSITIONS () {
     String[] fileStrings = loadStrings(SHOP_Coordinates); // loading the data as String array
 
     gridPositions = new float[fileStrings.length][2];
@@ -4411,7 +4411,7 @@ public class App extends PApplet {
 
   }
 
-  public void DOWNLOAD_DATA_SWOB () {
+  void DOWNLOAD_DATA_SWOB () {
     LOAD_SWOB_POSITIONS();
 
     { // downloads required SWOB files if they are not in the directory and then load the values into memory.
@@ -4484,7 +4484,7 @@ public class App extends PApplet {
     }
   }
 
-  public String [] DOWNLOAD_DATA_GRID (int progressID) {
+  String [] DOWNLOAD_DATA_GRID (int progressID) {
     String[] progressList = new String[0];
 
     int itemNumber = -1;
@@ -4646,7 +4646,7 @@ public class App extends PApplet {
     return progressList;
   }
 
-  public void POST_PROCESS_RATES_FROM_ACCUMULATIONS () {
+  void POST_PROCESS_RATES_FROM_ACCUMULATIONS () {
     for (int timeID = DATA_numTimes - 1; timeID >= 0; timeID -= 1) {
       for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
         for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
@@ -4693,7 +4693,7 @@ public class App extends PApplet {
     }
   }
 
-  public void FILL_INFO_FOR_POST_PROCESSED_LAYERS () {
+  void FILL_INFO_FOR_POST_PROCESSED_LAYERS () {
     for (int timeID = 0; timeID < DATA_numTimes; timeID += 1) {
       for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
         for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
@@ -4713,7 +4713,7 @@ public class App extends PApplet {
     }
   }
 
-  public String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
+  String[] POST_PROCESS_WIND_AND_SOLAR (int progressID) {
     String[] progressList = new String[0];
 
     int itemNumber = -1;
@@ -5161,19 +5161,19 @@ public class App extends PApplet {
     }
   }
 
-  public int get_GRID_Mouse_X () {
+  int get_GRID_Mouse_X () {
     return mouseX - DATA_Viewport_CornerX;
   }
 
-  public int get_GRID_Mouse_Y () {
+  int get_GRID_Mouse_Y () {
     return mouseY - DATA_Viewport_CornerY;
   }
 
-  public int get_GRID_PastMouse_X () {
+  int get_GRID_PastMouse_X () {
     return pmouseX - DATA_Viewport_CornerX;
   }
 
-  public int get_GRID_PastMouse_Y () {
+  int get_GRID_PastMouse_Y () {
     return pmouseY - DATA_Viewport_CornerY;
   }
 
@@ -5270,7 +5270,7 @@ public class App extends PApplet {
     }
   }
 
-  public String getOutputFolder (int timeID, int layerID, int levelID, int memberID) {
+  String getOutputFolder (int timeID, int layerID, int levelID, int memberID) {
     String s = OutputFolder;
 
     s += nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01] + nf(DATA_ModelRun, 2) + "Z";
@@ -5278,7 +5278,7 @@ public class App extends PApplet {
     return s;
   }
 
-  public void recordFrame (int timeID, int layerID, int levelID, int memberID) {
+  void recordFrame (int timeID, int layerID, int levelID, int memberID) {
     String s = getOutputFolder(Current_timeID, Current_layerID, Current_levelID, Current_memberID) + "/" + FileStamp(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
 
         if (automated == AUTO_BMP) s += ".bmp";
@@ -5291,7 +5291,7 @@ public class App extends PApplet {
     saveFrame(s);
   }
 
-  public String FileStamp (int timeID, int layerID, int levelID, int memberID) {
+  String FileStamp (int timeID, int layerID, int levelID, int memberID) {
     String b = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00] + nf(DATA_ModelRun, 2) + "Z" + "_" + DATA_ParameterLevel[DATA_allLayers[layerID]][DATA_allLevels[levelID]];
 
     if (automated != AUTO_GIF) {
@@ -5309,7 +5309,7 @@ public class App extends PApplet {
   int COUNTRIES_NUMBER = 0;
   int SEGMENTS_NUMBER = 0;
 
-  public void LOAD_COUNTRIES () {
+  void LOAD_COUNTRIES () {
     int MAX_COUNTRIES_NUMBER = 1100;
     int MAX_SEGMENTS_NUMBER = 26000;
     COUNTRIES_INFO = new String[MAX_COUNTRIES_NUMBER][4];
@@ -5377,7 +5377,7 @@ public class App extends PApplet {
     println("SEGMENTS_NUMBER =", SEGMENTS_NUMBER);
   }
 
-  public void LOAD_EARTH_IMAGES () {
+  void LOAD_EARTH_IMAGES () {
     int n = EARTH_IMAGES_Filenames.length;
 
     EARTH_IMAGES = new PImage [n];
@@ -5406,7 +5406,7 @@ public class App extends PApplet {
 
   boolean EARTH_Background_Update = true;
 
-  public void SOLARCHVISION_draw_EARTH () {
+  void SOLARCHVISION_draw_EARTH () {
     if (EARTH_Background_Update == true) {
       EARTH_Background_Image = create_EARTH_Background();
 
@@ -5419,7 +5419,7 @@ public class App extends PApplet {
 
   int BACKGROUND_TILE_PIXELS = 5; // in pixel
 
-  public PImage create_EARTH_Background() {
+  PImage create_EARTH_Background() {
     PGraphics graphic = createGraphics(PApplet.parseInt(DATA_Viewport_Width), PApplet.parseInt(DATA_Viewport_Height), P2D);
 
     graphic.beginDraw();
@@ -5548,7 +5548,7 @@ public class App extends PApplet {
     }
   };
 
-  public void SOLARCHVISION_draw_window_BAR_d () {
+  void SOLARCHVISION_draw_window_BAR_d () {
     ///// requires in case hot-keys pressed /////
     ////////////////////////////////////////////
     STUDY_timeBegin = Current_timeID;
@@ -5925,7 +5925,7 @@ public class App extends PApplet {
     }
   }
 
-  public float[] SOLARCHVISION_NORMAL (float[] _values) {
+  float[] SOLARCHVISION_NORMAL (float[] _values) {
     float[] weight_array = {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
@@ -6004,7 +6004,7 @@ public class App extends PApplet {
   int STATION_SWOB_NUMBER = 0;
   String[][] STATION_SWOB_INFO;
 
-  public void LOAD_SWOB_POSITIONS () {
+  void LOAD_SWOB_POSITIONS () {
     try {
       String[] FileALL = loadStrings(SWOB_Coordinates);
 
@@ -6079,7 +6079,7 @@ public class App extends PApplet {
   float[][][] RECENT_OBSERVED_Data = new float[DATA_numTimes][numberOfNearestStations_RECENT_OBSERVED][DATA_numLayers];
   int[][][] RECENT_OBSERVED_Flags = new int[DATA_numTimes][numberOfNearestStations_RECENT_OBSERVED][DATA_numLayers];
 
-  public void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_i = fhr & now_j = nearest station number e.g. 1st/2nd/etc.
+  void LoadRECENT_OBSERVED (String FileName, int now_i, int now_j) { // here: now_i = fhr & now_j = nearest station number e.g. 1st/2nd/etc.
 
     // finding indexes on the list
 
@@ -6217,7 +6217,7 @@ public class App extends PApplet {
     }
   }
 
-  public boolean isAccumulativeLayer (int layerID) {
+  boolean isAccumulativeLayer (int layerID) {
     if ((DATA_allLayers[layerID] == LAYER_precipitation) ||
         (DATA_allLayers[layerID] == LAYER_rain) ||
         (DATA_allLayers[layerID] == LAYER_freezingrain) ||
@@ -6240,11 +6240,11 @@ public class App extends PApplet {
 
   }
 
-  public int U_NUMx2 (int m2, int m1) {
+  int U_NUMx2 (int m2, int m1) {
   return ((m2 << 8) + m1);
   }
 
-  public int S_NUMx2 (int m2, int m1) {
+  int S_NUMx2 (int m2, int m1) {
   long v = 0;
 
   if (m2 < 128) {
@@ -6259,11 +6259,11 @@ public class App extends PApplet {
   return (int) v;
   }
 
-  public int U_NUMx4 (int m4, int m3, int m2, int m1) {
+  int U_NUMx4 (int m4, int m3, int m2, int m1) {
   return ((m4 << 24) + (m3 << 16) + (m2 << 8) + m1);
   }
 
-  public int S_NUMx4 (int m4, int m3, int m2, int m1) {
+  int S_NUMx4 (int m4, int m3, int m2, int m1) {
   long v = 0;
 
   if (m4 < 128) {
@@ -6278,11 +6278,11 @@ public class App extends PApplet {
   return (int) v;
   }
 
-  public long U_NUMx8 (int m8, int m7, int m6, int m5, int m4, int m3, int m2, int m1) {
+  long U_NUMx8 (int m8, int m7, int m6, int m5, int m4, int m3, int m2, int m1) {
   return ((long) (m8 << 56) + (m7 << 48) + (m6 << 40) + (m5 << 32) + (m4 << 24) + (m3 << 16) + (m2 << 8) + m1);
   }
 
-  public int U_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
+  int U_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
 
   // println(m);
 
@@ -6297,7 +6297,7 @@ public class App extends PApplet {
   return (int) v;
   }
 
-  public int S_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
+  int S_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
 
   // println(m);
 
@@ -6323,14 +6323,14 @@ public class App extends PApplet {
   return (int) v;
   }
 
-  public int getNthBit (Byte valByte, int posBit) {
+  int getNthBit (Byte valByte, int posBit) {
     int valInt = valByte >> (8 - (posBit + 1)) & 0x0001;
 
     return valInt;
 
   }
 
-  public String IntToBinary32 (int n) {
+  String IntToBinary32 (int n) {
     String s1 = Integer.toBinaryString(n);
 
     String s2 = "";
@@ -6344,7 +6344,7 @@ public class App extends PApplet {
     return s2;
   }
 
-  public float IEEE32 (String s) {
+  float IEEE32 (String s) {
     float v_sign = pow(-1, Integer.parseInt(s.substring(0, 1), 2));
     //println("v_sign", v_sign);
 
@@ -6485,7 +6485,7 @@ public class App extends PApplet {
     byte[] fileBytes;
     int nPointer;
 
-    public void printMore (int startN, int displayMORE) {
+    void printMore (int startN, int displayMORE) {
       for (int i = 0; i < displayMORE; i++) {
         cout(fileBytes[startN + i]);
       }
@@ -6502,7 +6502,7 @@ public class App extends PApplet {
       println();
     }
 
-    public int[] getGrib2Section (int SectionNumber) {
+    int[] getGrib2Section (int SectionNumber) {
       println("-----------------------------");
 
       print("Section:\t");
@@ -6573,7 +6573,7 @@ public class App extends PApplet {
       return SectionNumbers;
     }
 
-    public void readGrib2Members (int numberOfMembers) {
+    void readGrib2Members (int numberOfMembers) {
       final int GridDEF_NumberOfDataPoints = 7;
       final int GridDEF_NumberOfPointsAlongTheXaxis = 31;
       final int GridDEF_NumberOfPointsAlongTheYaxis = 35;
@@ -9567,7 +9567,7 @@ public class App extends PApplet {
     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
   };
 
-  public int Convert2Date (int _MONTH, int _DAY) {
+  int Convert2Date (int _MONTH, int _DAY) {
     int k = 0;
     for (int i = 0; i < (_MONTH - 1); i += 1) {
       for (int j = 0; j < CalendarLength[i]; j += 1) {
