@@ -62,9 +62,9 @@ public class App extends PApplet {
     //"domain=HRDPA",
 
     "run=00Z",
-    "begin=3",
+    "begin=0",
     "end=24",
-    "step=3",
+    "step=24",
 
     "auto=USER",
     //"auto=GIF",
@@ -80,12 +80,15 @@ public class App extends PApplet {
     //"layers+=windwaveperiod",
     //"layers+=swellwaveperiod",
 
+    //"layers+=flowXmeanpressure",
+    "layers+=flowXprecipitation",
+
     "layers+=windU",
     "layers+=windV",
 
+    "layers+=precipitation",
     //"layers+=drybulb",
     //"layers+=meanpressure",
-    "layers+=precipitation",
     //"layers+=cloudcover",
     //"layers+=albedo",
     //"layers+=glohorrad",
@@ -94,8 +97,7 @@ public class App extends PApplet {
     //"layers+=dirnoreff",
     //"layers+=south00",
     //"layers+=windspd",
-    //"layers+=flowXmeanpressure",
-    "layers+=flowXprecipitation",
+
 
 
     //"layers+=pastprecip",
