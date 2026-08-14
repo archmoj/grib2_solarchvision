@@ -4,22 +4,14 @@ package grib2_solarchvision;
 import processing.core.*;
 import processing.data.*;
 import processing.event.*;
-import processing.opengl.*;
-
 import processing.pdf.*;
+
 import gifAnimation.*;
 import java.util.Calendar;
 import ucar.unidata.io.RandomAccessFile;
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.File;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.IOException;
 
 public class App extends PApplet {
@@ -159,7 +151,6 @@ public class App extends PApplet {
   float[][] EARTH_IMAGES_BoundariesY;
   String EARTH_IMAGES_Path = BaseFolder + "/input/earth_map";
   String[] EARTH_IMAGES_Filenames = sort(getfiles(EARTH_IMAGES_Path));
-  int EARTH_BitmapChoice = 0;
 
   final int STAT_N_Base = 0;
 
@@ -986,11 +977,6 @@ public class App extends PApplet {
       }
     }
 
-    if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS")) ||
-        (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS")) ||
-        (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS"))) {
-      EARTH_BitmapChoice = 1;
-    }
 
   /*
 
@@ -5223,20 +5209,6 @@ public class App extends PApplet {
             case ']': Current_statisticID = (Current_statisticID + 1) % DATA_allStatistics.length; DATA_Viewport_Update = true; UI_BAR_d_Update = true; break;
             case '[': Current_statisticID = (Current_statisticID - 1 + DATA_allStatistics.length) % DATA_allStatistics.length; DATA_Viewport_Update = true; UI_BAR_d_Update = true; break;
 
-            case 'b':
-              EARTH_BitmapChoice += 1;
-              if (EARTH_BitmapChoice == EARTH_IMAGES.length) EARTH_BitmapChoice = 0;
-              DATA_Viewport_Update = true;
-              EARTH_Background_Update = true;
-              break;
-
-            case 'B':
-              EARTH_BitmapChoice -= 1;
-              if (EARTH_BitmapChoice == -1) EARTH_BitmapChoice = EARTH_IMAGES.length;
-              DATA_Viewport_Update = true;
-              EARTH_Background_Update = true;
-              break;
-
             case ' ':
 
               SavedScreenShots += 1;
@@ -5415,10 +5387,7 @@ public class App extends PApplet {
 
     graphic.beginDraw();
 
-    int n = EARTH_BitmapChoice;
-
-    float EARTH_IMAGES_OffsetX = EARTH_IMAGES_BoundariesX[n][0] + 180;
-    float EARTH_IMAGES_OffsetY = EARTH_IMAGES_BoundariesY[n][1] - 90;
+    int n = 0; // First Bitmap Choice
 
     float EARTH_IMAGES_ScaleX = (EARTH_IMAGES_BoundariesX[n][1] - EARTH_IMAGES_BoundariesX[n][0]) / 360.0f;
     float EARTH_IMAGES_ScaleY = (EARTH_IMAGES_BoundariesY[n][1] - EARTH_IMAGES_BoundariesY[n][0]) / 180.0f;
@@ -5430,8 +5399,6 @@ public class App extends PApplet {
     int stp_j = stp_i;
     for (int i = 0; i < DATA_Viewport_Width; i += stp_i) {
       for (int j = 0; j < DATA_Viewport_Height; j += stp_j) {
-        boolean draw_it = true;
-
         int[][] corners = {{i, j}, {i + stp_i, j}, {i + stp_i, j + stp_j}, {i, j + stp_j}};
         float[][] UV = {{0, 0}, {0, 0}, {0, 0}, {0, 0}};
 
@@ -5449,9 +5416,6 @@ public class App extends PApplet {
           float u = ((lon - CEN_lon) / EARTH_IMAGES_ScaleX / 360.0f + 0.5f);
           float v = (-(lat - CEN_lat) / EARTH_IMAGES_ScaleY / 180.0f + 0.5f);
 
-          // for the moment I remarked this condition to make GDPS world background texture to be drawn completely.
-          //if ((u > 1) || (u < 0) || (v > 1) || (v < 0)) draw_it = false;
-
           if (u > 1) u %= 1;
           else if (u < 0) u = 1 - (-u % 1);
 
@@ -5460,24 +5424,37 @@ public class App extends PApplet {
 
           UV[k][0] = u;
           UV[k][1] = v;
-
         }
 
-        if (draw_it == true) {
-          graphic.beginShape();
+        graphic.beginShape();
+        graphic.noStroke();
 
-          graphic.noStroke();
+        int EARTH_BitmapChoice = 0;
+        for (int k = 0; k < 4; k++)  {
+          float u = UV[k][0];
 
-          graphic.texture(EARTH_IMAGES[n]);
-          int w = EARTH_IMAGES[n].width;
-          int h = EARTH_IMAGES[n].height;
-
-          for (int k = 0; k < 4; k++)  {
-            graphic.vertex(corners[k][0], corners[k][1], w * UV[k][0], h * UV[k][1]);
+          // detect points close to Antimeridian
+          if ((u > 0.9f) || (u < 0.1f)) { 
+            // Second Bitmap Choice
+            EARTH_BitmapChoice = 1;
           }
-
-          graphic.endShape(CLOSE);
         }
+
+        graphic.texture(EARTH_IMAGES[EARTH_BitmapChoice]);
+        int w = EARTH_IMAGES[EARTH_BitmapChoice].width;
+        int h = EARTH_IMAGES[EARTH_BitmapChoice].height;
+
+        for (int k = 0; k < 4; k++)  {
+          float u = UV[k][0];
+          float v = UV[k][1];
+          if(EARTH_BitmapChoice == 1) {
+            u += 0.5f;
+            u %= 1.0f;
+          }
+          graphic.vertex(corners[k][0], corners[k][1], w * u, h * v);
+        }
+
+        graphic.endShape(CLOSE);
       }
     }
 
