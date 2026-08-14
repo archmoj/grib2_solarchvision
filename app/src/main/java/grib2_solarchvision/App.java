@@ -24,18 +24,6 @@ import java.io.IOException;
 
 public class App extends PApplet {
 
-  PGraphics pdfExport;
-
-
-  GifMaker gifExport;
-
-
-
-  // The following libraries are needed for CMC grib2 models which are 'sadly' encoded in JPEG-2000!
-
-
-
-
   String BaseFolder = "/home/solarch/org/grib2_solarchvision";
 
   //String[] args = split(join(loadStrings(BaseFolder + "/scripts/node/gridConfig.txt"), " "), ' ');
@@ -206,6 +194,9 @@ public class App extends PApplet {
 
     "SPECIAL-MENTION"
   };
+
+  PGraphics pdfExport;
+  GifMaker gifExport;
 
   final int USER_INT = 0; // User interface
   final int AUTO_PDF = 1; // Auto PDF
