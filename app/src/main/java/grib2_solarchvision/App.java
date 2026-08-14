@@ -1265,6 +1265,8 @@ public class App extends PApplet {
     /* size commented out by preprocessor */;
     //size(1500, 822, P2D);
 
+    windowTitle("grib2_solarchvision");
+
     LOAD_EARTH_IMAGES();
 
     LOAD_COUNTRIES();
