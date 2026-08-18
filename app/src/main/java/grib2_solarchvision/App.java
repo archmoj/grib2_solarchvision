@@ -28,15 +28,12 @@ public class App extends PApplet {
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "grib2_solarchvision.App" };
-    if (passedArgs != null) {
-      println("args:");
-      println(Arrays.toString(passedArgs));
 
-      parseArgs(passedArgs);
-      PApplet.main(concat(appletArgs, passedArgs));
-    } else {
-      PApplet.main(appletArgs);
-    }
+    println("args:");
+    println(Arrays.toString(passedArgs));
+
+    parseArgs(passedArgs);
+    PApplet.main(concat(appletArgs, passedArgs));
   }
 
   static String BaseFolder = "/home/solarch/org/grib2_solarchvision";
