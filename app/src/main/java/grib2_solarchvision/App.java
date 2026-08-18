@@ -268,9 +268,9 @@ public class App extends PApplet {
     { "RDWPS_lake_superior", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/superior/1km", "MSC_RDWPS-Lake-Superior", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
     { "RDWPS_national", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/national/2.5km", "MSC_RDWPS", "RLatLon0.0225", ".grib2", "5", "1", "6", "48" },
 
-    { "RDPA", "RDPA", "CMC", "https://dd.weather.gc.ca/", "model_rdpa/10km/06", "MSC_RDPA", "RLatLon0.09", ".grib2", "5", "1", "6", "1" },
+    { "RDPA", "RDPA", "CMC", "https://dd.weather.gc.ca/", "model_rdpa/10km", "MSC_RDPA", "RLatLon0.09", ".grib2", "5", "1", "6", "1" },
 
-    { "HRDPA", "HRDPA", "CMC", "https://dd.weather.gc.ca/", "model_hrdpa/2.5km/06", "MSC_HRDPA", "RLatLon0.0225", ".grib2", "5", "1", "6", "1" },
+    { "HRDPA", "HRDPA", "CMC", "https://dd.weather.gc.ca/", "model_hrdpa/2.5km", "MSC_HRDPA", "RLatLon0.0225", ".grib2", "5", "1", "6", "1" },
 
     //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/RDPS", "reg", "", "15", "96", "6", "1" },
     //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_west", "", "15", "96", "6", "1" },
@@ -1785,7 +1785,10 @@ public class App extends PApplet {
         fill(255);
         textSize(1.5f * MessageSize);
         textAlign(RIGHT, CENTER);
-        text(allDataTitles[Current_timeID][Current_layerID][Current_levelID][Current_memberID], SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
+        String title = allDataTitles[Current_timeID][Current_layerID][Current_levelID][Current_memberID];
+        if (title != null) {
+          text(title, SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
+        }
 
         noStroke();
         fill(191);
@@ -1956,7 +1959,7 @@ public class App extends PApplet {
       else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
               (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA")) ||
               (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SNOW"))) {
-        l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + DATA_Filename;
+        l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_Filename;
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
         l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 2) + "/" + nf(DATA_ModelMonth, 2) + "/" + DATA_Filename;
@@ -2134,7 +2137,7 @@ public class App extends PApplet {
         timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
         timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
 
-        return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T06Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+        return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (
         (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) ||

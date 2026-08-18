@@ -1,8 +1,9 @@
-domain=HRDPA
+domain=RDPA
+run=0
 begin=-72
 end=0
 step=6
-auto=GIF
+auto=PNG
 levels+=surface
 
 layers+=pastprecip
