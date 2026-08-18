@@ -2035,16 +2035,14 @@ public class App extends PApplet {
       }
 
       if (l == LAYER_windU) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "UGRD_TGL_10m";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
       if (l == LAYER_windV) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "VGRD_TGL_10m";
           DATA_ParameterLevel[l][h] = F_L;
         }
@@ -2068,7 +2066,6 @@ public class App extends PApplet {
 
       if (l == LAYER_drybulb) {
         if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) ||
             (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS"))) {
           F_L = "TMP_TGL_2m";
           DATA_ParameterLevel[l][h] = F_L;
@@ -2076,57 +2073,64 @@ public class App extends PApplet {
       }
 
       if (l == LAYER_dewpoint) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "DPT_TGL_2m";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
       if (l == LAYER_depression) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "DEPR_TGL_2m";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
       if (l == LAYER_relhum) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "RH_TGL_2m";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
       if (l == LAYER_spchum) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "SPFH_TGL_2m";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
       if (l == LAYER_meanpressure) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "PRMSL_MSL_0";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
       if (l == LAYER_precipitation) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "APCP_SFC_0";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
 
+      if (l == LAYER_precipitation) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) {
+          F_L = "APCP_SFC";
+          DATA_ParameterLevel[l][h] = F_L;
+        }
+      }
+
       if (l == LAYER_cloudcover) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "TCDC_SFC_0";
+          DATA_ParameterLevel[l][h] = F_L;
+        }
+      }
+
+      if (l == LAYER_cloudcover) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) {
+          F_L = "TCDC_SFC";
           DATA_ParameterLevel[l][h] = F_L;
         }
       }
