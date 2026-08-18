@@ -104,6 +104,9 @@ public class App extends PApplet {
     println(Arrays.toString(passedArgs));
 
     parseArgs(passedArgs);
+
+    println("Launching app...");
+
     PApplet.main(concat(appletArgs, passedArgs));
   }
 
