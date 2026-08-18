@@ -98,6 +98,8 @@ public class App extends PApplet {
       };
     }
 
+    println("BaseFolder: " + BaseFolder);
+
     println("args:");
     println(Arrays.toString(passedArgs));
 
