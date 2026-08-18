@@ -2,9 +2,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "master" ]
+    branches: '**'
   pull_request:
-    branches: [ "master" ]
+    branches: '**'
 
 permissions:
   contents: read
@@ -17,16 +17,16 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
+    - name: Install System Dependencies (Xvfb & OpenGL)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb libpango1.0-dev libglu1-mesa-dev
+
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
-
-    - name: Install Xvfb (Virtual Display)
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb libxrender1 libxtst6 libxi6
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
@@ -39,7 +39,7 @@ jobs:
 
     - name: Test HRDPS
       timeout-minutes: 2
-      run: ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt)"
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
