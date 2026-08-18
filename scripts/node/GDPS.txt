@@ -1,8 +1,9 @@
-domain=HRDPS_east
-begin=12
-end=48
-step=3
-auto=GIF
+domain=GDPS
+run=0
+begin=0
+end=1
+step=1
+auto=PNG
 levels+=surface
 
 layers+=drybulb

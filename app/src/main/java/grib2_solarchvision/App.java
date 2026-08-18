@@ -41,7 +41,7 @@ public class App extends PApplet {
         //"domain=REPS",
         //"domain=GDPS",
         "domain=RDPS",
-        //"domain=HRDPS_continental",
+        //"domain=HRDPS",
         //"domain=GDWPS",
         //"domain=RDWPS_lake_erie",
         //"domain=RDWPS_lake_huron-michigan",
@@ -258,7 +258,7 @@ public class App extends PApplet {
 
     { "RDPS", "RDPS", "CMC", "https://dd.weather.gc.ca/", "model_rdps/10km", "MSC_RDPS", "RLatLon0.09", ".grib2", "10", "1", "3", "54" },
 
-    { "HRDPS_continental", "HRDPS", "CMC", "https://dd.weather.gc.ca/", "model_hrdps/continental/2.5km", "MSC_HRDPS", "RLatLon0.0225", ".grib2", "2.5", "1", "1", "48" },
+    { "HRDPS", "HRDPS", "CMC", "https://dd.weather.gc.ca/", "model_hrdps/continental/2.5km", "MSC_HRDPS", "RLatLon0.0225", ".grib2", "2.5", "1", "1", "48" },
 
     { "GDWPS", "GDWPS", "CMC", "https://dd.weather.gc.ca/", "model_gdwps/25km", "MSC_GDWPS", "LatLon0.25", ".grib2", "25", "1", "3", "48" },
 
@@ -390,7 +390,7 @@ public class App extends PApplet {
     {"TDI_TGL_0", "", "", "", "", "", "", "", ""},
     {"TMPIL_TGL_0", "", "", "", "", "", "", "", ""},
 
-    {"PRMSL_MSL_0", "", "", "", "", "", "", "", ""},
+    {"PRMSL_MSL", "", "", "", "", "", "", "", ""},
     {"PRES_Sfc", "", "", "", "", "", "", "", ""},
     {"HGT", "", "", "", "", "", "", "", ""}, // cloud ceiling
     {"HGT", "", "", "", "", "", "", "", ""}, // cloud top
@@ -1004,7 +1004,7 @@ public class App extends PApplet {
     if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("NOAA")) {
       for (int i = 0; i < DATA_ParameterLevel.length; i++) {
         for (int j = 0; j < DATA_ParameterLevel[i].length; j++) {
-          if (DATA_ParameterLevel[i][j].equals("PRMSL_MSL_0")) { DATA_ParameterLevel[i][j] = "MSLMA_MSL_0"; }
+          if (DATA_ParameterLevel[i][j].equals("PRMSL_MSL")) { DATA_ParameterLevel[i][j] = "MSLMA_MSL"; }
           if (DATA_ParameterLevel[i][j].equals("ARAIN_Sfc")) { DATA_ParameterLevel[i][j] = "CRAIN_Sfc"; }
           if (DATA_ParameterLevel[i][j].equals("AFRAIN_Sfc")) { DATA_ParameterLevel[i][j] = "CFRZR_Sfc"; }
           if (DATA_ParameterLevel[i][j].equals("AICEP_Sfc")) { DATA_ParameterLevel[i][j] = "CICEP_Sfc"; }
@@ -2174,7 +2174,7 @@ public class App extends PApplet {
             .replace("DPT_", "DewPoint_")
             .replace("DEPR_", "DewPointDepression_")
             .replace("TMP_", "AirTemp_")
-            + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+          + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT" + nf(k, 3) + "H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (
         (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS")) ||
