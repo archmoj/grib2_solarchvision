@@ -1,0 +1,16 @@
+domain=RDWPS_lake_huron-michigan
+run=0
+begin=0
+end=1
+step=1
+auto=PNG
+levels+=surface
+
+layers+=windwavesheight
+layers+=swellwavesheight
+layers+=combwavesheight
+layers+=peakwaveperiod
+layers+=windwaveperiod
+layers+=swellwaveperiod
+layers+=windU
+layers+=windV

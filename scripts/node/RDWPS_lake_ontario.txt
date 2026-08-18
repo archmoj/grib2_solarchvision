@@ -1,8 +1,9 @@
-domain=RDWPS_north_atlantic
+domain=RDWPS_lake_ontario
+run=0
 begin=0
-end=48
-step=3
-auto=GIF
+end=1
+step=1
+auto=PNG
 levels+=surface
 
 layers+=windwavesheight
@@ -13,5 +14,3 @@ layers+=windwaveperiod
 layers+=swellwaveperiod
 layers+=windU
 layers+=windV
-layers+=meanpressure
-layers+=flowXmeanpressure

@@ -1,8 +1,9 @@
 domain=GDWPS
+run=0
 begin=0
-end=48
-step=6
-auto=GIF
+end=6
+step=1
+auto=PNG
 levels+=surface
 
 layers+=swellwavesheight
