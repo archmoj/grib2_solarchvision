@@ -105,7 +105,7 @@ public class App extends PApplet {
     PApplet.main(concat(appletArgs, passedArgs));
   }
 
-  static String BaseFolder = "/home/solarch/org/grib2_solarchvision";
+  static String BaseFolder = System.getProperty("user.dir") + "/..";
 
   boolean log = false;
 
