@@ -29,5 +29,16 @@ jobs:
     - name: Make Gradle Wrapper Executable
       run: chmod +x gradlew
 
-    - name: Build and Run Tests
+    - name: Build and Run Gradle Tests
       run: ./gradlew build
+
+    - name: Test HRDPS
+      timeout-minutes: 2
+      run: ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt)"
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Output-files
+        path: output/
+
