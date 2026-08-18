@@ -272,12 +272,6 @@ public class App extends PApplet {
 
     { "HRDPA", "HRDPA", "CMC", "https://dd.weather.gc.ca/", "model_hrdpa/2.5km", "MSC_HRDPA", "RLatLon0.0225", ".grib2", "5", "1", "6", "1" },
 
-    //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/RDPS", "reg", "", "15", "96", "6", "1" },
-    //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_west", "", "15", "96", "6", "1" },
-    //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_prairies", "", "15", "96", "6", "1" },
-    { "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_east", "", "15", "96", "6", "1" },
-    //{ "SNOW", "SNOW", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "GRIB", "snow_density_dataset/HRDPS", "hrdps-national_maritimes", "", "15", "96", "6", "1" },
-
     { "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres", "000.csv", "1", "1", "24", "0" },
     //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Assomption", "000.csv", "1", "1", "24", "0" },
     //{ "SHOP", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-DuLoup", "000.csv", "1", "1", "24", "0" },
@@ -320,7 +314,6 @@ public class App extends PApplet {
   static int Current_domainID = -1;
 
   static String[][] DATA_ParameterLevel = {
-    {"snowdensity-Dube141_1h", "", "", "", "", "", "", "", ""},
     {"APCP-Accum6h_Sfc", "", "", "", "", "", "", "", ""},
 
     {"PRATE_Sfc", "", "", "", "", "", "", "", ""},
@@ -446,7 +439,6 @@ public class App extends PApplet {
     return(num_Layers - 1);
   }
 
-  static int LAYER_pastsnow           = addLayer();
   static int LAYER_pastprecip         = addLayer();
   static int LAYER_preciprate         = addLayer();
   static int LAYER_precipitation      = addLayer();
@@ -647,10 +639,7 @@ public class App extends PApplet {
 
           int[] newLayer = {-1};
 
-              if (input_str.equals("pastsnow".toUpperCase())) {
-                  newLayer[0] = LAYER_pastsnow;
-          }
-          else if (input_str.equals("pastprecip".toUpperCase())) {
+          if (input_str.equals("pastprecip".toUpperCase())) {
                   newLayer[0] = LAYER_pastprecip;
           }
           else if (input_str.equals("preciprate".toUpperCase())) {
@@ -1957,8 +1946,7 @@ public class App extends PApplet {
         l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_" + DATA_Filename;
       }
       else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
-              (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA")) ||
-              (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SNOW"))) {
+              (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA"))) {
         l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_Filename;
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
@@ -2124,9 +2112,6 @@ public class App extends PApplet {
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
         return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + F_L + "_" + nf(DATA_ModelYear, 4) + "-" + nf(DATA_ModelMonth, 2) + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
-      }
-      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SNOW")) {
-        return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "/" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + F_L + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
               (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA"))) {
@@ -2505,10 +2490,6 @@ public class App extends PApplet {
     }
 
     else if (DATA_allLayers[layerID] == LAYER_pastprecip) {
-      PAL_Scale = 0.4f * 1 / 6.0f;
-    }
-
-    else if (DATA_allLayers[layerID] == LAYER_pastsnow) {
       PAL_Scale = 0.4f * 1 / 6.0f;
     }
 
