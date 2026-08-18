@@ -10,7 +10,6 @@ developed by [Mojtaba Samimi
 -   [Installation](#installation)
     -   [Clone using SSH](#clone-using-ssh)
     -   [Clone using HTTPS](#clone-using-https)
-    -   [Before running the program](#before-running-the-program)
     -   [Build using command line](#build-using-command-line)
     -   [Run using command line](#run-using-command-line)
 -   [Graphical User Interface](#graphical-user-interface)
@@ -47,32 +46,6 @@ or
 
 ``` sh
 git clone https://github.com/archmoj/grib2_solarchvision.git --depth 1
-```
-
-## Before running the program
-
-You should adjust the `BaseFolder` variable inside `app/src/main/java/grib2_solarchvision/App.java`.
-
-``` java
-String BaseFolder = "/home/solarch/org/grib2_solarchvision";
-```
-
-Also to your screen resolution you may need to scale initial values of following
-variables and the settings() function:
-``` java
-
-int SOLARCHVISION_H_Pixel = 750;
-int SOLARCHVISION_W_Pixel = int(SOLARCHVISION_H_Pixel * 2.0);
-
-float MessageSize =  12.0;
-
-int SOLARCHVISION_A_Pixel = 0; //int(1.5 * MessageSize); // menu bar
-int SOLARCHVISION_B_Pixel = int(3.0 * MessageSize); // 3D tool bar
-int SOLARCHVISION_C_Pixel = int(3.0 * MessageSize); // command bar
-int SOLARCHVISION_D_Pixel = int(7.5 * MessageSize); // time bar
-
-
-public void settings() { size(1500, 912, P2D); }
 ```
 
 ## Build using command line
