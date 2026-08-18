@@ -29,6 +29,75 @@ public class App extends PApplet {
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "grib2_solarchvision.App" };
 
+    if (passedArgs == null || passedArgs.length == 0) {
+      passedArgs = new String[] {
+        //"domain=NAM11",
+        //"domain=NAM12",
+        //"domain=NAM32",
+        //"domain=HRRR",
+        //"domain=GFS",
+        //"domain=GEFS",
+        //"domain=GEPS",
+        //"domain=REPS",
+        //"domain=GDPS",
+        "domain=RDPS",
+        //"domain=HRDPS_continental",
+        //"domain=GDWPS",
+        //"domain=RDWPS_lake_erie",
+        //"domain=RDWPS_lake_huron-michigan",
+        //"domain=RDWPS_lake_ontario",
+        //"domain=RDWPS_lake_superior",
+        //"domain=RDWPS_national",
+        //"domain=RDPA",
+        //"domain=HRDPA",
+
+        "run=00Z",
+        "begin=0",
+        "end=24",
+        "step=24",
+
+        "auto=USER",
+        //"auto=GIF",
+
+        "tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
+        "outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
+
+        //"layers+=swellwavesheight",
+        //"layers+=windwavesheight",
+        //"layers+=swellwavesheight",
+        //"layers+=combwavesheight",
+        //"layers+=peakwaveperiod",
+        //"layers+=windwaveperiod",
+        //"layers+=swellwaveperiod",
+
+        //"layers+=flowXmeanpressure",
+        "layers+=flowXprecipitation",
+
+        "layers+=windU",
+        "layers+=windV",
+
+        "layers+=precipitation",
+        //"layers+=drybulb",
+        //"layers+=meanpressure",
+        //"layers+=cloudcover",
+        //"layers+=albedo",
+        //"layers+=glohorrad",
+        //"layers+=difhorrad",
+        //"layers+=dirnorrad",
+        //"layers+=dirnoreff",
+        //"layers+=south00",
+        //"layers+=windspd",
+
+        //"layers+=pastprecip",
+
+        "levels+=surface",
+
+        "year="  + nf(year() , 4),
+        "month=" + nf(month(), 2),
+        "day="   + nf(day()  , 2)
+      };
+    }
+
     println("args:");
     println(Arrays.toString(passedArgs));
 
