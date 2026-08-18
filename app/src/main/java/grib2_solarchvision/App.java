@@ -31,85 +31,15 @@ public class App extends PApplet {
     if (passedArgs != null) {
       println("args:");
       println(Arrays.toString(passedArgs));
+
+      parseArgs(passedArgs);
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
       PApplet.main(appletArgs);
     }
   }
 
-  String BaseFolder = "/home/solarch/org/grib2_solarchvision";
-
-  //String[] args = split(join(loadStrings(BaseFolder + "/scripts/node/gridConfig.txt"), " "), ' ');
-
-  String[] args = {
-    //"domain=NAM11",
-    //"domain=NAM12",
-    //"domain=NAM32",
-    //"domain=HRRR",
-    //"domain=GFS",
-    //"domain=GEFS",
-    //"domain=GEPS",
-    //"domain=REPS",
-    //"domain=GDPS",
-    "domain=RDPS",
-    //"domain=HRDPS_continental",
-    //"domain=GDWPS",
-    //"domain=RDWPS_lake_erie",
-    //"domain=RDWPS_lake_huron-michigan",
-    //"domain=RDWPS_lake_ontario",
-    //"domain=RDWPS_lake_superior",
-    //"domain=RDWPS_national",
-    //"domain=RDPA",
-    //"domain=HRDPA",
-
-    "run=00Z",
-    "begin=0",
-    "end=24",
-    "step=24",
-
-    "auto=USER",
-    //"auto=GIF",
-
-    "tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
-    "outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
-
-    //"layers+=swellwavesheight",
-    //"layers+=windwavesheight",
-    //"layers+=swellwavesheight",
-    //"layers+=combwavesheight",
-    //"layers+=peakwaveperiod",
-    //"layers+=windwaveperiod",
-    //"layers+=swellwaveperiod",
-
-    //"layers+=flowXmeanpressure",
-    "layers+=flowXprecipitation",
-
-    "layers+=windU",
-    "layers+=windV",
-
-    "layers+=precipitation",
-    //"layers+=drybulb",
-    //"layers+=meanpressure",
-    //"layers+=cloudcover",
-    //"layers+=albedo",
-    //"layers+=glohorrad",
-    //"layers+=difhorrad",
-    //"layers+=dirnorrad",
-    //"layers+=dirnoreff",
-    //"layers+=south00",
-    //"layers+=windspd",
-
-
-
-    //"layers+=pastprecip",
-
-    "levels+=surface",
-
-    "year="  + nf(year() , 4),
-    "month=" + nf(month(), 2),
-    "day="   + nf(day()  , 2)
-  };
-
+  static String BaseFolder = "/home/solarch/org/grib2_solarchvision";
 
   boolean log = false;
 
@@ -148,17 +78,17 @@ public class App extends PApplet {
     return filenames;
   }
 
-  String CITIES_Coordinates = BaseFolder + "/input/coordinate/cities.txt";
-  String COUNTRY_Coordinates = BaseFolder + "/input/coordinate/boundaries.txt";
-  String SHOP_Coordinates = BaseFolder + "/input/coordinate/shop.csv";
-  String SWOB_Coordinates = BaseFolder + "/input/coordinate/swob.txt";
+  static String CITIES_Coordinates = BaseFolder + "/input/coordinate/cities.txt";
+  static String COUNTRY_Coordinates = BaseFolder + "/input/coordinate/boundaries.txt";
+  static String SHOP_Coordinates = BaseFolder + "/input/coordinate/shop.csv";
+  static String SWOB_Coordinates = BaseFolder + "/input/coordinate/swob.txt";
 
-  String TempFolder = BaseFolder + "/temp/";
-  String OutputFolder = BaseFolder + "/output/";
+  static String TempFolder = BaseFolder + "/temp/";
+  static String OutputFolder = BaseFolder + "/output/";
 
-  String Jpeg2000Folder = TempFolder + "jp2/";
+  static String Jpeg2000Folder = TempFolder + "jp2/";
 
-  String RECENT_OBSERVED_directory = TempFolder + "swob/";
+  static String RECENT_OBSERVED_directory = TempFolder + "swob/";
   String[] RECENT_OBSERVED_XML_Files = getfiles(RECENT_OBSERVED_directory);
   int Download_RECENT_OBSERVED = 1;
 
@@ -209,47 +139,47 @@ public class App extends PApplet {
   PGraphics pdfExport;
   GifMaker gifExport;
 
-  final int USER_INT = 0; // User interface
-  final int AUTO_PDF = 1; // Auto PDF
-  final int AUTO_GIF = 2; // Auto GIF
-  final int AUTO_BMP = 3; // Auto BMP
-  final int AUTO_JPG = 4; // Auto JPG
-  final int AUTO_PNG = 5; // Auto PNG
-  final int AUTO_TIF = 6; // Auto TIF
+  static final int USER_INT = 0; // User interface
+  static final int AUTO_PDF = 1; // Auto PDF
+  static final int AUTO_GIF = 2; // Auto GIF
+  static final int AUTO_BMP = 3; // Auto BMP
+  static final int AUTO_JPG = 4; // Auto JPG
+  static final int AUTO_PNG = 5; // Auto PNG
+  static final int AUTO_TIF = 6; // Auto TIF
 
-  int automated = USER_INT;
+  static int automated = USER_INT;
 
-  int DATA_ModelYear = -1;
-  int DATA_ModelMonth = -1;
-  int DATA_ModelDay = -1;
+  static int DATA_ModelYear = -1;
+  static int DATA_ModelMonth = -1;
+  static int DATA_ModelDay = -1;
 
-  int DATA_ModelRun = -1;
-  int DATA_ModelTime = -1; // i.e. forecast hour
-  int DATA_ModelBegin = -1;
-  int DATA_ModelStep = -1;
-  int DATA_ModelEnd = -1;
+  static int DATA_ModelRun = -1;
+  static int DATA_ModelTime = -1; // i.e. forecast hour
+  static int DATA_ModelBegin = -1;
+  static int DATA_ModelStep = -1;
+  static int DATA_ModelEnd = -1;
 
-  int[] DATA_allStatistics = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // 0:Base 1:Mid-Low 2:Middle 3:Mid-High 4:25th-Percentile 5:Median 6:75th-Percentile 7:Minimum 8:Average 9:Maximum 10:Spetial-Mention
+  static int[] DATA_allStatistics = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // 0:Base 1:Mid-Low 2:Middle 3:Mid-High 4:25th-Percentile 5:Median 6:75th-Percentile 7:Minimum 8:Average 9:Maximum 10:Spetial-Mention
 
-  int DATA_numLevels = -1;
-  int DATA_numLayers = -1;
-  int DATA_numMembers = -1;
-  int DATA_numTimes = -1; // download n grib2 files in front
+  static int DATA_numLevels = -1;
+  static int DATA_numLayers = -1;
+  static int DATA_numMembers = -1;
+  static int DATA_numTimes = -1; // download n grib2 files in front
 
-  final int DOMAIN_PROPERTY00 = 0; // desirable name for model outside program
-  final int DOMAIN_PROPERTY01 = 1; // type of model
-  final int DOMAIN_PROPERTY02 = 2;
-  final int DOMAIN_PROPERTY03 = 3;
-  final int DOMAIN_PROPERTY04 = 4;
-  final int DOMAIN_PROPERTY05 = 5;
-  final int DOMAIN_PROPERTY06 = 6;
-  final int DOMAIN_PROPERTY07 = 7;
-  final int DOMAIN_PROPERTY08 = 8;
-  final int DOMAIN_PROPERTY09 = 9;
-  final int DOMAIN_PROPERTY10 = 10;
-  final int DOMAIN_PROPERTY11 = 11;
+  static final int DOMAIN_PROPERTY00 = 0; // desirable name for model outside program
+  static final int DOMAIN_PROPERTY01 = 1; // type of model
+  static final int DOMAIN_PROPERTY02 = 2;
+  static final int DOMAIN_PROPERTY03 = 3;
+  static final int DOMAIN_PROPERTY04 = 4;
+  static final int DOMAIN_PROPERTY05 = 5;
+  static final int DOMAIN_PROPERTY06 = 6;
+  static final int DOMAIN_PROPERTY07 = 7;
+  static final int DOMAIN_PROPERTY08 = 8;
+  static final int DOMAIN_PROPERTY09 = 9;
+  static final int DOMAIN_PROPERTY10 = 10;
+  static final int DOMAIN_PROPERTY11 = 11;
 
-  String[][] DATA_allDomains = {
+  static String[][] DATA_allDomains = {
     // Note: for hindcast we should use previous date:1981-2010
     //{ "CanSIPS_hindcast", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/cansips/grib2/hindcast/raw", "cansips_hindcast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
     { "CanSIPS_forecast", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/cansips/grib2/forecast/raw", "cansips_forecast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
@@ -321,9 +251,9 @@ public class App extends PApplet {
     { "WAVE", "WAVE", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "wave", "nah", "grib.grib2", "25", "1", "6", "18"} // as 127 member ensembles
   };
 
-  int Current_domainID = -1;
+  static int Current_domainID = -1;
 
-  String[][] DATA_ParameterLevel = {
+  static String[][] DATA_ParameterLevel = {
     {"snowdensity-Dube141_1h", "", "", "", "", "", "", "", ""},
     {"APCP-Accum6h_Sfc", "", "", "", "", "", "", "", ""},
 
@@ -428,134 +358,134 @@ public class App extends PApplet {
 
   };
 
-  int num_Levels = 0;
-  int addLevel () {
+  static int num_Levels = 0;
+  static int addLevel () {
     num_Levels += 1;
     return(num_Levels - 1);
   }
 
-  int LEVEL_surface    = addLevel();
-  int LEVEL_40m        = addLevel();
-  int LEVEL_80m        = addLevel();
-  int LEVEL_120m       = addLevel();
-  int LEVEL_ISBL_1000  = addLevel();
-  int LEVEL_ISBL_0850  = addLevel();
-  int LEVEL_ISBL_0650  = addLevel();
-  int LEVEL_ISBL_0450  = addLevel();
-  int LEVEL_ISBL_0250  = addLevel();
+  static int LEVEL_surface    = addLevel();
+  static int LEVEL_40m        = addLevel();
+  static int LEVEL_80m        = addLevel();
+  static int LEVEL_120m       = addLevel();
+  static int LEVEL_ISBL_1000  = addLevel();
+  static int LEVEL_ISBL_0850  = addLevel();
+  static int LEVEL_ISBL_0650  = addLevel();
+  static int LEVEL_ISBL_0450  = addLevel();
+  static int LEVEL_ISBL_0250  = addLevel();
 
-  int num_Layers = 0;
-  int addLayer () {
+  static int num_Layers = 0;
+  static int addLayer () {
     num_Layers += 1;
     return(num_Layers - 1);
   }
 
-  int LAYER_pastsnow           = addLayer();
-  int LAYER_pastprecip         = addLayer();
-  int LAYER_preciprate         = addLayer();
-  int LAYER_precipitation      = addLayer();
-  int LAYER_rain               = addLayer();
-  int LAYER_freezingrain       = addLayer();
-  int LAYER_icepellets         = addLayer();
-  int LAYER_snow               = addLayer();
+  static int LAYER_pastsnow           = addLayer();
+  static int LAYER_pastprecip         = addLayer();
+  static int LAYER_preciprate         = addLayer();
+  static int LAYER_precipitation      = addLayer();
+  static int LAYER_rain               = addLayer();
+  static int LAYER_freezingrain       = addLayer();
+  static int LAYER_icepellets         = addLayer();
+  static int LAYER_snow               = addLayer();
 
-  int LAYER_solarcomingshort   = addLayer();
-  int LAYER_solarabsrbdlong    = addLayer();
-  int LAYER_solarabsrbdshort   = addLayer();
-  int LAYER_solardownlong      = addLayer();
-  int LAYER_solardownshort     = addLayer();
-  int LAYER_solaruplong        = addLayer();
-  int LAYER_solarupshort       = addLayer();
-  int LAYER_surfsensibleheat   = addLayer();
-  int LAYER_surflatentheat     = addLayer();
+  static int LAYER_solarcomingshort   = addLayer();
+  static int LAYER_solarabsrbdlong    = addLayer();
+  static int LAYER_solarabsrbdshort   = addLayer();
+  static int LAYER_solardownlong      = addLayer();
+  static int LAYER_solardownshort     = addLayer();
+  static int LAYER_solaruplong        = addLayer();
+  static int LAYER_solarupshort       = addLayer();
+  static int LAYER_surfsensibleheat   = addLayer();
+  static int LAYER_surflatentheat     = addLayer();
 
-  int LAYER_surfshowalter      = addLayer();
-  int LAYER_surflifted         = addLayer();
+  static int LAYER_surfshowalter      = addLayer();
+  static int LAYER_surflifted         = addLayer();
 
-  int LAYER_convpotenergy      = addLayer();
-  int LAYER_surfhelicity       = addLayer();
+  static int LAYER_convpotenergy      = addLayer();
+  static int LAYER_surfhelicity       = addLayer();
 
-  int LAYER_watertemperature   = addLayer();
-  int LAYER_ice                = addLayer();
-  int LAYER_land               = addLayer();
+  static int LAYER_watertemperature   = addLayer();
+  static int LAYER_ice                = addLayer();
+  static int LAYER_land               = addLayer();
 
-  int LAYER_depthsnow          = addLayer();
-  int LAYER_watersnow          = addLayer();
-  int LAYER_soiltemperature    = addLayer();
-  int LAYER_soilmoisture       = addLayer();
+  static int LAYER_depthsnow          = addLayer();
+  static int LAYER_watersnow          = addLayer();
+  static int LAYER_soiltemperature    = addLayer();
+  static int LAYER_soilmoisture       = addLayer();
 
-  int LAYER_absolutevorticity  = addLayer();
-  int LAYER_verticalvelocity   = addLayer();
-  int LAYER_height             = addLayer();
+  static int LAYER_absolutevorticity  = addLayer();
+  static int LAYER_verticalvelocity   = addLayer();
+  static int LAYER_height             = addLayer();
 
-  int LAYER_drybulb            = addLayer();
-  int LAYER_dewpoint           = addLayer();
-  int LAYER_depression         = addLayer();
-  int LAYER_spchum             = addLayer();
-  int LAYER_relhum             = addLayer();
+  static int LAYER_drybulb            = addLayer();
+  static int LAYER_dewpoint           = addLayer();
+  static int LAYER_depression         = addLayer();
+  static int LAYER_spchum             = addLayer();
+  static int LAYER_relhum             = addLayer();
 
-  int LAYER_windU              = addLayer();
-  int LAYER_windV              = addLayer();
-  int LAYER_windspd            = addLayer();
-  int LAYER_winddir            = addLayer();
+  static int LAYER_windU              = addLayer();
+  static int LAYER_windV              = addLayer();
+  static int LAYER_windspd            = addLayer();
+  static int LAYER_winddir            = addLayer();
 
-  int LAYER_windwavedirtrue    = addLayer();
-  int LAYER_swellwavedirtrue   = addLayer();
-  int LAYER_windwavesheight    = addLayer();
-  int LAYER_swellwavesheight   = addLayer();
-  int LAYER_combwavesheight    = addLayer();
-  int LAYER_peakwaveperiod     = addLayer();
-  int LAYER_windwaveperiod     = addLayer();
-  int LAYER_swellwaveperiod    = addLayer();
+  static int LAYER_windwavedirtrue    = addLayer();
+  static int LAYER_swellwavedirtrue   = addLayer();
+  static int LAYER_windwavesheight    = addLayer();
+  static int LAYER_swellwavesheight   = addLayer();
+  static int LAYER_combwavesheight    = addLayer();
+  static int LAYER_peakwaveperiod     = addLayer();
+  static int LAYER_windwaveperiod     = addLayer();
+  static int LAYER_swellwaveperiod    = addLayer();
 
-  int LAYER_Water_level_above_mean_sea_level  = addLayer();
-  int LAYER_X_component_of_the_water_velocity = addLayer();
-  int LAYER_Y_component_of_the_water_velocity = addLayer();
-  int LAYER_Modulus_of_the_water_velocity     = addLayer();
-  int LAYER_Direction_of_the_water_velocity   = addLayer();
-  int LAYER_Froude_number                     = addLayer();
-  int LAYER_Shear_of_the_water_velocity       = addLayer();
-  int LAYER_Specific_discharge                = addLayer();
-  int LAYER_Water_Transport_Diffusion_Index   = addLayer();
-  int LAYER_Water_temperature                 = addLayer();
+  static int LAYER_Water_level_above_mean_sea_level  = addLayer();
+  static int LAYER_X_component_of_the_water_velocity = addLayer();
+  static int LAYER_Y_component_of_the_water_velocity = addLayer();
+  static int LAYER_Modulus_of_the_water_velocity     = addLayer();
+  static int LAYER_Direction_of_the_water_velocity   = addLayer();
+  static int LAYER_Froude_number                     = addLayer();
+  static int LAYER_Shear_of_the_water_velocity       = addLayer();
+  static int LAYER_Specific_discharge                = addLayer();
+  static int LAYER_Water_Transport_Diffusion_Index   = addLayer();
+  static int LAYER_Water_temperature                 = addLayer();
 
-  int LAYER_meanpressure       = addLayer();
-  int LAYER_surfpressure       = addLayer();
-  int LAYER_cloudceiling       = addLayer();
-  int LAYER_cloudtop           = addLayer();
-  int LAYER_cloudhigh          = addLayer();
-  int LAYER_cloudmiddle        = addLayer();
-  int LAYER_cloudlow           = addLayer();
-  int LAYER_cloudcover         = addLayer();
-  int LAYER_albedo             = addLayer();
+  static int LAYER_meanpressure       = addLayer();
+  static int LAYER_surfpressure       = addLayer();
+  static int LAYER_cloudceiling       = addLayer();
+  static int LAYER_cloudtop           = addLayer();
+  static int LAYER_cloudhigh          = addLayer();
+  static int LAYER_cloudmiddle        = addLayer();
+  static int LAYER_cloudlow           = addLayer();
+  static int LAYER_cloudcover         = addLayer();
+  static int LAYER_albedo             = addLayer();
   //---------------------------
-  int NumberOfRawDataLayers = LAYER_albedo;
+  static int NumberOfRawDataLayers = LAYER_albedo;
   //---------------------------
-  int LAYER_glohorrad          = addLayer();
-  int LAYER_difhorrad          = addLayer();
-  int LAYER_dirnorrad          = addLayer();
-  int LAYER_dirnoreff          = addLayer();
-  int LAYER_difhoreff          = addLayer();
-  int LAYER_tracker            = addLayer();
-  int LAYER_fixlat             = addLayer();
-  int LAYER_south45            = addLayer();
-  int LAYER_south00            = addLayer();
-  int LAYER_north00            = addLayer();
-  int LAYER_east00             = addLayer();
-  int LAYER_west00             = addLayer();
+  static int LAYER_glohorrad          = addLayer();
+  static int LAYER_difhorrad          = addLayer();
+  static int LAYER_dirnorrad          = addLayer();
+  static int LAYER_dirnoreff          = addLayer();
+  static int LAYER_difhoreff          = addLayer();
+  static int LAYER_tracker            = addLayer();
+  static int LAYER_fixlat             = addLayer();
+  static int LAYER_south45            = addLayer();
+  static int LAYER_south00            = addLayer();
+  static int LAYER_north00            = addLayer();
+  static int LAYER_east00             = addLayer();
+  static int LAYER_west00             = addLayer();
 
-  int LAYER_windpower          = addLayer();
-  int LAYER_flowXonly          = addLayer();
-  int LAYER_flowXmeanpressure  = addLayer();
-  int LAYER_flowXprecipitation = addLayer();
-  int LAYER_flowXdirecteffect  = addLayer();
+  static int LAYER_windpower          = addLayer();
+  static int LAYER_flowXonly          = addLayer();
+  static int LAYER_flowXmeanpressure  = addLayer();
+  static int LAYER_flowXprecipitation = addLayer();
+  static int LAYER_flowXdirecteffect  = addLayer();
 
-  int[] DATA_allLayers = new int[0];
-  int[] DATA_allLevels = new int[0];
+  static int[] DATA_allLayers = new int[0];
+  static int[] DATA_allLevels = new int[0];
 
   //setting program arguments
 
-  {
+  static void parseArgs(String[] args) {
     for (int i = 0 ; i < args.length ; i++) {
       String CAP_arg = args[i].toUpperCase();
 

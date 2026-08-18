@@ -10,9 +10,9 @@ layers+=windU
 layers+=windV
 layers+=precipitation
 
-year=2019
-month=7
-day=6
+year=2026
+month=8
+day=18
 run=00Z
 tmpdir=/home/solarch/org/grib2_solarchvision/temp/
 outdir=/home/solarch/org/grib2_solarchvision/screenshot/
