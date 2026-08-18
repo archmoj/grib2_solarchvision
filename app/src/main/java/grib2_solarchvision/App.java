@@ -51,16 +51,14 @@ public class App extends PApplet {
         //"domain=RDPA",
         //"domain=HRDPA",
 
+        //"year="  + nf(year() , 4),
+        //"month=" + nf(month(), 2),
+        //"day="   + nf(day()  , 2)
+
         "run=00Z",
         "begin=0",
         "end=24",
         "step=24",
-
-        "auto=USER",
-        //"auto=GIF",
-
-        "tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
-        "outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
 
         //"layers+=swellwavesheight",
         //"layers+=windwavesheight",
@@ -92,9 +90,11 @@ public class App extends PApplet {
 
         "levels+=surface",
 
-        "year="  + nf(year() , 4),
-        "month=" + nf(month(), 2),
-        "day="   + nf(day()  , 2)
+        "auto=USER",
+        //"auto=GIF",
+
+        //"tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
+        //"outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
       };
     }
 
@@ -215,9 +215,9 @@ public class App extends PApplet {
 
   static int automated = USER_INT;
 
-  static int DATA_ModelYear = -1;
-  static int DATA_ModelMonth = -1;
-  static int DATA_ModelDay = -1;
+  static int DATA_ModelYear = year();
+  static int DATA_ModelMonth = month();
+  static int DATA_ModelDay = day();
 
   static int DATA_ModelRun = -1;
   static int DATA_ModelTime = -1; // i.e. forecast hour
