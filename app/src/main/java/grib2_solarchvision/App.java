@@ -7,6 +7,8 @@ import processing.event.*;
 import processing.pdf.*;
 
 import gifAnimation.*;
+
+import java.util.Arrays;
 import java.util.Calendar;
 import ucar.unidata.io.RandomAccessFile;
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
@@ -15,6 +17,25 @@ import java.io.File;
 import java.io.IOException;
 
 public class App extends PApplet {
+
+  public void settings() {
+    size(
+      1500, //SOLARCHVISION_W_Pixel
+      912, //SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel
+      P2D
+    );
+  }
+
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "grib2_solarchvision.App" };
+    if (passedArgs != null) {
+      println("args:");
+      println(Arrays.toString(passedArgs));
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 
   String BaseFolder = "/home/solarch/org/grib2_solarchvision";
 
@@ -135,7 +156,6 @@ public class App extends PApplet {
   String TempFolder = BaseFolder + "/temp/";
   String OutputFolder = BaseFolder + "/output/";
 
-  String Grib2Folder = TempFolder + "grib2/";
   String Jpeg2000Folder = TempFolder + "jp2/";
 
   String RECENT_OBSERVED_directory = TempFolder + "swob/";
@@ -541,7 +561,6 @@ public class App extends PApplet {
 
       int _at = 0;
       int input_int = 0;
-      float input_float = 0;
       String input_str = "";
       String[] _tokens;
 
@@ -977,202 +996,6 @@ public class App extends PApplet {
       }
     }
 
-
-  /*
-
-    if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
-      int[] DATA_newLayers = {
-        LAYER_Water_temperature,
-        LAYER_Water_level_above_mean_sea_level,
-        //LAYER_X_component_of_the_water_velocity,
-        //LAYER_Y_component_of_the_water_velocity,
-        //LAYER_Modulus_of_the_water_velocity,
-        //LAYER_Direction_of_the_water_velocity,
-        //LAYER_Froude_number,
-        //LAYER_Shear_of_the_water_velocity,
-        //LAYER_Specific_discharge,
-        //LAYER_Water_Transport_Diffusion_Index,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS")) {
-      int[] DATA_newLayers = {
-        LAYER_windwavesheight,
-        LAYER_swellwavesheight,
-        LAYER_combwavesheight,
-        LAYER_peakwaveperiod,
-        LAYER_windwaveperiod,
-        LAYER_swellwaveperiod,
-        LAYER_windU,
-        LAYER_windV,
-        LAYER_meanpressure,
-        LAYER_flowXmeanpressure,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SNOW")) {
-      int[] DATA_newLayers = {
-        LAYER_pastsnow,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA")) {
-      int[] DATA_newLayers = {
-        LAYER_pastprecip,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS"))) {
-      int[] DATA_newLayers = {
-        LAYER_drybulb,
-
-        LAYER_meanpressure,
-
-        LAYER_windU,
-        LAYER_windV,
-
-        LAYER_precipitation,
-
-        //LAYER_cloudcover,
-        //LAYER_albedo,
-
-        LAYER_flowXmeanpressure,
-        LAYER_flowXprecipitation,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPS"))) {
-      int[] DATA_newLayers = {
-        LAYER_drybulb,
-      //  LAYER_dewpoint,
-      //  LAYER_depression,
-      //  LAYER_spchum,
-      //  LAYER_relhum,
-
-        LAYER_meanpressure,
-      //  LAYER_surfpressure,
-
-        LAYER_windU,
-        LAYER_windV,
-      //  LAYER_windspd,
-      //  LAYER_winddir,
-
-      //  LAYER_pastsnow
-      //  LAYER_pastprecip,
-      //  LAYER_preciprate,
-        LAYER_precipitation,
-      //  LAYER_rain,
-      //  LAYER_freezingrain,
-      //  LAYER_icepellets,
-      //  LAYER_snow,
-
-      //  LAYER_solarcomingshort,
-      //  LAYER_solarabsrbdlong,
-      //  LAYER_solarabsrbdshort,
-      //  LAYER_solardownlong,
-      //  LAYER_solardownshort,
-      //  LAYER_solaruplong,
-      //  LAYER_solarupshort,
-      //  LAYER_surfsensibleheat,
-      //  LAYER_surflatentheat,
-
-      //  LAYER_surfshowalter,
-      //  LAYER_surflifted,
-
-      //  LAYER_convpotenergy,
-      //  LAYER_surfhelicity,
-
-      //  LAYER_watertemperature,
-      //  LAYER_ice,
-      //  LAYER_land,
-
-      //  LAYER_depthsnow,
-      //  LAYER_watersnow,
-      //  LAYER_soiltemperature,
-      //  LAYER_soilmoisture,
-
-      //  LAYER_absolutevorticity,
-      //  LAYER_verticalvelocity,
-      //  LAYER_height,
-
-      //  LAYER_cloudceiling,
-      //  LAYER_cloudtop,
-      //  LAYER_cloudhigh,
-      //  LAYER_cloudmiddle,
-      //  LAYER_cloudlow,
-        LAYER_cloudcover,
-        LAYER_albedo,
-
-        LAYER_glohorrad,
-        LAYER_difhorrad,
-        LAYER_dirnorrad,
-        LAYER_dirnoreff,
-        //LAYER_difhoreff,
-        //LAYER_tracker,
-        //LAYER_fixlat,
-        //LAYER_south45,
-        LAYER_south00,
-        //LAYER_north00,
-        //LAYER_east00,
-        //LAYER_west00,
-
-        LAYER_windspd,
-        //LAYER_windpower,
-        //LAYER_flowXonly,
-        LAYER_flowXmeanpressure,
-        LAYER_flowXprecipitation,
-        //LAYER_flowXdirecteffect,
-
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRRR")) {
-      int[] DATA_newLayers = {
-        LAYER_drybulb,
-        //LAYER_dewpoint,
-        //LAYER_spchum,
-        LAYER_relhum,
-
-        LAYER_meanpressure,
-        //LAYER_surfpressure,
-
-        LAYER_windU,
-        LAYER_windV,
-
-        //LAYER_preciprate,
-        LAYER_precipitation,
-        //LAYER_rain,
-        //LAYER_freezingrain,
-        //LAYER_icepellets,
-        //LAYER_snow,
-
-        //LAYER_cloudcover,
-
-        LAYER_flowXprecipitation,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    else {
-      int[] DATA_newLayers = {
-        LAYER_meanpressure,
-      };
-
-      DATA_allLayers = DATA_newLayers;
-    }
-    DATA_numMembers
-
-  */
 
     DATA_numLevels = DATA_allLevels.length;
     DATA_numLayers = DATA_allLayers.length;
@@ -9547,23 +9370,5 @@ public class App extends PApplet {
 
     k = k % 365;
     return k;
-  }
-
-
-  public void settings() {
-    size(
-      1500, //SOLARCHVISION_W_Pixel
-      912, //SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel
-      P2D
-    );
-  }
-
-  static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "grib2_solarchvision.App" };
-    if (passedArgs != null) {
-      PApplet.main(concat(appletArgs, passedArgs));
-    } else {
-      PApplet.main(appletArgs);
-    }
   }
 }
