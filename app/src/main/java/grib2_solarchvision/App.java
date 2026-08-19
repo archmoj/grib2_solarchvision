@@ -1006,7 +1006,10 @@ public class App extends PApplet {
     if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("NOAA")) {
       for (int i = 0; i < DATA_ParameterLevel.length; i++) {
         for (int j = 0; j < DATA_ParameterLevel[i].length; j++) {
-          if (DATA_ParameterLevel[i][j].equals("PRMSL_MSL")) { DATA_ParameterLevel[i][j] = "MSLMA_MSL"; }
+          if(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRRR")) {
+            if (DATA_ParameterLevel[i][j].equals("PRMSL_MSL")) { DATA_ParameterLevel[i][j] = "MSLMA_MSL"; }
+          }
+
           if (DATA_ParameterLevel[i][j].equals("ARAIN_Sfc")) { DATA_ParameterLevel[i][j] = "CRAIN_Sfc"; }
           if (DATA_ParameterLevel[i][j].equals("AFRAIN_Sfc")) { DATA_ParameterLevel[i][j] = "CFRZR_Sfc"; }
           if (DATA_ParameterLevel[i][j].equals("AICEP_Sfc")) { DATA_ParameterLevel[i][j] = "CICEP_Sfc"; }
