@@ -18,10 +18,20 @@ import java.io.IOException;
 
 public class App extends PApplet {
 
+  static int SOLARCHVISION_H_Pixel = 750;
+  static int SOLARCHVISION_W_Pixel = PApplet.parseInt(SOLARCHVISION_H_Pixel * 2.0f);
+
+  static float MessageSize =  12.0f;
+
+  static int SOLARCHVISION_A_Pixel = 0; // menu bar
+  static int SOLARCHVISION_B_Pixel = PApplet.parseInt(3.0f * MessageSize); // tool bar
+  static int SOLARCHVISION_C_Pixel = PApplet.parseInt(3.0f * MessageSize); // command bar
+  static int SOLARCHVISION_D_Pixel = PApplet.parseInt(7.5f * MessageSize); // time bar
+
   public void settings() {
     size(
-      1500, //SOLARCHVISION_W_Pixel
-      912, //SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel
+      SOLARCHVISION_W_Pixel,
+      SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel,
       P2D
     );
   }
@@ -546,8 +556,6 @@ public class App extends PApplet {
   static int[] DATA_allLayers = new int[0];
   static int[] DATA_allLevels = new int[0];
 
-  //setting program arguments
-
   static void parseArgs(String[] args) {
     for (int i = 0 ; i < args.length ; i++) {
       String CAP_arg = args[i].toUpperCase();
@@ -1015,18 +1023,7 @@ public class App extends PApplet {
         }
       }
     }
-  }
 
-  int SOLARCHVISION_H_Pixel = 750;
-  int SOLARCHVISION_W_Pixel = PApplet.parseInt(SOLARCHVISION_H_Pixel * 2.0f);
-
-  float MessageSize =  12.0f;
-
-  int SOLARCHVISION_A_Pixel = 0; //int(1.5 * MessageSize); // menu bar
-  int SOLARCHVISION_B_Pixel = PApplet.parseInt(3.0f * MessageSize); // 3D tool bar
-  int SOLARCHVISION_C_Pixel = PApplet.parseInt(3.0f * MessageSize); // command bar
-  int SOLARCHVISION_D_Pixel = PApplet.parseInt(7.5f * MessageSize); // time bar
-  {
     if (automated != USER_INT) { // remove upper and lower bars
       SOLARCHVISION_A_Pixel = 0;
       SOLARCHVISION_D_Pixel = 0;
