@@ -1,0 +1,15 @@
+domain=NAM11
+run=0
+begin=0
+end=3
+step=3
+auto=PNG
+levels+=surface
+
+layers+=drybulb
+layers+=relhum
+layers+=meanpressure
+layers+=windU
+layers+=windV
+layers+=precipitation
+layers+=flowXprecipitation

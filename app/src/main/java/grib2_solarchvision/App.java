@@ -2224,13 +2224,11 @@ public class App extends PApplet {
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GFS")) {
         return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07] + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".f" + nf(k, 3);
       }
-      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM11")) {
-        return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
-      }
-      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM12")) {
-        return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
-      }
-      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM32")) {
+      else if (
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM11") ||
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM12") ||
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("NAM32")
+      ) {
         return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("WAVE")) {
