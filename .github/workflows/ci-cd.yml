@@ -38,6 +38,39 @@ jobs:
         path: build/
         retention-days: 1
 
+  test-HRRR:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test HRRR
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRRR.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
   test-HRDPS:
     runs-on: ubuntu-latest
     needs: build
@@ -96,6 +129,303 @@ jobs:
     - name: Test RDPS
       timeout-minutes: 3
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPS.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-GDPS:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test GDPS
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDPS.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-GDWPS:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test GDWPS
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-RDWPS_national:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RDWPS_national
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_national.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-RDWPS_lake_erie:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RDWPS_lake_erie
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_erie.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-RDWPS_lake_huron-michigan:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RDWPS_lake_huron-michigan
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_huron-michigan.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-RDWPS_lake_ontario:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RDWPS_lake_ontario
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_ontario.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-RDWPS_lake_superior:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RDWPS_lake_superior
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_superior.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-RDPA:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RDPA
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPA.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-HRDPA:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test HRDPA
+      timeout-minutes: 3
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPA.txt)"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
