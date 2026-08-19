@@ -1,8 +1,8 @@
 domain=REPS
 run=0
 begin=0
-end=3
-step=3
+end=72
+step=72
 auto=PNG
 levels+=surface
 

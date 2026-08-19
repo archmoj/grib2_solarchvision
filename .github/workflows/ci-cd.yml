@@ -204,6 +204,72 @@ jobs:
         path: output/
         retention-days: 1
 
+  test-GEPS:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test GEPS
+      timeout-minutes: 5
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GEPS.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
+  test-REPS:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test REPS
+      timeout-minutes: 5
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/REPS.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
+
   test-GDWPS:
     runs-on: ubuntu-latest
     needs: build

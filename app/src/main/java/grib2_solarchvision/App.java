@@ -1868,10 +1868,12 @@ public class App extends PApplet {
         Current_timeID += 1;
         if (Current_timeID == DATA_numTimes) {
           Current_timeID = 0;
+        /*
           Current_memberID += 1;
         }
         if (Current_memberID == DATA_numMembers) {
           Current_memberID = 0;
+        */
           Current_layerID += 1;
         }
         if (Current_layerID == DATA_numLayers) {
