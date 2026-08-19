@@ -1925,9 +1925,9 @@ public class App extends PApplet {
       }
     }
 
-  /*
-    gridSouthLat = -(90 - 180 * (mouseY - (SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel)) / (1.0 * SOLARCHVISION_H_Pixel));
-    gridSouthLon = -180 + 360 * mouseX / (1.0 * SOLARCHVISION_W_Pixel);
+/*
+    gridSouthLat = -(90.0f - 180.0f * (mouseY - (SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel)) / (1.0f * SOLARCHVISION_H_Pixel));
+    gridSouthLon = -180.0f + 360.0f * mouseX / (1.0f * SOLARCHVISION_W_Pixel);
 
     DATA_Viewport_Update = true;
 
@@ -1935,7 +1935,7 @@ public class App extends PApplet {
     text("gridSouthLat = " + nf(gridSouthLat, 0, 0) + "\n" +
         "gridSouthLon = " + nf(gridSouthLon, 0, 0) + "\n" +
         "gridRotation = " + nf(gridRotation, 0, 0), width/2, height/2);
-  */
+*/
 
   }
 
@@ -3009,7 +3009,7 @@ public class App extends PApplet {
       lon = ix * (lon2 - lon1) / PApplet.parseFloat(gridNx) + lon1;
       lat = iy * (lat2 - lat1) / PApplet.parseFloat(gridNy) + lat1;
 
-      float t1 = gridSouthLon;
+      float t1 = 180 - gridSouthLon;
       float t2 = -gridSouthLat - 90;
       float t3 = gridRotation - 90;
 
@@ -3190,7 +3190,7 @@ public class App extends PApplet {
       float lat2 = gridLa2;
       float lon2 = gridLo2;
 
-      float t1 = gridSouthLon - 90;
+      float t1 = 90 - gridSouthLon;
       float t2 = -gridSouthLat - 90;
       float t3 = gridRotation - 90;
 
