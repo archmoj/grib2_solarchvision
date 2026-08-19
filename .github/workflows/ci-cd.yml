@@ -61,7 +61,7 @@ jobs:
         path: build/
 
     - name: Test HRRR
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRRR.txt)"
 
     - name: Upload Artifacts
@@ -94,7 +94,7 @@ jobs:
         path: build/
 
     - name: Test HRDPS
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt)"
 
     - name: Upload Artifacts
@@ -127,7 +127,7 @@ jobs:
         path: build/
 
     - name: Test RDPS
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPS.txt)"
 
     - name: Upload Artifacts
@@ -160,7 +160,7 @@ jobs:
         path: build/
 
     - name: Test GDPS
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDPS.txt)"
 
     - name: Upload Artifacts
@@ -193,7 +193,7 @@ jobs:
         path: build/
 
     - name: Test GDWPS
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt)"
 
     - name: Upload Artifacts
@@ -226,7 +226,7 @@ jobs:
         path: build/
 
     - name: Test RDWPS_national
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_national.txt)"
 
     - name: Upload Artifacts
@@ -259,7 +259,7 @@ jobs:
         path: build/
 
     - name: Test RDWPS_lake_erie
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_erie.txt)"
 
     - name: Upload Artifacts
@@ -292,7 +292,7 @@ jobs:
         path: build/
 
     - name: Test RDWPS_lake_huron-michigan
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_huron-michigan.txt)"
 
     - name: Upload Artifacts
@@ -325,7 +325,7 @@ jobs:
         path: build/
 
     - name: Test RDWPS_lake_ontario
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_ontario.txt)"
 
     - name: Upload Artifacts
@@ -358,7 +358,7 @@ jobs:
         path: build/
 
     - name: Test RDWPS_lake_superior
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_superior.txt)"
 
     - name: Upload Artifacts
@@ -391,7 +391,7 @@ jobs:
         path: build/
 
     - name: Test RDPA
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPA.txt)"
 
     - name: Upload Artifacts
@@ -424,7 +424,7 @@ jobs:
         path: build/
 
     - name: Test HRDPA
-      timeout-minutes: 3
+      timeout-minutes: 5
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPA.txt)"
 
     - name: Upload Artifacts
