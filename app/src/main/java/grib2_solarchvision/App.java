@@ -5088,11 +5088,17 @@ public class App extends PApplet {
     String b = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00] + nf(DATA_ModelRun, 2) + "Z" + "_" + DATA_ParameterLevel[DATA_allLayers[layerID]][DATA_allLevels[levelID]];
 
     if (automated != AUTO_GIF) {
-      b += "_Fhr" + nf(timeID * DATA_ModelStep + DATA_ModelBegin, 3);
+      if(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].equals("CanSIPS")) {
+        b += "_P" + nf(timeID * DATA_ModelStep + DATA_ModelBegin, 2) + "M";
+      } else {
+        b += "_Fhr" + nf(timeID * DATA_ModelStep + DATA_ModelBegin, 3);
+      }
     }
 
     if (PApplet.parseInt(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY09]) > 1) {
-      b += "_Mbr" + nf(Current_memberID, 2);
+      if (STUDY_memberBegin == STUDY_memberEnd) {
+        b += "_Mbr" + nf(Current_memberID, 2);
+      }
     }
     return b;
   }
