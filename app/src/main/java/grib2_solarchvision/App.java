@@ -2064,8 +2064,7 @@ public class App extends PApplet {
       }
 
       if (l == LAYER_drybulb) {
-        if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-            (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS"))) {
+        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) {
           F_L = "TMP_TGL_2m";
           DATA_ParameterLevel[l][h] = F_L;
         }
@@ -2138,7 +2137,10 @@ public class App extends PApplet {
         return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
-        return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + F_L + "_" + nf(DATA_ModelYear, 4) + "-" + nf(DATA_ModelMonth, 2) + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+        return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" +
+          F_L
+            .replace("TMP_", "AirTemp_")
+        + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_P" + nf(DATA_ModelTime, 2) + "M" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
               (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA"))) {

@@ -1,0 +1,9 @@
+domain=CanSIPS
+run=0
+begin=0
+end=11
+step=1
+auto=PNG
+levels+=surface
+
+layers+=drybulb

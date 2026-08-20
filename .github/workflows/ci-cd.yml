@@ -634,3 +634,37 @@ jobs:
         name: Output-files
         path: output/
         retention-days: 1
+
+
+  test-CanSIPS:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v6
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test CanSIPS
+      timeout-minutes: 5
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/CanSIPS.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: Output-files
+        path: output/
+        retention-days: 1
