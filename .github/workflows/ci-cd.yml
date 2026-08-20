@@ -71,6 +71,38 @@ jobs:
         path: output/
         retention-days: 1
 
+  test-RAP:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Winnipeg'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v7
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Test RAP
+      timeout-minutes: 5
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RAP.txt)"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: RAP-output
+        path: output/
+        retention-days: 1
 
   test-HRRR:
     runs-on: ubuntu-latest

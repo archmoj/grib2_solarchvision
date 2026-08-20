@@ -307,7 +307,6 @@ public class App extends PApplet {
     { "NAM32", "NAM32", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "nam", "awip32", "grib2", "32", "1", "1", "84" },
 
     { "RAP", "RAP", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "rap", "awp130pgrbf", "grib2", "13", "1", "1", "18" },
-    //{ "RAP", "RAP", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "32.pl", "rap", "awip32f", "grib2", "32", "1", "1", "18" },
 
     { "HRRR", "HRRR", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_2d.pl", "hrrr", "wrfsfcf", "grib2", "3", "1", "1", "15" },
 

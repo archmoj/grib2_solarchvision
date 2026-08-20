@@ -1,0 +1,13 @@
+domain=RAP
+run=0
+begin=0
+end=1
+step=1
+auto=PNG
+levels+=surface
+
+layers+=drybulb
+layers+=windU
+layers+=windV
+layers+=precipitation
+layers+=flowXprecipitation
