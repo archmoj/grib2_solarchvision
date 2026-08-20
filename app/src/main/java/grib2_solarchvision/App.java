@@ -261,27 +261,25 @@ public class App extends PApplet {
   static final int DOMAIN_PROPERTY11 = 11;
 
   static String[][] DATA_allDomains = {
-    // Note: for hindcast we should use previous date:1981-2010
-    //{ "CanSIPS_hindcast", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/cansips/grib2/hindcast/raw", "cansips_hindcast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
-    { "CanSIPS_forecast", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/cansips/grib2/forecast/raw", "cansips_forecast_raw", "latlon2.5x2.5", "_allmembers.grib2", "250", "240", "1", "1" },
+    { "CanSIPS", "CanSIPS", "CMC", "https://dd.weather.gc.ca/", "model_cansips/100km/forecast", "MSC_CanSIPS", "LatLon1.0", ".grib2", "100", "40", "1", "1" },
 
     { "GEPS", "GEPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/geps/grib2/raw", "CMC_geps-raw", "latlon0p5x0p5", "_allmbrs.grib2", "100", "21", "6", "384" },
 
     { "REPS", "REPS", "CMC", "https://dd.weather.gc.ca/", "ensemble/reps/10km/grib2", "MSC_REPS", "RLatLon0.09x0.09", ".grib2", "15", "21", "3", "72" },
 
-    { "GDPS", "GDPS", "CMC", "https://dd.weather.gc.ca/", "model_gdps/15km", "MSC_GDPS", "LatLon0.15", ".grib2", "25", "1", "3", "240" },
+    { "GDPS", "GDPS", "CMC", "https://dd.weather.gc.ca/", "model_gdps/15km", "MSC_GDPS", "LatLon0.15", ".grib2", "25", "1", "1", "240" },
 
-    { "RDPS", "RDPS", "CMC", "https://dd.weather.gc.ca/", "model_rdps/10km", "MSC_RDPS", "RLatLon0.09", ".grib2", "10", "1", "3", "54" },
+    { "RDPS", "RDPS", "CMC", "https://dd.weather.gc.ca/", "model_rdps/10km", "MSC_RDPS", "RLatLon0.09", ".grib2", "10", "1", "1", "54" },
 
     { "HRDPS", "HRDPS", "CMC", "https://dd.weather.gc.ca/", "model_hrdps/continental/2.5km", "MSC_HRDPS", "RLatLon0.0225", ".grib2", "2.5", "1", "1", "48" },
 
-    { "GDWPS", "GDWPS", "CMC", "https://dd.weather.gc.ca/", "model_gdwps/25km", "MSC_GDWPS", "LatLon0.25", ".grib2", "25", "1", "3", "48" },
+    { "GDWPS", "GDWPS", "CMC", "https://dd.weather.gc.ca/", "model_gdwps/25km", "MSC_GDWPS", "LatLon0.25", ".grib2", "25", "1", "1", "48" },
 
-    { "RDWPS_lake_erie", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/erie/1km", "MSC_RDWPS-Lake-Erie", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
-    { "RDWPS_lake_huron-michigan", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/huron-michigan/1km", "MSC_RDWPS-Lake-Huron-Michigan", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
-    { "RDWPS_lake_ontario", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/ontario/1km", "MSC_RDWPS-Lake-Ontario", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
-    { "RDWPS_lake_superior", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/superior/1km", "MSC_RDWPS-Lake-Superior", "LatLon0.009x0.012", ".grib2", "5", "1", "6", "48" },
-    { "RDWPS_national", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/national/2.5km", "MSC_RDWPS", "RLatLon0.0225", ".grib2", "5", "1", "6", "48" },
+    { "RDWPS_lake_erie", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/erie/1km", "MSC_RDWPS-Lake-Erie", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "RDWPS_lake_huron-michigan", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/huron-michigan/1km", "MSC_RDWPS-Lake-Huron-Michigan", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "RDWPS_lake_ontario", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/ontario/1km", "MSC_RDWPS-Lake-Ontario", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "RDWPS_lake_superior", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/superior/1km", "MSC_RDWPS-Lake-Superior", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "RDWPS_national", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/national/2.5km", "MSC_RDWPS", "RLatLon0.0225", ".grib2", "5", "1", "1", "48" },
 
     { "RDPA", "RDPA", "CMC", "https://dd.weather.gc.ca/", "model_rdpa/10km", "MSC_RDPA", "RLatLon0.09", ".grib2", "5", "1", "6", "1" },
 
@@ -300,19 +298,13 @@ public class App extends PApplet {
 
     { "GEFS", "GEFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_gefs_atmos_0p25s.pl", "gefs", "0p25", "pgrb2s.0p25", "100", "1", "6", "384" },
 
-    //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "1p00", "pgrb2", "100", "1", "3", "384" },
-    //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p50", "pgrb2full", "50", "1", "3", "384" },
     { "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
-    //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_1hr.pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
-    //{ "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "b.pl", "gfs", "0p25", "pgrb2b", "25", "1", "1", "384" },
 
     { "NAM11", "NAM11", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_ak.pl", "nam", "awak3d", "grib2", "11", "1", "3", "60" },
 
-    { "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_conusnest.pl", "nam", "conusnest.hiresf", "grib2", "11", "1", "3", "60" },
-    //{ "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_hawaiinest.pl", "nam", "hawaiinest.hiresf", "grib2", "11", "1", "3", "60" },
-    //{ "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_priconest.pl", "nam", "priconest.hiresf", "grib2", "11", "1", "3", "60" },
+    { "NAM12", "NAM12", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_conusnest.pl", "nam", "conusnest.hiresf", "grib2", "11", "1", "1", "60" },
 
-    { "NAM32", "NAM32", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "nam", "awip32", "grib2", "32", "1", "3", "84" },
+    { "NAM32", "NAM32", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_na.pl", "nam", "awip32", "grib2", "32", "1", "1", "84" },
 
     { "RAP", "RAP", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "rap", "awp130pgrbf", "grib2", "13", "1", "1", "18" },
     //{ "RAP", "RAP", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "32.pl", "rap", "awip32f", "grib2", "32", "1", "1", "18" },
