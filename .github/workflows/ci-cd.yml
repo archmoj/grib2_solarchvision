@@ -55,7 +55,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -89,7 +89,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -122,7 +122,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -155,7 +155,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -188,7 +188,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -221,7 +221,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -254,7 +254,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -287,7 +287,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -320,7 +320,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -353,7 +353,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -386,7 +386,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -419,7 +419,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -452,7 +452,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -485,7 +485,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -518,7 +518,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -551,7 +551,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -585,7 +585,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -619,7 +619,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
@@ -653,7 +653,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: gradle-build-output
         path: build/
