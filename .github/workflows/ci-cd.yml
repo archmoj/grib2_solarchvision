@@ -67,7 +67,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: GFS-output
         path: output/
         retention-days: 1
 
@@ -101,7 +101,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: HRRR-output
         path: output/
         retention-days: 1
 
@@ -134,7 +134,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: HRDPS-output
         path: output/
         retention-days: 1
 
@@ -167,7 +167,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDPS-output
         path: output/
         retention-days: 1
 
@@ -200,7 +200,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: GDPS-output
         path: output/
         retention-days: 1
 
@@ -233,7 +233,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: GEPS-output
         path: output/
         retention-days: 1
 
@@ -266,7 +266,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: REPS-output
         path: output/
         retention-days: 1
 
@@ -299,7 +299,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: GDWPS-output
         path: output/
         retention-days: 1
 
@@ -332,7 +332,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDWPS_national-output
         path: output/
         retention-days: 1
 
@@ -365,7 +365,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDWPS_lake_erie-output
         path: output/
         retention-days: 1
 
@@ -398,7 +398,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDWPS_lake_huron-michigan-output
         path: output/
         retention-days: 1
 
@@ -431,7 +431,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDWPS_lake_ontario-output
         path: output/
         retention-days: 1
 
@@ -464,7 +464,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDWPS_lake_superior-output
         path: output/
         retention-days: 1
 
@@ -497,7 +497,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: RDPA-output
         path: output/
         retention-days: 1
 
@@ -530,7 +530,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: HRDPA-output
         path: output/
         retention-days: 1
 
@@ -563,7 +563,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: NAM11-output
         path: output/
         retention-days: 1
 
@@ -597,7 +597,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: NAM12-output
         path: output/
         retention-days: 1
 
@@ -631,7 +631,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: NAM32-output
         path: output/
         retention-days: 1
 
@@ -665,6 +665,6 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: Output-files
+        name: CanSIPS-output
         path: output/
         retention-days: 1
