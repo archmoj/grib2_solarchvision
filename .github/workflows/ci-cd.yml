@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -141,7 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -174,7 +174,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -207,7 +207,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -306,7 +306,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -339,7 +339,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -372,7 +372,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -405,7 +405,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -438,7 +438,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -471,7 +471,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -504,7 +504,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Vancouver'
 
     steps:
     - name: Checkout Code
@@ -537,7 +537,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Vancouver'
 
     steps:
     - name: Checkout Code
@@ -570,7 +570,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -604,7 +604,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -638,7 +638,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -672,7 +672,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TZ: 'America/Winnipeg'
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
