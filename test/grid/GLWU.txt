@@ -1,0 +1,12 @@
+domain=GLWU
+run=0
+begin=0
+end=1
+step=1
+auto=PNG
+levels+=surface
+
+layers+=windwavesheight
+layers+=combwavesheight
+layers+=windU
+layers+=windV

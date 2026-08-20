@@ -310,7 +310,7 @@ public class App extends PApplet {
 
     { "HRRR", "HRRR", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_2d.pl", "hrrr", "wrfsfcf", "grib2", "3", "1", "1", "15" },
 
-    { "WAVE", "WAVE", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "wave", "nah", "grib.grib2", "25", "1", "6", "18"} // as 127 member ensembles
+    { "GLWU", "GLWU", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "glwu", "glwu.grlr_500m", "grib2", "0.5", "1", "1", "23"}
   };
 
   static int Current_domainID = -1;
@@ -1963,9 +1963,9 @@ public class App extends PApplet {
         l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
         l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "%2F" + nf(DATA_ModelRun, 2) + "%2Fatmos";
       }
-      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("WAVE")) {
+      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")) {
         l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
-        l += "&dir=%2F" + "multi_2" + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2);
+        l += "&dir=%2F" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "." + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2);
       }
       else {
         l = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "?file=" + DATA_Filename;
@@ -2211,7 +2211,7 @@ public class App extends PApplet {
       ) {
         return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + nf(k, 2) + ".tm" + nf(DATA_ModelRun, 2) + "." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
-      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("WAVE")) {
+      else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")) {
         return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + ".t" + nf(DATA_ModelRun, 2) + "z." + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else {
@@ -2220,7 +2220,8 @@ public class App extends PApplet {
 
       return_txt += "&var_" + split(F_L, "_")[0] +"=on";
 
-      if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("WAVE")) {
+      if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")) {
+        return_txt += "&lev_surface=on";
       }
       else {
         if (l == LAYER_cloudcover) {
@@ -2283,9 +2284,9 @@ public class App extends PApplet {
             return_txt += "&lev_250_mb=on";
           }
         }
-      }
 
-      return_txt += "&leftlon=0&rightlon=360&toplat=90&bottomlat=-90";
+        return_txt += "&leftlon=0&rightlon=360&toplat=90&bottomlat=-90";
+      }
     }
 
   /*
