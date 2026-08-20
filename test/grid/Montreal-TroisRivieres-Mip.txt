@@ -1,0 +1,9 @@
+domain=Montreal-TroisRivieres-Mip
+run=0
+begin=0
+end=0
+step=6
+auto=PNG
+levels+=surface
+
+layers+=Water_Transport_Diffusion_Index

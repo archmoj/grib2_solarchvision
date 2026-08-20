@@ -1,0 +1,17 @@
+domain=Montreal-TroisRivieres
+run=0
+begin=0
+end=0
+step=6
+auto=PNG
+levels+=surface
+
+layers+=Water_level_above_mean_sea_level
+layers+=X_component_of_the_water_velocity
+layers+=Y_component_of_the_water_velocity
+layers+=Modulus_of_the_water_velocity
+layers+=Direction_of_the_water_velocity
+layers+=Froude_number
+layers+=Shear_of_the_water_velocity
+layers+=Specific_discharge
+
