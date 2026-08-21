@@ -77,13 +77,13 @@ jobs:
         outDir=$(ls output)
         cd output
         cd "${outDir}"
-        ffmpeg -framerate 15 -pattern_type glob -i "*.png" -c:v libx264 -pix_fmt yuv420p ../output.mp4
+        ffmpeg -framerate 12 -pattern_type glob -i "*.png" -c:v libx264 -pix_fmt yuv420p ../"${outDir}".mp4
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
         name: RDPS00Z-003-048-output
-        path: output/output.mp4
+        path: output/*.mp4
         if-no-files-found: error
         compression-level: 0
         retention-days: 2
