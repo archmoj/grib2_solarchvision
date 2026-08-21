@@ -7,10 +7,10 @@ auto=PNG
 levels+=surface
 
 layers+=drybulb
-layers+=meanpressure
+layers+=cloudcover
 layers+=windU
 layers+=windV
 layers+=precipitation
-layers+=cloudcover
-layers+=flowXmeanpressure
 layers+=flowXprecipitation
+layers+=flowXmeanpressure
+layers+=meanpressure
