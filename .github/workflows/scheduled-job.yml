@@ -2,8 +2,8 @@ name: Scheduled Tasks
 
 on:
   schedule:
-    # Runs at 05:00 UTC every day
-    - cron: '00 5 * * *'
+    # Runs at 05:30 UTC every day
+    - cron: '30 5 * * *'
   workflow_dispatch: # Allows you to also trigger this job manually via the GitHub UI
 
 permissions:
@@ -41,6 +41,8 @@ jobs:
   HRDPS00Z-003-048:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -76,6 +78,8 @@ jobs:
   RDPS00Z-003-048:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
@@ -111,6 +115,8 @@ jobs:
   GDPS00Z-003-048:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      TZ: 'America/Toronto'
 
     steps:
     - name: Checkout Code
