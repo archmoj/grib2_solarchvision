@@ -9,7 +9,6 @@ levels+=surface
 layers+=drybulb
 layers+=albedo
 layers+=cloudcover
-layers+=glohorrad
 layers+=dirnorrad
 layers+=dirnoreff
 layers+=windU
