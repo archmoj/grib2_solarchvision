@@ -6,8 +6,12 @@ step=1
 auto=PNG
 levels+=surface
 
+layers+=flowXprecipitation
 layers+=drybulb
+layers+=cloudcover
+layers+=dirnorrad
+layers+=dirnoreff
+layers+=relhum
 layers+=windU
 layers+=windV
 layers+=precipitation
-layers+=flowXprecipitation

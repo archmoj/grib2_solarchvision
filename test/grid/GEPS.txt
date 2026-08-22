@@ -6,11 +6,11 @@ step=72
 auto=PNG
 levels+=surface
 
+layers+=flowXprecipitation
+layers+=flowXmeanpressure
+layers+=meanpressure
 layers+=drybulb
 layers+=cloudcover
 layers+=windU
 layers+=windV
 layers+=precipitation
-layers+=flowXprecipitation
-layers+=flowXmeanpressure
-layers+=meanpressure

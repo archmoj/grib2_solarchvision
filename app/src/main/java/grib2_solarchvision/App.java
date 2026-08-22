@@ -573,6 +573,18 @@ public class App extends PApplet {
         }
       }
 
+      _at = CAP_arg.indexOf("PREFIX");
+      if (_at == 0) {
+        _tokens = split(args[i], '=');
+        if (_tokens.length > 1) {
+          input_int = PApplet.parseInt(_tokens[1]);
+          if(input_int >= 0) {
+            outputPrefixDigits = input_int;
+            println("outputPrefixDigits is set to: '" + outputPrefixDigits + "'");
+          }
+        }
+      }
+
       _at = CAP_arg.indexOf("DOMAIN");
       if (_at == 0) {
         _tokens = split(CAP_arg, '=');
@@ -5060,8 +5072,17 @@ public class App extends PApplet {
     return s;
   }
 
+  static int outputPrefixDigits = 0;
+
+  int recorded = 0;
+
   void recordFrame (int timeID, int layerID, int levelID, int memberID) {
-    String s = getOutputFolder(Current_timeID, Current_layerID, Current_levelID, Current_memberID) + "/" + FileStamp(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
+    String s = getOutputFolder(Current_timeID, Current_layerID, Current_levelID, Current_memberID) + "/";
+    if (outputPrefixDigits > 0) {
+      s += nf(recorded, outputPrefixDigits) + "_";
+      recorded++;
+    }
+    s += FileStamp(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
 
         if (automated == AUTO_BMP) s += ".bmp";
     else if (automated == AUTO_JPG) s += ".jpg";
