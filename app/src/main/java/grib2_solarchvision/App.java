@@ -7332,7 +7332,7 @@ public class App extends PApplet {
                 case 223: this.ParameterNameAndUnit = "Total precipitation (nearest grid point)(kg m-2)"; break;
                 case 224: this.ParameterNameAndUnit = "Convective precipitation (nearest grid point)(kg m-2)"; break;
                 case 225: this.ParameterNameAndUnit = "Freezing Rain(kg m-2)"; break;
-                case 226: this.ParameterNameAndUnit = "Predominant Weather(Numeric (See note 1))"; break;
+                case 226: this.ParameterNameAndUnit = "Predominant Weather(Numeric)"; break;
                 case 227: this.ParameterNameAndUnit = "Frozen Rain(kg m-2)"; break;
                 case 241: this.ParameterNameAndUnit = "Total Snow(kg m-2)"; break;
                 case 242: this.ParameterNameAndUnit = "Relative Humidity with Respect to Precipitable Water(%)"; break;
@@ -7664,7 +7664,7 @@ public class App extends PApplet {
                 case 0: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for rain(m m6 m-3)"; break;
                 case 1: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for snow(m m6 m-3)"; break;
                 case 2: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for parameterized convection(m m6 m-3)"; break;
-                case 3: this.ParameterNameAndUnit = "Echo Top (See Note 1)(m)"; break;
+                case 3: this.ParameterNameAndUnit = "Echo Top(m)"; break;
                 case 4: this.ParameterNameAndUnit = "Reflectivity(dB)"; break;
                 case 5: this.ParameterNameAndUnit = "Composite reflectivity(dB)"; break;
                 case 192: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for rain(m m6 m-3)"; break;
@@ -7672,7 +7672,7 @@ public class App extends PApplet {
                 case 194: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for parameterized convection(m m6 m-3)"; break;
                 case 195: this.ParameterNameAndUnit = "Reflectivity(dB)"; break;
                 case 196: this.ParameterNameAndUnit = "Composite reflectivity(dB)"; break;
-                case 197: this.ParameterNameAndUnit = "Echo Top (See Note 1)(m)"; break;
+                case 197: this.ParameterNameAndUnit = "Echo Top(m)"; break;
                 case 198: this.ParameterNameAndUnit = "Hourly Maximum of Simulated Reflectivity at 1 km AGL(dB)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
@@ -7695,9 +7695,9 @@ public class App extends PApplet {
                 case 3: this.ParameterNameAndUnit = "Ground Deposition of Caesium 137(Bq m-2)"; break;
                 case 4: this.ParameterNameAndUnit = "Ground Deposition of Iodine 131(Bq m-2)"; break;
                 case 5: this.ParameterNameAndUnit = "Ground Deposition of Radioactive Pollutant(Bq m-2)"; break;
-                case 6: this.ParameterNameAndUnit = "Time Integrated Air Concentration of Cesium Pollutant See Note 1(Bq s m-3)"; break;
-                case 7: this.ParameterNameAndUnit = "Time Integrated Air Concentration of Iodine Pollutant See Note 1(Bq s m-3)"; break;
-                case 8: this.ParameterNameAndUnit = "Time Integrated Air Concentration of Radioactive Pollutant See Note 1(Bq s m-3)"; break;
+                case 6: this.ParameterNameAndUnit = "Time Integrated Air Concentration of Cesium Pollutant(Bq s m-3)"; break;
+                case 7: this.ParameterNameAndUnit = "Time Integrated Air Concentration of Iodine Pollutant(Bq s m-3)"; break;
+                case 8: this.ParameterNameAndUnit = "Time Integrated Air Concentration of Radioactive Pollutant(Bq s m-3)"; break;
                 case 10: this.ParameterNameAndUnit = "Air Concentration(Bq m-3)"; break;
                 case 11: this.ParameterNameAndUnit = "Wet Deposition(Bq m-2)"; break;
                 case 12: this.ParameterNameAndUnit = "Dry Deposition(Bq m-2)"; break;
@@ -7726,13 +7726,13 @@ public class App extends PApplet {
                 case 14: this.ParameterNameAndUnit = "Contrail Engine Type(See Table 4.211)"; break;
                 case 15: this.ParameterNameAndUnit = "Contrail Top(m)"; break;
                 case 16: this.ParameterNameAndUnit = "Contrail Base(m)"; break;
-                case 17: this.ParameterNameAndUnit = "Maximum Snow Albedosee Note 1(%)"; break;
+                case 17: this.ParameterNameAndUnit = "Maximum Snow Albedo(%)"; break;
                 case 18: this.ParameterNameAndUnit = "Snow-Free Albedo(%)"; break;
                 case 19: this.ParameterNameAndUnit = "Snow Albedo(%)"; break;
                 case 20: this.ParameterNameAndUnit = "Icing(%)"; break;
                 case 21: this.ParameterNameAndUnit = "In-Cloud Turbulence(%)"; break;
                 case 22: this.ParameterNameAndUnit = "Clear Air Turbulence (CAT)(%)"; break;
-                case 23: this.ParameterNameAndUnit = "Supercooled Large Droplet Probabilitysee Note 2(%)"; break;
+                case 23: this.ParameterNameAndUnit = "Supercooled Large Droplet Probability(%)"; break;
                 case 24: this.ParameterNameAndUnit = "Convective Turbulent Kinetic Energy(J kg-1)"; break;
                 case 25: this.ParameterNameAndUnit = "Weather(See Table 4.225)"; break;
                 case 26: this.ParameterNameAndUnit = "Convective Outlook(See Table 4.224)"; break;
@@ -7762,7 +7762,7 @@ public class App extends PApplet {
                 case 214: this.ParameterNameAndUnit = "Near IR, White Sky Albedo(%)"; break;
                 case 215: this.ParameterNameAndUnit = "Total Probability of Severe Thunderstorms (Days 2,3)(%)"; break;
                 case 216: this.ParameterNameAndUnit = "Total Probability of Extreme Severe Thunderstorms (Days 2,3)(%)"; break;
-                case 217: this.ParameterNameAndUnit = "Supercooled Large Droplet (SLD) Icingsee Note 2(See Table 4.207)"; break;
+                case 217: this.ParameterNameAndUnit = "Supercooled Large Droplet (SLD) Icing(See Table 4.207)"; break;
                 case 218: this.ParameterNameAndUnit = "Radiative emissivity()"; break;
                 case 219: this.ParameterNameAndUnit = "Turbulence Potential Forecast Index()"; break;
                 case 220: this.ParameterNameAndUnit = "Categorical Severe Thunderstorm(Code table 4.222)"; break;
@@ -7778,7 +7778,7 @@ public class App extends PApplet {
             else if (this.CategoryOfParametersByProductDiscipline == 20) { // Atmospheric Chemical Constituents
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
                 case 0: this.ParameterNameAndUnit = "Mass Density (Concentration)(kg m-3)"; break;
-                case 1: this.ParameterNameAndUnit = "Column-Integrated Mass Density (See Note 1)(kg m-2)"; break;
+                case 1: this.ParameterNameAndUnit = "Column-Integrated Mass Density(kg m-2)"; break;
                 case 2: this.ParameterNameAndUnit = "Mass Mixing Ratio (Mass Fraction in Air)(kg kg-1)"; break;
                 case 3: this.ParameterNameAndUnit = ">Atmosphere Emission Mass Flux(kg m-2s-1)"; break;
                 case 4: this.ParameterNameAndUnit = "Atmosphere Net Production Mass Flux(kg m-2s-1)"; break;
@@ -7798,9 +7798,9 @@ public class App extends PApplet {
                 case 53: this.ParameterNameAndUnit = "Chemical Gross Production Rate of Concentration(mol m-3s-1)"; break;
                 case 54: this.ParameterNameAndUnit = "Chemical Gross Destruction Rate of Concentration(mol m-3s-1)"; break;
                 case 55: this.ParameterNameAndUnit = "Surface Flux(mol m-2s-1)"; break;
-                case 56: this.ParameterNameAndUnit = "Changes Of Amount in Atmosphere (See Note 1)(mol s-1)"; break;
+                case 56: this.ParameterNameAndUnit = "Changes Of Amount in Atmosphere(mol s-1)"; break;
                 case 57: this.ParameterNameAndUnit = "Total Yearly Average Burden of The Atmosphere>(mol)"; break;
-                case 58: this.ParameterNameAndUnit = "Total Yearly Average Atmospheric Loss (See Note 1)(mol s-1)"; break;
+                case 58: this.ParameterNameAndUnit = "Total Yearly Average Atmospheric Loss(mol s-1)"; break;
                 case 59: this.ParameterNameAndUnit = "Aerosol Number Concentration(m-3)"; break;
                 case 100: this.ParameterNameAndUnit = "Surface Area Density (Aerosol)(m-1)"; break;
                 case 101: this.ParameterNameAndUnit = "Vertical Visual Range(m)"; break;
@@ -8532,7 +8532,7 @@ public class App extends PApplet {
             case 117: println("Mixed Layer Depth"); break;
             case 118: println("Hybrid Height Level"); break;
             case 119: println("Hybrid Pressure Level"); break;
-            case 150: println("Generalized Vertical Height Coordinate (see Note 5)"); break;
+            case 150: println("Generalized Vertical Height Coordinate"); break;
             case 160: println("Depth Below Sea Level"); break;
             case 161: println("Depth Below Water Surface"); break;
             case 162: println("Lake or River Bottom"); break;
