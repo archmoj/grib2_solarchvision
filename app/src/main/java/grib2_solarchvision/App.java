@@ -7485,8 +7485,23 @@ public class App extends PApplet {
                 case 10: this.ParameterNameAndUnit = "Photosynthetically Active Radiation(W m-2)"; break;
                 case 11: this.ParameterNameAndUnit = "Net Short-Wave Radiation Flux, Clear Sky(W m-2)"; break;
                 case 12: this.ParameterNameAndUnit = "Downward UV Radiation(W m-2)"; break;
+                case 13: this.ParameterNameAndUnit = "Direct Shortwave Radiation Flux(W m-2)"; break;
+                case 14: this.ParameterNameAndUnit = "Diffuse Shortwave Radiation Flux(W m-2)"; break;
+                case 15: this.ParameterNameAndUnit = "Upward UV radiation emitted/reflected from the Earth's surface(W m-2)"; break;
                 case 50: this.ParameterNameAndUnit = "UV Index (Under Clear Sky)**(Numeric)"; break;
                 case 51: this.ParameterNameAndUnit = "UV Index**(W m-2)"; break;
+                case 52: this.ParameterNameAndUnit = "Downward Shortwave Radiation Flux, Clear Sky(W m-2)"; break;
+                case 53: this.ParameterNameAndUnit = "Upward Shortwave Radiation Flux, Clear Sky(W m-2)"; break;
+                case 54: this.ParameterNameAndUnit = "Direct normal shortwave radiation flux(W m-2)"; break;
+                case 55: this.ParameterNameAndUnit = "UV visible albedo for diffuse radiation(%)"; break;
+                case 56: this.ParameterNameAndUnit = "UV visible albedo for direct radiation(%)"; break;
+                case 57: this.ParameterNameAndUnit = "UV visible albedo for direct radiation, geometric component(%)"; break;
+                case 58: this.ParameterNameAndUnit = "UV visible albedo for direct radiation, isotropic component(%)"; break;
+                case 59: this.ParameterNameAndUnit = "UV visible albedo for direct radiation, volumetric component(%)"; break;
+                case 60: this.ParameterNameAndUnit = "Photosynthetically active radiation flux, clear sky(W m-2)"; break;
+                case 61: this.ParameterNameAndUnit = "Direct shortwave radiation flux, clear sky(W m-2)"; break;
+                case 62: this.ParameterNameAndUnit = "Direct Normal Shortwave Radiation Flux, Clear Sky(W m-2)"; break;
+                case 63: this.ParameterNameAndUnit = "Diffuse Shortwave Radiation Flux, Clear Sky(W m-2)"; break;
                 case 192: this.ParameterNameAndUnit = "Downward Short-Wave Radiation Flux(W m-2)"; break;
                 case 193: this.ParameterNameAndUnit = "Upward Short-Wave Radiation Flux(W m-2)"; break;
                 case 194: this.ParameterNameAndUnit = "UV-B Downward Solar Flux(W m-2)"; break;
@@ -7501,6 +7516,7 @@ public class App extends PApplet {
                 case 203: this.ParameterNameAndUnit = "Near IR Diffuse Downward Solar Flux(W m-2)"; break;
                 case 204: this.ParameterNameAndUnit = "Downward Total Radiation Flux(W m-2)"; break;
                 case 205: this.ParameterNameAndUnit = "Upward Total Radiation Flux(W m-2)"; break;
+                case 206: this.ParameterNameAndUnit = "Diffuse Shortwave Radiation Flux, Clear Sky(W m-2)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
