@@ -7585,6 +7585,16 @@ public class App extends PApplet {
                 case 33: this.ParameterNameAndUnit = "Sunshine Duration(s)"; break;
                 case 34: this.ParameterNameAndUnit = "Surface Long Wave Effective Total Cloudiness(Numeric)"; break;
                 case 35: this.ParameterNameAndUnit = "Surface Short Wave Effective Total Cloudiness(Numeric)"; break;
+                case 36: this.ParameterNameAndUnit = "Fraction of Stratiform Precipitation Cover(Proportion)"; break;
+                case 37: this.ParameterNameAndUnit = "Fraction of Convective Precipitation Cover(Proportion)"; break;
+                case 38: this.ParameterNameAndUnit = "Mass Density of Cloud Droplets(kg m-3)"; break;
+                case 39: this.ParameterNameAndUnit = "Mass Density of Cloud Ice(kg m-3)"; break;
+                case 40: this.ParameterNameAndUnit = "Mass Density of Convective Cloud Water Droplets(kg m-3)"; break;
+                case 47: this.ParameterNameAndUnit = "Volume Fraction of Cloud Water Droplets(Numeric)"; break;
+                case 48: this.ParameterNameAndUnit = "Volume Fraction of Cloud Ice Particles(Numeric)"; break;
+                case 49: this.ParameterNameAndUnit = "Volume Fraction of Cloud (Ice and/or Water)(Numeric)"; break;
+                case 50: this.ParameterNameAndUnit = "Fog(%)"; break;
+                case 51: this.ParameterNameAndUnit = "Sunshine Duration Fraction(Proportion)"; break;
                 case 192: this.ParameterNameAndUnit = "Non-Convective Cloud Cover(%)"; break;
                 case 193: this.ParameterNameAndUnit = "Cloud Work Function(J kg-1)"; break;
                 case 194: this.ParameterNameAndUnit = "Convective Cloud Efficiency(non-dim)"; break;
@@ -7595,6 +7605,7 @@ public class App extends PApplet {
                 case 199: this.ParameterNameAndUnit = "Ice fraction of total condensate(non-dim)"; break;
                 case 200: this.ParameterNameAndUnit = "Convective Cloud Mass Flux(Pa s-1)"; break;
                 case 201: this.ParameterNameAndUnit = "Sunshine Duration(s)"; break;
+                case 202: this.ParameterNameAndUnit = "Fog (LWC)(g kg-1)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
