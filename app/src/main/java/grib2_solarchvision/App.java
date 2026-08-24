@@ -7530,6 +7530,13 @@ public class App extends PApplet {
                 case 4: this.ParameterNameAndUnit = "Upward Long-Wave Rad. Flux(W m-2)"; break;
                 case 5: this.ParameterNameAndUnit = "Net Long-Wave Radiation Flux(W m-2)"; break;
                 case 6: this.ParameterNameAndUnit = "Net Long-Wave Radiation Flux, Clear Sky(W m-2)"; break;
+                case 7: this.ParameterNameAndUnit = "Brightness Temperature(K)"; break;
+                case 8: this.ParameterNameAndUnit = "Downward Longwave Radiation Flux, Clear Sky(W m-2)"; break;
+                case 9: this.ParameterNameAndUnit = "Near IR albedo for diffuse radiation(%)"; break;
+                case 10: this.ParameterNameAndUnit = "Near IR albedo for direct radiation(%)"; break;
+                case 11: this.ParameterNameAndUnit = "Near IR albedo for direct radiation, geometric component(%)"; break;
+                case 12: this.ParameterNameAndUnit = "Near IR albedo for direct radiation, isotropic component(%)"; break;
+                case 13: this.ParameterNameAndUnit = "Near IR albedo for direct radiation, volumetric component(%)"; break;
                 case 192: this.ParameterNameAndUnit = "Downward Long-Wave Rad. Flux(W m-2)"; break;
                 case 193: this.ParameterNameAndUnit = "Upward Long-Wave Rad. Flux(W m-2)"; break;
                 case 194: this.ParameterNameAndUnit = "Long-Wave Radiative Heating Rate(K s-1)"; break;
