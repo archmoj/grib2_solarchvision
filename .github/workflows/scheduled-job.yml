@@ -62,7 +62,7 @@ jobs:
         path: build/
 
     - name: Process HRDPS
-      timeout-minutes: 15
+      timeout-minutes: 20
       run: |
         xvfb-run --auto-servernum ./gradlew \
         run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
@@ -112,7 +112,7 @@ jobs:
         path: build/
 
     - name: Process RDPS
-      timeout-minutes: 15
+      timeout-minutes: 20
       run: |
         xvfb-run --auto-servernum ./gradlew \
         run --args="$(tr '\n' ' ' < test/grid/RDPS.txt) \
@@ -162,7 +162,7 @@ jobs:
         path: build/
 
     - name: Process GDPS
-      timeout-minutes: 15
+      timeout-minutes: 20
       run: |
         xvfb-run --auto-servernum ./gradlew \
         run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
