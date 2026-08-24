@@ -3004,7 +3004,7 @@ public class App extends PApplet {
       lon = ix * (lon2 - lon1) / PApplet.parseFloat(gridNx) + lon1;
       lat = iy * (lat2 - lat1) / PApplet.parseFloat(gridNy) + lat1;
 
-      float t1 = 180 - gridSouthLon;
+      float t1 = 90 - gridSouthLon;
       float t2 = -gridSouthLat - 90;
       float t3 = gridRotation - 90;
 
@@ -3046,8 +3046,6 @@ public class App extends PApplet {
 
       lat = asin_ang(z);
       lon = atan2_ang(y, x);
-
-      lon += 90;
 
       if (lon < lon1) lon += 360;
       else if (lon > lon2) lon -= 360;
