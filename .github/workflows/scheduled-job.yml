@@ -39,6 +39,56 @@ jobs:
         retention-days: 1
 
 
+  HRRR00Z-003-048:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v7
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Process HRRR
+      timeout-minutes: 20
+      run: |
+        xvfb-run --auto-servernum ./gradlew \
+        run --args="$(tr '\n' ' ' < test/grid/HRRR.txt) \
+        begin=3 end=48 step=3 PREFIX=5"
+
+    - name: Setup FFmpeg
+      uses: FedericoCarboni/setup-ffmpeg@v3
+      id: setup-ffmpeg
+
+    - name: Create video output
+      run: |
+        outDir=$(ls output)
+        cd output
+        cd "${outDir}"
+        ffmpeg -framerate 10 -pattern_type glob -i "*.png" -c:v libx264 -pix_fmt yuv420p ../"${outDir}".mp4
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: HRRR00Z-003-048-output
+        path: output/*.mp4
+        if-no-files-found: error
+        compression-level: 0
+        retention-days: 2
+
+
   HRDPS00Z-003-048:
     runs-on: ubuntu-latest
     needs: build
@@ -183,6 +233,106 @@ jobs:
       uses: actions/upload-artifact@v6
       with:
         name: GDPS00Z-003-048-output
+        path: output/*.mp4
+        if-no-files-found: error
+        compression-level: 0
+        retention-days: 2
+
+
+  GDWPS00Z-003-048:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v7
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Process GDWPS
+      timeout-minutes: 20
+      run: |
+        xvfb-run --auto-servernum ./gradlew \
+        run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt) \
+        begin=3 end=48 step=3 PREFIX=5"
+
+    - name: Setup FFmpeg
+      uses: FedericoCarboni/setup-ffmpeg@v3
+      id: setup-ffmpeg
+
+    - name: Create video output
+      run: |
+        outDir=$(ls output)
+        cd output
+        cd "${outDir}"
+        ffmpeg -framerate 10 -pattern_type glob -i "*.png" -c:v libx264 -pix_fmt yuv420p ../"${outDir}".mp4
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: GDWPS00Z-003-048-output
+        path: output/*.mp4
+        if-no-files-found: error
+        compression-level: 0
+        retention-days: 2
+
+
+  RDWPS_national00Z-003-048:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TZ: 'America/Toronto'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v7
+      with:
+        name: gradle-build-output
+        path: build/
+
+    - name: Process RDWPS_national
+      timeout-minutes: 20
+      run: |
+        xvfb-run --auto-servernum ./gradlew \
+        run --args="$(tr '\n' ' ' < test/grid/RDWPS_national.txt) \
+        begin=3 end=48 step=3 PREFIX=5"
+
+    - name: Setup FFmpeg
+      uses: FedericoCarboni/setup-ffmpeg@v3
+      id: setup-ffmpeg
+
+    - name: Create video output
+      run: |
+        outDir=$(ls output)
+        cd output
+        cd "${outDir}"
+        ffmpeg -framerate 10 -pattern_type glob -i "*.png" -c:v libx264 -pix_fmt yuv420p ../"${outDir}".mp4
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: RDWPS_national00Z-003-048-output
         path: output/*.mp4
         if-no-files-found: error
         compression-level: 0
