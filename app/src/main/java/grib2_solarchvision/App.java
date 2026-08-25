@@ -8280,6 +8280,8 @@ public class App extends PApplet {
                 case 193: this.ParameterNameAndUnit = "Probability of Frozen Precipitation(%)"; break;
                 case 194: this.ParameterNameAndUnit = "Probability of precipitation exceeding flash flood guidance values(%)"; break;
                 case 195: this.ParameterNameAndUnit = "Probability of Wetting Rain, exceeding in 0.10 in a given time period(%)"; break;
+                case 196: this.ParameterNameAndUnit = "Binary Probability of Precipitation Exceeding Average Recurrence Intervals (ARI)(see Code table 4.222)"; break;
+                case 197: this.ParameterNameAndUnit = "Binary Probability of Precipitation Exceeding Flash Flood Guidance Values(see Code table 4.222)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
