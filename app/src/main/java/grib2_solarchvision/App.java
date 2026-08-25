@@ -8578,7 +8578,7 @@ public class App extends PApplet {
               }
             }
           }
-          else if (this.DisciplineOfProcessedData == 3) { // Space
+          else if (this.DisciplineOfProcessedData == 3) { // Satellite Remote Sensing Products (formerly "Space Products")
             if (this.CategoryOfParametersByProductDiscipline == 0) { // Image format
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
                 case 0: this.ParameterNameAndUnit = "Scaled Radiance(Numeric)"; break;
@@ -8620,8 +8620,95 @@ public class App extends PApplet {
                 case 21: this.ParameterNameAndUnit = "Aerosol Optical Thickness at 0.810 m()"; break;
                 case 22: this.ParameterNameAndUnit = "Aerosol Optical Thickness at 1.640 m()"; break;
                 case 23: this.ParameterNameAndUnit = "Angstrom Coefficient()"; break;
+                case 24: this.ParameterNameAndUnit = "Cosine of the Solar Zenith Angle(Numeric)"; break;
+                case 27: this.ParameterNameAndUnit = "Bidirectional Reflecance Factor(Numeric)"; break;
+                case 28: this.ParameterNameAndUnit = "Brightness Temperature(K)"; break;
+                case 29: this.ParameterNameAndUnit = "Scaled Radiance(Numeric)"; break;
+                case 30: this.ParameterNameAndUnit = "Reflectance in 0.4 Micron Channel(%)"; break;
+                case 31: this.ParameterNameAndUnit = "Cloudy reflectance(%)"; break;
+                case 32: this.ParameterNameAndUnit = "Clear reflectance(%)"; break;
+                case 98: this.ParameterNameAndUnit = "Correlation coefficient between MPE rain rates for the co-located IR data and the microwave data rain rates(Numeric)"; break;
+                case 99: this.ParameterNameAndUnit = "Standard deviation between MPE rain rates for the co-located IR data and the microwave data rain rates(Numeric)"; break;
                 case 192: this.ParameterNameAndUnit = "Scatterometer Estimated U Wind Component(m s-1)"; break;
                 case 193: this.ParameterNameAndUnit = "Scatterometer Estimated V Wind Component(m s-1)"; break;
+                case 194: this.ParameterNameAndUnit = "Scatterometer Wind Quality()"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 2) { // Cloud Properties
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Clear Sky Probability(%)"; break;
+                case 1: this.ParameterNameAndUnit = "Cloud Top Temperature(K)"; break;
+                case 2: this.ParameterNameAndUnit = "Cloud Top Pressure(Pa)"; break;
+                case 3: this.ParameterNameAndUnit = "Cloud Type(See Table 4.218)"; break;
+                case 4: this.ParameterNameAndUnit = "Cloud Phase(See Table 4.218)"; break;
+                case 5: this.ParameterNameAndUnit = "Cloud Optical Depth(Numeric)"; break;
+                case 6: this.ParameterNameAndUnit = "Cloud Particle Effective Radius(m)"; break;
+                case 7: this.ParameterNameAndUnit = "Cloud Liquid Water Path(kg m-2)"; break;
+                case 8: this.ParameterNameAndUnit = "Cloud Ice Water Path(kg m-2)"; break;
+                case 9: this.ParameterNameAndUnit = "Cloud Albedo(Numeric)"; break;
+                case 10: this.ParameterNameAndUnit = "Cloud Emissivity(Numeric)"; break;
+                case 11: this.ParameterNameAndUnit = "Effective Absorption Optical Depth Ratio(Numeric)"; break;
+                case 30: this.ParameterNameAndUnit = "Measurement cost(Numeric)"; break;
+                case 31: this.ParameterNameAndUnit = "Upper layer cloud optical depth(Numeric)"; break;
+                case 32: this.ParameterNameAndUnit = "Upper layer cloud top pressure(Pa)"; break;
+                case 33: this.ParameterNameAndUnit = "Upper layer cloud effective radius(m)"; break;
+                case 34: this.ParameterNameAndUnit = "Error in upper layer cloud optical depth(Numeric)"; break;
+                case 35: this.ParameterNameAndUnit = "Error in upper layer cloud top pressure(Pa)"; break;
+                case 36: this.ParameterNameAndUnit = "Error in upper layer cloud effective radius(m)"; break;
+                case 37: this.ParameterNameAndUnit = "Lower layer cloud optical depth(Numeric)"; break;
+                case 38: this.ParameterNameAndUnit = "Lower layer cloud top pressure(Pa)"; break;
+                case 39: this.ParameterNameAndUnit = "Error in lower layer cloud optical depth(Numeric)"; break;
+                case 40: this.ParameterNameAndUnit = "Error in lower layer cloud top pressure(Pa)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 3) { // Flight Rules Conditions
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Probability of Encountering Marginal Visual Flight Rules Conditions(%)"; break;
+                case 1: this.ParameterNameAndUnit = "Probability of Encountering Low Instrument Flight Rules Conditions(%)"; break;
+                case 2: this.ParameterNameAndUnit = "Probability of Encountering Instrument Flight Rules Conditions(%)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 4) { // Volcanic Ash
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Volcanic Ash Probability(%)"; break;
+                case 1: this.ParameterNameAndUnit = "Volcanic Ash Cloud Top Temperature(K)"; break;
+                case 2: this.ParameterNameAndUnit = "Volcanic Ash Cloud Top Pressure(Pa)"; break;
+                case 3: this.ParameterNameAndUnit = "Volcanic Ash Cloud Top Height(m)"; break;
+                case 4: this.ParameterNameAndUnit = "Volcanic Ash Cloud Emissity(Numeric)"; break;
+                case 5: this.ParameterNameAndUnit = "Volcanic Ash Effective Absorption Depth Ratio(Numeric)"; break;
+                case 6: this.ParameterNameAndUnit = "Volcanic Ash Cloud Optical Depth(Numeric)"; break;
+                case 7: this.ParameterNameAndUnit = "Volcanic Ash Column Density(kg m-2)"; break;
+                case 8: this.ParameterNameAndUnit = "Volcanic Ash Particle Effective Radius(m)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 5) { // Sea Surface Temperature
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Interface Sea Surface Temperature(K)"; break;
+                case 1: this.ParameterNameAndUnit = "Skin Sea Surface Temperature(K)"; break;
+                case 2: this.ParameterNameAndUnit = "Sub-Skin Sea Surface Temperature(K)"; break;
+                case 3: this.ParameterNameAndUnit = "Foundation Sea Surface Temperature(K)"; break;
+                case 4: this.ParameterNameAndUnit = "Estimated bias between Sea Surface Temperature and Standard(K)"; break;
+                case 5: this.ParameterNameAndUnit = "Estimated bias Standard Deviation between Sea Surface Temperature and Standard(K)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 6) { // Solar Radiation
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Global Solar Irradiance(W m-2)"; break;
+                case 1: this.ParameterNameAndUnit = "Global Solar Exposure(J m-2)"; break;
+                case 2: this.ParameterNameAndUnit = "Direct Solar Irradiance(W m-2)"; break;
+                case 3: this.ParameterNameAndUnit = "Direct Solar Exposure(J m-2)"; break;
+                case 4: this.ParameterNameAndUnit = "Diffuse Solar Irradiance(W m-2)"; break;
+                case 5: this.ParameterNameAndUnit = "Diffuse Solar Exposure(J m-2)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
@@ -8647,7 +8734,6 @@ public class App extends PApplet {
               }
             }
           }
-
           else if (this.DisciplineOfProcessedData == 4) { // Space Weather
             if (this.CategoryOfParametersByProductDiscipline == 0) { // Temperature
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
