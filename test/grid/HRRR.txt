@@ -7,8 +7,6 @@ auto=PNG
 levels+=surface
 
 layers+=flowXprecipitation
-layers+=flowXmeanpressure
-layers+=meanpressure
 layers+=drybulb
 layers+=cloudcover
 layers+=dirnorrad
@@ -16,4 +14,6 @@ layers+=dirnoreff
 layers+=relhum
 layers+=windU
 layers+=windV
+layers+=flowXmeanpressure
+layers+=meanpressure
 layers+=precipitation
