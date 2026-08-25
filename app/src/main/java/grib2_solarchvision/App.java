@@ -8545,6 +8545,38 @@ public class App extends PApplet {
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
             }
+            else if (this.CategoryOfParametersByProductDiscipline == 5) { // Glaciers and Inland Ice
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Glacier Cover(Proportion)"; break;
+                case 1: this.ParameterNameAndUnit = "Glacier Temperature(K)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 6) { // Urban Areas
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Urban Cover(Proportion)"; break;
+                case 1: this.ParameterNameAndUnit = "Road Cover(Proportion)"; break;
+                case 2: this.ParameterNameAndUnit = "Building Cover(Proportion)"; break;
+                case 3: this.ParameterNameAndUnit = "Building Height(m)"; break;
+                case 4: this.ParameterNameAndUnit = "Vertical-to-Horizontal Area Fraction(m2 m-2)"; break;
+                case 5: this.ParameterNameAndUnit = "Standard Deviation of Building Height(m)"; break;
+                case 6: this.ParameterNameAndUnit = "Distance Downward from Roof Surface(m)"; break;
+                case 7: this.ParameterNameAndUnit = "Distance Inward from Outer Wall Surface(m)"; break;
+                case 8: this.ParameterNameAndUnit = "Distance Downward from Road Surface(m)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 7) { // Thermodynamic Properties
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Heat Net Flux(W m-2)"; break;
+                case 1: this.ParameterNameAndUnit = "Latent Heat Net Flux(W m-2)"; break;
+                case 2: this.ParameterNameAndUnit = "Sensible Heat Net Flux(W m-2)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
           }
           else if (this.DisciplineOfProcessedData == 3) { // Space
             if (this.CategoryOfParametersByProductDiscipline == 0) { // Image format
