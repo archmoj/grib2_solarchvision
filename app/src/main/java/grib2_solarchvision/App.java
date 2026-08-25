@@ -7888,7 +7888,7 @@ public class App extends PApplet {
                 case 15: this.ParameterNameAndUnit = "Hybrid Scan Reflectivity(dB)"; break;
                 case 16: this.ParameterNameAndUnit = "Hybrid Scan Reflectivity Height(m)"; break;
                 case 17: this.ParameterNameAndUnit = "Precipitation Rate(kg m-2 s-1)"; break;
-                case 18: this.ParameterNameAndUnit = "Radar Data Quality Index (see Note 2)(Proportion)"; break;
+                case 18: this.ParameterNameAndUnit = "Radar Data Quality Index(Proportion)"; break;
                 case 19: this.ParameterNameAndUnit = "Radar Data Quality Flag(See Table 4.106)"; break;
                 case 20: this.ParameterNameAndUnit = "Layer Maximum Precipitation Rate(kg m-2 s-1)"; break;
                 case 192: this.ParameterNameAndUnit = "Vertically-Integrated Liquid Water(kg m-2)"; break;
@@ -8667,6 +8667,18 @@ public class App extends PApplet {
                 case 90: this.ParameterNameAndUnit = "U-Component of Surface Momentum Flux into Ocean(N m-2)"; break;
                 case 91: this.ParameterNameAndUnit = "U-Component of Surface Momentum Flux into Ocean(N m-2)"; break;
                 case 92: this.ParameterNameAndUnit = "Wave Turbulent Energy Flux into Ocean(W m-2)"; break;
+                case 93: this.ParameterNameAndUnit = "Envelop maximum individual wave height(m)"; break;
+                case 94: this.ParameterNameAndUnit = "Time domain maximum individual crest height(m)"; break;
+                case 95: this.ParameterNameAndUnit = "Time domain maximum individual wave height(m)"; break;
+                case 96: this.ParameterNameAndUnit = "Space time maximum individual crest height(m)"; break;
+                case 97: this.ParameterNameAndUnit = "Space time maximum individual wave height(m)"; break;
+                case 98: this.ParameterNameAndUnit = "Goda peakedness factor(Numeric)"; break;
+                case 99: this.ParameterNameAndUnit = "Benjamin-Feir Index 2D (BFI2D)(Numeric)"; break;
+                case 100: this.ParameterNameAndUnit = "Crest-Trough Correlation(Numeric)"; break;
+                case 101: this.ParameterNameAndUnit = "X-Component of the Wave Radiative Stress to Sea Ice(N m-2)"; break;
+                case 102: this.ParameterNameAndUnit = "Y-Component of the Wave Radiative Stress to Sea Ice(N m-2)"; break;
+                case 103: this.ParameterNameAndUnit = "U-Component of Atmospheric Surface Momentum Flux(N m-2)"; break;
+                case 104: this.ParameterNameAndUnit = "V-Component of Atmospheric Surface Momentum Flux(N m-2)"; break;
                 case 192: this.ParameterNameAndUnit = "Wave Steepness(proportion)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
