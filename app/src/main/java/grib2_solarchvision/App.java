@@ -8691,6 +8691,9 @@ public class App extends PApplet {
                 case 1: this.ParameterNameAndUnit = "Current Speed(m s-1)"; break;
                 case 2: this.ParameterNameAndUnit = "U-Component of Current(m s-1)"; break;
                 case 3: this.ParameterNameAndUnit = "V-Component of Current(m s-1)"; break;
+                case 4: this.ParameterNameAndUnit = "Rip Current Occurrence Probability(%)"; break;
+                case 5: this.ParameterNameAndUnit = "Eastward Current(m s-1)"; break;
+                case 6: this.ParameterNameAndUnit = "Northward Current(m s-1)"; break;
                 case 192: this.ParameterNameAndUnit = "Ocean Mixed Layer U Velocity(m s-1)"; break;
                 case 193: this.ParameterNameAndUnit = "Ocean Mixed Layer V Velocity(m s-1)"; break;
                 case 194: this.ParameterNameAndUnit = "Barotropic U velocity(m s-1)"; break;
