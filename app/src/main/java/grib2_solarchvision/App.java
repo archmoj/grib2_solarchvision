@@ -7910,8 +7910,13 @@ public class App extends PApplet {
 
             else if (this.CategoryOfParametersByProductDiscipline == 17) { // Electrodynamics
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Lightning Strike Density(m-2 s-1)"; break;
+                case 1: this.ParameterNameAndUnit = "Lightning Potential Index (LPI)(J kg-1)"; break;
+                case 2: this.ParameterNameAndUnit = "Cloud-to-Ground Lightning Flash Density(km-2 day-1)"; break;
+                case 3: this.ParameterNameAndUnit = "Cloud-to-Cloud Lightning Flash Density(km-2 day-1)"; break;
+                case 4: this.ParameterNameAndUnit = "Total Lightning Flash Density(km-2 day-1)"; break;
+                case 5: this.ParameterNameAndUnit = "Subgrid-scale Lightning Potential Index(J kg-1)"; break;
                 case 192: this.ParameterNameAndUnit = "Lightning(non-dim)"; break;
-
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
