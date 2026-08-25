@@ -8469,6 +8469,14 @@ public class App extends PApplet {
                 case 20: this.ParameterNameAndUnit = "Column-Integrated Soil Moisture(kg m-2)"; break;
                 case 21: this.ParameterNameAndUnit = "Soil Ice(kg m-3)"; break;
                 case 22: this.ParameterNameAndUnit = "Column-Integrated Soil Ice(kg m-2)"; break;
+                case 23: this.ParameterNameAndUnit = "Liquid Water in Snow Pack(kg m-2)"; break;
+                case 24: this.ParameterNameAndUnit = "Frost Index(kg day-1)"; break;
+                case 25: this.ParameterNameAndUnit = "Snow Depth at Elevation Bands(kg m-2)"; break;
+                case 26: this.ParameterNameAndUnit = "Soil Heat Flux(W m-2)"; break;
+                case 27: this.ParameterNameAndUnit = "Soil Depth(m)"; break;
+                case 28: this.ParameterNameAndUnit = "Snow Temperature(K)"; break;
+                case 29: this.ParameterNameAndUnit = "Ice Temperature(K)"; break;
+                case 30: this.ParameterNameAndUnit = "Soil Wetness Index(Numeric)"; break;
                 case 192: this.ParameterNameAndUnit = "Liquid Volumetric Soil Moisture (non Frozen)(Proportion)"; break;
                 case 193: this.ParameterNameAndUnit = "Number of Soil Layers in Root Zone(non-dim)"; break;
                 case 194: this.ParameterNameAndUnit = "Surface Slope Type(Index)"; break;
@@ -8481,6 +8489,7 @@ public class App extends PApplet {
                 case 201: this.ParameterNameAndUnit = "Average Surface Skin Temperature(K)"; break;
                 case 202: this.ParameterNameAndUnit = "Effective Radiative Skin Temperature(K)"; break;
                 case 203: this.ParameterNameAndUnit = "Field Capacity(Fraction)"; break;
+                case 204: this.ParameterNameAndUnit = "Soil Moisture Availability In The Top Soil Layer(%)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
