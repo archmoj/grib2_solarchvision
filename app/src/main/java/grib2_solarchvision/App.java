@@ -7896,6 +7896,9 @@ public class App extends PApplet {
                 case 3: this.ParameterNameAndUnit = "Echo Top(m)"; break;
                 case 4: this.ParameterNameAndUnit = "Reflectivity(dB)"; break;
                 case 5: this.ParameterNameAndUnit = "Composite reflectivity(dB)"; break;
+                case 6: this.ParameterNameAndUnit = "Precipitation Rate(kg m-2 s-1)"; break;
+                case 7: this.ParameterNameAndUnit = "Layer Maximum Precipitation Rate(kg m-2 s-1)"; break;
+                case 8: this.ParameterNameAndUnit = "Layer Maximum Reflectivity(dB)"; break;
                 case 192: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for rain(m m6 m-3)"; break;
                 case 193: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for snow(m m6 m-3)"; break;
                 case 194: this.ParameterNameAndUnit = "Equivalent radar reflectivity factor for parameterized convection(m m6 m-3)"; break;
@@ -7903,6 +7906,7 @@ public class App extends PApplet {
                 case 196: this.ParameterNameAndUnit = "Composite reflectivity(dB)"; break;
                 case 197: this.ParameterNameAndUnit = "Echo Top(m)"; break;
                 case 198: this.ParameterNameAndUnit = "Hourly Maximum of Simulated Reflectivity at 1 km AGL(dB)"; break;
+                case 199: this.ParameterNameAndUnit = "Hourly Maximum of Composite Reflectivity(dB)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
