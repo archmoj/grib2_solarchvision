@@ -8144,6 +8144,35 @@ public class App extends PApplet {
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
             }
+            else if (this.CategoryOfParametersByProductDiscipline == 21) { // Thermodynamic Properties
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Column Integrated Potential + Internal Energy(J m-2)"; break;
+                case 1: this.ParameterNameAndUnit = "Column Integrated Kinetic Energy(J m-2)"; break;
+                case 2: this.ParameterNameAndUnit = "Column Integrated Total Energy(J m-2)"; break;
+                case 3: this.ParameterNameAndUnit = "Column Integrated Enthalpy(J m-2)"; break;
+                case 4: this.ParameterNameAndUnit = "Column Integrated Water Enthalpy(J m-2)"; break;
+                case 5: this.ParameterNameAndUnit = "Column Integrated Eastward Enthalpy Flux(W m-1)"; break;
+                case 6: this.ParameterNameAndUnit = "Column Integrated Northward Enthalpy Flux(W m-1)"; break;
+                case 7: this.ParameterNameAndUnit = "Column Integrated Eastward Potential Energy Flux(W m-1)"; break;
+                case 8: this.ParameterNameAndUnit = "Column Integrated Northward Potential Energy Flux(W m-1)"; break;
+                case 9: this.ParameterNameAndUnit = "Column Integrated Eastward Kinetic Energy Flux(W m-1)"; break;
+                case 10: this.ParameterNameAndUnit = "Column Integrated Northward Kinetic Energy Flux(W m-1)"; break;
+                case 11: this.ParameterNameAndUnit = "Column Integrated Eastward Total Energy Flux(W m-1)"; break;
+                case 12: this.ParameterNameAndUnit = "Column Integrated Northward Total Energy Flux(W m-1)"; break;
+                case 13: this.ParameterNameAndUnit = "Divergence of Column Integrated Enthalpy Flux(W m-1)"; break;
+                case 14: this.ParameterNameAndUnit = "Divergence of Column Integrated Potential Energy Flux(W m-1)"; break;
+                case 15: this.ParameterNameAndUnit = "Divergence of Column Integrated Water Potential Energy Flux(W m-1)"; break;
+                case 16: this.ParameterNameAndUnit = "Divergence of Column Integrated Kinetic Energy Flux(W m-1)"; break;
+                case 17: this.ParameterNameAndUnit = "Divergence of Column Integrated Total Energy Flux(W m-1)"; break;
+                case 18: this.ParameterNameAndUnit = "Divergence of Column Integrated Water Enthalpy Flux(W m-1)"; break;
+                case 19: this.ParameterNameAndUnit = "Column Integrated Eastward Heat Flux(W m-1)"; break;
+                case 20: this.ParameterNameAndUnit = "Column Integrated Northward Heat Flux(W m-1)"; break;
+                case 21: this.ParameterNameAndUnit = "Column Integrated Potential+Internal+Latent Energy(J m-2)"; break;
+                case 22: this.ParameterNameAndUnit = "Eady Growth Rate(day-1)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
             else if (this.CategoryOfParametersByProductDiscipline == 190) { // CCITT IA5 string
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
                 case 0: this.ParameterNameAndUnit = "Arbitrary Text String(CCITTIA5)"; break;
