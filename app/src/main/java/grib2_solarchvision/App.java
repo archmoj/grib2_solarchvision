@@ -8763,13 +8763,16 @@ public class App extends PApplet {
                 case 1: this.ParameterNameAndUnit = "Electron Density(m-3)"; break;
                 case 2: this.ParameterNameAndUnit = "Proton Density(m-3)"; break;
                 case 3: this.ParameterNameAndUnit = "Ion Density(m-3)"; break;
-                case 4: this.ParameterNameAndUnit = "Vertical Electron Content(m-2)"; break;
+                case 4: this.ParameterNameAndUnit = "Vertical Total Electron Content(TECU)"; break;
                 case 5: this.ParameterNameAndUnit = "HF Absorption Frequency(Hz)"; break;
                 case 6: this.ParameterNameAndUnit = "HF Absorption(dB)"; break;
                 case 7: this.ParameterNameAndUnit = "Spread F(m)"; break;
                 case 8: this.ParameterNameAndUnit = "h'F(m)"; break;
                 case 9: this.ParameterNameAndUnit = "Critical Frequency(Hz)"; break;
-                case 10: this.ParameterNameAndUnit = "Scintillation(Numeric)"; break;
+                case 10: this.ParameterNameAndUnit = "Maximal Usable Frequency (MUF)(Hz)"; break;
+                case 11: this.ParameterNameAndUnit = "Peak Height (hm)(m)"; break;
+                case 12: this.ParameterNameAndUnit = "Peak Density(m-3)"; break;
+                case 13: this.ParameterNameAndUnit = "Equivalent Slab Thickness (tau)(km)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
@@ -8804,6 +8807,10 @@ public class App extends PApplet {
 
             else if (this.CategoryOfParametersByProductDiscipline == 5) { // Waves
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Amplitude(dB)"; break;
+                case 1: this.ParameterNameAndUnit = "Phase(rad)"; break;
+                case 2: this.ParameterNameAndUnit = "Frequency(Hz)"; break;
+                case 3: this.ParameterNameAndUnit = "Wavelength(m)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
@@ -8823,10 +8830,10 @@ public class App extends PApplet {
             }
             else if (this.CategoryOfParametersByProductDiscipline == 7) { // Terrestrial Electromagnetic Emissions
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
-                case 0: this.ParameterNameAndUnit = "Limb Intensity(m-2 s-1)"; break;
-                case 1: this.ParameterNameAndUnit = "Disk Intensity(m-2 s-1)"; break;
-                case 2: this.ParameterNameAndUnit = "Disk Intensity Day(m-2 s-1)"; break;
-                case 3: this.ParameterNameAndUnit = "Disk Intensity Night(m-2 s-1)"; break;
+                case 0: this.ParameterNameAndUnit = "Limb Intensity(J m-2 s-1)"; break;
+                case 1: this.ParameterNameAndUnit = "Disk Intensity(J m-2 s-1)"; break;
+                case 2: this.ParameterNameAndUnit = "Disk Intensity Day(J m-2 s-1)"; break;
+                case 3: this.ParameterNameAndUnit = "Disk Intensity Night(J m-2 s-1)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
@@ -8841,6 +8848,7 @@ public class App extends PApplet {
                 case 5: this.ParameterNameAndUnit = "White Light Coronagraph Radiance(W sr-1 m-2)"; break;
                 case 6: this.ParameterNameAndUnit = "Heliospheric Radiance(W sr-1 m-2)"; break;
                 case 7: this.ParameterNameAndUnit = "Thematic Mask(Numeric)"; break;
+                case 8: this.ParameterNameAndUnit = "Solar Induced Chlorophyll Fluorescence(W m-2 sr-1 m-1)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
@@ -8850,6 +8858,20 @@ public class App extends PApplet {
                 case 0: this.ParameterNameAndUnit = "Pedersen Conductivity(S m-1)"; break;
                 case 1: this.ParameterNameAndUnit = "Hall Conductivity(S m-1)"; break;
                 case 2: this.ParameterNameAndUnit = "Parallel Conductivity(S m-1)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
+            else if (this.CategoryOfParametersByProductDiscipline == 10) { // Space Weather Indices
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Scintillation Index (sigma phi)(rad)"; break;
+                case 1: this.ParameterNameAndUnit = "Scintillation Index S4(Numeric)"; break;
+                case 2: this.ParameterNameAndUnit = "Rate of Change of TEC Index (ROTI)(TECU/min)"; break;
+                case 3: this.ParameterNameAndUnit = "Disturbance Ionosphere Index Spatial Gradient (DIXSG)(Numeric)"; break;
+                case 4: this.ParameterNameAndUnit = "Along Arc TEC Rate (AATR)(TECU/min)"; break;
+                case 5: this.ParameterNameAndUnit = "Kp(Numeric)"; break;
+                case 6: this.ParameterNameAndUnit = "Equatorial Disturbance Storm Time Index (Dst)(nT)"; break;
+                case 7: this.ParameterNameAndUnit = "Auroral Electrojet (AE)(nT)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
