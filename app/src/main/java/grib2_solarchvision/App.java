@@ -7884,6 +7884,13 @@ public class App extends PApplet {
                 case 12: this.ParameterNameAndUnit = "Reflectivity of Rain(dB)"; break;
                 case 13: this.ParameterNameAndUnit = "Reflectivity of Graupel(dB)"; break;
                 case 14: this.ParameterNameAndUnit = "Reflectivity of Hail(dB)"; break;
+                case 15: this.ParameterNameAndUnit = "Hybrid Scan Reflectivity(dB)"; break;
+                case 16: this.ParameterNameAndUnit = "Hybrid Scan Reflectivity Height(m)"; break;
+                case 17: this.ParameterNameAndUnit = "Precipitation Rate(kg m-2 s-1)"; break;
+                case 18: this.ParameterNameAndUnit = "Radar Data Quality Index (see Note 2)(Proportion)"; break;
+                case 19: this.ParameterNameAndUnit = "Radar Data Quality Flag(See Table 4.106)"; break;
+                case 20: this.ParameterNameAndUnit = "Layer Maximum Precipitation Rate(kg m-2 s-1)"; break;
+                case 192: this.ParameterNameAndUnit = "Vertically-Integrated Liquid Water(kg m-2)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
