@@ -8173,6 +8173,19 @@ public class App extends PApplet {
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
             }
+            else if (this.CategoryOfParametersByProductDiscipline == 22) { // Drought Indicies
+              switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
+                case 0: this.ParameterNameAndUnit = "Standard Precipitation Index (SPI)(dimensionless)"; break;
+                case 1: this.ParameterNameAndUnit = "Standardized Precipitation Evapotranspiration Index (SPEI)(dimensionless)"; break;
+                case 2: this.ParameterNameAndUnit = "Standardized Streamflow Index (SSFI)(dimensionless)"; break;
+                case 3: this.ParameterNameAndUnit = "Standardized Reservoir Supply Index (SRSI)(dimensionless)"; break;
+                case 4: this.ParameterNameAndUnit = "Standardized Water-level Index (SWI)(dimensionless)"; break;
+                case 5: this.ParameterNameAndUnit = "Standardized Snowmelt and Rain Index (SMRI)(dimensionless)"; break;
+                case 6: this.ParameterNameAndUnit = "Streamflow Drought Index (SDI)(dimensionless)"; break;
+                case 255: this.ParameterNameAndUnit = "Missing"; break;
+                default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
+              }
+            }
             else if (this.CategoryOfParametersByProductDiscipline == 190) { // CCITT IA5 string
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
                 case 0: this.ParameterNameAndUnit = "Arbitrary Text String(CCITTIA5)"; break;
