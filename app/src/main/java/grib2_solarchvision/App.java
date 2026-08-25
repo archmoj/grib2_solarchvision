@@ -9071,6 +9071,8 @@ public class App extends PApplet {
               switch (this.ParameterNumberByProductDisciplineAndParameterCategory) {
                 case 0: this.ParameterNameAndUnit = "Seconds Prior To Initial Reference Time (Defined In Section 1)(s)"; break;
                 case 1: this.ParameterNameAndUnit = "Meridional Overturning Stream Function(m3 s-1)"; break;
+                case 3:	this.ParameterNameAndUnit = "Days Since Last Observation(d)"; break;
+                case 4:	this.ParameterNameAndUnit = "Barotropic Stream Function(m3 s-1)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
