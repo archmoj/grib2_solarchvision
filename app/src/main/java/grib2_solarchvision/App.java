@@ -8145,6 +8145,11 @@ public class App extends PApplet {
                 case 0: this.ParameterNameAndUnit = "Seconds prior to initial reference time (defined in Section 1)(s)"; break;
                 case 1: this.ParameterNameAndUnit = "Geographical Latitude(N)"; break;
                 case 2: this.ParameterNameAndUnit = "Geographical Longitude(E)"; break;
+                case 3: this.ParameterNameAndUnit = "Days Since Last Observation(d)"; break;
+                case 4: this.ParameterNameAndUnit = "Tropical cyclone density track(Numeric)"; break;
+                case 5: this.ParameterNameAndUnit = "Hurricane track in spatiotemporal vicinity(boolean)"; break;
+                case 6: this.ParameterNameAndUnit = "Tropical storm track in spatiotemporal vicinity(boolean)"; break;
+                case 7: this.ParameterNameAndUnit = "Tropical depression track in spatiotemporal vicinity(boolean)"; break;
                 case 192: this.ParameterNameAndUnit = "Latitude (-90 to 90)()"; break;
                 case 193: this.ParameterNameAndUnit = "East Longitude (0 to 360)()"; break;
                 case 194: this.ParameterNameAndUnit = "Seconds prior to initial reference time(s)"; break;
