@@ -8301,6 +8301,17 @@ public class App extends PApplet {
                 case 10: this.ParameterNameAndUnit = "Shape Factor with Respect to Temperature Profile in Thermocline()"; break;
                 case 11: this.ParameterNameAndUnit = "Attenuation Coefficient of Water with Respect to Solar Attenuation Coefficient of Water with Respect to Solar Radiation(m-1)"; break;
                 case 12: this.ParameterNameAndUnit = "Salinity(kg kg-1)"; break;
+                case 13: this.ParameterNameAndUnit = "Cross Sectional Area of Flow in Channel(m2)"; break;
+                case 14: this.ParameterNameAndUnit = "Snow Temperature(K)"; break;
+                case 15: this.ParameterNameAndUnit = "Lake Depth(m)"; break;
+                case 16: this.ParameterNameAndUnit = "River Depth(m)"; break;
+                case 17: this.ParameterNameAndUnit = "Floodplain Depth(m)"; break;
+                case 18: this.ParameterNameAndUnit = "Floodplain Flooded Fraction(Proportion)"; break;
+                case 19: this.ParameterNameAndUnit = "Floodplain Flooded Area(m2)"; break;
+                case 20: this.ParameterNameAndUnit = "River Fraction(Proportion)"; break;
+                case 21: this.ParameterNameAndUnit = "River Area(m2)"; break;
+                case 22: this.ParameterNameAndUnit = "Fraction of river coverage plus river related flooding(Proportion)"; break;
+                case 23: this.ParameterNameAndUnit = "Area of river coverage plus river related flooding(m2)"; break;
                 case 255: this.ParameterNameAndUnit = "Missing"; break;
                 default : this.ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0); break;
               }
