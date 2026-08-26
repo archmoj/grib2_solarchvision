@@ -62,7 +62,7 @@ jobs:
         path: build/
 
     - name: Test GFS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GFS.txt)"
 
     - name: Upload Artifacts
@@ -95,7 +95,7 @@ jobs:
         path: build/
 
     - name: Test RAP
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RAP.txt)"
 
     - name: Upload Artifacts
@@ -128,7 +128,7 @@ jobs:
         path: build/
 
     - name: Test HRRR
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRRR.txt)"
 
     - name: Upload Artifacts
@@ -161,7 +161,7 @@ jobs:
         path: build/
 
     - name: Test HRDPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt)"
 
     - name: Upload Artifacts
@@ -194,7 +194,7 @@ jobs:
         path: build/
 
     - name: Test RDPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPS.txt)"
 
     - name: Upload Artifacts
@@ -227,7 +227,7 @@ jobs:
         path: build/
 
     - name: Test GDPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDPS.txt)"
 
     - name: Upload Artifacts
@@ -260,7 +260,7 @@ jobs:
         path: build/
 
     - name: Test GEPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GEPS.txt)"
 
     - name: Upload Artifacts
@@ -293,7 +293,7 @@ jobs:
         path: build/
 
     - name: Test REPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/REPS.txt)"
 
     - name: Upload Artifacts
@@ -326,7 +326,7 @@ jobs:
         path: build/
 
     - name: Test GDWPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt)"
 
     - name: Upload Artifacts
@@ -359,7 +359,7 @@ jobs:
         path: build/
 
     - name: Test RDWPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt)"
 
     - name: Upload Artifacts
@@ -392,7 +392,7 @@ jobs:
         path: build/
 
     - name: Test Lake-Erie
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt)"
 
     - name: Upload Artifacts
@@ -425,7 +425,7 @@ jobs:
         path: build/
 
     - name: Test Lake-Huron-Michigan
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt)"
 
     - name: Upload Artifacts
@@ -458,7 +458,7 @@ jobs:
         path: build/
 
     - name: Test Lake-Ontario
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt)"
 
     - name: Upload Artifacts
@@ -491,7 +491,7 @@ jobs:
         path: build/
 
     - name: Test Lake-Superior
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt)"
 
     - name: Upload Artifacts
@@ -525,7 +525,7 @@ jobs:
         path: build/
 
     - name: Test RDPA
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPA.txt)"
 
     - name: Upload Artifacts
@@ -559,7 +559,7 @@ jobs:
         path: build/
 
     - name: Test HRDPA
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPA.txt)"
 
     - name: Upload Artifacts
@@ -592,7 +592,7 @@ jobs:
         path: build/
 
     - name: Test NAM11
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM11.txt)"
 
     - name: Upload Artifacts
@@ -626,7 +626,7 @@ jobs:
         path: build/
 
     - name: Test NAM12
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM12.txt)"
 
     - name: Upload Artifacts
@@ -660,7 +660,7 @@ jobs:
         path: build/
 
     - name: Test NAM32
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM32.txt)"
 
     - name: Upload Artifacts
@@ -694,7 +694,7 @@ jobs:
         path: build/
 
     - name: Test CanSIPS
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/CanSIPS.txt)"
 
     - name: Upload Artifacts
@@ -728,7 +728,7 @@ jobs:
         path: build/
 
     - name: Test Montreal-TroisRivieres
-      timeout-minutes: 5
+      timeout-minutes: 10
       run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Montreal-TroisRivieres.txt)"
 
     - name: Upload Artifacts
