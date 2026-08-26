@@ -335,7 +335,7 @@ jobs:
         path: output/
         retention-days: 1
 
-  test-RDWPS_national:
+  test-RDWPS:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -357,18 +357,18 @@ jobs:
         name: gradle-build-output
         path: build/
 
-    - name: Test RDWPS_national
+    - name: Test RDWPS
       timeout-minutes: 5
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_national.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt)"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: RDWPS_national-output
+        name: RDWPS-output
         path: output/
         retention-days: 1
 
-  test-RDWPS_lake_erie:
+  test-Lake-Erie:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -390,18 +390,18 @@ jobs:
         name: gradle-build-output
         path: build/
 
-    - name: Test RDWPS_lake_erie
+    - name: Test Lake-Erie
       timeout-minutes: 5
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_erie.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt)"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: RDWPS_lake_erie-output
+        name: Lake-Erie-output
         path: output/
         retention-days: 1
 
-  test-RDWPS_lake_huron-michigan:
+  test-Lake-Huron-Michigan:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -423,18 +423,18 @@ jobs:
         name: gradle-build-output
         path: build/
 
-    - name: Test RDWPS_lake_huron-michigan
+    - name: Test Lake-Huron-Michigan
       timeout-minutes: 5
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_huron-michigan.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt)"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: RDWPS_lake_huron-michigan-output
+        name: Lake-Huron-Michigan-output
         path: output/
         retention-days: 1
 
-  test-RDWPS_lake_ontario:
+  test-Lake-Ontario:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -456,18 +456,18 @@ jobs:
         name: gradle-build-output
         path: build/
 
-    - name: Test RDWPS_lake_ontario
+    - name: Test Lake-Ontario
       timeout-minutes: 5
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_ontario.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt)"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: RDWPS_lake_ontario-output
+        name: Lake-Ontario-output
         path: output/
         retention-days: 1
 
-  test-RDWPS_lake_superior:
+  test-Lake-Superior:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -489,14 +489,14 @@ jobs:
         name: gradle-build-output
         path: build/
 
-    - name: Test RDWPS_lake_superior
+    - name: Test Lake-Superior
       timeout-minutes: 5
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS_lake_superior.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt)"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: RDWPS_lake_superior-output
+        name: Lake-Superior-output
         path: output/
         retention-days: 1
 

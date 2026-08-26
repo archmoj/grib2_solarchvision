@@ -53,11 +53,11 @@ public class App extends PApplet {
         "domain=RDPS",
         //"domain=HRDPS",
         //"domain=GDWPS",
-        //"domain=RDWPS_lake_erie",
-        //"domain=RDWPS_lake_huron-michigan",
-        //"domain=RDWPS_lake_ontario",
-        //"domain=RDWPS_lake_superior",
-        //"domain=RDWPS_national",
+        //"domain=Lake-Erie",
+        //"domain=Lake-Huron-Michigan",
+        //"domain=Lake-Ontario",
+        //"domain=Lake-Superior",
+        //"domain=RDWPS",
         //"domain=RDPA",
         //"domain=HRDPA",
 
@@ -275,11 +275,11 @@ public class App extends PApplet {
 
     { "GDWPS", "GDWPS", "CMC", "https://dd.weather.gc.ca/", "model_gdwps/25km", "MSC_GDWPS", "LatLon0.25", ".grib2", "25", "1", "1", "48" },
 
-    { "RDWPS_lake_erie", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/erie/1km", "MSC_RDWPS-Lake-Erie", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
-    { "RDWPS_lake_huron-michigan", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/huron-michigan/1km", "MSC_RDWPS-Lake-Huron-Michigan", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
-    { "RDWPS_lake_ontario", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/ontario/1km", "MSC_RDWPS-Lake-Ontario", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
-    { "RDWPS_lake_superior", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/superior/1km", "MSC_RDWPS-Lake-Superior", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
-    { "RDWPS_national", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/national/2.5km", "MSC_RDWPS", "RLatLon0.0225", ".grib2", "5", "1", "1", "48" },
+    { "Lake-Erie", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/erie/1km", "MSC_RDWPS-Lake-Erie", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "Lake-Huron-Michigan", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/huron-michigan/1km", "MSC_RDWPS-Lake-Huron-Michigan", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "Lake-Ontario", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/ontario/1km", "MSC_RDWPS-Lake-Ontario", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "Lake-Superior", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/superior/1km", "MSC_RDWPS-Lake-Superior", "LatLon0.009x0.012", ".grib2", "5", "1", "1", "48" },
+    { "RDWPS", "RDWPS", "CMC", "https://dd.weather.gc.ca/", "model_rdwps/national/2.5km", "MSC_RDWPS", "RLatLon0.0225", ".grib2", "5", "1", "1", "48" },
 
     { "RDPA", "RDPA", "CMC", "https://dd.weather.gc.ca/", "model_rdpa/10km", "MSC_RDPA", "RLatLon0.09", ".grib2", "5", "1", "6", "1" },
 

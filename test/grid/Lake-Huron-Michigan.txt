@@ -1,4 +1,4 @@
-domain=RDWPS_lake_ontario
+domain=Lake-Huron-Michigan
 run=0
 begin=0
 end=1
