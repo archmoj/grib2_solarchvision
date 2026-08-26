@@ -67,7 +67,7 @@ public class App extends PApplet {
 
         "run=00Z",
         "begin=0",
-        "end=24",
+        "end=3",
         "step=24",
 
         //"layers+=swellwavesheight",
