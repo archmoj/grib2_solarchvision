@@ -1661,6 +1661,21 @@ public class App extends PApplet {
               }
             }
 
+            if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake")) {
+              float x = DATA_Viewport_Width / 2;
+              float y = DATA_Viewport_Height / 2;
+
+              x = (x - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
+              y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+
+              if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
+                textSize(50.0f);
+                textAlign(CENTER, CENTER);
+
+                text(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].replace('-', ' '), x, y);
+              }
+            }
+
             strokeWeight(0);
             noStroke();
             fill(0);
