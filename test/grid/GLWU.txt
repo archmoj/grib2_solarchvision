@@ -6,6 +6,7 @@ step=1
 auto=PNG
 levels+=surface
 
+layers+=flowXonly
 layers+=windwavesheight
 layers+=combwavesheight
 layers+=windU

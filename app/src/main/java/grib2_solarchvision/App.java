@@ -2759,7 +2759,8 @@ public class App extends PApplet {
     if(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake-")) {
       if(!(
         (DATA_allLayers[layerID] == LAYER_windU) ||
-        (DATA_allLayers[layerID] == LAYER_windV)
+        (DATA_allLayers[layerID] == LAYER_windV) ||
+        (DATA_allLayers[layerID] == LAYER_flowXonly)
       )) {
         PAL_Scale *= 5.0f;
       }
