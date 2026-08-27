@@ -2877,6 +2877,12 @@ public class App extends PApplet {
 
     setAdjustParameters(layerID);
 
+    boolean hideWhite = !(
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS") ||
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS") ||
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")
+    );
+
     for (int i = 0; i < gridNx * gridNy; i++) {
       int x = i % RES1;
       int y = i / RES1;
@@ -2888,7 +2894,7 @@ public class App extends PApplet {
 
         float[] COL = SOLARCHVISION_GET_COLOR_STYLE(PAL_TYPE, _u);
 
-        if ((COL[1] > 254) && (COL[2] > 254) && (COL[3] > 254)) COL[0] = 0;
+        if (hideWhite && (COL[1] > 254) && (COL[2] > 254) && (COL[3] > 254)) COL[0] = 0;
 
         img.pixels[(RES2 - y - 1) * RES1 + x] = color(COL[1], COL[2], COL[3], COL[0]);
       }
@@ -2914,6 +2920,12 @@ public class App extends PApplet {
 
     setAdjustParameters(Current_layerID);
 
+    boolean hideWhite = !(
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS") ||
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS") ||
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")
+    );
+
     for (int i = 0; i < gridNx * gridNy; i++) {
       int x = i % RES1;
       int y = i / RES1;
@@ -2937,7 +2949,7 @@ public class App extends PApplet {
 
         float[] COL = SOLARCHVISION_GET_COLOR_STYLE(PAL_TYPE, _u);
 
-        if ((COL[1] > 254) && (COL[2] > 254) && (COL[3] > 254)) COL[0] = 0;
+        if (hideWhite && (COL[1] > 254) && (COL[2] > 254) && (COL[3] > 254)) COL[0] = 0;
 
         img.pixels[(RES2 - y - 1) * RES1 + x] = color(COL[1], COL[2], COL[3], COL[0]);
       }
@@ -2968,8 +2980,6 @@ public class App extends PApplet {
         float _u = AdjustValue(_val);
 
         float[] COL = SOLARCHVISION_GET_COLOR_STYLE(PAL_TYPE, _u);
-
-        if ((COL[1] > 254) && (COL[2] > 254) && (COL[3] > 254)) COL[0] = 0;
 
         graphic.fill(COL[1], COL[2], COL[3], COL[0]);
         graphic.noStroke();
