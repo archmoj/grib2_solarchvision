@@ -81,12 +81,12 @@ public class App extends PApplet {
         //"layers+=flowXmeanpressure",
         "layers+=flowXprecipitation",
 
-        "layers+=windU",
-        "layers+=windV",
+        "layers:=windU",
+        "layers:=windV",
 
         "layers+=precipitation",
         //"layers+=drybulb",
-        //"layers+=meanpressure",
+        //"layers:=meanpressure",
         //"layers+=cloudcover",
         //"layers+=albedo",
         //"layers+=glohorrad",
@@ -541,6 +541,7 @@ public class App extends PApplet {
   static int LAYER_flowXprecipitation = addLayer();
   static int LAYER_flowXdirecteffect  = addLayer();
 
+  static boolean[] DATA_recLayers = new boolean[0];
   static int[] DATA_allLayers = new int[0];
   static int[] DATA_allLevels = new int[0];
 
@@ -644,266 +645,272 @@ public class App extends PApplet {
         }
       }
 
-      _at = CAP_arg.indexOf("LAYERS+");
-      if (_at == 0) {
-        _tokens = split(CAP_arg, '=');
-        if (_tokens.length > 1) {
-          input_str = _tokens[1];
+      String[] layerOptions = {"LAYERS+", "LAYERS:"};
+      for (String q : layerOptions) {
+        _at = CAP_arg.indexOf(q);
+        if (_at == 0) {
+          _tokens = split(CAP_arg, '=');
+          if (_tokens.length > 1) {
+            input_str = _tokens[1];
 
-          int[] newLayer = {-1};
+            int[] newLayer = {-1};
 
-          if (input_str.equals("pastprecip".toUpperCase())) {
-                  newLayer[0] = LAYER_pastprecip;
-          }
-          else if (input_str.equals("preciprate".toUpperCase())) {
-                  newLayer[0] = LAYER_preciprate;
-          }
-          else if (input_str.equals("precipitation".toUpperCase())) {
-                  newLayer[0] = LAYER_precipitation;
-          }
-          else if (input_str.equals("rain".toUpperCase())) {
-                  newLayer[0] = LAYER_rain;
-          }
-          else if (input_str.equals("freezingrain".toUpperCase())) {
-                  newLayer[0] = LAYER_freezingrain;
-          }
-          else if (input_str.equals("icepellets".toUpperCase())) {
-                  newLayer[0] = LAYER_icepellets;
-          }
-          else if (input_str.equals("snow".toUpperCase())) {
-                  newLayer[0] = LAYER_snow;
-          }
-          else if (input_str.equals("solarcomingshort".toUpperCase())) {
-                  newLayer[0] = LAYER_solarcomingshort;
-          }
-          else if (input_str.equals("solarabsrbdlong".toUpperCase())) {
-                  newLayer[0] = LAYER_solarabsrbdlong;
-          }
-          else if (input_str.equals("solarabsrbdshort".toUpperCase())) {
-                  newLayer[0] = LAYER_solarabsrbdshort;
-          }
-          else if (input_str.equals("solardownlong".toUpperCase())) {
-                  newLayer[0] = LAYER_solardownlong;
-          }
-          else if (input_str.equals("solardownshort".toUpperCase())) {
-                  newLayer[0] = LAYER_solardownshort;
-          }
-          else if (input_str.equals("solaruplong".toUpperCase())) {
-                  newLayer[0] = LAYER_solaruplong;
-          }
-          else if (input_str.equals("solarupshort".toUpperCase())) {
-                  newLayer[0] = LAYER_solarupshort;
-          }
-          else if (input_str.equals("surfsensibleheat".toUpperCase())) {
-                  newLayer[0] = LAYER_surfsensibleheat;
-          }
-          else if (input_str.equals("surflatentheat".toUpperCase())) {
-                  newLayer[0] = LAYER_surflatentheat;
-          }
-          else if (input_str.equals("surfshowalter".toUpperCase())) {
-                  newLayer[0] = LAYER_surfshowalter;
-          }
-          else if (input_str.equals("surflifted".toUpperCase())) {
-                  newLayer[0] = LAYER_surflifted;
-          }
-          else if (input_str.equals("convpotenergy".toUpperCase())) {
-                  newLayer[0] = LAYER_convpotenergy;
-          }
-          else if (input_str.equals("surfhelicity".toUpperCase())) {
-                  newLayer[0] = LAYER_surfhelicity;
-          }
-          else if (input_str.equals("watertemperature".toUpperCase())) {
-                  newLayer[0] = LAYER_watertemperature;
-          }
-          else if (input_str.equals("ice".toUpperCase())) {
-                  newLayer[0] = LAYER_ice;
-          }
-          else if (input_str.equals("land".toUpperCase())) {
-                  newLayer[0] = LAYER_land;
-          }
-          else if (input_str.equals("depthsnow".toUpperCase())) {
-                  newLayer[0] = LAYER_depthsnow;
-          }
-          else if (input_str.equals("watersnow".toUpperCase())) {
-                  newLayer[0] = LAYER_watersnow;
-          }
-          else if (input_str.equals("soiltemperature".toUpperCase())) {
-                  newLayer[0] = LAYER_soiltemperature;
-          }
-          else if (input_str.equals("soilmoisture".toUpperCase())) {
-                  newLayer[0] = LAYER_soilmoisture;
-          }
-          else if (input_str.equals("absolutevorticity".toUpperCase())) {
-                  newLayer[0] = LAYER_absolutevorticity;
-          }
-          else if (input_str.equals("verticalvelocity".toUpperCase())) {
-                  newLayer[0] = LAYER_verticalvelocity;
-          }
-          else if (input_str.equals("height".toUpperCase())) {
-                  newLayer[0] = LAYER_height;
-          }
-          else if (input_str.equals("drybulb".toUpperCase())) {
-                  newLayer[0] = LAYER_drybulb;
-          }
-          else if (input_str.equals("dewpoint".toUpperCase())) {
-                  newLayer[0] = LAYER_dewpoint;
-          }
-          else if (input_str.equals("depression".toUpperCase())) {
-                  newLayer[0] = LAYER_depression;
-          }
-          else if (input_str.equals("spchum".toUpperCase())) {
-                  newLayer[0] = LAYER_spchum;
-          }
-          else if (input_str.equals("relhum".toUpperCase())) {
-                  newLayer[0] = LAYER_relhum;
-          }
-          else if (input_str.equals("windU".toUpperCase())) {
-                  newLayer[0] = LAYER_windU;
-          }
-          else if (input_str.equals("windV".toUpperCase())) {
-                  newLayer[0] = LAYER_windV;
-          }
-          else if (input_str.equals("windspd".toUpperCase())) {
-                  newLayer[0] = LAYER_windspd;
-          }
-          else if (input_str.equals("winddir".toUpperCase())) {
-                  newLayer[0] = LAYER_winddir;
-          }
-          else if (input_str.equals("windwavedirtrue".toUpperCase())) {
-                  newLayer[0] = LAYER_windwavedirtrue;
-          }
-          else if (input_str.equals("swellwavedirtrue".toUpperCase())) {
-                  newLayer[0] = LAYER_swellwavedirtrue;
-          }
-          else if (input_str.equals("windwavesheight".toUpperCase())) {
-                  newLayer[0] = LAYER_windwavesheight;
-          }
-          else if (input_str.equals("swellwavesheight".toUpperCase())) {
-                  newLayer[0] = LAYER_swellwavesheight;
-          }
-          else if (input_str.equals("combwavesheight".toUpperCase())) {
-                  newLayer[0] = LAYER_combwavesheight;
-          }
-          else if (input_str.equals("peakwaveperiod".toUpperCase())) {
-                  newLayer[0] = LAYER_peakwaveperiod;
-          }
-          else if (input_str.equals("windwaveperiod".toUpperCase())) {
-                  newLayer[0] = LAYER_windwaveperiod;
-          }
-          else if (input_str.equals("swellwaveperiod".toUpperCase())) {
-                  newLayer[0] = LAYER_swellwaveperiod;
-          }
-          else if (input_str.equals("Water_level_above_mean_sea_level".toUpperCase())) {
-                  newLayer[0] = LAYER_Water_level_above_mean_sea_level;
-          }
-          else if (input_str.equals("X_component_of_the_water_velocity".toUpperCase())) {
-                  newLayer[0] = LAYER_X_component_of_the_water_velocity;
-          }
-          else if (input_str.equals("Y_component_of_the_water_velocity".toUpperCase())) {
-                  newLayer[0] = LAYER_Y_component_of_the_water_velocity;
-          }
-          else if (input_str.equals("Modulus_of_the_water_velocity".toUpperCase())) {
-                  newLayer[0] = LAYER_Modulus_of_the_water_velocity;
-          }
-          else if (input_str.equals("Direction_of_the_water_velocity".toUpperCase())) {
-                  newLayer[0] = LAYER_Direction_of_the_water_velocity;
-          }
-          else if (input_str.equals("Froude_number".toUpperCase())) {
-                  newLayer[0] = LAYER_Froude_number;
-          }
-          else if (input_str.equals("Shear_of_the_water_velocity".toUpperCase())) {
-                  newLayer[0] = LAYER_Shear_of_the_water_velocity;
-          }
-          else if (input_str.equals("Specific_discharge".toUpperCase())) {
-                  newLayer[0] = LAYER_Specific_discharge;
-          }
-          else if (input_str.equals("Water_Transport_Diffusion_Index".toUpperCase())) {
-                  newLayer[0] = LAYER_Water_Transport_Diffusion_Index;
-          }
-          else if (input_str.equals("Water_temperature".toUpperCase())) {
-                  newLayer[0] = LAYER_Water_temperature;
-          }
-          else if (input_str.equals("meanpressure".toUpperCase())) {
-                  newLayer[0] = LAYER_meanpressure;
-          }
-          else if (input_str.equals("surfpressure".toUpperCase())) {
-                  newLayer[0] = LAYER_surfpressure;
-          }
-          else if (input_str.equals("cloudceiling".toUpperCase())) {
-                  newLayer[0] = LAYER_cloudceiling;
-          }
-          else if (input_str.equals("cloudtop".toUpperCase())) {
-                  newLayer[0] = LAYER_cloudtop;
-          }
-          else if (input_str.equals("cloudhigh".toUpperCase())) {
-                  newLayer[0] = LAYER_cloudhigh;
-          }
-          else if (input_str.equals("cloudmiddle".toUpperCase())) {
-                  newLayer[0] = LAYER_cloudmiddle;
-          }
-          else if (input_str.equals("cloudlow".toUpperCase())) {
-                  newLayer[0] = LAYER_cloudlow;
-          }
-          else if (input_str.equals("cloudcover".toUpperCase())) {
-                  newLayer[0] = LAYER_cloudcover;
-          }
-          else if (input_str.equals("albedo".toUpperCase())) {
-                  newLayer[0] = LAYER_albedo;
-          }
-          else if (input_str.equals("glohorrad".toUpperCase())) {
-                  newLayer[0] = LAYER_glohorrad;
-          }
-          else if (input_str.equals("difhorrad".toUpperCase())) {
-                  newLayer[0] = LAYER_difhorrad;
-          }
-          else if (input_str.equals("dirnorrad".toUpperCase())) {
-                  newLayer[0] = LAYER_dirnorrad;
-          }
-          else if (input_str.equals("dirnoreff".toUpperCase())) {
-                  newLayer[0] = LAYER_dirnoreff;
-          }
-          else if (input_str.equals("difhoreff".toUpperCase())) {
-                  newLayer[0] = LAYER_difhoreff;
-          }
-          else if (input_str.equals("tracker".toUpperCase())) {
-                  newLayer[0] = LAYER_tracker;
-          }
-          else if (input_str.equals("fixlat".toUpperCase())) {
-                  newLayer[0] = LAYER_fixlat;
-          }
-          else if (input_str.equals("south45".toUpperCase())) {
-                  newLayer[0] = LAYER_south45;
-          }
-          else if (input_str.equals("south00".toUpperCase())) {
-                  newLayer[0] = LAYER_south00;
-          }
-          else if (input_str.equals("north00".toUpperCase())) {
-                  newLayer[0] = LAYER_north00;
-          }
-          else if (input_str.equals("east00".toUpperCase())) {
-                  newLayer[0] = LAYER_east00;
-          }
-          else if (input_str.equals("west00".toUpperCase())) {
-                  newLayer[0] = LAYER_west00;
-          }
-          else if (input_str.equals("windpower".toUpperCase())) {
-                  newLayer[0] = LAYER_windpower;
-          }
-          else if (input_str.equals("flowXonly".toUpperCase())) {
-                  newLayer[0] = LAYER_flowXonly;
-          }
-          else if (input_str.equals("flowXmeanpressure".toUpperCase())) {
-                  newLayer[0] = LAYER_flowXmeanpressure;
-          }
-          else if (input_str.equals("flowXprecipitation".toUpperCase())) {
-                  newLayer[0] = LAYER_flowXprecipitation;
-          }
-          else if (input_str.equals("flowXdirecteffect".toUpperCase())) {
-                  newLayer[0] = LAYER_flowXdirecteffect;
-          }
+            if (input_str.equals("pastprecip".toUpperCase())) {
+                    newLayer[0] = LAYER_pastprecip;
+            }
+            else if (input_str.equals("preciprate".toUpperCase())) {
+                    newLayer[0] = LAYER_preciprate;
+            }
+            else if (input_str.equals("precipitation".toUpperCase())) {
+                    newLayer[0] = LAYER_precipitation;
+            }
+            else if (input_str.equals("rain".toUpperCase())) {
+                    newLayer[0] = LAYER_rain;
+            }
+            else if (input_str.equals("freezingrain".toUpperCase())) {
+                    newLayer[0] = LAYER_freezingrain;
+            }
+            else if (input_str.equals("icepellets".toUpperCase())) {
+                    newLayer[0] = LAYER_icepellets;
+            }
+            else if (input_str.equals("snow".toUpperCase())) {
+                    newLayer[0] = LAYER_snow;
+            }
+            else if (input_str.equals("solarcomingshort".toUpperCase())) {
+                    newLayer[0] = LAYER_solarcomingshort;
+            }
+            else if (input_str.equals("solarabsrbdlong".toUpperCase())) {
+                    newLayer[0] = LAYER_solarabsrbdlong;
+            }
+            else if (input_str.equals("solarabsrbdshort".toUpperCase())) {
+                    newLayer[0] = LAYER_solarabsrbdshort;
+            }
+            else if (input_str.equals("solardownlong".toUpperCase())) {
+                    newLayer[0] = LAYER_solardownlong;
+            }
+            else if (input_str.equals("solardownshort".toUpperCase())) {
+                    newLayer[0] = LAYER_solardownshort;
+            }
+            else if (input_str.equals("solaruplong".toUpperCase())) {
+                    newLayer[0] = LAYER_solaruplong;
+            }
+            else if (input_str.equals("solarupshort".toUpperCase())) {
+                    newLayer[0] = LAYER_solarupshort;
+            }
+            else if (input_str.equals("surfsensibleheat".toUpperCase())) {
+                    newLayer[0] = LAYER_surfsensibleheat;
+            }
+            else if (input_str.equals("surflatentheat".toUpperCase())) {
+                    newLayer[0] = LAYER_surflatentheat;
+            }
+            else if (input_str.equals("surfshowalter".toUpperCase())) {
+                    newLayer[0] = LAYER_surfshowalter;
+            }
+            else if (input_str.equals("surflifted".toUpperCase())) {
+                    newLayer[0] = LAYER_surflifted;
+            }
+            else if (input_str.equals("convpotenergy".toUpperCase())) {
+                    newLayer[0] = LAYER_convpotenergy;
+            }
+            else if (input_str.equals("surfhelicity".toUpperCase())) {
+                    newLayer[0] = LAYER_surfhelicity;
+            }
+            else if (input_str.equals("watertemperature".toUpperCase())) {
+                    newLayer[0] = LAYER_watertemperature;
+            }
+            else if (input_str.equals("ice".toUpperCase())) {
+                    newLayer[0] = LAYER_ice;
+            }
+            else if (input_str.equals("land".toUpperCase())) {
+                    newLayer[0] = LAYER_land;
+            }
+            else if (input_str.equals("depthsnow".toUpperCase())) {
+                    newLayer[0] = LAYER_depthsnow;
+            }
+            else if (input_str.equals("watersnow".toUpperCase())) {
+                    newLayer[0] = LAYER_watersnow;
+            }
+            else if (input_str.equals("soiltemperature".toUpperCase())) {
+                    newLayer[0] = LAYER_soiltemperature;
+            }
+            else if (input_str.equals("soilmoisture".toUpperCase())) {
+                    newLayer[0] = LAYER_soilmoisture;
+            }
+            else if (input_str.equals("absolutevorticity".toUpperCase())) {
+                    newLayer[0] = LAYER_absolutevorticity;
+            }
+            else if (input_str.equals("verticalvelocity".toUpperCase())) {
+                    newLayer[0] = LAYER_verticalvelocity;
+            }
+            else if (input_str.equals("height".toUpperCase())) {
+                    newLayer[0] = LAYER_height;
+            }
+            else if (input_str.equals("drybulb".toUpperCase())) {
+                    newLayer[0] = LAYER_drybulb;
+            }
+            else if (input_str.equals("dewpoint".toUpperCase())) {
+                    newLayer[0] = LAYER_dewpoint;
+            }
+            else if (input_str.equals("depression".toUpperCase())) {
+                    newLayer[0] = LAYER_depression;
+            }
+            else if (input_str.equals("spchum".toUpperCase())) {
+                    newLayer[0] = LAYER_spchum;
+            }
+            else if (input_str.equals("relhum".toUpperCase())) {
+                    newLayer[0] = LAYER_relhum;
+            }
+            else if (input_str.equals("windU".toUpperCase())) {
+                    newLayer[0] = LAYER_windU;
+            }
+            else if (input_str.equals("windV".toUpperCase())) {
+                    newLayer[0] = LAYER_windV;
+            }
+            else if (input_str.equals("windspd".toUpperCase())) {
+                    newLayer[0] = LAYER_windspd;
+            }
+            else if (input_str.equals("winddir".toUpperCase())) {
+                    newLayer[0] = LAYER_winddir;
+            }
+            else if (input_str.equals("windwavedirtrue".toUpperCase())) {
+                    newLayer[0] = LAYER_windwavedirtrue;
+            }
+            else if (input_str.equals("swellwavedirtrue".toUpperCase())) {
+                    newLayer[0] = LAYER_swellwavedirtrue;
+            }
+            else if (input_str.equals("windwavesheight".toUpperCase())) {
+                    newLayer[0] = LAYER_windwavesheight;
+            }
+            else if (input_str.equals("swellwavesheight".toUpperCase())) {
+                    newLayer[0] = LAYER_swellwavesheight;
+            }
+            else if (input_str.equals("combwavesheight".toUpperCase())) {
+                    newLayer[0] = LAYER_combwavesheight;
+            }
+            else if (input_str.equals("peakwaveperiod".toUpperCase())) {
+                    newLayer[0] = LAYER_peakwaveperiod;
+            }
+            else if (input_str.equals("windwaveperiod".toUpperCase())) {
+                    newLayer[0] = LAYER_windwaveperiod;
+            }
+            else if (input_str.equals("swellwaveperiod".toUpperCase())) {
+                    newLayer[0] = LAYER_swellwaveperiod;
+            }
+            else if (input_str.equals("Water_level_above_mean_sea_level".toUpperCase())) {
+                    newLayer[0] = LAYER_Water_level_above_mean_sea_level;
+            }
+            else if (input_str.equals("X_component_of_the_water_velocity".toUpperCase())) {
+                    newLayer[0] = LAYER_X_component_of_the_water_velocity;
+            }
+            else if (input_str.equals("Y_component_of_the_water_velocity".toUpperCase())) {
+                    newLayer[0] = LAYER_Y_component_of_the_water_velocity;
+            }
+            else if (input_str.equals("Modulus_of_the_water_velocity".toUpperCase())) {
+                    newLayer[0] = LAYER_Modulus_of_the_water_velocity;
+            }
+            else if (input_str.equals("Direction_of_the_water_velocity".toUpperCase())) {
+                    newLayer[0] = LAYER_Direction_of_the_water_velocity;
+            }
+            else if (input_str.equals("Froude_number".toUpperCase())) {
+                    newLayer[0] = LAYER_Froude_number;
+            }
+            else if (input_str.equals("Shear_of_the_water_velocity".toUpperCase())) {
+                    newLayer[0] = LAYER_Shear_of_the_water_velocity;
+            }
+            else if (input_str.equals("Specific_discharge".toUpperCase())) {
+                    newLayer[0] = LAYER_Specific_discharge;
+            }
+            else if (input_str.equals("Water_Transport_Diffusion_Index".toUpperCase())) {
+                    newLayer[0] = LAYER_Water_Transport_Diffusion_Index;
+            }
+            else if (input_str.equals("Water_temperature".toUpperCase())) {
+                    newLayer[0] = LAYER_Water_temperature;
+            }
+            else if (input_str.equals("meanpressure".toUpperCase())) {
+                    newLayer[0] = LAYER_meanpressure;
+            }
+            else if (input_str.equals("surfpressure".toUpperCase())) {
+                    newLayer[0] = LAYER_surfpressure;
+            }
+            else if (input_str.equals("cloudceiling".toUpperCase())) {
+                    newLayer[0] = LAYER_cloudceiling;
+            }
+            else if (input_str.equals("cloudtop".toUpperCase())) {
+                    newLayer[0] = LAYER_cloudtop;
+            }
+            else if (input_str.equals("cloudhigh".toUpperCase())) {
+                    newLayer[0] = LAYER_cloudhigh;
+            }
+            else if (input_str.equals("cloudmiddle".toUpperCase())) {
+                    newLayer[0] = LAYER_cloudmiddle;
+            }
+            else if (input_str.equals("cloudlow".toUpperCase())) {
+                    newLayer[0] = LAYER_cloudlow;
+            }
+            else if (input_str.equals("cloudcover".toUpperCase())) {
+                    newLayer[0] = LAYER_cloudcover;
+            }
+            else if (input_str.equals("albedo".toUpperCase())) {
+                    newLayer[0] = LAYER_albedo;
+            }
+            else if (input_str.equals("glohorrad".toUpperCase())) {
+                    newLayer[0] = LAYER_glohorrad;
+            }
+            else if (input_str.equals("difhorrad".toUpperCase())) {
+                    newLayer[0] = LAYER_difhorrad;
+            }
+            else if (input_str.equals("dirnorrad".toUpperCase())) {
+                    newLayer[0] = LAYER_dirnorrad;
+            }
+            else if (input_str.equals("dirnoreff".toUpperCase())) {
+                    newLayer[0] = LAYER_dirnoreff;
+            }
+            else if (input_str.equals("difhoreff".toUpperCase())) {
+                    newLayer[0] = LAYER_difhoreff;
+            }
+            else if (input_str.equals("tracker".toUpperCase())) {
+                    newLayer[0] = LAYER_tracker;
+            }
+            else if (input_str.equals("fixlat".toUpperCase())) {
+                    newLayer[0] = LAYER_fixlat;
+            }
+            else if (input_str.equals("south45".toUpperCase())) {
+                    newLayer[0] = LAYER_south45;
+            }
+            else if (input_str.equals("south00".toUpperCase())) {
+                    newLayer[0] = LAYER_south00;
+            }
+            else if (input_str.equals("north00".toUpperCase())) {
+                    newLayer[0] = LAYER_north00;
+            }
+            else if (input_str.equals("east00".toUpperCase())) {
+                    newLayer[0] = LAYER_east00;
+            }
+            else if (input_str.equals("west00".toUpperCase())) {
+                    newLayer[0] = LAYER_west00;
+            }
+            else if (input_str.equals("windpower".toUpperCase())) {
+                    newLayer[0] = LAYER_windpower;
+            }
+            else if (input_str.equals("flowXonly".toUpperCase())) {
+                    newLayer[0] = LAYER_flowXonly;
+            }
+            else if (input_str.equals("flowXmeanpressure".toUpperCase())) {
+                    newLayer[0] = LAYER_flowXmeanpressure;
+            }
+            else if (input_str.equals("flowXprecipitation".toUpperCase())) {
+                    newLayer[0] = LAYER_flowXprecipitation;
+            }
+            else if (input_str.equals("flowXdirecteffect".toUpperCase())) {
+                    newLayer[0] = LAYER_flowXdirecteffect;
+            }
 
-          if (newLayer[0] != -1) {
-            DATA_allLayers = (int[]) concat (DATA_allLayers, newLayer);
+            if (newLayer[0] != -1) {
+              DATA_allLayers = (int[]) concat (DATA_allLayers, newLayer);
+              DATA_recLayers = (boolean[]) concat (DATA_recLayers,
+                new boolean[] {(q == "LAYERS:") ? false : true}
+              );
+            }
           }
         }
       }
@@ -1877,7 +1884,9 @@ public class App extends PApplet {
           endRecord();
         }
         else {
-          recordFrame(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
+          if (DATA_recLayers[Current_layerID]) {
+            recordFrame(Current_timeID, Current_layerID, Current_levelID, Current_memberID);
+          }
         }
 
         Current_timeID += 1;

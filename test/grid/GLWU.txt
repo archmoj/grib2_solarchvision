@@ -9,5 +9,5 @@ levels+=surface
 layers+=flowXonly
 layers+=windwavesheight
 layers+=combwavesheight
-layers+=windU
-layers+=windV
+layers:=windU
+layers:=windV

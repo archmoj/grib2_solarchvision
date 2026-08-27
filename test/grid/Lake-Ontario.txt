@@ -13,5 +13,5 @@ layers+=combwavesheight
 layers+=peakwaveperiod
 layers+=windwaveperiod
 layers+=swellwaveperiod
-layers+=windU
-layers+=windV
+layers:=windU
+layers:=windV
