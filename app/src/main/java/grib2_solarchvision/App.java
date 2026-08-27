@@ -2887,11 +2887,7 @@ public class App extends PApplet {
 
     setAdjustParameters(layerID);
 
-    boolean isLake = (
-        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS") ||
-        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS") ||
-        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")
-    );
+    boolean isLake = (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake-"));
 
     for (int i = 0; i < gridNx * gridNy; i++) {
       int x = i % RES1;
@@ -2932,11 +2928,7 @@ public class App extends PApplet {
 
     setAdjustParameters(Current_layerID);
 
-    boolean isLake = (
-        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDWPS") ||
-        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDWPS") ||
-        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GLWU")
-    );
+    boolean isLake = (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake-"));
 
     for (int i = 0; i < gridNx * gridNy; i++) {
       int x = i % RES1;
