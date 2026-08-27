@@ -2755,6 +2755,15 @@ public class App extends PApplet {
       PAL_Scale = 100.0f;
       Impact_TYPE = Impact_ACTIVE;
     }
+
+    if(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake-")) {
+      if(!(
+        (DATA_allLayers[layerID] == LAYER_windU) ||
+        (DATA_allLayers[layerID] == LAYER_windV)
+      )) {
+        PAL_Scale *= 5.0f;
+      }
+    }
   }
 
   float AdjustValue (float _val) {
