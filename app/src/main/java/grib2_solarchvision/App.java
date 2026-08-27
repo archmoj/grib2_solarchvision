@@ -1661,7 +1661,7 @@ public class App extends PApplet {
               }
             }
 
-            if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake")) {
+            if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].startsWith("Lake-")) {
               float x = DATA_Viewport_Width / 2;
               float y = DATA_Viewport_Height / 2;
 
@@ -1672,7 +1672,7 @@ public class App extends PApplet {
                 textSize(50.0f);
                 textAlign(CENTER, CENTER);
 
-                text(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].replace('-', ' '), x, y);
+                text(DATA_allDomains[Current_domainID][DOMAIN_PROPERTY00].replace("Lake-", "Lake "), x, y);
               }
             }
 
