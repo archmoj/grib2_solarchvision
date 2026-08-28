@@ -4459,6 +4459,7 @@ public class App extends PApplet {
                       gridYear                 [timeID][layerID][levelID][memberID] = myGrid.Year;
                       gridMonth                [timeID][layerID][levelID][memberID] = myGrid.Month;
                       gridDay                  [timeID][layerID][levelID][memberID] = myGrid.Day;
+                      gridHour                  [timeID][layerID][levelID][memberID] = myGrid.Hour;
                       gridMinute               [timeID][layerID][levelID][memberID] = myGrid.Minute;
                       gridSecond               [timeID][layerID][levelID][memberID] = myGrid.Second;
                       gridForecastConvertedTime[timeID][layerID][levelID][memberID] = myGrid.ForecastConvertedTime;
