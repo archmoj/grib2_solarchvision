@@ -285,17 +285,17 @@ public class App extends PApplet {
 
     { "HRDPA", "HRDPA", "CMC", "https://dd.weather.gc.ca/", "model_hrdpa/2.5km", "MSC_HRDPA", "RLatLon0.0225", ".grib2", "5", "1", "6", "1" },
 
-    { "Montreal-TroisRivieres",               "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres", "000.csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres",               "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres", ".csv", "1", "1", "24", "0" },
 /*
-    { "Montreal-TroisRivieres-Assomption",    "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Assomption", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-DuLoup",        "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-DuLoup", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-GreatLakes",    "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-GreatLakes", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-Maskinonge",    "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Maskinonge", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-Mip",           "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Mip", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-Nicolet",       "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Nicolet", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-Richelieu",     "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Richelieu", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-RiveSudCanal",  "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-RiveSudCanal", "000.csv", "1", "1", "24", "0" },
-    { "Montreal-TroisRivieres-SaintFrancois", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-SaintFrancois", "000.csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-Assomption",    "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Assomption", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-DuLoup",        "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-DuLoup", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-GreatLakes",    "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-GreatLakes", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-Maskinonge",    "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Maskinonge", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-Mip",           "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Mip", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-Nicolet",       "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Nicolet", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-Richelieu",     "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-Richelieu", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-RiveSudCanal",  "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-RiveSudCanal", ".csv", "1", "1", "24", "0" },
+    { "Montreal-TroisRivieres-SaintFrancois", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-SaintFrancois", ".csv", "1", "1", "24", "0" },
 */
     { "GEFS", "GEFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_gefs_atmos_0p25s.pl", "gefs", "0p25", "pgrb2s.0p25", "100", "1", "6", "384" },
 
@@ -1972,15 +1972,31 @@ public class App extends PApplet {
 
     if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("CMC")) {
       String b = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03];
-      if (!DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
+      if (!(
+        (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
+        (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA")) ||
+        (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP"))
+      )) {
         b += nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "/WXO-DD/";
       }
 
       if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
-        l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + nf(DATA_ModelRun, 2) + "_" + DATA_Filename;
+        l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + DATA_Filename;
       }
       else if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("RDPA")) ||
               (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("HRDPA"))) {
+        Calendar timeNow = Calendar.getInstance();
+        timeNow.set(Calendar.YEAR,  DATA_ModelYear);
+        timeNow.set(Calendar.MONTH, DATA_ModelMonth - 1);
+        timeNow.set(Calendar.DATE,  DATA_ModelDay);
+        timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
+        timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
+
+        println("DATA_ModelRun");
+        println(DATA_ModelRun);
+
+        b += nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + "/WXO-DD/";
+
         l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_Filename;
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
@@ -2165,7 +2181,14 @@ public class App extends PApplet {
       }
 
       if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("SHOP")) {
-        return_txt = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+        Calendar timeNow = Calendar.getInstance();
+        timeNow.set(Calendar.YEAR,  DATA_ModelYear);
+        timeNow.set(Calendar.MONTH, DATA_ModelMonth - 1);
+        timeNow.set(Calendar.DATE,  DATA_ModelDay);
+        timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
+        timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
+
+        return_txt = nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + nf(timeNow.get(Calendar.HOUR), 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_000" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
         return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" +
@@ -2182,7 +2205,7 @@ public class App extends PApplet {
         timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
         timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
 
-        return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + nf(DATA_ModelDay, 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+        return_txt = nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (
         (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) ||
