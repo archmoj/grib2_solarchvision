@@ -1096,18 +1096,11 @@ public class App extends PApplet {
         allParameterNamesAndUnits[layerID][levelID] = "";
       }
     }
-
-    DATA_Viewport_Zoom = 1;
-    DATA_Viewport_Width = SOLARCHVISION_W_Pixel;
-    DATA_Viewport_Height = SOLARCHVISION_H_Pixel;
-    DATA_Viewport_CenX = 0;
-    DATA_Viewport_CenY = 0;
-
   }
 
   float DATA_Viewport_Zoom = 1;
-  float DATA_Viewport_Width = 1;
-  float DATA_Viewport_Height = 1;
+  float DATA_Viewport_Width = SOLARCHVISION_W_Pixel;;
+  float DATA_Viewport_Height = SOLARCHVISION_H_Pixel;;
   float DATA_Viewport_CenX = 0;
   float DATA_Viewport_CenY = 0;
 
