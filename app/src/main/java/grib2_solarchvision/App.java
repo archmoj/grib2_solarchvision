@@ -1998,12 +1998,9 @@ public class App extends PApplet {
         timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
         timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
 
-        println("DATA_ModelRun");
-        println(DATA_ModelRun);
-
         b += nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + "/WXO-DD/";
 
-        l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelRun, 2) + "/" + DATA_Filename;
+        l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(timeNow.get(Calendar.HOUR_OF_DAY), 2) + "/" + DATA_Filename;
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
         l = b + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" + nf(DATA_ModelYear, 2) + "/" + nf(DATA_ModelMonth, 2) + "/" + DATA_Filename;
@@ -2194,7 +2191,7 @@ public class App extends PApplet {
         timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
         timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
 
-        return_txt = nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + nf(timeNow.get(Calendar.HOUR), 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_000" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+        return_txt = nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + nf(timeNow.get(Calendar.HOUR_OF_DAY), 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_000" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("CanSIPS")) {
         return_txt = nf(DATA_ModelYear, 4) + nf(DATA_ModelMonth, 2) + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" +
@@ -2211,7 +2208,7 @@ public class App extends PApplet {
         timeNow.set(Calendar.HOUR_OF_DAY, DATA_ModelRun);
         timeNow.add(Calendar.HOUR_OF_DAY, DATA_ModelTime);
 
-        return_txt = nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + "T" + nf(DATA_ModelRun, 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+        return_txt = nf(timeNow.get(Calendar.YEAR), 4) + nf(timeNow.get(Calendar.MONTH) + 1, 2) + nf(timeNow.get(Calendar.DATE), 2) + "T" + nf(timeNow.get(Calendar.HOUR_OF_DAY), 2) + "Z_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "_" + F_L + "_" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] + "_PT0H" + DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
       }
       else if (
         (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("REPS")) ||
