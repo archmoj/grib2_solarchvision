@@ -502,7 +502,6 @@ jobs:
         retention-days: 1
 
   test-RDPA:
-    if: false # temporarily disabled
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -536,7 +535,6 @@ jobs:
         retention-days: 1
 
   test-HRDPA:
-    if: false # temporarily disabled
     runs-on: ubuntu-latest
     needs: build
     env:
