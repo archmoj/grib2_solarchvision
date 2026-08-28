@@ -5035,6 +5035,7 @@ public class App extends PApplet {
         }
 
         DATA_Viewport_Update = true;
+        EARTH_Background_Update = true;
       }
 
       if (isInside (mouseX, mouseY, 0, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel, width, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + SOLARCHVISION_C_Pixel + SOLARCHVISION_D_Pixel) == 1) {
