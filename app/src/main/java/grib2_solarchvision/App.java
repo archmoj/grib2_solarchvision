@@ -4575,18 +4575,37 @@ public class App extends PApplet {
   }
 
   void FILL_INFO_FOR_POST_PROCESSED_LAYERS () {
+    int layerID_withTime = -1;
     for (int timeID = 0; timeID < DATA_numTimes; timeID += 1) {
-      for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
-        for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
-          for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
+      for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
+        for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
+          for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
+            if (gridYear[timeID][layerID][levelID][memberID] != 0) {
+              layerID_withTime = layerID;
+              break;
+            }
+          }
+          if(layerID_withTime != -1) break;
+        }
+        if(layerID_withTime != -1) break;
+      }
+      if(layerID_withTime != -1) break;
+    }
+
+    if(layerID_withTime == -1) return;
+
+    for (int timeID = 0; timeID < DATA_numTimes; timeID += 1) {
+      for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
+        for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
+          for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
             if (gridYear[timeID][layerID][levelID][memberID] == 0) {
-              gridYear                 [timeID][layerID][levelID][memberID] = gridYear                 [timeID][0][levelID][memberID];
-              gridMonth                [timeID][layerID][levelID][memberID] = gridMonth                [timeID][0][levelID][memberID];
-              gridDay                  [timeID][layerID][levelID][memberID] = gridDay                  [timeID][0][levelID][memberID];
-              gridHour                 [timeID][layerID][levelID][memberID] = gridHour                 [timeID][0][levelID][memberID];
-              gridMinute               [timeID][layerID][levelID][memberID] = gridMinute               [timeID][0][levelID][memberID];
-              gridSecond               [timeID][layerID][levelID][memberID] = gridSecond               [timeID][0][levelID][memberID];
-              gridForecastConvertedTime[timeID][layerID][levelID][memberID] = gridForecastConvertedTime[timeID][0][levelID][memberID];
+              gridYear                 [timeID][layerID][levelID][memberID] = gridYear                 [timeID][layerID_withTime][levelID][memberID];
+              gridMonth                [timeID][layerID][levelID][memberID] = gridMonth                [timeID][layerID_withTime][levelID][memberID];
+              gridDay                  [timeID][layerID][levelID][memberID] = gridDay                  [timeID][layerID_withTime][levelID][memberID];
+              gridHour                 [timeID][layerID][levelID][memberID] = gridHour                 [timeID][layerID_withTime][levelID][memberID];
+              gridMinute               [timeID][layerID][levelID][memberID] = gridMinute               [timeID][layerID_withTime][levelID][memberID];
+              gridSecond               [timeID][layerID][levelID][memberID] = gridSecond               [timeID][layerID_withTime][levelID][memberID];
+              gridForecastConvertedTime[timeID][layerID][levelID][memberID] = gridForecastConvertedTime[timeID][layerID_withTime][levelID][memberID];
             }
           }
         }
