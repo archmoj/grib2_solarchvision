@@ -133,7 +133,9 @@ public class App extends PApplet {
 
   void cout (int c) {
     if (!log) return;
-    if (c > 31) print(PApplet.parseChar(c));
+    if (c > 31) {
+      print(PApplet.parseChar(c));
+    }
     else {
       //print("[" + asciiTable[c] + "]");
       print("_");
@@ -141,7 +143,9 @@ public class App extends PApplet {
   }
 
   void sout(String a) {
-    if (log) println(a);
+    if (log) {
+      println(a);
+    }
   }
 
   String[] getfiles (String _Folder) {
@@ -4350,7 +4354,9 @@ public class App extends PApplet {
             }
 
             if (File_Found != -1) LoadRECENT_OBSERVED((RECENT_OBSERVED_directory + "/" + FN), timeID, q);
-            else println("FILE NOT FOUND:", FN);
+            else {
+              println("FILE NOT FOUND:", FN);
+            }
 
           }
         }
@@ -10194,8 +10200,6 @@ public class App extends PApplet {
                 this.DataValues[memberID][q] = ((data[i] * BB) + RR) / DD;
               }
             }
-
-            //for (int q = 0; q < 20; q++) println(this.DataValues[memberID][q]);
 
             this.DataTitles[memberID] = DATA_Filename.replace(".grib2", "");
             if (DATA_numMembers > 1) {
