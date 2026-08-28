@@ -137,7 +137,7 @@ public class App extends PApplet {
       print(PApplet.parseChar(c));
     }
     else {
-      //print("[" + asciiTable[c] + "]");
+      // print("[" + asciiTable[c] + "]");
       print("_");
     }
   }
@@ -1215,7 +1215,7 @@ public class App extends PApplet {
           beginRecord(pdfExport);
         }
 
-        //println(frameCount);
+        // println(frameCount);
 
         pushMatrix();
         translate(DATA_Viewport_CornerX, DATA_Viewport_CornerY);
@@ -4320,9 +4320,9 @@ public class App extends PApplet {
 
             int File_Found = -1;
 
-            //println(FN);
+            // println(FN);
             for (int i = RECENT_OBSERVED_XML_Files.length - 1; i >= 0; i--) { // reverse search is faster
-              //println(RECENT_OBSERVED_XML_Files[i]);
+              // println(RECENT_OBSERVED_XML_Files[i]);
 
               if (RECENT_OBSERVED_XML_Files[i].equals(FN)) {
                 File_Found = i;
@@ -4671,7 +4671,7 @@ public class App extends PApplet {
               else {
                 itemNumber++;
                 if (itemNumber == progressID) {
-                  //println("post-processing wind energy data for progressID:", progressID);
+                  // println("post-processing wind energy data for progressID:", progressID);
 
                   for (int q = 0; q < gridNx * gridNy; q++) {
                     int ix = q % gridNx;
@@ -4742,7 +4742,7 @@ public class App extends PApplet {
               else {
                 itemNumber++;
                 if (itemNumber == progressID) {
-                  //println("post-processing solar energy data for progressID:", progressID);
+                  // println("post-processing solar energy data for progressID:", progressID);
 
                   int NOW_MONTH = DATA_ModelMonth;
                   int NOW_DAY = DATA_ModelDay;
@@ -6006,14 +6006,14 @@ public class App extends PApplet {
     XML[] children3 = children2[0].getChildren("gml:TimeInstant");
     XML[] children4 = children3[0].getChildren("gml:timePosition");
     String _TimeInstant = String.valueOf(children4[0].getContent());
-    //println(_TimeInstant);
+    // println(_TimeInstant);
 
     int THE_YEAR = PApplet.parseInt(_TimeInstant.substring(0, 4));
     int THE_MONTH = PApplet.parseInt(_TimeInstant.substring(5, 7));
     int THE_DAY = PApplet.parseInt(_TimeInstant.substring(8, 10));
     int THE_HOUR = PApplet.parseInt(_TimeInstant.substring(11, 13));
 
-    //println(THE_YEAR, THE_MONTH, THE_DAY, THE_HOUR);
+    // println(THE_YEAR, THE_MONTH, THE_DAY, THE_HOUR);
 
     children2 = children1[0].getChildren("om:result");
     children3 = children2[0].getChildren("elements");
@@ -6024,7 +6024,7 @@ public class App extends PApplet {
       String _a2 = children4[Li].getString("value");
       String _a3 = children4[Li].getString("uom");
 
-      //println("Li=", Li, _a1, _a2, _a3);
+      // println("Li=", Li, _a1, _a2, _a3);
 
       if (_a2.toUpperCase().equals("MSNG")) { // missing values
         _a2 = String.valueOf(FLOAT_undefined);
@@ -6232,10 +6232,10 @@ public class App extends PApplet {
 
   float IEEE32 (String s) {
     float v_sign = pow(-1, Integer.parseInt(s.substring(0, 1), 2));
-    //println("v_sign", v_sign);
+    // println("v_sign", v_sign);
 
     float v_exponent = Integer.parseInt(s.substring(1, 9), 2) - 127;
-    //println("v_exponent", v_exponent);
+    // println("v_exponent", v_exponent);
 
     float v_fraction = 0;
     for (int i = 0; i < 23; i++) {
@@ -6243,7 +6243,7 @@ public class App extends PApplet {
       v_fraction += q * pow(2, -(i + 1));
     }
     v_fraction += 1;
-    //println("v_fraction", v_fraction);
+    // println("v_fraction", v_fraction);
 
     return v_sign * v_fraction * pow(2, v_exponent);
 
@@ -6446,10 +6446,10 @@ public class App extends PApplet {
       }
 
       for (int j = 1; j < SectionNumbers.length; j += 1) {
-        //print("(" + SectionNumbers[j] +  ")");
-        //print("(" + hex(SectionNumbers[j], 2) +  ")");
+        // print("(" + SectionNumbers[j] +  ")");
+        // print("(" + hex(SectionNumbers[j], 2) +  ")");
       }
-      //println();
+      // println();
 
       print("Length of section:\t");
       println(lengthOfSection);
@@ -9757,7 +9757,7 @@ public class App extends PApplet {
             n += 1;
 
             //int JPEG2000_SPgcd = function(...);
-            //println("SPgcd =", JPEG2000_SPcod);  // SPgcd : Quantization step size value for the ith sub-band in the defined order
+            // println("SPgcd =", JPEG2000_SPcod);  // SPgcd : Quantization step size value for the ith sub-band in the defined order
             n += JPEG2000_Lqcd - 3;
 
             println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 90 : Marker Start of tile-part
@@ -9791,7 +9791,7 @@ public class App extends PApplet {
             println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 93 : Start of data
             n += 2;
 
-            //printMore(n, 100); // <<<<<<<<<<<<<<<<<<<<
+            // printMore(n, 100); // <<<<<<<<<<<<<<<<<<<<
 
         /*
 
@@ -9819,7 +9819,7 @@ public class App extends PApplet {
             }
             println();
 
-            //printing the end of grib
+            // printing the end of grib
 
             printMore(n, 2); // <<<<<<<<<<<<<<<<<<<<
             n += 2;
@@ -9995,7 +9995,7 @@ public class App extends PApplet {
                 }
                 group_refs[i] = U_NUMxI(m);
               }
-              //println(group_refs);
+              // println(group_refs);
 
               //Bits set to zero shall be appended where necessary to ensure this sequence of numbers ends on an octet boundary.
               if (b != 0) {
@@ -10020,7 +10020,7 @@ public class App extends PApplet {
 
                 group_widths[i] += ComplexPacking_ReferenceForGroupWidths;
               }
-              //println(group_widths);
+              // println(group_widths);
 
               //Bits set to zero shall be appended where necessary to ensure this sequence of numbers ends on an octet boundary.
               if (b != 0) {
@@ -10051,7 +10051,7 @@ public class App extends PApplet {
               else {
                 println("Error: It does not support this splitting method:", ComplexPacking_GroupSplittingMethodUsed);
               }
-              //println(group_lengths);
+              // println(group_lengths);
 
               //Bits set to zero shall be appended where necessary to ensure this sequence of numbers ends on an octet boundary.
               if (b != 0) {
