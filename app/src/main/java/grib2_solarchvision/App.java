@@ -10278,32 +10278,15 @@ public class App extends PApplet {
             File inputFile = new File(Bitmap_FileName);
             BufferedImage image = ImageIO.read(inputFile);
 
-            this.Nx = image.getWidth();
-            this.Ny = image.getHeight();
-            println("Nx X Ny", this.Nx, this.Ny, this.Nx * this.Ny);
-
-            // Extract raw byte array (works for byte-based images like JPG/PNG)
-            byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-
-            // Determine layout context based on color channels
-            boolean hasAlpha = image.getAlphaRaster() != null;
-            int pixelLength = hasAlpha ? 4 : 3;
+            byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
 
             float BB = pow(2, this.BinaryScaleFactor);
             float DD = pow(10, this.DecimalScaleFactor);
             float RR = this.ReferenceValue;
 
             for (int q = 0; q < this.Nx * this.Ny; q++) {
-
-              int pos = q * pixelLength;
-              // BGR ordering is common
-              int blue  = pixels[pos] & 0xFF;
-              int green = pixels[pos + 1] & 0xFF;
-              int red   = pixels[pos + 2] & 0xFF;
-
-              //int val = red * 255 * 255 + green * 255 + blue;
-              int val = ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
-
+              int pos = q * 3; // RGB
+              int val = ((data[pos + 2] & 0xFF) << 16) | ((data[pos + 1] & 0xFF) << 8) | (data[pos] & 0xFF);
               this.DataValues[memberID][q] = ((val * BB) + RR) / DD;
             }
           }
