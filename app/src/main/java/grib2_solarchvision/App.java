@@ -2569,6 +2569,7 @@ public class App extends PApplet {
 
     else if (DATA_allLayers[layerID] == LAYER_pastprecip) {
       PAL_Scale = 0.4f * 1 / 6.0f;
+      Impact_TYPE = Impact_ACTIVE;
     }
 
     else if (DATA_allLayers[layerID] == LAYER_cloudcover) {
