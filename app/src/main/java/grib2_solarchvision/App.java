@@ -1837,6 +1837,7 @@ public class App extends PApplet {
           fill(0);
           textSize(1.5f * MessageSize);
           textAlign(RIGHT, CENTER);
+          /*
           text(
               nf(gridYear                 [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 4) + "-" +
               nf(gridMonth                [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 2) + "-" +
@@ -1844,8 +1845,35 @@ public class App extends PApplet {
               nf(gridHour                 [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 2) + ":" +
               nf(gridMinute               [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 2) + ":" +
               nf(gridSecond               [Current_timeID][Current_layerID][Current_levelID][Current_memberID], 2) + "Z-P" +
-              nf(gridForecastConvertedTime[Current_timeID][Current_layerID][Current_levelID][Current_memberID], 3, 2)
-              , SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5f * SOLARCHVISION_C_Pixel);
+              nf(gridForecastConvertedTime[Current_timeID][Current_layerID][Current_levelID][Current_memberID], 3, 2),
+                SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5f * SOLARCHVISION_C_Pixel);
+          */
+
+          Calendar timeNow = Calendar.getInstance();
+          timeNow.set(Calendar.YEAR,   gridYear  [Current_timeID][Current_layerID][Current_levelID][Current_memberID]);
+          timeNow.set(Calendar.MONTH,  gridMonth [Current_timeID][Current_layerID][Current_levelID][Current_memberID] - 1);
+          timeNow.set(Calendar.DATE,   gridDay   [Current_timeID][Current_layerID][Current_levelID][Current_memberID]);
+
+          timeNow.set(Calendar.HOUR_OF_DAY,       gridHour                 [Current_timeID][Current_layerID][Current_levelID][Current_memberID]);
+          timeNow.add(Calendar.HOUR_OF_DAY, (int) gridForecastConvertedTime[Current_timeID][Current_layerID][Current_levelID][Current_memberID]);
+
+          timeNow.set(Calendar.MINUTE, gridMinute[Current_timeID][Current_layerID][Current_levelID][Current_memberID]);
+          timeNow.add(Calendar.MINUTE, (int) (
+            (gridForecastConvertedTime[Current_timeID][Current_layerID][Current_levelID][Current_memberID] % 1.0) * 60
+          ));
+
+          timeNow.set(Calendar.SECOND, gridSecond[Current_timeID][Current_layerID][Current_levelID][Current_memberID]);
+          // TODO: add remainder of gridForecastConvertedTime when needed
+
+          text(
+              nf(timeNow.get(Calendar.YEAR), 4) + "-" +
+              nf(timeNow.get(Calendar.MONTH) + 1, 2) + "-" +
+              nf(timeNow.get(Calendar.DATE), 2) + " " +
+              nf(timeNow.get(Calendar.HOUR_OF_DAY), 2) + ":" +
+              nf(timeNow.get(Calendar.MINUTE), 2) +
+              // ":" + nf(timeNow.get(Calendar.SECOND), 2) +
+              "Z",
+              SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel + SOLARCHVISION_H_Pixel + 0.5f * SOLARCHVISION_C_Pixel);
 
         }
       }
