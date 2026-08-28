@@ -33,6 +33,10 @@ public class App extends PApplet {
   static int SOLARCHVISION_C_Pixel = PApplet.parseInt(3.0f * MessageSize); // command bar
   static int SOLARCHVISION_D_Pixel = PApplet.parseInt(7.5f * MessageSize); // time bar
 
+  static float initialZoom = 1; //2;
+  static float initialCenX = 0; //0.5f;
+  static float initialCenY = 0; //0.25f;
+
   public void settings() {
     size(
       SOLARCHVISION_W_Pixel,
@@ -561,6 +565,7 @@ public class App extends PApplet {
 
       int _at = 0;
       int input_int = 0;
+      float input_float = 0;
       String input_str = "";
       String[] _tokens;
 
@@ -1009,6 +1014,36 @@ public class App extends PApplet {
           else if (input_str.equals("TIF")) automated = AUTO_TIF;
         }
       }
+
+      _at = CAP_arg.indexOf("ZOOM");
+      if (_at == 0) {
+        _tokens = split(CAP_arg, '=');
+        if (_tokens.length > 1) {
+          input_float = PApplet.parseFloat(_tokens[1]);
+          initialZoom = input_float;
+          println("initialZoom is set to:", initialZoom);
+        }
+      }
+
+      _at = CAP_arg.indexOf("CENX");
+      if (_at == 0) {
+        _tokens = split(CAP_arg, '=');
+        if (_tokens.length > 1) {
+          input_float = PApplet.parseFloat(_tokens[1]);
+          initialCenX = input_float;
+          println("initialCenX is set to:", initialCenX);
+        }
+      }
+
+      _at = CAP_arg.indexOf("CENY");
+      if (_at == 0) {
+        _tokens = split(CAP_arg, '=');
+        if (_tokens.length > 1) {
+          input_float = PApplet.parseFloat(_tokens[1]);
+          initialCenY = input_float;
+          println("initialCenY is set to:", initialCenY);
+        }
+      }
     }
 
 
@@ -1098,11 +1133,11 @@ public class App extends PApplet {
     }
   }
 
-  float DATA_Viewport_Zoom = 1;
+  float DATA_Viewport_Zoom = initialZoom;
   float DATA_Viewport_Width = SOLARCHVISION_W_Pixel;;
   float DATA_Viewport_Height = SOLARCHVISION_H_Pixel;;
-  float DATA_Viewport_CenX = 0;
-  float DATA_Viewport_CenY = 0;
+  float DATA_Viewport_CenX = initialCenX * DATA_Viewport_Width;
+  float DATA_Viewport_CenY = initialCenY * DATA_Viewport_Height;
 
   int DATA_Viewport_CornerX = 0;
   int DATA_Viewport_CornerY = SOLARCHVISION_A_Pixel + SOLARCHVISION_B_Pixel;
