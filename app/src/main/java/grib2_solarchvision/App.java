@@ -10,6 +10,11 @@ import gifAnimation.*;
 
 import java.util.Arrays;
 import java.util.Calendar;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+
 import ucar.unidata.io.RandomAccessFile;
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
 
@@ -168,6 +173,7 @@ public class App extends PApplet {
   static String OutputFolder = BaseFolder + "/output/";
 
   static String Jpeg2000Folder = TempFolder + "jp2/";
+  static String PngFolder = TempFolder + "png/";
 
   static String RECENT_OBSERVED_directory = TempFolder + "swob/";
   String[] RECENT_OBSERVED_XML_Files = getfiles(RECENT_OBSERVED_directory);
@@ -9840,6 +9846,44 @@ public class App extends PApplet {
           }
         }
 
+        if (this.DataRepresentationTemplateNumber == 41) { // Grid point data - Portable Network Graphics (PNG) Format
+
+          Bitmap_beginPointer = nPointer + 6;
+
+          SectionNumbers = getGrib2Section(7); // Section 7: Data Section
+
+          if (SectionNumbers.length > 100) { // ???????? to handle the case of no bitmap
+
+            Bitmap_endPointer = nPointer;
+
+            int n = Bitmap_beginPointer;
+
+            byte[] imageBytes = new byte[1 + Bitmap_endPointer - Bitmap_beginPointer];
+            for (int i = 0; i < imageBytes.length; i++) {
+              imageBytes[i] = fileBytes[i + Bitmap_beginPointer];
+            }
+            this.DataTitles[memberID] = DATA_Filename.replace(".grib2", "");
+            if (DATA_numMembers > 1) {
+              this.DataTitles[memberID] += nf(memberID, 2);
+            }
+
+            Bitmap_FileName = PngFolder + this.DataTitles[memberID] + ".png";
+
+            saveBytes(Bitmap_FileName, imageBytes);
+            println("Bitmap section saved at:", Bitmap_FileName);
+
+            Bitmap_FileLength = 1 + Bitmap_endPointer - Bitmap_beginPointer;
+          }
+          else {
+            this.DataTitles[memberID] = DATA_Filename.replace(".grib2", "");
+            if (DATA_numMembers > 1) {
+              this.DataTitles[memberID] += nf(memberID, 2);
+            }
+            Bitmap_FileName = "";
+            Bitmap_FileLength = 0;
+          }
+        }
+
         else if ((this.DataRepresentationTemplateNumber == 0) || // Grid point data - simple packing
 
                 (this.DataRepresentationTemplateNumber == 2) || // Grid point data - complex packing
@@ -10226,6 +10270,41 @@ public class App extends PApplet {
 
                 this.DataValues[memberID][q] = ((g2j.data[i] * BB) + RR) / DD;
               }
+            }
+          }
+          else if (this.DataRepresentationTemplateNumber == 41) { // Grid point data - Portable Network Graphics (PNG) Format
+            println("Openning:", Bitmap_FileName);
+
+            File inputFile = new File(Bitmap_FileName);
+            BufferedImage image = ImageIO.read(inputFile);
+
+            this.Nx = image.getWidth();
+            this.Ny = image.getHeight();
+            println("Nx X Ny", this.Nx, this.Ny, this.Nx * this.Ny);
+
+            // Extract raw byte array (works for byte-based images like JPG/PNG)
+            byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+
+            // Determine layout context based on color channels
+            boolean hasAlpha = image.getAlphaRaster() != null;
+            int pixelLength = hasAlpha ? 4 : 3;
+
+            float BB = pow(2, this.BinaryScaleFactor);
+            float DD = pow(10, this.DecimalScaleFactor);
+            float RR = this.ReferenceValue;
+
+            for (int q = 0; q < this.Nx * this.Ny; q++) {
+
+              int pos = q * pixelLength;
+              // BGR ordering is common
+              int blue  = pixels[pos] & 0xFF;
+              int green = pixels[pos + 1] & 0xFF;
+              int red   = pixels[pos + 2] & 0xFF;
+
+              //int val = red * 255 * 255 + green * 255 + blue;
+              int val = ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
+
+              this.DataValues[memberID][q] = ((val * BB) + RR) / DD;
             }
           }
         }
