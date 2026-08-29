@@ -472,7 +472,7 @@ jobs:
       run: |
         xvfb-run --auto-servernum ./gradlew \
         run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
-        zoom=4 cenx=-1 ceny=-0.5 \
+        zoom=4 cenx=-1 ceny=0.5 \
         begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
