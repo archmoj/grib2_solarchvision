@@ -2858,7 +2858,7 @@ public class App extends PApplet {
         (DATA_allLayers[layerID] == LAYER_windV) ||
         (DATA_allLayers[layerID] == LAYER_flowXonly)
       )) {
-        PAL_Scale *= 5.0f;
+        PAL_Scale *= 2;
       }
     }
   }
