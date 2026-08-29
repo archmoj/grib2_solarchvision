@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class App extends PApplet {
 
-  static int SOLARCHVISION_H_Pixel = 785;
+  static int SOLARCHVISION_H_Pixel = 750;
   static int SOLARCHVISION_W_Pixel = PApplet.parseInt(SOLARCHVISION_H_Pixel * 2.0f);
 
   static float MessageSize =  12.0f;
