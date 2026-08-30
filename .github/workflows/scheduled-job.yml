@@ -66,6 +66,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process HRRR
       uses: nick-fields/retry@v4
@@ -119,6 +121,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -172,6 +176,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -226,6 +232,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -281,6 +289,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process RDPS
       uses: nick-fields/retry@v4
@@ -334,6 +344,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -387,6 +399,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -441,6 +455,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -494,6 +510,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -548,6 +566,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -602,6 +622,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process GDWPS
       uses: nick-fields/retry@v4
@@ -655,6 +677,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process RDWPS
       uses: nick-fields/retry@v4
@@ -708,6 +732,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process Lake-Erie
       uses: nick-fields/retry@v4
@@ -761,6 +787,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process Lake-Huron-Michigan
       uses: nick-fields/retry@v4
@@ -815,6 +843,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process Lake-Ontario
       uses: nick-fields/retry@v4
@@ -868,6 +898,8 @@ jobs:
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     - name: Process Lake-Superior
       uses: nick-fields/retry@v4
