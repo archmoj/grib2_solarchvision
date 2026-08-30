@@ -1103,6 +1103,19 @@ public class App extends PApplet {
   String[] postprocessList;
 
   public void setup () {
+    // Set a global handler for any thread that encounters an unhandled runtime error
+    Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+      @Override
+      public void uncaughtException(Thread t, Throwable e) {
+        // Print the error details to the console log
+        System.err.println("Fatal error in thread " + t.getName() + ": " + e.getMessage());
+        e.printStackTrace();
+
+        // Force terminate the entire Processing application immediately
+        System.exit(1);
+      }
+    });
+
     windowTitle("grib2_solarchvision");
 
     LOAD_EARTH_IMAGES();
