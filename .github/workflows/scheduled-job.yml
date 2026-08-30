@@ -64,11 +64,14 @@ jobs:
         path: build/
 
     - name: Process HRRR
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/HRRR.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/HRRR.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -114,11 +117,14 @@ jobs:
         path: build/
 
     - name: Process HRDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -164,12 +170,15 @@ jobs:
         path: build/
 
     - name: Process HRDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
-        zoom=3 cenx=-0.5 ceny=-0.5 \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
+          zoom=3 cenx=-0.5 ceny=-0.5 \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -215,12 +224,15 @@ jobs:
         path: build/
 
     - name: Process HRDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
-        zoom=3 cenx=0.75 ceny=-0.5 \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
+          zoom=3 cenx=0.75 ceny=-0.5 \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -267,11 +279,14 @@ jobs:
         path: build/
 
     - name: Process RDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/RDPS.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/RDPS.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -317,11 +332,14 @@ jobs:
         path: build/
 
     - name: Process GDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -367,12 +385,15 @@ jobs:
         path: build/
 
     - name: Process GDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
-        zoom=2 cenx=0.5 ceny=0.25 \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
+          zoom=2 cenx=0.5 ceny=0.25 \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -418,12 +439,15 @@ jobs:
         path: build/
 
     - name: Process GDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
-        zoom=2 cenx=-0.5 ceny=-0.25 \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
+          zoom=2 cenx=-0.5 ceny=-0.25 \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -468,12 +492,15 @@ jobs:
         path: build/
 
     - name: Process GDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
-        zoom=4 cenx=-1 ceny=0.5 \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
+          zoom=4 cenx=-1 ceny=0.5 \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -519,12 +546,15 @@ jobs:
         path: build/
 
     - name: Process GDPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
-        zoom=4 cenx=1.5 ceny=0.75 \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
+          zoom=4 cenx=1.5 ceny=0.75 \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -570,11 +600,14 @@ jobs:
         path: build/
 
     - name: Process GDWPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -620,11 +653,14 @@ jobs:
         path: build/
 
     - name: Process RDWPS
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -670,11 +706,14 @@ jobs:
         path: build/
 
     - name: Process Lake-Erie
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -720,11 +759,14 @@ jobs:
         path: build/
 
     - name: Process Lake-Huron-Michigan
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -771,11 +813,14 @@ jobs:
         path: build/
 
     - name: Process Lake-Ontario
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
@@ -821,11 +866,14 @@ jobs:
         path: build/
 
     - name: Process Lake-Superior
-      timeout-minutes: 20
-      run: |
-        xvfb-run --auto-servernum ./gradlew \
-        run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt) \
-        begin=3 end=48 step=3 PREFIX=5"
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        timeout_minutes: 20
+        command: |
+          xvfb-run --auto-servernum ./gradlew \
+          run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt) \
+          begin=3 end=48 step=3 PREFIX=5"
 
     - name: Setup FFmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
