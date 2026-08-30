@@ -64,10 +64,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process HRRR
       uses: nick-fields/retry@v4
@@ -119,10 +122,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -174,10 +180,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -230,10 +239,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -287,10 +299,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process RDPS
       uses: nick-fields/retry@v4
@@ -342,10 +357,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -397,10 +415,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -453,10 +474,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -508,10 +532,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -564,10 +591,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -620,10 +650,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process GDWPS
       uses: nick-fields/retry@v4
@@ -675,10 +708,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process RDWPS
       uses: nick-fields/retry@v4
@@ -730,10 +766,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process Lake-Erie
       uses: nick-fields/retry@v4
@@ -785,10 +824,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process Lake-Huron-Michigan
       uses: nick-fields/retry@v4
@@ -841,10 +883,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process Lake-Ontario
       uses: nick-fields/retry@v4
@@ -896,10 +941,13 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
-      env:
-        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      uses: nick-fields/retry@v4
+      with:
+        max_attempts: 2
+        retry_on: error
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      with:
+        release-version: release
 
     - name: Process Lake-Superior
       uses: nick-fields/retry@v4
