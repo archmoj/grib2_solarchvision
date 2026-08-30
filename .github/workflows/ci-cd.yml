@@ -63,7 +63,7 @@ jobs:
 
     - name: Test GFS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GFS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GFS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -96,7 +96,7 @@ jobs:
 
     - name: Test RAP
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RAP.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RAP.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -129,7 +129,7 @@ jobs:
 
     - name: Test HRRR
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRRR.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRRR.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -162,7 +162,7 @@ jobs:
 
     - name: Test HRDPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -195,7 +195,7 @@ jobs:
 
     - name: Test RDPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -228,7 +228,7 @@ jobs:
 
     - name: Test GDPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -261,7 +261,7 @@ jobs:
 
     - name: Test GEPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GEPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GEPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -294,7 +294,7 @@ jobs:
 
     - name: Test REPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/REPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/REPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -327,7 +327,7 @@ jobs:
 
     - name: Test GDWPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -360,7 +360,7 @@ jobs:
 
     - name: Test RDWPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -393,7 +393,7 @@ jobs:
 
     - name: Test Lake-Erie
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -426,7 +426,7 @@ jobs:
 
     - name: Test Lake-Huron-Michigan
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -459,7 +459,7 @@ jobs:
 
     - name: Test Lake-Ontario
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -492,7 +492,7 @@ jobs:
 
     - name: Test Lake-Superior
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -525,7 +525,7 @@ jobs:
 
     - name: Test RDPA
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPA.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/RDPA.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -558,7 +558,7 @@ jobs:
 
     - name: Test HRDPA
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPA.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/HRDPA.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -591,7 +591,7 @@ jobs:
 
     - name: Test NAM11
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM11.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM11.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -625,7 +625,7 @@ jobs:
 
     - name: Test NAM12
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM12.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM12.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -659,7 +659,7 @@ jobs:
 
     - name: Test NAM32
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM32.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/NAM32.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -693,7 +693,7 @@ jobs:
 
     - name: Test CanSIPS
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/CanSIPS.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/CanSIPS.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
@@ -727,7 +727,7 @@ jobs:
 
     - name: Test Montreal-TroisRivieres
       timeout-minutes: 10
-      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Montreal-TroisRivieres.txt)"
+      run: xvfb-run --auto-servernum ./gradlew run --args="$(tr '\n' ' ' < test/grid/Montreal-TroisRivieres.txt) debug=1"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v6
