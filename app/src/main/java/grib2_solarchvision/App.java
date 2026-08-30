@@ -114,6 +114,8 @@ public class App extends PApplet {
 
         //"tmpdir=/home/solarch/org/grib2_solarchvision/temp/",
         //"outdir=/home/solarch/org/grib2_solarchvision/screenshot/",
+
+        //"DEBUG=1",
       };
     }
 
@@ -138,17 +140,17 @@ public class App extends PApplet {
   void cout (int c) {
     if (!log) return;
     if (c > 31) {
-      print(PApplet.parseChar(c));
+      _print(PApplet.parseChar(c));
     }
     else {
-      // print("[" + asciiTable[c] + "]");
-      print("_");
+      // _print("[" + asciiTable[c] + "]");
+      _print("_");
     }
   }
 
   void sout(String a) {
     if (log) {
-      println(a);
+      _println(a);
     }
   }
 
@@ -568,6 +570,16 @@ public class App extends PApplet {
       float input_float = 0;
       String input_str = "";
       String[] _tokens;
+
+      _at = CAP_arg.indexOf("DEBUG");
+      if (_at == 0) {
+        _tokens = split(args[i], '=');
+        if (_tokens.length > 1) {
+          input_int = PApplet.parseInt(_tokens[1]);
+          debug = input_int;
+          println("debug is set to: '" + debug + "'");
+        }
+      }
 
       _at = CAP_arg.indexOf("TMPDIR");
       if (_at == 0) {
@@ -1256,7 +1268,7 @@ public class App extends PApplet {
           beginRecord(pdfExport);
         }
 
-        // println(frameCount);
+        // _println(frameCount);
 
         pushMatrix();
         translate(DATA_Viewport_CornerX, DATA_Viewport_CornerY);
@@ -4389,9 +4401,9 @@ public class App extends PApplet {
 
             int File_Found = -1;
 
-            // println(FN);
+            // _println(FN);
             for (int i = RECENT_OBSERVED_XML_Files.length - 1; i >= 0; i--) { // reverse search is faster
-              // println(RECENT_OBSERVED_XML_Files[i]);
+              // _println(RECENT_OBSERVED_XML_Files[i]);
 
               if (RECENT_OBSERVED_XML_Files[i].equals(FN)) {
                 File_Found = i;
@@ -4760,7 +4772,7 @@ public class App extends PApplet {
               else {
                 itemNumber++;
                 if (itemNumber == progressID) {
-                  // println("post-processing wind energy data for progressID:", progressID);
+                  // _println("post-processing wind energy data for progressID:", progressID);
 
                   for (int q = 0; q < gridNx * gridNy; q++) {
                     int ix = q % gridNx;
@@ -4831,7 +4843,7 @@ public class App extends PApplet {
               else {
                 itemNumber++;
                 if (itemNumber == progressID) {
-                  // println("post-processing solar energy data for progressID:", progressID);
+                  // _println("post-processing solar energy data for progressID:", progressID);
 
                   int NOW_MONTH = DATA_ModelMonth;
                   int NOW_DAY = DATA_ModelDay;
@@ -6096,14 +6108,14 @@ public class App extends PApplet {
     XML[] children3 = children2[0].getChildren("gml:TimeInstant");
     XML[] children4 = children3[0].getChildren("gml:timePosition");
     String _TimeInstant = String.valueOf(children4[0].getContent());
-    // println(_TimeInstant);
+    // _println(_TimeInstant);
 
     int THE_YEAR = PApplet.parseInt(_TimeInstant.substring(0, 4));
     int THE_MONTH = PApplet.parseInt(_TimeInstant.substring(5, 7));
     int THE_DAY = PApplet.parseInt(_TimeInstant.substring(8, 10));
     int THE_HOUR = PApplet.parseInt(_TimeInstant.substring(11, 13));
 
-    // println(THE_YEAR, THE_MONTH, THE_DAY, THE_HOUR);
+    // _println(THE_YEAR, THE_MONTH, THE_DAY, THE_HOUR);
 
     children2 = children1[0].getChildren("om:result");
     children3 = children2[0].getChildren("elements");
@@ -6114,7 +6126,7 @@ public class App extends PApplet {
       String _a2 = children4[Li].getString("value");
       String _a3 = children4[Li].getString("uom");
 
-      // println("Li=", Li, _a1, _a2, _a3);
+      // _println("Li=", Li, _a1, _a2, _a3);
 
       if (_a2.toUpperCase().equals("MSNG")) { // missing values
         _a2 = String.valueOf(FLOAT_undefined);
@@ -6260,7 +6272,7 @@ public class App extends PApplet {
 
   int U_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
 
-  // println(m);
+  // _println(m);
 
   long v = 0;
 
@@ -6268,14 +6280,14 @@ public class App extends PApplet {
     v += m[i] << (m.length - 1 - i);
   }
 
-  // println(v);
+  // _println(v);
 
   return (int) v;
   }
 
   int S_NUMxI (int[] m) { // note: follows reverse rule as this: int m[0], int m[1], int m[2] ...
 
-  // println(m);
+  // _println(m);
 
   long v = 0;
   int v_sign = 1;
@@ -6294,7 +6306,7 @@ public class App extends PApplet {
 
   v *= v_sign;
 
-  // println(v);
+  // _println(v);
 
   return (int) v;
   }
@@ -6322,10 +6334,10 @@ public class App extends PApplet {
 
   float IEEE32 (String s) {
     float v_sign = pow(-1, Integer.parseInt(s.substring(0, 1), 2));
-    // println("v_sign", v_sign);
+    // _println("v_sign", v_sign);
 
     float v_exponent = Integer.parseInt(s.substring(1, 9), 2) - 127;
-    // println("v_exponent", v_exponent);
+    // _println("v_exponent", v_exponent);
 
     float v_fraction = 0;
     for (int i = 0; i < 23; i++) {
@@ -6333,7 +6345,7 @@ public class App extends PApplet {
       v_fraction += q * pow(2, -(i + 1));
     }
     v_fraction += 1;
-    // println("v_fraction", v_fraction);
+    // _println("v_fraction", v_fraction);
 
     return v_sign * v_fraction * pow(2, v_exponent);
 
@@ -6465,24 +6477,24 @@ public class App extends PApplet {
       for (int i = 0; i < displayMORE; i++) {
         cout(fileBytes[startN + i]);
       }
-      println();
+      _println();
 
       for (int i = 0; i < displayMORE; i++) {
-        print("(" + hex(fileBytes[startN + i], 2) + ")");
+        _print("(" + hex(fileBytes[startN + i], 2) + ")");
       }
-      println();
+      _println();
 
       for (int i = 0; i < displayMORE; i++) {
-        print("[" + fileBytes[startN + i] + "]");
+        _print("[" + fileBytes[startN + i] + "]");
       }
-      println();
+      _println();
     }
 
     int[] getGrib2Section (int SectionNumber) {
-      println("-----------------------------");
+      _println("-----------------------------");
 
-      print("Section:\t");
-      println(SectionNumber);
+      _print("Section:\t");
+      _println(SectionNumber);
 
       int nFirstBytes = 6;
       if (SectionNumber == 8) nFirstBytes = 4;
@@ -6498,7 +6510,7 @@ public class App extends PApplet {
 
         cout(c);
       }
-      println();
+      _println();
 
       int lengthOfSection = -1;
       if (SectionNumber == 0) lengthOfSection = 16;
@@ -6523,11 +6535,11 @@ public class App extends PApplet {
           cout(c);
 
         }
-        println();
+        _println();
       }
       else {
-        println();
-        println("Not available section", SectionNumber);
+        _println();
+        _println("Not available section", SectionNumber);
 
         lengthOfSection = 0;
 
@@ -6536,13 +6548,13 @@ public class App extends PApplet {
       }
 
       for (int j = 1; j < SectionNumbers.length; j += 1) {
-        // print("(" + SectionNumbers[j] +  ")");
-        // print("(" + hex(SectionNumbers[j], 2) +  ")");
+        // _print("(" + SectionNumbers[j] +  ")");
+        // _print("(" + hex(SectionNumbers[j], 2) +  ")");
       }
-      // println();
+      // _println();
 
-      print("Length of section:\t");
-      println(lengthOfSection);
+      _print("Length of section:\t");
+      _println(lengthOfSection);
 
       nPointer += lengthOfSection;
 
@@ -6651,343 +6663,343 @@ public class App extends PApplet {
         int[] SectionNumbers = getGrib2Section(0); // Section 0: Indicator Section
 
         if (SectionNumbers.length > 1) {
-          print("Discipline of processed data:\t");
+          _print("Discipline of processed data:\t");
           this.DisciplineOfProcessedData = SectionNumbers[7];
           switch (this.DisciplineOfProcessedData) {
-            case 0: println("Meteorological products"); break;
-            case 1: println("Hydrological products"); break;
-            case 2: println("Land surface products"); break;
-            case 3: println("Space products"); break;
-            case 4: println("Space Weather Products "); break;
-            case 10: println("Oceanographic products"); break;
-            case 255: println("Missing"); break;
-            default : println(this.DisciplineOfProcessedData); break;
+            case 0: _println("Meteorological products"); break;
+            case 1: _println("Hydrological products"); break;
+            case 2: _println("Land surface products"); break;
+            case 3: _println("Space products"); break;
+            case 4: _println("Space Weather Products "); break;
+            case 10: _println("Oceanographic products"); break;
+            case 255: _println("Missing"); break;
+            default : _println(this.DisciplineOfProcessedData); break;
           }
 
-          print("Length of message:\t");
+          _print("Length of message:\t");
           this.LengthOfMessage = U_NUMx8(SectionNumbers[9], SectionNumbers[10], SectionNumbers[11], SectionNumbers[12], SectionNumbers[13], SectionNumbers[14], SectionNumbers[15], SectionNumbers[16]);
-          println(this.LengthOfMessage);
+          _println(this.LengthOfMessage);
         }
 
         SectionNumbers = getGrib2Section(1); // Section 1: Identification Section
 
         if (SectionNumbers.length > 1) {
-          print("Identification of originating/generating centre: ");
+          _print("Identification of originating/generating centre: ");
           this.IdentificationOfCentre = U_NUMx2(SectionNumbers[6], SectionNumbers[7]);
           switch (this.IdentificationOfCentre) {
-            case 0: println("WMO Secretariat"); break;
-            case 1: println("Melbourne"); break;
-            case 2: println("Melbourne"); break;
-            case 4: println("Moscow"); break;
-            case 5: println("Moscow"); break;
-            case 7: println("US National Weather Service - National Centres for Environmental Prediction (NCEP)"); break;
-            case 8: println("US National Weather Service Telecommunications Gateway (NWSTG)"); break;
-            case 9: println("US National Weather Service - Other"); break;
-            case 10: println("Cairo (RSMC)"); break;
-            case 12: println("Dakar (RSMC)"); break;
-            case 14: println("Nairobi (RSMC)"); break;
-            case 16: println("Casablanca (RSMC)"); break;
-            case 17: println("Tunis (RSMC)"); break;
-            case 18: println("Tunis - Casablanca (RSMC)"); break;
-            case 20: println("Las Palmas"); break;
-            case 21: println("Algiers (RSMC)"); break;
-            case 22: println("ACMAD"); break;
-            case 23: println("Mozambique (NMC)"); break;
-            case 24: println("Pretoria (RSMC)"); break;
-            case 25: println("La Réunion (RSMC)"); break;
-            case 26: println("Khabarovsk (RSMC)"); break;
-            case 28: println("New Delhi (RSMC)"); break;
-            case 30: println("Novosibirsk (RSMC)"); break;
-            case 32: println("Tashkent (RSMC)"); break;
-            case 33: println("Jeddah (RSMC)"); break;
-            case 34: println("Tokyo (RSMC), Japan Meteorological Agency"); break;
-            case 36: println("Bangkok"); break;
-            case 37: println("Ulaanbaatar"); break;
-            case 38: println("Beijing (RSMC)"); break;
-            case 40: println("Seoul"); break;
-            case 41: println("Buenos Aires (RSMC)"); break;
-            case 43: println("Brasilia (RSMC)"); break;
-            case 45: println("Santiago"); break;
-            case 46: println("Brazilian Space Agency ­ INPE"); break;
-            case 47: println("Colombia (NMC)"); break;
-            case 48: println("Ecuador (NMC)"); break;
-            case 49: println("Peru (NMC)"); break;
-            case 50: println("Venezuela (Bolivarian Republic of) (NMC)"); break;
-            case 51: println("Miami (RSMC)"); break;
-            case 52: println("Miami (RSMC), National Hurricane Centre"); break;
-            case 53: println("Montreal (RSMC)"); break;
-            case 54: println("Montreal (RSMC)"); break;
-            case 55: println("San Francisco"); break;
-            case 56: println("ARINC Centre"); break;
-            case 57: println("US Air Force - Air Force Global Weather Central"); break;
-            case 58: println("Fleet Numerical Meteorology and Oceanography Center, Monterey, CA, United States"); break;
-            case 59: println("The NOAA Forecast Systems Laboratory, Boulder, CO, United States"); break;
-            case 60: println("United States National Center for Atmospheric Research (NCAR)"); break;
-            case 61: println("Service ARGOS - Landover"); break;
-            case 62: println("US Naval Oceanographic Office"); break;
-            case 63: println("International Research Institute for Climate and Society (IRI)"); break;
-            case 64: println("Honolulu (RSMC)"); break;
-            case 65: println("Darwin (RSMC)"); break;
-            case 67: println("Melbourne (RSMC)"); break;
-            case 69: println("Wellington (RSMC)"); break;
-            case 71: println("Nadi (RSMC)"); break;
-            case 72: println("Singapore"); break;
-            case 73: println("Malaysia (NMC)"); break;
-            case 74: println("UK Meteorological Office ­ Exeter (RSMC)"); break;
-            case 76: println("Moscow (RSMC)"); break;
-            case 78: println("Offenbach (RSMC)"); break;
-            case 80: println("Rome (RSMC)"); break;
-            case 82: println("Norrköping"); break;
-            case 84: println("Toulouse (RSMC)"); break;
-            case 85: println("Toulouse (RSMC)"); break;
-            case 86: println("Helsinki"); break;
-            case 87: println("Belgrade"); break;
-            case 88: println("Oslo"); break;
-            case 89: println("Prague"); break;
-            case 90: println("Episkopi"); break;
-            case 91: println("Ankara"); break;
-            case 92: println("Frankfurt/Main"); break;
-            case 93: println("London (WAFC)"); break;
-            case 94: println("Copenhagen"); break;
-            case 95: println("Rota"); break;
-            case 96: println("Athens"); break;
-            case 97: println("European Space Agency (ESA)"); break;
-            case 98: println("European Centre for Medium-Range Weather Forecasts (ECMWF) (RSMC)"); break;
-            case 99: println("De Bilt"); break;
-            case 100: println("Brazzaville"); break;
-            case 101: println("Abidjan"); break;
-            case 102: println("Libya (NMC)"); break;
-            case 103: println("Madagascar (NMC)"); break;
-            case 104: println("Mauritius (NMC)"); break;
-            case 105: println("Niger (NMC)"); break;
-            case 106: println("Seychelles (NMC)"); break;
-            case 107: println("Uganda (NMC)"); break;
-            case 108: println("United Republic of Tanzania (NMC)"); break;
-            case 109: println("Zimbabwe (NMC)"); break;
-            case 110: println("Hong-Kong, China"); break;
-            case 111: println("Afghanistan (NMC)"); break;
-            case 112: println("Bahrain (NMC)"); break;
-            case 113: println("Bangladesh (NMC)"); break;
-            case 114: println("Bhutan (NMC)"); break;
-            case 115: println("Cambodia (NMC)"); break;
-            case 116: println("Democratic People's Republic of Korea (NMC)"); break;
-            case 117: println("Islamic Republic of Iran (NMC)"); break;
-            case 118: println("Iraq (NMC)"); break;
-            case 119: println("Kazakhstan (NMC)"); break;
-            case 120: println("Kuwait (NMC)"); break;
-            case 121: println("Kyrgyzstan (NMC)"); break;
-            case 122: println("Lao People's Democratic Republic (NMC)"); break;
-            case 123: println("Macao, China"); break;
-            case 124: println("Maldives (NMC)"); break;
-            case 125: println("Myanmar (NMC)"); break;
-            case 126: println("Nepal (NMC)"); break;
-            case 127: println("Oman (NMC)"); break;
-            case 128: println("Pakistan (NMC)"); break;
-            case 129: println("Qatar (NMC)"); break;
-            case 130: println("Yemen (NMC)"); break;
-            case 131: println("Sri Lanka (NMC)"); break;
-            case 132: println("Tajikistan (NMC)"); break;
-            case 133: println("Turkmenistan (NMC)"); break;
-            case 134: println("United Arab Emirates (NMC)"); break;
-            case 135: println("Uzbekistan (NMC)"); break;
-            case 136: println("Viet Nam (NMC)"); break;
-            case 140: println("Bolivia (Plurinational State of) (NMC)"); break;
-            case 141: println("Guyana (NMC)"); break;
-            case 142: println("Paraguay (NMC)"); break;
-            case 143: println("Suriname (NMC)"); break;
-            case 144: println("Uruguay (NMC)"); break;
-            case 145: println("French Guiana"); break;
-            case 146: println("Brazilian Navy Hydrographic Centre"); break;
-            case 147: println("National Commission on Space Activities (CONAE) - Argentina"); break;
-            case 150: println("Antigua and Barbuda (NMC)"); break;
-            case 151: println("Bahamas (NMC)"); break;
-            case 152: println("Barbados (NMC)"); break;
-            case 153: println("Belize (NMC)"); break;
-            case 154: println("British Caribbean Territories Centre"); break;
-            case 155: println("San José"); break;
-            case 156: println("Cuba (NMC)"); break;
-            case 157: println("Dominica (NMC)"); break;
-            case 158: println("Dominican Republic (NMC)"); break;
-            case 159: println("El Salvador (NMC)"); break;
-            case 160: println("US NOAA/NESDIS"); break;
-            case 161: println("US NOAA Office of Oceanic and Atmospheric Research"); break;
-            case 162: println("Guatemala (NMC)"); break;
-            case 163: println("Haiti (NMC)"); break;
-            case 164: println("Honduras (NMC)"); break;
-            case 165: println("Jamaica (NMC)"); break;
-            case 166: println("Mexico City"); break;
-            case 167: println("Curaçao and Sint Maarten (NMC)"); break;
-            case 168: println("Nicaragua (NMC)"); break;
-            case 169: println("Panama (NMC)"); break;
-            case 170: println("Saint Lucia (NMC)"); break;
-            case 171: println("Trinidad and Tobago (NMC)"); break;
-            case 172: println("French Departments in RA IV"); break;
-            case 173: println("US National Aeronautics and Space Administration (NASA)"); break;
-            case 174: println("Integrated Science Data Management/Marine Environmental Data Service (ISDM/MEDS) - Canada"); break;
-            case 175: println("University Corporation for Atmospheric Research (UCAR) - United States"); break;
-            case 176: println("Cooperative Institute for Meteorological Satellite Studies (CIMSS) - United States"); break;
-            case 177: println("NOAA National Ocean Service - United States"); break;
-            case 190: println("Cook Islands (NMC)"); break;
-            case 191: println("French Polynesia (NMC)"); break;
-            case 192: println("Tonga (NMC)"); break;
-            case 193: println("Vanuatu (NMC)"); break;
-            case 194: println("Brunei Darussalam (NMC)"); break;
-            case 195: println("Indonesia (NMC)"); break;
-            case 196: println("Kiribati (NMC)"); break;
-            case 197: println("Federated States of Micronesia (NMC)"); break;
-            case 198: println("New Caledonia (NMC)"); break;
-            case 199: println("Niue"); break;
-            case 200: println("Papua New Guinea (NMC)"); break;
-            case 201: println("Philippines (NMC)"); break;
-            case 202: println("Samoa (NMC)"); break;
-            case 203: println("Solomon Islands (NMC)"); break;
-            case 204: println("National Institute of Water and Atmospheric Research (NIWA - New Zealand)"); break;
-            case 210: println("Frascati (ESA/ESRIN)"); break;
-            case 211: println("Lannion"); break;
-            case 212: println("Lisbon"); break;
-            case 213: println("Reykjavik"); break;
-            case 214: println("Madrid"); break;
-            case 215: println("Zurich"); break;
-            case 216: println("Service ARGOS - Toulouse"); break;
-            case 217: println("Bratislava"); break;
-            case 218: println("Budapest"); break;
-            case 219: println("Ljubljana"); break;
-            case 220: println("Warsaw"); break;
-            case 221: println("Zagreb"); break;
-            case 222: println("Albania (NMC)"); break;
-            case 223: println("Armenia (NMC)"); break;
-            case 224: println("Austria (NMC)"); break;
-            case 225: println("Azerbaijan (NMC)"); break;
-            case 226: println("Belarus (NMC)"); break;
-            case 227: println("Belgium (NMC)"); break;
-            case 228: println("Bosnia and Herzegovina (NMC)"); break;
-            case 229: println("Bulgaria (NMC)"); break;
-            case 230: println("Cyprus (NMC)"); break;
-            case 231: println("Estonia (NMC)"); break;
-            case 232: println("Georgia (NMC)"); break;
-            case 233: println("Dublin"); break;
-            case 234: println("Israel (NMC)"); break;
-            case 235: println("Jordan (NMC)"); break;
-            case 236: println("Latvia (NMC)"); break;
-            case 237: println("Lebanon (NMC)"); break;
-            case 238: println("Lithuania (NMC)"); break;
-            case 239: println("Luxembourg"); break;
-            case 240: println("Malta (NMC)"); break;
-            case 241: println("Monaco"); break;
-            case 242: println("Romania (NMC)"); break;
-            case 243: println("Syrian Arab Republic (NMC)"); break;
-            case 244: println("The former Yugoslav Republic of Macedonia (NMC)"); break;
-            case 245: println("Ukraine (NMC)"); break;
-            case 246: println("Republic of Moldova (NMC)"); break;
-            case 247: println("Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET"); break;
-            case 248: println("Montenegro (NMC)"); break;
-            case 249: println("Barcelona Dust Forecast Center"); break;
-            case 250: println("COnsortium for Small scale MOdelling  (COSMO)"); break;
-            case 251: println("Meteorological Cooperation on Operational NWP (MetCoOp)"); break;
-            case 252: println("Max Planck Institute for Meteorology (MPI-M)"); break;
-            case 254: println("EUMETSAT Operation Centre"); break;
-            case 255: println("Missing"); break;
-            default: println(this.IdentificationOfCentre); break;
+            case 0: _println("WMO Secretariat"); break;
+            case 1: _println("Melbourne"); break;
+            case 2: _println("Melbourne"); break;
+            case 4: _println("Moscow"); break;
+            case 5: _println("Moscow"); break;
+            case 7: _println("US National Weather Service - National Centres for Environmental Prediction (NCEP)"); break;
+            case 8: _println("US National Weather Service Telecommunications Gateway (NWSTG)"); break;
+            case 9: _println("US National Weather Service - Other"); break;
+            case 10: _println("Cairo (RSMC)"); break;
+            case 12: _println("Dakar (RSMC)"); break;
+            case 14: _println("Nairobi (RSMC)"); break;
+            case 16: _println("Casablanca (RSMC)"); break;
+            case 17: _println("Tunis (RSMC)"); break;
+            case 18: _println("Tunis - Casablanca (RSMC)"); break;
+            case 20: _println("Las Palmas"); break;
+            case 21: _println("Algiers (RSMC)"); break;
+            case 22: _println("ACMAD"); break;
+            case 23: _println("Mozambique (NMC)"); break;
+            case 24: _println("Pretoria (RSMC)"); break;
+            case 25: _println("La Réunion (RSMC)"); break;
+            case 26: _println("Khabarovsk (RSMC)"); break;
+            case 28: _println("New Delhi (RSMC)"); break;
+            case 30: _println("Novosibirsk (RSMC)"); break;
+            case 32: _println("Tashkent (RSMC)"); break;
+            case 33: _println("Jeddah (RSMC)"); break;
+            case 34: _println("Tokyo (RSMC), Japan Meteorological Agency"); break;
+            case 36: _println("Bangkok"); break;
+            case 37: _println("Ulaanbaatar"); break;
+            case 38: _println("Beijing (RSMC)"); break;
+            case 40: _println("Seoul"); break;
+            case 41: _println("Buenos Aires (RSMC)"); break;
+            case 43: _println("Brasilia (RSMC)"); break;
+            case 45: _println("Santiago"); break;
+            case 46: _println("Brazilian Space Agency ­ INPE"); break;
+            case 47: _println("Colombia (NMC)"); break;
+            case 48: _println("Ecuador (NMC)"); break;
+            case 49: _println("Peru (NMC)"); break;
+            case 50: _println("Venezuela (Bolivarian Republic of) (NMC)"); break;
+            case 51: _println("Miami (RSMC)"); break;
+            case 52: _println("Miami (RSMC), National Hurricane Centre"); break;
+            case 53: _println("Montreal (RSMC)"); break;
+            case 54: _println("Montreal (RSMC)"); break;
+            case 55: _println("San Francisco"); break;
+            case 56: _println("ARINC Centre"); break;
+            case 57: _println("US Air Force - Air Force Global Weather Central"); break;
+            case 58: _println("Fleet Numerical Meteorology and Oceanography Center, Monterey, CA, United States"); break;
+            case 59: _println("The NOAA Forecast Systems Laboratory, Boulder, CO, United States"); break;
+            case 60: _println("United States National Center for Atmospheric Research (NCAR)"); break;
+            case 61: _println("Service ARGOS - Landover"); break;
+            case 62: _println("US Naval Oceanographic Office"); break;
+            case 63: _println("International Research Institute for Climate and Society (IRI)"); break;
+            case 64: _println("Honolulu (RSMC)"); break;
+            case 65: _println("Darwin (RSMC)"); break;
+            case 67: _println("Melbourne (RSMC)"); break;
+            case 69: _println("Wellington (RSMC)"); break;
+            case 71: _println("Nadi (RSMC)"); break;
+            case 72: _println("Singapore"); break;
+            case 73: _println("Malaysia (NMC)"); break;
+            case 74: _println("UK Meteorological Office ­ Exeter (RSMC)"); break;
+            case 76: _println("Moscow (RSMC)"); break;
+            case 78: _println("Offenbach (RSMC)"); break;
+            case 80: _println("Rome (RSMC)"); break;
+            case 82: _println("Norrköping"); break;
+            case 84: _println("Toulouse (RSMC)"); break;
+            case 85: _println("Toulouse (RSMC)"); break;
+            case 86: _println("Helsinki"); break;
+            case 87: _println("Belgrade"); break;
+            case 88: _println("Oslo"); break;
+            case 89: _println("Prague"); break;
+            case 90: _println("Episkopi"); break;
+            case 91: _println("Ankara"); break;
+            case 92: _println("Frankfurt/Main"); break;
+            case 93: _println("London (WAFC)"); break;
+            case 94: _println("Copenhagen"); break;
+            case 95: _println("Rota"); break;
+            case 96: _println("Athens"); break;
+            case 97: _println("European Space Agency (ESA)"); break;
+            case 98: _println("European Centre for Medium-Range Weather Forecasts (ECMWF) (RSMC)"); break;
+            case 99: _println("De Bilt"); break;
+            case 100: _println("Brazzaville"); break;
+            case 101: _println("Abidjan"); break;
+            case 102: _println("Libya (NMC)"); break;
+            case 103: _println("Madagascar (NMC)"); break;
+            case 104: _println("Mauritius (NMC)"); break;
+            case 105: _println("Niger (NMC)"); break;
+            case 106: _println("Seychelles (NMC)"); break;
+            case 107: _println("Uganda (NMC)"); break;
+            case 108: _println("United Republic of Tanzania (NMC)"); break;
+            case 109: _println("Zimbabwe (NMC)"); break;
+            case 110: _println("Hong-Kong, China"); break;
+            case 111: _println("Afghanistan (NMC)"); break;
+            case 112: _println("Bahrain (NMC)"); break;
+            case 113: _println("Bangladesh (NMC)"); break;
+            case 114: _println("Bhutan (NMC)"); break;
+            case 115: _println("Cambodia (NMC)"); break;
+            case 116: _println("Democratic People's Republic of Korea (NMC)"); break;
+            case 117: _println("Islamic Republic of Iran (NMC)"); break;
+            case 118: _println("Iraq (NMC)"); break;
+            case 119: _println("Kazakhstan (NMC)"); break;
+            case 120: _println("Kuwait (NMC)"); break;
+            case 121: _println("Kyrgyzstan (NMC)"); break;
+            case 122: _println("Lao People's Democratic Republic (NMC)"); break;
+            case 123: _println("Macao, China"); break;
+            case 124: _println("Maldives (NMC)"); break;
+            case 125: _println("Myanmar (NMC)"); break;
+            case 126: _println("Nepal (NMC)"); break;
+            case 127: _println("Oman (NMC)"); break;
+            case 128: _println("Pakistan (NMC)"); break;
+            case 129: _println("Qatar (NMC)"); break;
+            case 130: _println("Yemen (NMC)"); break;
+            case 131: _println("Sri Lanka (NMC)"); break;
+            case 132: _println("Tajikistan (NMC)"); break;
+            case 133: _println("Turkmenistan (NMC)"); break;
+            case 134: _println("United Arab Emirates (NMC)"); break;
+            case 135: _println("Uzbekistan (NMC)"); break;
+            case 136: _println("Viet Nam (NMC)"); break;
+            case 140: _println("Bolivia (Plurinational State of) (NMC)"); break;
+            case 141: _println("Guyana (NMC)"); break;
+            case 142: _println("Paraguay (NMC)"); break;
+            case 143: _println("Suriname (NMC)"); break;
+            case 144: _println("Uruguay (NMC)"); break;
+            case 145: _println("French Guiana"); break;
+            case 146: _println("Brazilian Navy Hydrographic Centre"); break;
+            case 147: _println("National Commission on Space Activities (CONAE) - Argentina"); break;
+            case 150: _println("Antigua and Barbuda (NMC)"); break;
+            case 151: _println("Bahamas (NMC)"); break;
+            case 152: _println("Barbados (NMC)"); break;
+            case 153: _println("Belize (NMC)"); break;
+            case 154: _println("British Caribbean Territories Centre"); break;
+            case 155: _println("San José"); break;
+            case 156: _println("Cuba (NMC)"); break;
+            case 157: _println("Dominica (NMC)"); break;
+            case 158: _println("Dominican Republic (NMC)"); break;
+            case 159: _println("El Salvador (NMC)"); break;
+            case 160: _println("US NOAA/NESDIS"); break;
+            case 161: _println("US NOAA Office of Oceanic and Atmospheric Research"); break;
+            case 162: _println("Guatemala (NMC)"); break;
+            case 163: _println("Haiti (NMC)"); break;
+            case 164: _println("Honduras (NMC)"); break;
+            case 165: _println("Jamaica (NMC)"); break;
+            case 166: _println("Mexico City"); break;
+            case 167: _println("Curaçao and Sint Maarten (NMC)"); break;
+            case 168: _println("Nicaragua (NMC)"); break;
+            case 169: _println("Panama (NMC)"); break;
+            case 170: _println("Saint Lucia (NMC)"); break;
+            case 171: _println("Trinidad and Tobago (NMC)"); break;
+            case 172: _println("French Departments in RA IV"); break;
+            case 173: _println("US National Aeronautics and Space Administration (NASA)"); break;
+            case 174: _println("Integrated Science Data Management/Marine Environmental Data Service (ISDM/MEDS) - Canada"); break;
+            case 175: _println("University Corporation for Atmospheric Research (UCAR) - United States"); break;
+            case 176: _println("Cooperative Institute for Meteorological Satellite Studies (CIMSS) - United States"); break;
+            case 177: _println("NOAA National Ocean Service - United States"); break;
+            case 190: _println("Cook Islands (NMC)"); break;
+            case 191: _println("French Polynesia (NMC)"); break;
+            case 192: _println("Tonga (NMC)"); break;
+            case 193: _println("Vanuatu (NMC)"); break;
+            case 194: _println("Brunei Darussalam (NMC)"); break;
+            case 195: _println("Indonesia (NMC)"); break;
+            case 196: _println("Kiribati (NMC)"); break;
+            case 197: _println("Federated States of Micronesia (NMC)"); break;
+            case 198: _println("New Caledonia (NMC)"); break;
+            case 199: _println("Niue"); break;
+            case 200: _println("Papua New Guinea (NMC)"); break;
+            case 201: _println("Philippines (NMC)"); break;
+            case 202: _println("Samoa (NMC)"); break;
+            case 203: _println("Solomon Islands (NMC)"); break;
+            case 204: _println("National Institute of Water and Atmospheric Research (NIWA - New Zealand)"); break;
+            case 210: _println("Frascati (ESA/ESRIN)"); break;
+            case 211: _println("Lannion"); break;
+            case 212: _println("Lisbon"); break;
+            case 213: _println("Reykjavik"); break;
+            case 214: _println("Madrid"); break;
+            case 215: _println("Zurich"); break;
+            case 216: _println("Service ARGOS - Toulouse"); break;
+            case 217: _println("Bratislava"); break;
+            case 218: _println("Budapest"); break;
+            case 219: _println("Ljubljana"); break;
+            case 220: _println("Warsaw"); break;
+            case 221: _println("Zagreb"); break;
+            case 222: _println("Albania (NMC)"); break;
+            case 223: _println("Armenia (NMC)"); break;
+            case 224: _println("Austria (NMC)"); break;
+            case 225: _println("Azerbaijan (NMC)"); break;
+            case 226: _println("Belarus (NMC)"); break;
+            case 227: _println("Belgium (NMC)"); break;
+            case 228: _println("Bosnia and Herzegovina (NMC)"); break;
+            case 229: _println("Bulgaria (NMC)"); break;
+            case 230: _println("Cyprus (NMC)"); break;
+            case 231: _println("Estonia (NMC)"); break;
+            case 232: _println("Georgia (NMC)"); break;
+            case 233: _println("Dublin"); break;
+            case 234: _println("Israel (NMC)"); break;
+            case 235: _println("Jordan (NMC)"); break;
+            case 236: _println("Latvia (NMC)"); break;
+            case 237: _println("Lebanon (NMC)"); break;
+            case 238: _println("Lithuania (NMC)"); break;
+            case 239: _println("Luxembourg"); break;
+            case 240: _println("Malta (NMC)"); break;
+            case 241: _println("Monaco"); break;
+            case 242: _println("Romania (NMC)"); break;
+            case 243: _println("Syrian Arab Republic (NMC)"); break;
+            case 244: _println("The former Yugoslav Republic of Macedonia (NMC)"); break;
+            case 245: _println("Ukraine (NMC)"); break;
+            case 246: _println("Republic of Moldova (NMC)"); break;
+            case 247: _println("Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET"); break;
+            case 248: _println("Montenegro (NMC)"); break;
+            case 249: _println("Barcelona Dust Forecast Center"); break;
+            case 250: _println("COnsortium for Small scale MOdelling  (COSMO)"); break;
+            case 251: _println("Meteorological Cooperation on Operational NWP (MetCoOp)"); break;
+            case 252: _println("Max Planck Institute for Meteorology (MPI-M)"); break;
+            case 254: _println("EUMETSAT Operation Centre"); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.IdentificationOfCentre); break;
           }
 
-          print("Sub-centre:\t");
+          _print("Sub-centre:\t");
           this.IdentificationOfSubCentre = U_NUMx2(SectionNumbers[8], SectionNumbers[9]);
           switch (this.IdentificationOfSubCentre) {
-            case 255: println("Missing"); break;
-            default: println(this.IdentificationOfSubCentre); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.IdentificationOfSubCentre); break;
           }
 
-          print("Master Tables Version Number:\t");
+          _print("Master Tables Version Number:\t");
           this.MasterTablesVersionNumber = SectionNumbers[10];
           switch (this.MasterTablesVersionNumber) {
-            case 0: println("Experimental"); break;
-            case 1: println("Version implemented on 7 November 2001"); break;
-            case 2: println("Version implemented on 4 November 2003"); break;
-            case 3: println("Version implemented on 2 November 2005"); break;
-            case 4: println("Version implemented on 7 November 2007"); break;
-            case 5: println("Version Implemented on 4 November 2009"); break;
-            case 6: println("Version Implemented on 15 September 2010"); break;
-            case 7: println("Version Implemented on 4 May 2011"); break;
-            case 8: println("Version Implemented on 8 November 2011"); break;
-            case 9: println("Version Implemented on 2 May 2012"); break;
-            case 10: println("Version Implemented on 7 November 2012 "); break;
-            case 11: println("Version Implemented on 8 May 2013"); break;
-            case 12: println("Version Implemented on 14 November 2013"); break;
-            case 13: println("Version Implemented on 7 May 2014"); break;
-            case 14: println("Version Implemented on 5 November 2014"); break;
-            case 15: println("Version Implemented on 6 May 2015"); break;
-            case 16: println("Pre-operational to be implemented by next amendment"); break;
-            case 255: println("Missing"); break;
-            default: println(this.MasterTablesVersionNumber); break;
+            case 0: _println("Experimental"); break;
+            case 1: _println("Version implemented on 7 November 2001"); break;
+            case 2: _println("Version implemented on 4 November 2003"); break;
+            case 3: _println("Version implemented on 2 November 2005"); break;
+            case 4: _println("Version implemented on 7 November 2007"); break;
+            case 5: _println("Version Implemented on 4 November 2009"); break;
+            case 6: _println("Version Implemented on 15 September 2010"); break;
+            case 7: _println("Version Implemented on 4 May 2011"); break;
+            case 8: _println("Version Implemented on 8 November 2011"); break;
+            case 9: _println("Version Implemented on 2 May 2012"); break;
+            case 10: _println("Version Implemented on 7 November 2012 "); break;
+            case 11: _println("Version Implemented on 8 May 2013"); break;
+            case 12: _println("Version Implemented on 14 November 2013"); break;
+            case 13: _println("Version Implemented on 7 May 2014"); break;
+            case 14: _println("Version Implemented on 5 November 2014"); break;
+            case 15: _println("Version Implemented on 6 May 2015"); break;
+            case 16: _println("Pre-operational to be implemented by next amendment"); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.MasterTablesVersionNumber); break;
           }
 
-          print("Local Tables Version Number:\t");
+          _print("Local Tables Version Number:\t");
           this.LocalTablesVersionNumber = SectionNumbers[11];
           switch (this.LocalTablesVersionNumber) {
-            case 0: println("Local tables not used. Only table entries and templates from the current Master table are valid."); break;
-            case 255: println("Missing"); break;
-            default: println(this.LocalTablesVersionNumber); break;
+            case 0: _println("Local tables not used. Only table entries and templates from the current Master table are valid."); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.LocalTablesVersionNumber); break;
           }
 
-          print("Significance of Reference Time:\t");
+          _print("Significance of Reference Time:\t");
           this.SignificanceOfReferenceTime = SectionNumbers[12];
           switch (this.SignificanceOfReferenceTime) {
-            case 0: println("Analysis"); break;
-            case 1: println("Start of forecast"); break;
-            case 2: println("Verifying time of forecast"); break;
-            case 3: println("Observation time"); break;
-            case 255: println("Missing"); break;
-            default: println(this.SignificanceOfReferenceTime); break;
+            case 0: _println("Analysis"); break;
+            case 1: _println("Start of forecast"); break;
+            case 2: _println("Verifying time of forecast"); break;
+            case 3: _println("Observation time"); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.SignificanceOfReferenceTime); break;
           }
 
-          print("Year:\t");
+          _print("Year:\t");
           this.Year = U_NUMx2(SectionNumbers[13], SectionNumbers[14]);
-          println(this.Year);
+          _println(this.Year);
 
-          print("Month:\t");
+          _print("Month:\t");
           this.Month = SectionNumbers[15];
-          println(this.Month);
+          _println(this.Month);
 
-          print("Day:\t");
+          _print("Day:\t");
           this.Day = SectionNumbers[16];
-          println(this.Day);
+          _println(this.Day);
 
-          print("Hour:\t");
+          _print("Hour:\t");
           this.Hour = SectionNumbers[17];
-          println(this.Hour);
+          _println(this.Hour);
 
-          print("Minute:\t");
+          _print("Minute:\t");
           this.Minute = SectionNumbers[18];
-          println(this.Minute);
+          _println(this.Minute);
 
-          print("Second:\t");
+          _print("Second:\t");
           this.Second = SectionNumbers[19];
-          println(this.Second);
+          _println(this.Second);
 
-          print("Production status of data:\t");
+          _print("Production status of data:\t");
           this.ProductionStatusOfData = SectionNumbers[20];
           switch (this.ProductionStatusOfData) {
-            case 0: println("Operational products"); break;
-            case 1: println("Operational test products"); break;
-            case 2: println("Research products"); break;
-            case 3: println("Re-analysis products"); break;
-            case 255: println("Missing"); break;
-            default:  println(this.ProductionStatusOfData); break;
+            case 0: _println("Operational products"); break;
+            case 1: _println("Operational test products"); break;
+            case 2: _println("Research products"); break;
+            case 3: _println("Re-analysis products"); break;
+            case 255: _println("Missing"); break;
+            default:  _println(this.ProductionStatusOfData); break;
           }
 
-          print("Type of data:\t");
+          _print("Type of data:\t");
           this.TypeOfData = SectionNumbers[20];
           switch (this.TypeOfData) {
-            case 0: println("Analysis products"); break;
-            case 1: println("Forecast products"); break;
-            case 2: println("Analysis and forecast products"); break;
-            case 3: println("Control forecast products"); break;
-            case 4: println("Perturbed forecast products"); break;
-            case 5: println("Control and perturbed forecast products"); break;
-            case 6: println("Processed satellite observations"); break;
-            case 7: println("Processed radar observations"); break;
-            case 255: println("Missing"); break;
-            default: println(this.TypeOfData); break;
+            case 0: _println("Analysis products"); break;
+            case 1: _println("Forecast products"); break;
+            case 2: _println("Analysis and forecast products"); break;
+            case 3: _println("Control forecast products"); break;
+            case 4: _println("Perturbed forecast products"); break;
+            case 5: _println("Control and perturbed forecast products"); break;
+            case 6: _println("Processed satellite observations"); break;
+            case 7: _println("Processed radar observations"); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.TypeOfData); break;
           }
         }
 
@@ -6998,234 +7010,234 @@ public class App extends PApplet {
         SectionNumbers = getGrib2Section(3); // Section 3: Grid Definition Section
 
         if (SectionNumbers.length > 1) {
-          print("Grid Definition Template Number:\t");
+          _print("Grid Definition Template Number:\t");
           this.TypeOfProjection = U_NUMx2(SectionNumbers[13], SectionNumbers[14]);
           switch (this.TypeOfProjection) {
-            case 0: GridDEF_ScanningMode = 72; println("Latitude/longitude (equidistant cylindrical)"); break;
-            case 1: GridDEF_ScanningMode = 72; println("Rotated latitude/longitude"); break;
-            case 2: GridDEF_ScanningMode = 72; println("Stretched latitude/longitude"); break;
-            case 3: GridDEF_ScanningMode = 72; println("Stretched and rotated latitude/longitude"); break;
-            case 4: GridDEF_ScanningMode = 48; println("Variable resolution latitude/longitude"); break;
-            case 5: GridDEF_ScanningMode = 48; println("Variable resolution rotated latitude/longitude"); break;
-            case 10: GridDEF_ScanningMode = 60; println("Mercator"); break;
-            case 12: GridDEF_ScanningMode = 60; println("Transverse Mercator"); break;
-            case 20: GridDEF_ScanningMode = 65; println("Polar Stereographic Projection (can be north or south)"); GridDEF_ScanningMode = 65; break;
-            case 30: GridDEF_ScanningMode = 65; println("Lambert conformal (can be secant, tangent, conical, or bipolar)"); break;
-            case 31: GridDEF_ScanningMode = 65; println("Albers equal area"); break;
-            case 40: GridDEF_ScanningMode = 72; println("Gaussian latitude/longitude"); break;
-            case 41: GridDEF_ScanningMode = 72; println("Rotated Gaussian latitude/longitude"); break;
-            case 42: GridDEF_ScanningMode = 72; println("Stretched Gaussian latitude/longitude"); break;
-            case 43:GridDEF_ScanningMode = 72;  println("Stretched and rotated Gaussian latitude/longitude"); break;
-            case 50: println("Spherical harmonic coefficients"); break;
-            case 51: println("Rotated spherical harmonic coefficients"); break;
-            case 52: println("Stretched spherical harmonic coefficients"); break;
-            case 53: println("Stretched and rotated spherical harmonic coefficients"); break;
-            case 90: GridDEF_ScanningMode = 64; println("Space view perspective orthographic"); break;
-            case 100: GridDEF_ScanningMode = 34; println("Triangular grid based on an icosahedron"); break;
-            case 110: GridDEF_ScanningMode = 57; println("Equatorial azimuthal equidistant projection"); break;
-            case 120: GridDEF_ScanningMode = 39; println("Azimuth-range projection"); break;
-            case 140: GridDEF_ScanningMode = 64; println("Lambert azimuthal equal area projection"); break;
-            case 204: GridDEF_ScanningMode = 72; println("Curvilinear orthogonal grids"); break;
-            case 1000: println("Cross-section grid, with points equally spaced on the horizontal"); break;
-            case 1100: GridDEF_ScanningMode = 51; println("Hovmöller diagram grid, with points equally spaced on the horizontal"); break;
-            case 1200: println("Time section grid"); break;
-            case 32768: GridDEF_ScanningMode = 72; println("Rotated latitude/longitude (arakawa staggered E-grid)"); break;
-            case 32769: GridDEF_ScanningMode = 72; println("Rotated latitude/longitude (arakawa non-E staggered grid)"); break;
-            case 65535: println("Missing"); break;
-            default : println(this.TypeOfProjection); break;
+            case 0: GridDEF_ScanningMode = 72; _println("Latitude/longitude (equidistant cylindrical)"); break;
+            case 1: GridDEF_ScanningMode = 72; _println("Rotated latitude/longitude"); break;
+            case 2: GridDEF_ScanningMode = 72; _println("Stretched latitude/longitude"); break;
+            case 3: GridDEF_ScanningMode = 72; _println("Stretched and rotated latitude/longitude"); break;
+            case 4: GridDEF_ScanningMode = 48; _println("Variable resolution latitude/longitude"); break;
+            case 5: GridDEF_ScanningMode = 48; _println("Variable resolution rotated latitude/longitude"); break;
+            case 10: GridDEF_ScanningMode = 60; _println("Mercator"); break;
+            case 12: GridDEF_ScanningMode = 60; _println("Transverse Mercator"); break;
+            case 20: GridDEF_ScanningMode = 65; _println("Polar Stereographic Projection (can be north or south)"); GridDEF_ScanningMode = 65; break;
+            case 30: GridDEF_ScanningMode = 65; _println("Lambert conformal (can be secant, tangent, conical, or bipolar)"); break;
+            case 31: GridDEF_ScanningMode = 65; _println("Albers equal area"); break;
+            case 40: GridDEF_ScanningMode = 72; _println("Gaussian latitude/longitude"); break;
+            case 41: GridDEF_ScanningMode = 72; _println("Rotated Gaussian latitude/longitude"); break;
+            case 42: GridDEF_ScanningMode = 72; _println("Stretched Gaussian latitude/longitude"); break;
+            case 43:GridDEF_ScanningMode = 72;  _println("Stretched and rotated Gaussian latitude/longitude"); break;
+            case 50: _println("Spherical harmonic coefficients"); break;
+            case 51: _println("Rotated spherical harmonic coefficients"); break;
+            case 52: _println("Stretched spherical harmonic coefficients"); break;
+            case 53: _println("Stretched and rotated spherical harmonic coefficients"); break;
+            case 90: GridDEF_ScanningMode = 64; _println("Space view perspective orthographic"); break;
+            case 100: GridDEF_ScanningMode = 34; _println("Triangular grid based on an icosahedron"); break;
+            case 110: GridDEF_ScanningMode = 57; _println("Equatorial azimuthal equidistant projection"); break;
+            case 120: GridDEF_ScanningMode = 39; _println("Azimuth-range projection"); break;
+            case 140: GridDEF_ScanningMode = 64; _println("Lambert azimuthal equal area projection"); break;
+            case 204: GridDEF_ScanningMode = 72; _println("Curvilinear orthogonal grids"); break;
+            case 1000: _println("Cross-section grid, with points equally spaced on the horizontal"); break;
+            case 1100: GridDEF_ScanningMode = 51; _println("Hovmöller diagram grid, with points equally spaced on the horizontal"); break;
+            case 1200: _println("Time section grid"); break;
+            case 32768: GridDEF_ScanningMode = 72; _println("Rotated latitude/longitude (arakawa staggered E-grid)"); break;
+            case 32769: GridDEF_ScanningMode = 72; _println("Rotated latitude/longitude (arakawa non-E staggered grid)"); break;
+            case 65535: _println("Missing"); break;
+            default : _println(this.TypeOfProjection); break;
           }
 
-          print("Number of data points (Nx * Ny):\t");
+          _print("Number of data points (Nx * Ny):\t");
           this.Np = U_NUMx4(SectionNumbers[GridDEF_NumberOfDataPoints], SectionNumbers[GridDEF_NumberOfDataPoints + 1], SectionNumbers[GridDEF_NumberOfDataPoints + 2], SectionNumbers[GridDEF_NumberOfDataPoints + 3]);
-          println(this.Np);
+          _println(this.Np);
 
-          print("Number of points along the X-axis:\t");
+          _print("Number of points along the X-axis:\t");
           this.Nx = U_NUMx4(SectionNumbers[GridDEF_NumberOfPointsAlongTheXaxis], SectionNumbers[GridDEF_NumberOfPointsAlongTheXaxis + 1], SectionNumbers[GridDEF_NumberOfPointsAlongTheXaxis + 2], SectionNumbers[GridDEF_NumberOfPointsAlongTheXaxis + 3]);
-          println(this.Nx);
+          _println(this.Nx);
 
-          print("Number of points along the Y-axis:\t");
+          _print("Number of points along the Y-axis:\t");
           this.Ny = U_NUMx4(SectionNumbers[GridDEF_NumberOfPointsAlongTheYaxis], SectionNumbers[GridDEF_NumberOfPointsAlongTheYaxis + 1], SectionNumbers[GridDEF_NumberOfPointsAlongTheYaxis + 2], SectionNumbers[GridDEF_NumberOfPointsAlongTheYaxis + 3]);
-          println(this.Ny);
+          _println(this.Ny);
 
           if (this.TypeOfProjection == 0) { // Latitude/longitude
 
             this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_LatLon_ResolutionAndComponentFlags];
-            println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
+            _println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
             this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 3]);
-            println("Latitude of first grid point:\t" + this.La1);
+            _println("Latitude of first grid point:\t" + this.La1);
 
             this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 3]);
             if (this.Lo1 == 180) this.Lo1 = -180;
-            println("Longitude of first grid point:\t" + this.Lo1);
+            _println("Longitude of first grid point:\t" + this.Lo1);
 
             this.La2 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 3]);
-            println("Latitude of last grid point:\t" + this.La2);
+            _println("Latitude of last grid point:\t" + this.La2);
 
             this.Lo2 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 3]);
             if (this.Lo2 < this.Lo1) this.Lo2 += 360;
-            println("Longitude of last grid point:\t" + this.Lo2);
+            _println("Longitude of last grid point:\t" + this.Lo2);
 
           }
           else if (this.TypeOfProjection == 1) { // Rotated latitude/longitude
 
             this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_LatLon_ResolutionAndComponentFlags];
-            println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
+            _println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
             this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfFirstGridPoint + 3]);
-            println("Latitude of first grid point:\t" + this.La1);
+            _println("Latitude of first grid point:\t" + this.La1);
 
             this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfFirstGridPoint + 3]);
             if (this.Lo1 == 180) this.Lo1 = -180;
-            println("Longitude of first grid point:\t" + this.Lo1);
+            _println("Longitude of first grid point:\t" + this.Lo1);
 
             this.La2 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LatitudeOfLastGridPoint + 3]);
-            println("Latitude of last grid point:\t" + this.La2);
+            _println("Latitude of last grid point:\t" + this.La2);
 
             this.Lo2 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 1], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 2], SectionNumbers[GridDEF_LatLon_LongitudeOfLastGridPoint + 3]);
             if (this.Lo2 < this.Lo1) this.Lo2 += 360;
-            println("Longitude of last grid point:\t" + this.Lo2);
+            _println("Longitude of last grid point:\t" + this.Lo2);
 
             this.SouthLat = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_LatLon_SouthPoleLatitude], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 1], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 2], SectionNumbers[GridDEF_LatLon_SouthPoleLatitude + 3]);
-            println("Latitude of the southern pole of projection:\t" + this.SouthLat);
+            _println("Latitude of the southern pole of projection:\t" + this.SouthLat);
 
             this.SouthLon = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_LatLon_SouthPoleLongitude], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 1], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 2], SectionNumbers[GridDEF_LatLon_SouthPoleLongitude + 3]);
-            println("Longitude of the southern pole of projection:\t" + this.SouthLon);
+            _println("Longitude of the southern pole of projection:\t" + this.SouthLon);
 
             this.Rotation = S_NUMx4(SectionNumbers[GridDEF_LatLon_RotationOfProjection], SectionNumbers[GridDEF_LatLon_RotationOfProjection + 1], SectionNumbers[GridDEF_LatLon_RotationOfProjection + 2], SectionNumbers[GridDEF_LatLon_RotationOfProjection + 3]);
-            println("Angle of rotation of projection:\t" + this.Rotation);
+            _println("Angle of rotation of projection:\t" + this.Rotation);
 
           }
           else if (this.TypeOfProjection == 20) { // Polar Stereographic Projection
 
             this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_Polar_ResolutionAndComponentFlags];
-            println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
+            _println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
             this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Polar_LatitudeOfFirstGridPoint + 3]);
-            println("Latitude of first grid point:\t" + this.La1);
+            _println("Latitude of first grid point:\t" + this.La1);
 
             this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Polar_LongitudeOfFirstGridPoint + 3]);
-            println("Longitude of first grid point:\t" + this.Lo1);
+            _println("Longitude of first grid point:\t" + this.Lo1);
 
             this.LaD = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 1], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 2], SectionNumbers[GridDEF_Polar_DeclinationOfTheGrid + 3]);
-            println("Latitude where Dx and Dy are specified:\t" + this.LaD);
+            _println("Latitude where Dx and Dy are specified:\t" + this.LaD);
 
             this.LoV = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_OrientationOfTheGrid], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 1], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 2], SectionNumbers[GridDEF_Polar_OrientationOfTheGrid + 3]);
-            println("Orientation of the grid:\t" + this.LoV);
+            _println("Orientation of the grid:\t" + this.LoV);
 
             this.Dx = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_XDirectionGridLength], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 1], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 2], SectionNumbers[GridDEF_Polar_XDirectionGridLength + 3]);
-            println("X-direction grid length (km):\t" + this.Dx);
+            _println("X-direction grid length (km):\t" + this.Dx);
 
             this.Dy = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Polar_YDirectionGridLength], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 1], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 2], SectionNumbers[GridDEF_Polar_YDirectionGridLength + 3]);
-            println("Y-direction grid length (km):\t" + this.Dy);
+            _println("Y-direction grid length (km):\t" + this.Dy);
 
             this.PCF = SectionNumbers[GridDEF_Polar_ProjectionCenterFlag];
-            println("Projection center flag:\t" + this.PCF);
+            _println("Projection center flag:\t" + this.PCF);
 
           }
           else if (this.TypeOfProjection == 30) { // Lambert Conformal Projection
 
             this.ResolutionAndComponentFlags = SectionNumbers[GridDEF_Lambert_ResolutionAndComponentFlags];
-            println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
+            _println("Resolution and component flags:\t" + this.ResolutionAndComponentFlags);
 
             this.La1 = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Lambert_LatitudeOfFirstGridPoint + 3]);
-            println("Latitude of first grid point:\t" + this.La1);
+            _println("Latitude of first grid point:\t" + this.La1);
 
             this.Lo1 = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 1], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 2], SectionNumbers[GridDEF_Lambert_LongitudeOfFirstGridPoint + 3]);
-            println("Longitude of first grid point:\t" + this.Lo1);
+            _println("Longitude of first grid point:\t" + this.Lo1);
 
             this.LaD = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 1], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 2], SectionNumbers[GridDEF_Lambert_DeclinationOfTheGrid + 3]);
-            println("Latitude where Dx and Dy are specified:\t" + this.LaD);
+            _println("Latitude where Dx and Dy are specified:\t" + this.LaD);
 
             this.LoV = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 1], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 2], SectionNumbers[GridDEF_Lambert_OrientationOfTheGrid + 3]);
-            println("Orientation of the grid:\t" + this.LoV);
+            _println("Orientation of the grid:\t" + this.LoV);
 
             this.Dx = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_XDirectionGridLength], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 1], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 2], SectionNumbers[GridDEF_Lambert_XDirectionGridLength + 3]);
-            println("X-direction grid length (km):\t" + this.Dx);
+            _println("X-direction grid length (km):\t" + this.Dx);
 
             this.Dy = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_YDirectionGridLength], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 1], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 2], SectionNumbers[GridDEF_Lambert_YDirectionGridLength + 3]);
-            println("Y-direction grid length (km):\t" + this.Dy);
+            _println("Y-direction grid length (km):\t" + this.Dy);
 
             this.PCF = SectionNumbers[GridDEF_Lambert_ProjectionCenterFlag];
-            println("Projection center flag:\t" + this.PCF);
+            _println("Projection center flag:\t" + this.PCF);
 
             this.FirstLatIn = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_1stLatitudeIn], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_1stLatitudeIn + 3]);
-            println("First latitude from the pole at which the secant cone cuts the sphere:\t" + this.FirstLatIn);
+            _println("First latitude from the pole at which the secant cone cuts the sphere:\t" + this.FirstLatIn);
 
             this.SecondLatIn = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_2ndLatitudeIn], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 3]);
-            println("Second latitude from the pole at which the secant cone cuts the sphere:\t" + this.SecondLatIn);
+            _println("Second latitude from the pole at which the secant cone cuts the sphere:\t" + this.SecondLatIn);
 
             this.SouthLat = 0.000001f * S_NUMx4(SectionNumbers[GridDEF_Lambert_2ndLatitudeIn], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 1], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 2], SectionNumbers[GridDEF_Lambert_2ndLatitudeIn + 3]);
-            println("Latitude of the southern pole of projection:\t" + this.SouthLat);
+            _println("Latitude of the southern pole of projection:\t" + this.SouthLat);
 
             this.SouthLon = 0.000001f * U_NUMx4(SectionNumbers[GridDEF_Lambert_SouthPoleLongitude], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 1], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 2], SectionNumbers[GridDEF_Lambert_SouthPoleLongitude + 3]);
-            println("Longitude of the southern pole of projection:\t" + this.SouthLon);
+            _println("Longitude of the southern pole of projection:\t" + this.SouthLon);
 
           }
 
-          print("Flag bit numbers:\n");
+          _print("Flag bit numbers:\n");
           this.Flag_BitNumbers = binary(this.ResolutionAndComponentFlags, 8);
           {
             if (this.Flag_BitNumbers.substring(2, 3).equals("0")) {
-              println("\ti direction increments not given");
+              _println("\ti direction increments not given");
             }
             else {
-              println("\ti direction increments given");
+              _println("\ti direction increments given");
             }
 
             if (this.Flag_BitNumbers.substring(3, 4).equals("0")) {
-              println("\tj direction increments not given");
+              _println("\tj direction increments not given");
             }
             else {
-              println("\tj direction increments given");
+              _println("\tj direction increments given");
             }
 
             if (this.Flag_BitNumbers.substring(4, 5).equals("0")) {
-              println("\tResolved u- and v- components of vector quantities relative to easterly and northerly directions");
+              _println("\tResolved u- and v- components of vector quantities relative to easterly and northerly directions");
             }
             else {
-              println("\tResolved u- and v- components of vector quantities relative to the defined grid in the direction of increasing x and y (or i and j) coordinates respectively");
+              _println("\tResolved u- and v- components of vector quantities relative to the defined grid in the direction of increasing x and y (or i and j) coordinates respectively");
             }
           }
 
-          print("Scanning mode:\t");
+          _print("Scanning mode:\t");
           this.ScanningMode = SectionNumbers[GridDEF_ScanningMode];
-          println(this.ScanningMode);
+          _println(this.ScanningMode);
 
           this.ScanX = 1;
           this.ScanY = 1;
 
-          print("Mode bit numbers:\n");
+          _print("Mode bit numbers:\n");
           this.Mode_BitNumbers = binary(this.ScanningMode, 8);
           {
             if (this.Mode_BitNumbers.substring(0, 1).equals("0")) {
-              println("\tPoints of first row or column scan in the +i (+x) direction");
+              _println("\tPoints of first row or column scan in the +i (+x) direction");
             }
             else {
-              println("\tPoints of first row or column scan in the -i (-x) direction");
+              _println("\tPoints of first row or column scan in the -i (-x) direction");
               this.ScanX = 0;
             }
 
             if (this.Mode_BitNumbers.substring(1, 2).equals("0")) {
-              println("\tPoints of first row or column scan in the -j (-y) direction");
+              _println("\tPoints of first row or column scan in the -j (-y) direction");
             }
             else {
-              println("\tPoints of first row or column scan in the +j (+y) direction");
+              _println("\tPoints of first row or column scan in the +j (+y) direction");
               this.ScanY = 0;
             }
 
             if (this.Mode_BitNumbers.substring(2, 3).equals("0")) {
-              println("\tAdjacent points in i (x) direction are consecutive");
+              _println("\tAdjacent points in i (x) direction are consecutive");
             }
             else {
-              println("\tAdjacent points in j (y) direction is consecutive");
+              _println("\tAdjacent points in j (y) direction is consecutive");
             }
 
             if (this.Mode_BitNumbers.substring(3, 4).equals("0")) {
-              println("\tAll rows scan in the same direction");
+              _println("\tAll rows scan in the same direction");
             }
             else {
-              println("\tAdjacent rows scan in opposite directions");
+              _println("\tAdjacent rows scan in opposite directions");
             }
           }
         }
@@ -7233,89 +7245,89 @@ public class App extends PApplet {
         SectionNumbers = getGrib2Section(4); // Section 4: Product Definition Section
 
         if (SectionNumbers.length > 1) {
-          print("Number of coordinate values after Template:\t");
+          _print("Number of coordinate values after Template:\t");
           this.NumberOfCoordinateValuesAfterTemplate = U_NUMx2(SectionNumbers[6], SectionNumbers[7]);
-          println(this.NumberOfCoordinateValuesAfterTemplate);
+          _println(this.NumberOfCoordinateValuesAfterTemplate);
 
-          print("Number of coordinate values after Template:\t");
+          _print("Number of coordinate values after Template:\t");
           this.ProductDefinitionTemplateNumber = U_NUMx2(SectionNumbers[8], SectionNumbers[9]);
           switch (this.ProductDefinitionTemplateNumber) {
-            case 0: println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time. (see Template 4.0)"); break;
-            case 1: println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a point in time. (see Template 4.1)"); break;
-            case 2: println("Derived forecasts based on all ensemble members at a horizontal level or in a horizontal layer at a point in time. (see Template 4.2)"); break;
-            case 3: println("Derived forecasts based on a cluster of ensemble members over a rectangular area at a horizontal level or in a horizontal layer at a point in time. (see Template 4.3)"); break;
-            case 4: println("Derived forecasts based on a cluster of ensemble members over a circular area at a horizontal level or in a horizontal layer at a point in time. (see Template 4.4)"); break;
-            case 5: println("Probability forecasts at a horizontal level or in a horizontal layer at a point in time. (see Template 4.5)"); break;
-            case 6: println("Percentile forecasts at a horizontal level or in a horizontal layer at a point in time. (see Template 4.6)"); break;
-            case 7: println("Analysis or forecast error at a horizontal level or in a horizontal layer at a point in time. (see Template 4.7)"); break;
-            case 8: println("Average, accumulation, extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.8)"); break;
-            case 9: println("Probability forecasts at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.9)"); break;
-            case 10: println("Percentile forecasts at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.10)"); break;
-            case 11: println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.11)"); break;
-            case 12: println("Derived forecasts based on all ensemble members at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.12)"); break;
-            case 13: println("Derived forecasts based on a cluster of ensemble members over a rectangular area at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.13)"); break;
-            case 14: println("Derived forecasts based on a cluster of ensemble members over a circular area at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.14)"); break;
-            case 15: println("Average, accumulation, extreme values or other statistically-processed values over a spatial area at a horizontal level or in a horizontal layer at a point in time. (see Template 4.15)"); break;
-            case 20: println("Radar product (see Template 4.20)"); break;
-            case 30: println("Satellite product (see Template 4.30) NOTE:This template is deprecated. Template 4.31 should be used instead."); break;
-            case 31: println("Satellite product (see Template 4.31)"); break;
-            case 32: println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for simulate (synthetic) staellite data (see Template 4.32)"); break;
-            case 40: println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for atmospheric chemical constituents. (see Template 4.40)"); break;
-            case 41: println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a point in time for atmospheric chemical constituents. (see Template 4.41)"); break;
-            case 42: println("Average, accumulation, and/or extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval for atmospheric chemical constituents. (see Template 4.42)"); break;
-            case 43: println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for atmospheric chemical constituents. (see Template 4.43)"); break;
-            case 44: println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for aerosol. (see Template 4.44)"); break;
-            case 45: println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for aerosol. (see Template 4.45)"); break;
-            case 46: println("Average, accumulation, and/or extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval for aerosol. (see Template 4.46)"); break;
-            case 47: println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for aerosol. (see Template 4.47)"); break;
-            case 48: println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for aerosol. (see Template 4.48)"); break;
-            case 51: println("Categorical forecast at a horizontal level or in a horizontal layer at a point in time. (see Template 4.51)"); break;
-            case 91: println("Categorical forecast at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.91)"); break;
-            case 254: println("CCITT IA5 character string (see Template 4.254)"); break;
-            case 1000: println("Cross-section of analysis and forecast at a point in time. (see Template 4.1000)"); break;
-            case 1001: println("Cross-section of averaged or otherwise statistically processed analysis or forecast over a range of time. (see Template 4.1001)"); break;
-            case 1002: println("Cross-section of analysis and forecast, averaged or otherwise statistically-processed over latitude or longitude. (see Template 4.1002)"); break;
-            case 1100: println("Hovmoller-type grid with no averaging or other statistical processing (see Template 4.1100)"); break;
-            case 1101: println("Hovmoller-type grid with averaging or other statistical processing (see Template 4.1101)"); break;
-            case 65535: println("Missing"); break;
-            default : println(this.ProductDefinitionTemplateNumber); break;
+            case 0: _println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time. (see Template 4.0)"); break;
+            case 1: _println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a point in time. (see Template 4.1)"); break;
+            case 2: _println("Derived forecasts based on all ensemble members at a horizontal level or in a horizontal layer at a point in time. (see Template 4.2)"); break;
+            case 3: _println("Derived forecasts based on a cluster of ensemble members over a rectangular area at a horizontal level or in a horizontal layer at a point in time. (see Template 4.3)"); break;
+            case 4: _println("Derived forecasts based on a cluster of ensemble members over a circular area at a horizontal level or in a horizontal layer at a point in time. (see Template 4.4)"); break;
+            case 5: _println("Probability forecasts at a horizontal level or in a horizontal layer at a point in time. (see Template 4.5)"); break;
+            case 6: _println("Percentile forecasts at a horizontal level or in a horizontal layer at a point in time. (see Template 4.6)"); break;
+            case 7: _println("Analysis or forecast error at a horizontal level or in a horizontal layer at a point in time. (see Template 4.7)"); break;
+            case 8: _println("Average, accumulation, extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.8)"); break;
+            case 9: _println("Probability forecasts at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.9)"); break;
+            case 10: _println("Percentile forecasts at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.10)"); break;
+            case 11: _println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.11)"); break;
+            case 12: _println("Derived forecasts based on all ensemble members at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.12)"); break;
+            case 13: _println("Derived forecasts based on a cluster of ensemble members over a rectangular area at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.13)"); break;
+            case 14: _println("Derived forecasts based on a cluster of ensemble members over a circular area at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval. (see Template 4.14)"); break;
+            case 15: _println("Average, accumulation, extreme values or other statistically-processed values over a spatial area at a horizontal level or in a horizontal layer at a point in time. (see Template 4.15)"); break;
+            case 20: _println("Radar product (see Template 4.20)"); break;
+            case 30: _println("Satellite product (see Template 4.30) NOTE:This template is deprecated. Template 4.31 should be used instead."); break;
+            case 31: _println("Satellite product (see Template 4.31)"); break;
+            case 32: _println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for simulate (synthetic) staellite data (see Template 4.32)"); break;
+            case 40: _println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for atmospheric chemical constituents. (see Template 4.40)"); break;
+            case 41: _println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a point in time for atmospheric chemical constituents. (see Template 4.41)"); break;
+            case 42: _println("Average, accumulation, and/or extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval for atmospheric chemical constituents. (see Template 4.42)"); break;
+            case 43: _println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for atmospheric chemical constituents. (see Template 4.43)"); break;
+            case 44: _println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for aerosol. (see Template 4.44)"); break;
+            case 45: _println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for aerosol. (see Template 4.45)"); break;
+            case 46: _println("Average, accumulation, and/or extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval for aerosol. (see Template 4.46)"); break;
+            case 47: _println("Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for aerosol. (see Template 4.47)"); break;
+            case 48: _println("Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for aerosol. (see Template 4.48)"); break;
+            case 51: _println("Categorical forecast at a horizontal level or in a horizontal layer at a point in time. (see Template 4.51)"); break;
+            case 91: _println("Categorical forecast at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.91)"); break;
+            case 254: _println("CCITT IA5 character string (see Template 4.254)"); break;
+            case 1000: _println("Cross-section of analysis and forecast at a point in time. (see Template 4.1000)"); break;
+            case 1001: _println("Cross-section of averaged or otherwise statistically processed analysis or forecast over a range of time. (see Template 4.1001)"); break;
+            case 1002: _println("Cross-section of analysis and forecast, averaged or otherwise statistically-processed over latitude or longitude. (see Template 4.1002)"); break;
+            case 1100: _println("Hovmoller-type grid with no averaging or other statistical processing (see Template 4.1100)"); break;
+            case 1101: _println("Hovmoller-type grid with averaging or other statistical processing (see Template 4.1101)"); break;
+            case 65535: _println("Missing"); break;
+            default : _println(this.ProductDefinitionTemplateNumber); break;
           }
 
-          print("Category of parameters by product discipline:\t");
+          _print("Category of parameters by product discipline:\t");
           this.CategoryOfParametersByProductDiscipline = SectionNumbers[10];
           if (this.DisciplineOfProcessedData == 0) { // Meteorological
             switch (this.CategoryOfParametersByProductDiscipline) {
-              case 0: println("Temperature"); break;
-              case 1: println("Moisture"); break;
-              case 2: println("Momentum"); break;
-              case 3: println("Mass"); break;
-              case 4: println("Short-wave Radiation"); break;
-              case 5: println("Long-wave Radiation"); break;
-              case 6: println("Cloud"); break;
-              case 7: println("Thermodynamic Stability indices"); break;
-              case 8: println("Kinematic Stability indices"); break;
-              case 9: println("Temperature Probabilities"); break;
-              case 10: println("Moisture Probabilities"); break;
-              case 11: println("Momentum Probabilities"); break;
-              case 12: println("Mass Probabilities"); break;
-              case 13: println("Aerosols"); break;
-              case 14: println("Trace gases (e.g., ozone, CO2)"); break;
-              case 15: println("Radar"); break;
-              case 16: println("Forecast Radar Imagery"); break;
-              case 17: println("Electro-dynamics"); break;
-              case 18: println("Nuclear/radiology"); break;
-              case 19: println("Physical atmospheric properties"); break;
-              case 190: println("CCITT IA5 string"); break;
-              case 191: println("Miscellaneous"); break;
-              case 255: println("Missing"); break;
-              default : println(this.CategoryOfParametersByProductDiscipline); break;
+              case 0: _println("Temperature"); break;
+              case 1: _println("Moisture"); break;
+              case 2: _println("Momentum"); break;
+              case 3: _println("Mass"); break;
+              case 4: _println("Short-wave Radiation"); break;
+              case 5: _println("Long-wave Radiation"); break;
+              case 6: _println("Cloud"); break;
+              case 7: _println("Thermodynamic Stability indices"); break;
+              case 8: _println("Kinematic Stability indices"); break;
+              case 9: _println("Temperature Probabilities"); break;
+              case 10: _println("Moisture Probabilities"); break;
+              case 11: _println("Momentum Probabilities"); break;
+              case 12: _println("Mass Probabilities"); break;
+              case 13: _println("Aerosols"); break;
+              case 14: _println("Trace gases (e.g., ozone, CO2)"); break;
+              case 15: _println("Radar"); break;
+              case 16: _println("Forecast Radar Imagery"); break;
+              case 17: _println("Electro-dynamics"); break;
+              case 18: _println("Nuclear/radiology"); break;
+              case 19: _println("Physical atmospheric properties"); break;
+              case 190: _println("CCITT IA5 string"); break;
+              case 191: _println("Miscellaneous"); break;
+              case 255: _println("Missing"); break;
+              default : _println(this.CategoryOfParametersByProductDiscipline); break;
             }
           }
           else {
-            println(this.CategoryOfParametersByProductDiscipline);
+            _println(this.CategoryOfParametersByProductDiscipline);
           }
 
-          print("Parameter number by product discipline and parameter category:\t");
+          _print("Parameter number by product discipline and parameter category:\t");
           this.ParameterNumberByProductDisciplineAndParameterCategory = SectionNumbers[11];
 
           if (this.DisciplineOfProcessedData == 0) { // Meteorological
@@ -9353,30 +9365,30 @@ public class App extends PApplet {
           else {
             ParameterNameAndUnit = nf(this.ParameterNumberByProductDisciplineAndParameterCategory, 0);
           }
-          println(ParameterNameAndUnit);
+          _println(ParameterNameAndUnit);
 
           float DayPortion = 0;
 
-          print("Indicator of unit of time range:\t");
+          _print("Indicator of unit of time range:\t");
           this.IndicatorOfUnitOfTimeRange = SectionNumbers[18];
           switch (this.IndicatorOfUnitOfTimeRange) {
-            case 0: println("Minute"); DayPortion = 1.0f / 60.0f; break;
-            case 1: println("Hour"); DayPortion = 1; break;
-            case 2: println("Day"); DayPortion = 24; break;
-            case 3: println("Month"); DayPortion = 30.5f * 24; break;
-            case 4: println("Year"); DayPortion = 365 * 24; break;
-            case 5: println("Decade (10 years)"); DayPortion = 10 * 365 * 24; break;
-            case 6: println("Normal (30 years)"); DayPortion = 30 * 365 * 24;break;
-            case 7: println("Century (100 years)"); DayPortion = 100 * 365 * 24;break;
-            case 10: println("3 hours"); DayPortion = 3; break;
-            case 11: println("6 hours"); DayPortion = 6; break;
-            case 12: println("12 hours"); DayPortion = 12; break;
-            case 13: println("Second"); DayPortion = 1.0f / 3600.0f; break;
-            case 255: println("Missing"); DayPortion = 0; break;
-            default: println(this.IndicatorOfUnitOfTimeRange); break;
+            case 0: _println("Minute"); DayPortion = 1.0f / 60.0f; break;
+            case 1: _println("Hour"); DayPortion = 1; break;
+            case 2: _println("Day"); DayPortion = 24; break;
+            case 3: _println("Month"); DayPortion = 30.5f * 24; break;
+            case 4: _println("Year"); DayPortion = 365 * 24; break;
+            case 5: _println("Decade (10 years)"); DayPortion = 10 * 365 * 24; break;
+            case 6: _println("Normal (30 years)"); DayPortion = 30 * 365 * 24;break;
+            case 7: _println("Century (100 years)"); DayPortion = 100 * 365 * 24;break;
+            case 10: _println("3 hours"); DayPortion = 3; break;
+            case 11: _println("6 hours"); DayPortion = 6; break;
+            case 12: _println("12 hours"); DayPortion = 12; break;
+            case 13: _println("Second"); DayPortion = 1.0f / 3600.0f; break;
+            case 255: _println("Missing"); DayPortion = 0; break;
+            default: _println(this.IndicatorOfUnitOfTimeRange); break;
           }
 
-          print("Forecast time in defined units:\t");
+          _print("Forecast time in defined units:\t");
           this.ForecastTimeInDefinedUnits = U_NUMx4(SectionNumbers[19], SectionNumbers[20], SectionNumbers[21], SectionNumbers[22]);
 
           if (this.ProductDefinitionTemplateNumber == 8) { // Average, accumulation, extreme values or other statistically processed values at a horizontal level or in a horizontal layer in a continuous or non-continuous time interval. (see Template 4.8)
@@ -9412,141 +9424,141 @@ public class App extends PApplet {
           else if (this.ProductDefinitionTemplateNumber == 47) { // Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer, in a continuous or non-continuous time interval for aerosol. (see Template 4.47)
             this.ForecastTimeInDefinedUnits += U_NUMx4(SectionNumbers[66], SectionNumbers[67], SectionNumbers[68], SectionNumbers[69]);
           }
-          println(this.ForecastTimeInDefinedUnits);
+          _println(this.ForecastTimeInDefinedUnits);
 
           this.ForecastConvertedTime = this.ForecastTimeInDefinedUnits * DayPortion;
 
-          print("Type of first fixed surface:\t");
+          _print("Type of first fixed surface:\t");
           this.TypeOfFirstFixedSurface = SectionNumbers[23];
           switch (this.TypeOfFirstFixedSurface) {
-            case 1: println("Ground or Water Surface"); break;
-            case 2: println("Cloud Base Level"); break;
-            case 3: println("Level of Cloud Tops"); break;
-            case 4: println("Level of 0o C Isotherm"); break;
-            case 5: println("Level of Adiabatic Condensation Lifted from the Surface"); break;
-            case 6: println("Maximum Wind Level"); break;
-            case 7: println("Tropopause"); break;
-            case 8: println("Nominal Top of the Atmosphere"); break;
-            case 9: println("Sea Bottom"); break;
-            case 10: println("Entire Atmosphere"); break;
-            case 11: println("Cumulonimbus Base (CB)"); break;
-            case 12: println("Cumulonimbus Top (CT)"); break;
-            case 20: println("Isothermal Level"); break;
-            case 100: println("Isobaric Surface"); break;
-            case 101: println("Mean Sea Level"); break;
-            case 102: println("Specific Altitude Above Mean Sea Level"); break;
-            case 103: println("Specified Height Level Above Ground"); break;
-            case 104: println("Sigma Level"); break;
-            case 105: println("Hybrid Level"); break;
-            case 106: println("Depth Below Land Surface"); break;
-            case 107: println("Isentropic (theta) Level"); break;
-            case 108: println("Level at Specified Pressure Difference from Ground to Level"); break;
-            case 109: println("Potential Vorticity Surface"); break;
-            case 111: println("Eta Level"); break;
-            case 113: println("Logarithmic Hybrid Level"); break;
-            case 114: println("Snow Level"); break;
-            case 117: println("Mixed Layer Depth"); break;
-            case 118: println("Hybrid Height Level"); break;
-            case 119: println("Hybrid Pressure Level"); break;
-            case 150: println("Generalized Vertical Height Coordinate"); break;
-            case 160: println("Depth Below Sea Level"); break;
-            case 161: println("Depth Below Water Surface"); break;
-            case 162: println("Lake or River Bottom"); break;
-            case 163: println("Bottom Of Sediment Layer"); break;
-            case 164: println("Bottom Of Thermally Active Sediment Layer"); break;
-            case 165: println("Bottom Of Sediment Layer Penetrated By Thermal Wave"); break;
-            case 166: println("Maxing Layer"); break;
-            case 200: println("Entire atmosphere (considered as a single layer)"); break;
-            case 201: println("Entire ocean (considered as a single layer)"); break;
-            case 204: println("Highest tropospheric freezing level"); break;
-            case 206: println("Grid scale cloud bottom level"); break;
-            case 207: println("Grid scale cloud top level"); break;
-            case 209: println("Boundary layer cloud bottom level"); break;
-            case 210: println("Boundary layer cloud top level"); break;
-            case 211: println("Boundary layer cloud layer"); break;
-            case 212: println("Low cloud bottom level"); break;
-            case 213: println("Low cloud top level"); break;
-            case 214: println("Low cloud layer"); break;
-            case 215: println("Cloud ceiling"); break;
-            case 220: println("Planetary Boundary Layer"); break;
-            case 221: println("Layer Between Two Hybrid Levels"); break;
-            case 222: println("Middle cloud bottom level"); break;
-            case 223: println("Middle cloud top level"); break;
-            case 224: println("Middle cloud layer"); break;
-            case 232: println("High cloud bottom level"); break;
-            case 233: println("High cloud top level"); break;
-            case 234: println("High cloud layer"); break;
-            case 235: println("Ocean Isotherm Level (1/10  C)"); break;
-            case 236: println("Layer between two depths below ocean surface"); break;
-            case 237: println("Bottom of Ocean Mixed Layer (m)"); break;
-            case 238: println("Bottom of Ocean Isothermal Layer (m)"); break;
-            case 239: println("Layer Ocean Surface and 26C Ocean Isothermal Level"); break;
-            case 240: println("Ocean Mixed Layer"); break;
-            case 241: println("Ordered Sequence of Data"); break;
-            case 242: println("Convective cloud bottom level"); break;
-            case 243: println("Convective cloud top level"); break;
-            case 244: println("Convective cloud layer"); break;
-            case 245: println("Lowest level of the wet bulb zero"); break;
-            case 246: println("Maximum equivalent potential temperature level"); break;
-            case 247: println("Equilibrium level"); break;
-            case 248: println("Shallow convective cloud bottom level"); break;
-            case 249: println("Shallow convective cloud top level"); break;
-            case 251: println("Deep convective cloud bottom level"); break;
-            case 252: println("Deep convective cloud top level"); break;
-            case 253: println("Lowest bottom level of supercooled liquid water layer"); break;
-            case 254: println("Highest top level of supercooled liquid water layer"); break;
-            case 255: println("Missing"); break;
-            default: println(this.TypeOfFirstFixedSurface); break;
+            case 1: _println("Ground or Water Surface"); break;
+            case 2: _println("Cloud Base Level"); break;
+            case 3: _println("Level of Cloud Tops"); break;
+            case 4: _println("Level of 0o C Isotherm"); break;
+            case 5: _println("Level of Adiabatic Condensation Lifted from the Surface"); break;
+            case 6: _println("Maximum Wind Level"); break;
+            case 7: _println("Tropopause"); break;
+            case 8: _println("Nominal Top of the Atmosphere"); break;
+            case 9: _println("Sea Bottom"); break;
+            case 10: _println("Entire Atmosphere"); break;
+            case 11: _println("Cumulonimbus Base (CB)"); break;
+            case 12: _println("Cumulonimbus Top (CT)"); break;
+            case 20: _println("Isothermal Level"); break;
+            case 100: _println("Isobaric Surface"); break;
+            case 101: _println("Mean Sea Level"); break;
+            case 102: _println("Specific Altitude Above Mean Sea Level"); break;
+            case 103: _println("Specified Height Level Above Ground"); break;
+            case 104: _println("Sigma Level"); break;
+            case 105: _println("Hybrid Level"); break;
+            case 106: _println("Depth Below Land Surface"); break;
+            case 107: _println("Isentropic (theta) Level"); break;
+            case 108: _println("Level at Specified Pressure Difference from Ground to Level"); break;
+            case 109: _println("Potential Vorticity Surface"); break;
+            case 111: _println("Eta Level"); break;
+            case 113: _println("Logarithmic Hybrid Level"); break;
+            case 114: _println("Snow Level"); break;
+            case 117: _println("Mixed Layer Depth"); break;
+            case 118: _println("Hybrid Height Level"); break;
+            case 119: _println("Hybrid Pressure Level"); break;
+            case 150: _println("Generalized Vertical Height Coordinate"); break;
+            case 160: _println("Depth Below Sea Level"); break;
+            case 161: _println("Depth Below Water Surface"); break;
+            case 162: _println("Lake or River Bottom"); break;
+            case 163: _println("Bottom Of Sediment Layer"); break;
+            case 164: _println("Bottom Of Thermally Active Sediment Layer"); break;
+            case 165: _println("Bottom Of Sediment Layer Penetrated By Thermal Wave"); break;
+            case 166: _println("Maxing Layer"); break;
+            case 200: _println("Entire atmosphere (considered as a single layer)"); break;
+            case 201: _println("Entire ocean (considered as a single layer)"); break;
+            case 204: _println("Highest tropospheric freezing level"); break;
+            case 206: _println("Grid scale cloud bottom level"); break;
+            case 207: _println("Grid scale cloud top level"); break;
+            case 209: _println("Boundary layer cloud bottom level"); break;
+            case 210: _println("Boundary layer cloud top level"); break;
+            case 211: _println("Boundary layer cloud layer"); break;
+            case 212: _println("Low cloud bottom level"); break;
+            case 213: _println("Low cloud top level"); break;
+            case 214: _println("Low cloud layer"); break;
+            case 215: _println("Cloud ceiling"); break;
+            case 220: _println("Planetary Boundary Layer"); break;
+            case 221: _println("Layer Between Two Hybrid Levels"); break;
+            case 222: _println("Middle cloud bottom level"); break;
+            case 223: _println("Middle cloud top level"); break;
+            case 224: _println("Middle cloud layer"); break;
+            case 232: _println("High cloud bottom level"); break;
+            case 233: _println("High cloud top level"); break;
+            case 234: _println("High cloud layer"); break;
+            case 235: _println("Ocean Isotherm Level (1/10  C)"); break;
+            case 236: _println("Layer between two depths below ocean surface"); break;
+            case 237: _println("Bottom of Ocean Mixed Layer (m)"); break;
+            case 238: _println("Bottom of Ocean Isothermal Layer (m)"); break;
+            case 239: _println("Layer Ocean Surface and 26C Ocean Isothermal Level"); break;
+            case 240: _println("Ocean Mixed Layer"); break;
+            case 241: _println("Ordered Sequence of Data"); break;
+            case 242: _println("Convective cloud bottom level"); break;
+            case 243: _println("Convective cloud top level"); break;
+            case 244: _println("Convective cloud layer"); break;
+            case 245: _println("Lowest level of the wet bulb zero"); break;
+            case 246: _println("Maximum equivalent potential temperature level"); break;
+            case 247: _println("Equilibrium level"); break;
+            case 248: _println("Shallow convective cloud bottom level"); break;
+            case 249: _println("Shallow convective cloud top level"); break;
+            case 251: _println("Deep convective cloud bottom level"); break;
+            case 252: _println("Deep convective cloud top level"); break;
+            case 253: _println("Lowest bottom level of supercooled liquid water layer"); break;
+            case 254: _println("Highest top level of supercooled liquid water layer"); break;
+            case 255: _println("Missing"); break;
+            default: _println(this.TypeOfFirstFixedSurface); break;
           }
         }
 
         SectionNumbers = getGrib2Section(5); // Section 5: Data Representation Section
 
         if (SectionNumbers.length > 1) {
-          print("Number of data points:\t");
+          _print("Number of data points:\t");
           this.NumberOfDataPoints = U_NUMx4(SectionNumbers[6], SectionNumbers[7], SectionNumbers[8], SectionNumbers[9]);
-          println(this.NumberOfDataPoints);
+          _println(this.NumberOfDataPoints);
 
-          print("Data Representation Template Number:\t");
+          _print("Data Representation Template Number:\t");
           this.DataRepresentationTemplateNumber = U_NUMx2(SectionNumbers[10], SectionNumbers[11]);
           switch (this.DataRepresentationTemplateNumber) {
-            case 0: println("Grid point data - simple packing"); break;
-            case 1: println("Matrix value - simple packing"); break;
-            case 2: println("Grid point data - complex packing"); break;
-            case 3: println("Grid point data - complex packing and spatial differencing"); break;
-            case 4: println("Grid point data – IEEE floating point data"); break;
-            case 40: println("Grid point data – JPEG 2000 Code Stream Format"); break;
-            case 41: println("Grid point data – Portable Network Graphics (PNG)"); break;
-            case 50: println("Spectral data -simple packing"); break;
-            case 51: println("Spherical harmonics data - complex packing"); break;
-            case 61: println("Grid point data - simple packing with logarithm pre-processing"); break;
-            case 65535: println("Missing"); break;
-            default : println(this.DataRepresentationTemplateNumber); break;
+            case 0: _println("Grid point data - simple packing"); break;
+            case 1: _println("Matrix value - simple packing"); break;
+            case 2: _println("Grid point data - complex packing"); break;
+            case 3: _println("Grid point data - complex packing and spatial differencing"); break;
+            case 4: _println("Grid point data – IEEE floating point data"); break;
+            case 40: _println("Grid point data – JPEG 2000 Code Stream Format"); break;
+            case 41: _println("Grid point data – Portable Network Graphics (PNG)"); break;
+            case 50: _println("Spectral data -simple packing"); break;
+            case 51: _println("Spherical harmonics data - complex packing"); break;
+            case 61: _println("Grid point data - simple packing with logarithm pre-processing"); break;
+            case 65535: _println("Missing"); break;
+            default : _println(this.DataRepresentationTemplateNumber); break;
           }
 
-          print("Reference value (R):\t");
+          _print("Reference value (R):\t");
           this.ReferenceValue = IEEE32(IntToBinary32(U_NUMx4(SectionNumbers[12], SectionNumbers[13], SectionNumbers[14], SectionNumbers[15])));
-          println(this.ReferenceValue);
+          _println(this.ReferenceValue);
 
-          print("Binary Scale Factor (E):\t");
+          _print("Binary Scale Factor (E):\t");
           this.BinaryScaleFactor = S_NUMx2(SectionNumbers[16], SectionNumbers[17]);
-          println(this.BinaryScaleFactor);
+          _println(this.BinaryScaleFactor);
 
-          print("Decimal Scale Factor (D):\t");
+          _print("Decimal Scale Factor (D):\t");
           this.DecimalScaleFactor = S_NUMx2(SectionNumbers[18], SectionNumbers[19]);
-          println(this.DecimalScaleFactor);
+          _println(this.DecimalScaleFactor);
 
-          print("Number of bits used for each packed value:\t");
+          _print("Number of bits used for each packed value:\t");
           this.NumberOfBitsUsedForEachPackedValue = SectionNumbers[20];
-          println(this.NumberOfBitsUsedForEachPackedValue);
+          _println(this.NumberOfBitsUsedForEachPackedValue);
 
-          print("Type of original field values:\t");
+          _print("Type of original field values:\t");
           JPEG2000_TypeOfOriginalFieldValues = SectionNumbers[21];
           switch (JPEG2000_TypeOfOriginalFieldValues) {
-            case 0: println("Floating point"); break;
-            case 1: println("Integer"); break;
-            case 255: println("Missing"); break;
-            default: println(JPEG2000_TypeOfOriginalFieldValues); break;
+            case 0: _println("Floating point"); break;
+            case 1: _println("Integer"); break;
+            case 255: _println("Missing"); break;
+            default: _println(JPEG2000_TypeOfOriginalFieldValues); break;
           }
 
           // parameters over 21 used in Complex Packings e.g JPEG-2000
@@ -9554,88 +9566,88 @@ public class App extends PApplet {
           JPEG2000_TargetCompressionRatio = -1;
           if (this.DataRepresentationTemplateNumber == 40) { // Grid point data – JPEG 2000 Code Stream Format
 
-            print("JPEG-2000/Type of Compression:\t");
+            _print("JPEG-2000/Type of Compression:\t");
             JPEG2000_TypeOfCompression = SectionNumbers[22];
             switch (JPEG2000_TypeOfCompression) {
-              case 0: println("Lossless"); break;
-              case 1: println("Lossy"); break;
-              case 255: println("Missing"); break;
-              default: println(JPEG2000_TypeOfCompression); break;
+              case 0: _println("Lossless"); break;
+              case 1: _println("Lossy"); break;
+              case 255: _println("Missing"); break;
+              default: _println(JPEG2000_TypeOfCompression); break;
             }
 
-            print("JPEG-2000/Target compression ratio (M):\t");
+            _print("JPEG-2000/Target compression ratio (M):\t");
             JPEG2000_TargetCompressionRatio = SectionNumbers[23];
-            println(JPEG2000_TargetCompressionRatio);
+            _println(JPEG2000_TargetCompressionRatio);
             //The compression ratio M:1 (e.g. 20:1) specifies that the encoded stream should be less than ((1/M) x depth x number of data points) bits,
             //where depth is specified in octet 20 and number of data points is specified in octets 6-9 of the Data Representation Section.
           }
           else if ((this.DataRepresentationTemplateNumber == 2) || // Grid point data - complex packing
                   (this.DataRepresentationTemplateNumber == 3)) { // Grid point data - complex packing and spatial differencing
 
-            print("ComplexPacking/Type of Compression:\t");
+            _print("ComplexPacking/Type of Compression:\t");
             ComplexPacking_GroupSplittingMethodUsed = SectionNumbers[22];
             switch (ComplexPacking_GroupSplittingMethodUsed) {
-              case 0: println("Row by row splitting"); break;
-              case 1: println("General group splitting"); break;
-              case 255: println("Missing"); break;
-              default: println(ComplexPacking_GroupSplittingMethodUsed); break;
+              case 0: _println("Row by row splitting"); break;
+              case 1: _println("General group splitting"); break;
+              case 255: _println("Missing"); break;
+              default: _println(ComplexPacking_GroupSplittingMethodUsed); break;
             }
 
-            print("ComplexPacking/Missing value management used:\t");
+            _print("ComplexPacking/Missing value management used:\t");
             ComplexPacking_MissingValueManagementUsed = SectionNumbers[23];
             switch (ComplexPacking_MissingValueManagementUsed) {
-              case 0: println("No explicit missing values included within data values"); break;
-              case 1: println("Primary missing values included within data values"); break;
-              case 2: println("Primary and secondary missing values included within data values"); break;
-              case 255: println("Missing"); break;
-              default: println(ComplexPacking_MissingValueManagementUsed); break;
+              case 0: _println("No explicit missing values included within data values"); break;
+              case 1: _println("Primary missing values included within data values"); break;
+              case 2: _println("Primary and secondary missing values included within data values"); break;
+              case 255: _println("Missing"); break;
+              default: _println(ComplexPacking_MissingValueManagementUsed); break;
             }
 
-            print("ComplexPacking/Primary missing value substitute:\t");
+            _print("ComplexPacking/Primary missing value substitute:\t");
             ComplexPacking_PrimaryMissingValueSubstitute = IEEE32(IntToBinary32(U_NUMx4(SectionNumbers[24], SectionNumbers[25], SectionNumbers[26], SectionNumbers[27])));
-            println(ComplexPacking_PrimaryMissingValueSubstitute);
+            _println(ComplexPacking_PrimaryMissingValueSubstitute);
 
-            print("ComplexPacking/Secondary missing value substitute:\t");
+            _print("ComplexPacking/Secondary missing value substitute:\t");
             ComplexPacking_SecondaryMissingValueSubstitute = IEEE32(IntToBinary32(U_NUMx4(SectionNumbers[28], SectionNumbers[29], SectionNumbers[30], SectionNumbers[31])));
-            println(ComplexPacking_SecondaryMissingValueSubstitute);
+            _println(ComplexPacking_SecondaryMissingValueSubstitute);
 
-            print("ComplexPacking/Number of groups of data values into which field is split:\t");
+            _print("ComplexPacking/Number of groups of data values into which field is split:\t");
             ComplexPacking_NumberOfGroupsOfDataValues = U_NUMx4(SectionNumbers[32], SectionNumbers[33], SectionNumbers[34], SectionNumbers[35]);
-            println(ComplexPacking_NumberOfGroupsOfDataValues);
+            _println(ComplexPacking_NumberOfGroupsOfDataValues);
 
-            print("ComplexPacking/Reference for group widths:\t");
+            _print("ComplexPacking/Reference for group widths:\t");
             ComplexPacking_ReferenceForGroupWidths = SectionNumbers[36];
-            println(ComplexPacking_ReferenceForGroupWidths);
+            _println(ComplexPacking_ReferenceForGroupWidths);
 
-            print("ComplexPacking/Number of bits used for group widths:\t");
+            _print("ComplexPacking/Number of bits used for group widths:\t");
             ComplexPacking_NumberOfBitsUsedForGroupWidths = SectionNumbers[37];
-            println(ComplexPacking_NumberOfBitsUsedForGroupWidths);
+            _println(ComplexPacking_NumberOfBitsUsedForGroupWidths);
 
-            print("ComplexPacking/Reference for group lengths:\t");
+            _print("ComplexPacking/Reference for group lengths:\t");
             ComplexPacking_ReferenceForGroupLengths = U_NUMx4(SectionNumbers[38], SectionNumbers[39], SectionNumbers[40], SectionNumbers[41]);
-            println(ComplexPacking_ReferenceForGroupLengths);
+            _println(ComplexPacking_ReferenceForGroupLengths);
 
-            print("ComplexPacking/Length increment for the group lengths:\t");
+            _print("ComplexPacking/Length increment for the group lengths:\t");
             ComplexPacking_LengthIncrementForTheGroupLengths = SectionNumbers[42];
-            println(ComplexPacking_LengthIncrementForTheGroupLengths);
+            _println(ComplexPacking_LengthIncrementForTheGroupLengths);
 
-            print("ComplexPacking/True length of last group:\t");
+            _print("ComplexPacking/True length of last group:\t");
             ComplexPacking_TrueLengthOfLastGroup = U_NUMx4(SectionNumbers[43], SectionNumbers[44], SectionNumbers[45], SectionNumbers[46]);
-            println(ComplexPacking_TrueLengthOfLastGroup);
+            _println(ComplexPacking_TrueLengthOfLastGroup);
 
-            print("ComplexPacking/Number of bits used for the scaled group lengths:\t");
+            _print("ComplexPacking/Number of bits used for the scaled group lengths:\t");
             ComplexPacking_NumberOfBitsUsedForTheScaledGroupLengths = SectionNumbers[47];
-            println(ComplexPacking_NumberOfBitsUsedForTheScaledGroupLengths);
+            _println(ComplexPacking_NumberOfBitsUsedForTheScaledGroupLengths);
 
             if (this.DataRepresentationTemplateNumber == 3) { // Grid point data - complex packing and spatial differencing
 
-              print("ComplexPacking/Order of Spatial Differencing:\t");
+              _print("ComplexPacking/Order of Spatial Differencing:\t");
               ComplexPacking_OrderOfSpatialDifferencing = SectionNumbers[48];
-              println(ComplexPacking_OrderOfSpatialDifferencing);
+              _println(ComplexPacking_OrderOfSpatialDifferencing);
 
-              print("ComplexPacking/Number of octets required in the Data Section to specify the extra descriptors:\t");
+              _print("ComplexPacking/Number of octets required in the Data Section to specify the extra descriptors:\t");
               ComplexPacking_NumberOfExtraOctetsRequiredInDataSection = SectionNumbers[49];
-              println(ComplexPacking_NumberOfExtraOctetsRequiredInDataSection);
+              _println(ComplexPacking_NumberOfExtraOctetsRequiredInDataSection);
             }
           }
         }
@@ -9652,20 +9664,20 @@ public class App extends PApplet {
         SectionNumbers = getGrib2Section(6); // Section 6: Bit-Map Section
 
         if (SectionNumbers.length > 1) {
-          print("Bit map indicator:\t");
+          _print("Bit map indicator:\t");
           Bitmap_Indicator = SectionNumbers[6];
           switch (Bitmap_Indicator) {
-            case 0: println("A bit map applies to this product and is specified in this Section."); break;
-            case 254: println("A bit map defined previously in the same GRIB message applies to this product."); break;
-            case 255: println("A bit map does not apply to this product."); break;
-            default : println("A bit map pre-determined by the originating/generating Centre applies to this product and is not specified in this Section."); break;
+            case 0: _println("A bit map applies to this product and is specified in this Section."); break;
+            case 254: _println("A bit map defined previously in the same GRIB message applies to this product."); break;
+            case 255: _println("A bit map does not apply to this product."); break;
+            default : _println("A bit map pre-determined by the originating/generating Centre applies to this product and is not specified in this Section."); break;
           }
 
           if (Bitmap_Indicator == 0) { // A bit map applies to this product and is specified in this Section.
 
             this.NullBitmapFlags = new int[(SectionNumbers.length - 7) * 8];
 
-            println(">>>>> NullBitmapFlags.length", this.NullBitmapFlags.length);
+            _println(">>>>> NullBitmapFlags.length", this.NullBitmapFlags.length);
 
             for (int i = 0; i < SectionNumbers.length - 7; i++) {
               String b = binary(SectionNumbers[7 + i], 8);
@@ -9689,144 +9701,144 @@ public class App extends PApplet {
 
             int n = Bitmap_beginPointer;
 
-            println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 4F : Marker Start of codestream
+            _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 4F : Marker Start of codestream
             n += 2;
 
-            println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 51 : Marker Image and tile size
+            _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 51 : Marker Image and tile size
             n += 2;
 
             JPEG2000_Lsiz = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Lsiz =", JPEG2000_Lsiz);  // Lsiz : Length of marker segment in bytes (not including the marker)
+            _println("Lsiz =", JPEG2000_Lsiz);  // Lsiz : Length of marker segment in bytes (not including the marker)
             n += 2;
 
             JPEG2000_Rsiz = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Rsiz =", JPEG2000_Rsiz);  // Rsiz : Denotes capabilities that a decoder needs to properly decode the codestream
+            _println("Rsiz =", JPEG2000_Rsiz);  // Rsiz : Denotes capabilities that a decoder needs to properly decode the codestream
             n += 2;
-            print("\t");
+            _print("\t");
             switch (JPEG2000_Rsiz) {
-              case 0: println("Capabilities specified in this Recommendation | International Standard only"); break;
-              case 1: println("Codestream restricted as described for Profile 0 from Table A.45"); break;
-              case 2: println("Codestream restricted as described for Profile 1 from Table A.45"); break;
-              default: println("Reserved"); break;
+              case 0: _println("Capabilities specified in this Recommendation | International Standard only"); break;
+              case 1: _println("Codestream restricted as described for Profile 0 from Table A.45"); break;
+              case 2: _println("Codestream restricted as described for Profile 1 from Table A.45"); break;
+              default: _println("Reserved"); break;
             }
 
             JPEG2000_Xsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("Xsiz =", JPEG2000_Xsiz);  // Xsiz : Width of the reference grid
+            _println("Xsiz =", JPEG2000_Xsiz);  // Xsiz : Width of the reference grid
             n += 4;
 
             JPEG2000_Ysiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("Ysiz =", JPEG2000_Ysiz);  // Ysiz : Height of the reference grid
+            _println("Ysiz =", JPEG2000_Ysiz);  // Ysiz : Height of the reference grid
             n += 4;
 
             JPEG2000_XOsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("XOsiz =", JPEG2000_XOsiz);  // XOsiz : Horizontal offset from the origin of the reference grid to the left side of the image area
+            _println("XOsiz =", JPEG2000_XOsiz);  // XOsiz : Horizontal offset from the origin of the reference grid to the left side of the image area
             n += 4;
 
             JPEG2000_YOsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("YOsiz =", JPEG2000_YOsiz);  // YOsiz : Vertical offset from the origin of the reference grid to the top side of the image area
+            _println("YOsiz =", JPEG2000_YOsiz);  // YOsiz : Vertical offset from the origin of the reference grid to the top side of the image area
             n += 4;
 
             JPEG2000_XTsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("XTsiz =", JPEG2000_XTsiz);  // XTsiz : Width of one reference tile with respect to the reference grid
+            _println("XTsiz =", JPEG2000_XTsiz);  // XTsiz : Width of one reference tile with respect to the reference grid
             n += 4;
 
             JPEG2000_YTsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("YTsiz =", JPEG2000_YTsiz);  // YTsiz : Height of one reference tile with respect to the reference grid
+            _println("YTsiz =", JPEG2000_YTsiz);  // YTsiz : Height of one reference tile with respect to the reference grid
             n += 4;
 
             JPEG2000_XTOsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("XTOsiz =", JPEG2000_XTOsiz);  // XTOsiz : Horizontal offset from the origin of the reference grid to the left side of the first tile
+            _println("XTOsiz =", JPEG2000_XTOsiz);  // XTOsiz : Horizontal offset from the origin of the reference grid to the left side of the first tile
             n += 4;
 
             JPEG2000_YTOsiz = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("YTOsiz =", JPEG2000_YTOsiz);  // YTOsiz : Vertical offset from the origin of the reference grid to the top side of the first tile
+            _println("YTOsiz =", JPEG2000_YTOsiz);  // YTOsiz : Vertical offset from the origin of the reference grid to the top side of the first tile
             n += 4;
 
             JPEG2000_Csiz = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Csiz =", JPEG2000_Csiz);  // Csiz : Number of components in the image
+            _println("Csiz =", JPEG2000_Csiz);  // Csiz : Number of components in the image
             n += 2;
 
             JPEG2000_Ssiz = fileBytes[n];
-            println("Ssiz =", JPEG2000_Ssiz);  // Ssiz : Precision (depth) in bits and sign of the ith component samples
+            _println("Ssiz =", JPEG2000_Ssiz);  // Ssiz : Precision (depth) in bits and sign of the ith component samples
             n += 1;
 
             JPEG2000_XRsiz = fileBytes[n];
-            println("XRsiz =", JPEG2000_XRsiz);  // XRsiz : Horizontal separation of a sample of ith component with respect to the reference grid. There is one occurrence of this parameter for each component
+            _println("XRsiz =", JPEG2000_XRsiz);  // XRsiz : Horizontal separation of a sample of ith component with respect to the reference grid. There is one occurrence of this parameter for each component
             n += 1;
 
             JPEG2000_YRsiz = fileBytes[n];
-            println("YRsiz =", JPEG2000_YRsiz);  // YRsiz : Vertical separation of a sample of ith component with respect to the reference grid. There is one occurrence of this parameter for each component.
+            _println("YRsiz =", JPEG2000_YRsiz);  // YRsiz : Vertical separation of a sample of ith component with respect to the reference grid. There is one occurrence of this parameter for each component.
             n += 1;
 
             if ((fileBytes[n] == -1) && (fileBytes[n + 1] == 100)) { // the case of optional Comment
 
-              println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 64 : Marker Comment
+              _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 64 : Marker Comment
               n += 2;
 
               JPEG2000_Lcom = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-              println("Lcom =", JPEG2000_Lcom);  // Lcom : Length of marker segment in bytes (not including the marker)
+              _println("Lcom =", JPEG2000_Lcom);  // Lcom : Length of marker segment in bytes (not including the marker)
               n += 2;
 
               JPEG2000_Rcom = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-              println("Rcom =", JPEG2000_Rcom);  // Rcom : Registration value of the marker segment
+              _println("Rcom =", JPEG2000_Rcom);  // Rcom : Registration value of the marker segment
               n += 2;
 
-              print("Comment: ");
+              _print("Comment: ");
               for (int i = 0; i < JPEG2000_Lcom - 4; i++) {
                 cout(fileBytes[n]);
                 n += 1;
               }
-              println();
+              _println();
             }
 
-            println("numXtiles:", (JPEG2000_Xsiz - JPEG2000_XTOsiz) / PApplet.parseFloat(JPEG2000_XTsiz));
-            println("numYtiles:", (JPEG2000_Ysiz - JPEG2000_YTOsiz) / PApplet.parseFloat(JPEG2000_YTsiz));
+            _println("numXtiles:", (JPEG2000_Xsiz - JPEG2000_XTOsiz) / PApplet.parseFloat(JPEG2000_XTsiz));
+            _println("numYtiles:", (JPEG2000_Ysiz - JPEG2000_YTOsiz) / PApplet.parseFloat(JPEG2000_YTsiz));
 
-            println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 52 : Marker Coding style default
+            _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 52 : Marker Coding style default
             n += 2;
 
             JPEG2000_Lcod = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Lcod =", JPEG2000_Lcod);  // Lcod : Length of marker segment in bytes (not including the marker)
+            _println("Lcod =", JPEG2000_Lcod);  // Lcod : Length of marker segment in bytes (not including the marker)
             n += 2;
 
             JPEG2000_Scod = fileBytes[n];
-            println("Scod =", JPEG2000_Scod);  // Scod : Coding style for all components
+            _println("Scod =", JPEG2000_Scod);  // Scod : Coding style for all components
             n += 1;
 
             // SGcod : Parameters for coding style designated in Scod. The parameters are independent of components.
 
             JPEG2000_SGcod_ProgressionOrder = fileBytes[n];
-            println("JPEG2000_SGcod_ProgressionOrder =", JPEG2000_SGcod_ProgressionOrder); // Progression order
+            _println("JPEG2000_SGcod_ProgressionOrder =", JPEG2000_SGcod_ProgressionOrder); // Progression order
             n += 1;
 
             JPEG2000_SGcod_NumberOfLayers = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("JPEG2000_SGcod_NumberOfLayers =", JPEG2000_SGcod_NumberOfLayers); // Number of layers
+            _println("JPEG2000_SGcod_NumberOfLayers =", JPEG2000_SGcod_NumberOfLayers); // Number of layers
             n += 2;
 
             JPEG2000_SGcod_MultipleComponentTransformation = fileBytes[n];
-            println("JPEG2000_SGcod_MultipleComponentTransformation =", JPEG2000_SGcod_MultipleComponentTransformation); // Multiple component transformation usage
+            _println("JPEG2000_SGcod_MultipleComponentTransformation =", JPEG2000_SGcod_MultipleComponentTransformation); // Multiple component transformation usage
             n += 1;
 
             // SPcod : Parameters for coding style designated in Scod. The parameters relate to all components.
 
             JPEG2000_SPcod_NumberOfDecompositionLevels = fileBytes[n];
-            println("JPEG2000_SPcod_NumberOfDecompositionLevels =", JPEG2000_SPcod_NumberOfDecompositionLevels); // Number of decomposition levels, NL, Zero implies no transformation.
+            _println("JPEG2000_SPcod_NumberOfDecompositionLevels =", JPEG2000_SPcod_NumberOfDecompositionLevels); // Number of decomposition levels, NL, Zero implies no transformation.
             n += 1;
 
             JPEG2000_SPcod_CodeBlockWidth = fileBytes[n];
-            println("JPEG2000_SPcod_CodeBlockWidth =", JPEG2000_SPcod_CodeBlockWidth); // Code-block width
+            _println("JPEG2000_SPcod_CodeBlockWidth =", JPEG2000_SPcod_CodeBlockWidth); // Code-block width
             n += 1;
 
             JPEG2000_SPcod_CodeBlockHeight = fileBytes[n];
-            println("JPEG2000_SPcod_CodeBlockHeight =", JPEG2000_SPcod_CodeBlockHeight); // Code-block height
+            _println("JPEG2000_SPcod_CodeBlockHeight =", JPEG2000_SPcod_CodeBlockHeight); // Code-block height
             n += 1;
 
             JPEG2000_SPcod_CodeBlockStyle = fileBytes[n];
-            println("JPEG2000_SPcod_CodeBlockStyle =", JPEG2000_SPcod_CodeBlockStyle); // Code-block style
+            _println("JPEG2000_SPcod_CodeBlockStyle =", JPEG2000_SPcod_CodeBlockStyle); // Code-block style
             n += 1;
 
             JPEG2000_SPcod_Transformation = fileBytes[n];
-            println("JPEG2000_SPcod_Transformation =", JPEG2000_SPcod_Transformation); // Wavelet transformation used
+            _println("JPEG2000_SPcod_Transformation =", JPEG2000_SPcod_Transformation); // Wavelet transformation used
             n += 1;
 
         //Ii through In: Precinct sizePrecinct size
@@ -9835,50 +9847,50 @@ public class App extends PApplet {
         //corresponds to the NLLL sub-band. Each successive parameter
         //corresponds to each successive resolution level in order.
 
-            println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 5C : Marker Quantization default
+            _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 5C : Marker Quantization default
             n += 2;
 
             JPEG2000_Lqcd = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Lqcd =", JPEG2000_Lqcd);  // Lqcd : Length of marker segment in bytes (not including the marker)
+            _println("Lqcd =", JPEG2000_Lqcd);  // Lqcd : Length of marker segment in bytes (not including the marker)
             n += 2;
 
             JPEG2000_Sqcd = fileBytes[n];
-            println("Sqcd =", JPEG2000_Sqcd);  // Sqcd : Quantization style for all components
+            _println("Sqcd =", JPEG2000_Sqcd);  // Sqcd : Quantization style for all components
             n += 1;
 
             //int JPEG2000_SPgcd = function(...);
-            // println("SPgcd =", JPEG2000_SPcod);  // SPgcd : Quantization step size value for the ith sub-band in the defined order
+            // _println("SPgcd =", JPEG2000_SPcod);  // SPgcd : Quantization step size value for the ith sub-band in the defined order
             n += JPEG2000_Lqcd - 3;
 
-            println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 90 : Marker Start of tile-part
+            _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 90 : Marker Start of tile-part
             n += 2;
 
             JPEG2000_Lsot = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Lsot =", JPEG2000_Lsot);  // Lsot : Length of marker segment in bytes (not including the marker)
+            _println("Lsot =", JPEG2000_Lsot);  // Lsot : Length of marker segment in bytes (not including the marker)
             n += 2;
 
             JPEG2000_Isot = U_NUMx2(fileBytes[n], fileBytes[n + 1]);
-            println("Isot =", JPEG2000_Isot);  // Isot : Tile index. This number refers to the tiles in raster order starting at the number 0
+            _println("Isot =", JPEG2000_Isot);  // Isot : Tile index. This number refers to the tiles in raster order starting at the number 0
             n += 2;
 
             JPEG2000_Psot = U_NUMx4(fileBytes[n], fileBytes[n + 1], fileBytes[n + 2], fileBytes[n + 3]);
-            println("Psot =", JPEG2000_Psot);  // Psot : Length, in bytes, from the beginning of the first byte of this SOT marker segment of the tile-part to the end of the data of that tile-part. Figure A.16 shows this alignment. Only the last tile-part in the codestream may contain a 0 for Psot. If the Psot is 0, this tile-part is assumed to contain all data until the EOC marker.
+            _println("Psot =", JPEG2000_Psot);  // Psot : Length, in bytes, from the beginning of the first byte of this SOT marker segment of the tile-part to the end of the data of that tile-part. Figure A.16 shows this alignment. Only the last tile-part in the codestream may contain a 0 for Psot. If the Psot is 0, this tile-part is assumed to contain all data until the EOC marker.
             n += 4;
 
             JPEG2000_TPsot = fileBytes[n];
-            println("TPsot =", JPEG2000_TPsot);  // TPsot : Tile-part index. There is a specific order required for decoding tile-parts; this index denotes the order from 0. If there is only one tile-part for a tile, then this value is zero. The tile-parts of this tile shall appear in the codestream in this order, although not necessarily consecutively.
+            _println("TPsot =", JPEG2000_TPsot);  // TPsot : Tile-part index. There is a specific order required for decoding tile-parts; this index denotes the order from 0. If there is only one tile-part for a tile, then this value is zero. The tile-parts of this tile shall appear in the codestream in this order, although not necessarily consecutively.
             n += 1;
 
             JPEG2000_TNsot = fileBytes[n];
-            println("TNsot =", JPEG2000_TNsot);  // TNsot : Number of tile-parts of a tile in the codestream. Two values are allowed: the correct number of tileparts for that tile and zero. A zero value indicates that the number of tile-parts of this tile is not specified in this tile-part.
+            _println("TNsot =", JPEG2000_TNsot);  // TNsot : Number of tile-parts of a tile in the codestream. Two values are allowed: the correct number of tileparts for that tile and zero. A zero value indicates that the number of tile-parts of this tile is not specified in this tile-part.
             n += 1;
-            print("\t");
+            _print("\t");
             switch (JPEG2000_TNsot) {
-              case 0: println("Number of tile-parts of this tile in the codestream is not defined in this header"); break;
-              default: println("Number of tile-parts of this tile in the codestream"); break;
+              case 0: _println("Number of tile-parts of this tile in the codestream is not defined in this header"); break;
+              default: _println("Number of tile-parts of this tile in the codestream"); break;
             }
 
-            println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 93 : Start of data
+            _println(hex(fileBytes[n], 2), hex(fileBytes[n + 1], 2));  // FF 93 : Start of data
             n += 2;
 
             // printMore(n, 100); // <<<<<<<<<<<<<<<<<<<<
@@ -9898,16 +9910,16 @@ public class App extends PApplet {
         */
 
             int o = 0;
-            print("CodeStream: ");
+            _print("CodeStream: ");
             while (!((fileBytes[n] == -1) && (fileBytes[n + 1] == -39))) { // note: If the Psot is 0 we need another algorithm to read because in that case the tile-part is assumed to contain all data until the EOC marker.
               //cout(fileBytes[n]);
         /*
-              print(o++);
-              println("(" + hex(fileBytes[n]) + ")");
+              _print(o++);
+              _println("(" + hex(fileBytes[n]) + ")");
         */
               n += 1;
             }
-            println();
+            _println();
 
             // printing the end of grib
 
@@ -9926,7 +9938,7 @@ public class App extends PApplet {
             Bitmap_FileName = Jpeg2000Folder + this.DataTitles[memberID] + ".jp2";
 
             saveBytes(Bitmap_FileName, imageBytes);
-            println("Bitmap section saved at:", Bitmap_FileName);
+            _println("Bitmap section saved at:", Bitmap_FileName);
 
             Bitmap_FileLength = 1 + Bitmap_endPointer - Bitmap_beginPointer;
           }
@@ -9964,7 +9976,7 @@ public class App extends PApplet {
             Bitmap_FileName = PngFolder + this.DataTitles[memberID] + ".png";
 
             saveBytes(Bitmap_FileName, imageBytes);
-            println("Bitmap section saved at:", Bitmap_FileName);
+            _println("Bitmap section saved at:", Bitmap_FileName);
 
             Bitmap_FileLength = 1 + Bitmap_endPointer - Bitmap_beginPointer;
           }
@@ -10018,8 +10030,8 @@ public class App extends PApplet {
             if ((this.DataRepresentationTemplateNumber == 2) || // Grid point data - complex packing
                 (this.DataRepresentationTemplateNumber == 3)) { // Grid point data - complex packing and spatial differencing
 
-              println();
-              println("First value(s) of original (undifferenced) scaled data values, followed by the overall minimum of the differences.");
+              _println();
+              _println("First value(s) of original (undifferenced) scaled data values, followed by the overall minimum of the differences.");
 
               int FirstValues1 = 0;
               int FirstValues2 = 0;
@@ -10037,7 +10049,7 @@ public class App extends PApplet {
                   }
                 }
                 FirstValues1 = S_NUMxI(m);
-                println("FirstValues1 =", FirstValues1);
+                _println("FirstValues1 =", FirstValues1);
               }
 
               if (ComplexPacking_OrderOfSpatialDifferencing == 2) { //second order spatial differencing
@@ -10052,7 +10064,7 @@ public class App extends PApplet {
                   }
                 }
                 FirstValues2 = S_NUMxI(m);
-                println("FirstValues2 =", FirstValues2);
+                _println("FirstValues2 =", FirstValues2);
               }
 
               {
@@ -10067,7 +10079,7 @@ public class App extends PApplet {
                 }
 
                 OverallMinimumOfTheDifferences = S_NUMxI(m);
-                println("OverallMinimumOfTheDifferences =", OverallMinimumOfTheDifferences);
+                _println("OverallMinimumOfTheDifferences =", OverallMinimumOfTheDifferences);
               }
 
               // read the group reference values
@@ -10085,7 +10097,7 @@ public class App extends PApplet {
                 }
                 group_refs[i] = U_NUMxI(m);
               }
-              // println(group_refs);
+              // _println(group_refs);
 
               //Bits set to zero shall be appended where necessary to ensure this sequence of numbers ends on an octet boundary.
               if (b != 0) {
@@ -10110,7 +10122,7 @@ public class App extends PApplet {
 
                 group_widths[i] += ComplexPacking_ReferenceForGroupWidths;
               }
-              // println(group_widths);
+              // _println(group_widths);
 
               //Bits set to zero shall be appended where necessary to ensure this sequence of numbers ends on an octet boundary.
               if (b != 0) {
@@ -10139,9 +10151,9 @@ public class App extends PApplet {
                 group_lengths[ComplexPacking_NumberOfGroupsOfDataValues - 1] = ComplexPacking_TrueLengthOfLastGroup;
               }
               else {
-                println("Error: It does not support this splitting method:", ComplexPacking_GroupSplittingMethodUsed);
+                _println("Error: It does not support this splitting method:", ComplexPacking_GroupSplittingMethodUsed);
               }
-              // println(group_lengths);
+              // _println(group_lengths);
 
               //Bits set to zero shall be appended where necessary to ensure this sequence of numbers ends on an octet boundary.
               if (b != 0) {
@@ -10156,7 +10168,7 @@ public class App extends PApplet {
               }
               if (total != this.NumberOfDataPoints) {
               //if (total != this.Np) {
-                println("Error: Size mismatch!");
+                _println("Error: Size mismatch!");
               }
 
               data = new float[total];
@@ -10259,11 +10271,11 @@ public class App extends PApplet {
 
             nPointer -= 1; // <<<<????
 
-            println("nPointer", nPointer);
-            println("fileBytes.length", fileBytes.length);
+            _println("nPointer", nPointer);
+            _println("fileBytes.length", fileBytes.length);
 
-            println("data.length", data.length);
-            println("Nx X Ny", this.Nx, this.Ny, this.Nx * this.Ny);
+            _println("data.length", data.length);
+            _println("Nx X Ny", this.Nx, this.Ny, this.Nx * this.Ny);
 
             float BB = pow(2, this.BinaryScaleFactor);
             float DD = pow(10, this.DecimalScaleFactor);
@@ -10318,7 +10330,7 @@ public class App extends PApplet {
         try {
           if (this.DataRepresentationTemplateNumber == 40) { // Grid point data – JPEG 2000 Code Stream Format
 
-            println("Openning:", Bitmap_FileName);
+            _println("Openning:", Bitmap_FileName);
 
             RandomAccessFile raf = new RandomAccessFile(Bitmap_FileName, "r");
 
@@ -10335,8 +10347,8 @@ public class App extends PApplet {
             raf.read(buf);
             g2j.decode(buf);
 
-            println("g2j.data.length", g2j.data.length);
-            println("Nx X Ny", this.Nx, this.Ny, this.Nx * this.Ny);
+            _println("g2j.data.length", g2j.data.length);
+            _println("Nx X Ny", this.Nx, this.Ny, this.Nx * this.Ny);
 
             float BB = pow(2, this.BinaryScaleFactor);
             float DD = pow(10, this.DecimalScaleFactor);
@@ -10365,7 +10377,7 @@ public class App extends PApplet {
             }
           }
           else if (this.DataRepresentationTemplateNumber == 41) { // Grid point data - Portable Network Graphics (PNG) Format
-            println("Openning:", Bitmap_FileName);
+            _println("Openning:", Bitmap_FileName);
 
             File inputFile = new File(Bitmap_FileName);
             BufferedImage image = ImageIO.read(inputFile);
@@ -10384,7 +10396,7 @@ public class App extends PApplet {
           }
         }
         catch (IOException e) {
-          println("error:", e);
+          _println("error:", e);
         }
       }
     }
@@ -10421,5 +10433,80 @@ public class App extends PApplet {
 
     k = k % 365;
     return k;
+  }
+
+  static int debug = 0;
+
+  static void _print() {
+    if (debug > 0) print();
+  }
+
+  static void _print(byte what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(boolean what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(int what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(long what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(float what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(double what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(String what) {
+    if (debug > 0) print(what);
+  }
+
+  static void _print(Object... variables) {
+    if (debug > 0) print(variables);
+  }
+
+
+  static void _println() {
+    if (debug > 0) println();
+  }
+
+  static void _println(byte what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(boolean what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(int what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(long what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(float what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(double what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(String what) {
+    if (debug > 0) println(what);
+  }
+
+  static void _println(Object... variables) {
+    if (debug > 0) println(variables);
   }
 }
