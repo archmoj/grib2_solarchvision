@@ -64,13 +64,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process HRRR
       uses: nick-fields/retry@v4
@@ -122,13 +116,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -180,13 +168,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -239,13 +221,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process HRDPS
       uses: nick-fields/retry@v4
@@ -299,13 +275,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process RDPS
       uses: nick-fields/retry@v4
@@ -357,13 +327,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -415,13 +379,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -474,13 +432,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -532,13 +484,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -591,13 +537,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process GDPS
       uses: nick-fields/retry@v4
@@ -650,13 +590,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process GDWPS
       uses: nick-fields/retry@v4
@@ -708,13 +642,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process RDWPS
       uses: nick-fields/retry@v4
@@ -766,13 +694,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process Lake-Erie
       uses: nick-fields/retry@v4
@@ -824,13 +746,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process Lake-Huron-Michigan
       uses: nick-fields/retry@v4
@@ -883,13 +799,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process Lake-Ontario
       uses: nick-fields/retry@v4
@@ -941,13 +851,7 @@ jobs:
         path: build/
 
     - name: Setup FFmpeg
-      uses: nick-fields/retry@v3
-      with:
-        max_attempts: 2
-        retry_on: error
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      with:
-        release-version: release
+      uses: FedericoCarboni/setup-ffmpeg@v3
 
     - name: Process Lake-Superior
       uses: nick-fields/retry@v4
