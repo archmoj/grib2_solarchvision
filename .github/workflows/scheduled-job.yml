@@ -70,7 +70,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/HRRR.txt) \
@@ -122,7 +122,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
@@ -174,7 +174,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
@@ -227,7 +227,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/HRDPS.txt) \
@@ -281,7 +281,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/RDPS.txt) \
@@ -333,7 +333,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
@@ -385,7 +385,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
@@ -438,7 +438,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
@@ -490,7 +490,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
@@ -543,7 +543,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/GDPS.txt) \
@@ -596,7 +596,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/GDWPS.txt) \
@@ -648,7 +648,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/RDWPS.txt) \
@@ -700,7 +700,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/Lake-Erie.txt) \
@@ -752,7 +752,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/Lake-Huron-Michigan.txt) \
@@ -805,7 +805,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/Lake-Ontario.txt) \
@@ -857,7 +857,7 @@ jobs:
       uses: nick-fields/retry@v4
       with:
         max_attempts: 2
-        timeout_minutes: 20
+        timeout_minutes: 15
         command: |
           xvfb-run --auto-servernum ./gradlew \
           run --args="$(tr '\n' ' ' < test/grid/Lake-Superior.txt) \
