@@ -20,6 +20,10 @@ import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class App extends PApplet {
 
@@ -312,6 +316,9 @@ public class App extends PApplet {
     { "Montreal-TroisRivieres-RiveSudCanal",  "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-RiveSudCanal", ".csv", "1", "1", "24", "0" },
     { "Montreal-TroisRivieres-SaintFrancois", "SHOP", "CMC", "https://collaboration.cmc.ec.gc.ca/cmc/cmoi/", "SHOP/data/csv", "CMC_shop-analysis", "Montreal-TroisRivieres-SaintFrancois", ".csv", "1", "1", "24", "0" },
 */
+
+    { "IFS", "IFS", "ECMWF", "https://data.ecmwf.int/forecasts", "ifs/0p25/oper", "oper", "fc", ".grib2", "9", "1", "3", "360" },
+
     { "GEFS", "GEFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", "_gefs_atmos_0p25s.pl", "gefs", "0p25", "pgrb2s.0p25", "100", "1", "6", "384" },
 
     { "GFS", "GFS", "NOAA", "https://nomads.ncep.noaa.gov/cgi-bin/filter", ".pl", "gfs", "0p25", "pgrb2", "25", "1", "1", "384" },
@@ -2085,8 +2092,16 @@ public class App extends PApplet {
         l += "%2Fconus";
       }
     }
-
-    println(l);
+    else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("ECMWF")) {
+      l =
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY03] + "/" +
+        nf(DATA_ModelYear, 4) +
+        nf(DATA_ModelMonth, 2) +
+        nf(DATA_ModelDay, 2) + "/" +
+        nf(DATA_ModelRun, 2) + "z/" +
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY04] + "/" +
+        DATA_Filename;
+    }
 
     return l;
   }
@@ -2404,22 +2419,16 @@ public class App extends PApplet {
         return_txt += "&leftlon=0&rightlon=360&toplat=90&bottomlat=-90";
       }
     }
+    else if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("ECMWF")) {
+      return_txt =
+        nf(DATA_ModelYear, 4) +
+        nf(DATA_ModelMonth, 2) +
+        nf(DATA_ModelDay, 2) + "000000-" + DATA_ModelTime + "h-" +
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY05] + "-" +
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY06] +
+        DATA_allDomains[Current_domainID][DOMAIN_PROPERTY07];
+    }
 
-  /*
-  //if (l == LAYER_drybulb) return_txt="CMC_reg_TMP_ISBL_1000_ps10km_2018030600_P000.grib2";
-  //else if (l == LAYER_windU) return_txt="CMC_reg_UGRD_ISBL_1000_ps10km_2018030600_P000.grib2";
-  //else if (l == LAYER_windV) return_txt="CMC_reg_VGRD_ISBL_1000_ps10km_2018030600_P000.grib2";
-  //else if (l == LAYER_albedo) return_txt="CMC_reg_TMP_ISBL_1000_ps10km_2018030600_P000.grib2"; // patch to have a albedo file!
-  //else return_txt = "";
-
-  if (l == LAYER_drybulb) return_txt="prog_regpres_2018030600_000.grib2_TT_1000";
-  else if (l == LAYER_windU) return_txt="prog_regpres_2018030600_000.grib2_UU_1000";
-  else if (l == LAYER_windV) return_txt="prog_regpres_2018030600_000.grib2_VV_1000";
-  else if (l == LAYER_albedo) return_txt="prog_regpres_2018030600_000.grib2_WW_1000"; // patch to have a albedo file!
-  else return_txt = "";
-
-  ////return_txt="t_rot.grib";
-  */
     return return_txt;
   }
 
@@ -4383,9 +4392,78 @@ public class App extends PApplet {
                     }
                   }
                   else {
-                    GRIB2CLASS myGrid = new GRIB2CLASS();
+                    String grib2Link = getGrib2Link();
 
-                    byte fileBytes[] = loadBytes(getGrib2Link());
+                    byte fileBytes[] = new byte[0];
+
+                    if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("ECMWF")) {
+                      String indexLink = grib2Link.replace(".grib2", ".index");
+                      println(indexLink);
+
+                      String[] lines = loadStrings(indexLink);
+                      String jsonString = "[" + join(lines, ", ") + "]";
+
+                      JSONArray jsonArray = parseJSONArray(jsonString);
+
+                      long _offset = -1;
+                      long _length = -1;
+
+                      if (jsonArray == null) {
+                        println("Error: Could not parse the JSON string:", jsonString);
+                      } else {
+                        for (int i = 0; i < jsonArray.size(); i++) {
+                          JSONObject item = jsonArray.getJSONObject(i);
+
+                          String param = item.getString("param");
+                          String levtype = item.getString("levtype");
+
+                          // println("param:", param);
+                          // println("levtype:", levtype);
+
+                          if ((param.equals("2t")) && (levtype.equals("sfc"))) {
+                            _offset = item.getLong("_offset");
+                            _length = item.getLong("_length");
+
+                            // println("_offset:", _offset);
+                            // println("_length:", _length);
+                            break;
+                          }
+                        }
+                      }
+
+                      if(_offset >= 0 && _length > 0) {
+                        long startByte = _offset;
+                        long endByte = _offset + _length;
+
+                        try {
+                          HttpClient client = HttpClient.newHttpClient();
+
+                          HttpRequest request = HttpRequest.newBuilder()
+                            .uri(URI.create(grib2Link))
+                            .header("Range", "bytes=" + startByte + "-" + endByte)
+                            .GET()
+                            .build();
+
+                          HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+
+                          // Status 206 means "Partial Content"
+                          if (response.statusCode() == 206) {
+                              fileBytes = response.body();
+                              println("Successfully loaded " + fileBytes.length + " bytes.");
+                          } else {
+                              println("Server returned status: " + response.statusCode());
+                          }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                      }
+                    } else {
+                      fileBytes = loadBytes(grib2Link);
+
+                      println(grib2Link);
+                    }
+
+                    GRIB2CLASS myGrid = new GRIB2CLASS();
 
                     myGrid.fileBytes = fileBytes;
 
