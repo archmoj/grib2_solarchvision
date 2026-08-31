@@ -9281,9 +9281,12 @@ public class App extends PApplet {
             case 4: _println("Grid point data – IEEE floating point data"); break;
             case 40: _println("Grid point data – JPEG 2000 Code Stream Format"); break;
             case 41: _println("Grid point data – Portable Network Graphics (PNG)"); break;
-            case 50: _println("Spectral data -simple packing"); break;
+            case 42: _println("Grid point data - CCSDS recommended lossless compression"); break;
+            case 50: _println("Spectral data - simple packing"); break;
             case 51: _println("Spherical harmonics data - complex packing"); break;
+            case 53: _println("Spectral data for limited area models - complex packing"); break;
             case 61: _println("Grid point data - simple packing with logarithm pre-processing"); break;
+            case 200: _println("Run Length Packing With Level Values"); break;
             case 65535: _println("Missing"); break;
             default : _println(this.DataRepresentationTemplateNumber); break;
           }
