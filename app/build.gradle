@@ -13,8 +13,6 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
-
-    maven { url 'https://artifacts.unidata.ucar.edu/repository/unidata-all/' }
 }
 
 dependencies {
@@ -28,8 +26,6 @@ dependencies {
 
     implementation 'org.processing:core:4.5.6'
     implementation 'org.processing:pdf:3.3.7'
-
-    implementation 'edu.ucar:cdm-core:5.10.0'
 
     implementation files('libs/grib-4.3.jar')
     implementation files('libs/gifAnimation.jar')
