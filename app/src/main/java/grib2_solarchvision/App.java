@@ -187,6 +187,7 @@ public class App extends PApplet {
 
   static String Jpeg2000Folder = TempFolder + "jp2/";
   static String PngFolder = TempFolder + "png/";
+  static String CcsdsFolder = TempFolder + "ccsds/";
 
   static String RECENT_OBSERVED_directory = TempFolder + "swob/";
   String[] RECENT_OBSERVED_XML_Files = getfiles(RECENT_OBSERVED_directory);
@@ -6138,11 +6139,6 @@ public class App extends PApplet {
 
   float[][][][] gridForecastConvertedTime = new float[DATA_numTimes][DATA_numLayers][DATA_numLevels][DATA_numMembers];
 
-  float[][][][] gridReferenceValue = new float[DATA_numTimes][DATA_numLayers][DATA_numLevels][DATA_numMembers];
-  int[][][][] gridBinaryScaleFactor = new int[DATA_numTimes][DATA_numLayers][DATA_numLevels][DATA_numMembers];
-  int[][][][] gridDecimalScaleFactor = new int[DATA_numTimes][DATA_numLayers][DATA_numLevels][DATA_numMembers];
-  int[][][][] gridNumberOfBitsUsedForEachPackedValue = new int[DATA_numTimes][DATA_numLayers][DATA_numLevels][DATA_numMembers];
-
   String[][][][] allDataTitles = new String [DATA_numTimes][DATA_numLayers][DATA_numLevels][DATA_numMembers];
 
   String[][] allParameterNamesAndUnits = new String [DATA_numLayers][DATA_numLevels];
@@ -6219,6 +6215,7 @@ public class App extends PApplet {
     int BinaryScaleFactor;
     int DecimalScaleFactor;
     int NumberOfBitsUsedForEachPackedValue;
+    int TypeOfOriginalFieldValues;
 
     int[] NullBitmapFlags;
 
@@ -6372,42 +6369,12 @@ public class App extends PApplet {
       int Bitmap_FileLength = 0;
       String Bitmap_FileName = "";
 
-      int JPEG2000_TypeOfOriginalFieldValues = 0;
       int JPEG2000_TypeOfCompression = 0;
       int JPEG2000_TargetCompressionRatio = 0;
-      int JPEG2000_Lsiz = 0;
-      int JPEG2000_Rsiz = 0;
-      int JPEG2000_Xsiz = 0;
-      int JPEG2000_Ysiz = 0;
-      int JPEG2000_XOsiz = 0;
-      int JPEG2000_YOsiz = 0;
-      int JPEG2000_XTsiz = 0;
-      int JPEG2000_YTsiz = 0;
-      int JPEG2000_XTOsiz = 0;
-      int JPEG2000_YTOsiz = 0;
-      int JPEG2000_Csiz = 0;
-      int JPEG2000_Ssiz = 0;
-      int JPEG2000_XRsiz = 0;
-      int JPEG2000_YRsiz = 0;
-      int JPEG2000_Lcom = 0;
-      int JPEG2000_Rcom = 0;
-      int JPEG2000_Lcod = 0;
-      int JPEG2000_Scod = 0;
-      int JPEG2000_SGcod_ProgressionOrder = 0;
-      int JPEG2000_SGcod_NumberOfLayers = 0;
-      int JPEG2000_SGcod_MultipleComponentTransformation = 0;
-      int JPEG2000_SPcod_NumberOfDecompositionLevels = 0;
-      int JPEG2000_SPcod_CodeBlockWidth = 0;
-      int JPEG2000_SPcod_CodeBlockHeight = 0;
-      int JPEG2000_SPcod_CodeBlockStyle = 0;
-      int JPEG2000_SPcod_Transformation = 0;
-      int JPEG2000_Lqcd = 0;
-      int JPEG2000_Sqcd = 0;
-      int JPEG2000_Lsot = 0;
-      int JPEG2000_Isot = 0;
-      int JPEG2000_Psot = 0;
-      int JPEG2000_TPsot = 0;
-      int JPEG2000_TNsot = 0;
+
+      int CCSDS_CompressionOptionsMask = 0;
+      int CCSDS_BlockSize = 0;
+      int CCSDS_ReferenceSampleInterval = 0;
 
       nPointer = -1;
 
@@ -9308,17 +9275,20 @@ public class App extends PApplet {
           _println(this.NumberOfBitsUsedForEachPackedValue);
 
           _print("Type of original field values:\t");
-          JPEG2000_TypeOfOriginalFieldValues = SectionNumbers[21];
-          switch (JPEG2000_TypeOfOriginalFieldValues) {
+          this.TypeOfOriginalFieldValues = SectionNumbers[21];
+          switch (this.TypeOfOriginalFieldValues) {
             case 0: _println("Floating point"); break;
             case 1: _println("Integer"); break;
             case 255: _println("Missing"); break;
-            default: _println(JPEG2000_TypeOfOriginalFieldValues); break;
+            default: _println(this.TypeOfOriginalFieldValues); break;
           }
 
-          // parameters over 21 used in Complex Packings e.g JPEG-2000
+          // parameters over 21 used based on packings
           JPEG2000_TypeOfCompression = -1;
           JPEG2000_TargetCompressionRatio = -1;
+          CCSDS_CompressionOptionsMask = -1;
+          CCSDS_BlockSize = -1;
+          CCSDS_ReferenceSampleInterval = -1;
           if (this.DataRepresentationTemplateNumber == 40) { // Grid point data – JPEG 2000 Code Stream Format
 
             _print("JPEG-2000/Type of Compression:\t");
@@ -9335,6 +9305,19 @@ public class App extends PApplet {
             _println(JPEG2000_TargetCompressionRatio);
             //The compression ratio M:1 (e.g. 20:1) specifies that the encoded stream should be less than ((1/M) x depth x number of data points) bits,
             //where depth is specified in octet 20 and number of data points is specified in octets 6-9 of the Data Representation Section.
+          }
+          else if (this.DataRepresentationTemplateNumber == 42) { // Grid point data - CCSDS recommended lossless compression
+            _print("CCSDS compression options mask:\t");
+            CCSDS_CompressionOptionsMask = SectionNumbers[22];
+            _println(CCSDS_CompressionOptionsMask);
+
+            _print("Block Size:\t");
+            CCSDS_BlockSize = SectionNumbers[23];
+            _println(CCSDS_BlockSize);
+
+            _print("Reference sample interval:\t");
+            CCSDS_ReferenceSampleInterval = SectionNumbers[24];
+            _println(CCSDS_ReferenceSampleInterval);
           }
           else if ((this.DataRepresentationTemplateNumber == 2) || // Grid point data - complex packing
                   (this.DataRepresentationTemplateNumber == 3)) { // Grid point data - complex packing and spatial differencing
@@ -9446,7 +9429,8 @@ public class App extends PApplet {
 
         if (
           (this.DataRepresentationTemplateNumber == 40) || // Grid point data – JPEG 2000 Code Stream Format
-          (this.DataRepresentationTemplateNumber == 41)    // Grid point data - Portable Network Graphics (PNG) Format
+          (this.DataRepresentationTemplateNumber == 41) || // Grid point data - Portable Network Graphics (PNG) Format
+          (this.DataRepresentationTemplateNumber == 42)    // Grid point data - CCSDS recommended lossless compression
         ) {
 
           Bitmap_beginPointer = nPointer + 6;
@@ -9473,6 +9457,8 @@ public class App extends PApplet {
               Bitmap_FileName = Jpeg2000Folder + this.DataTitles[memberID] + ".jp2";
             } else if (this.DataRepresentationTemplateNumber == 41) {
               Bitmap_FileName = PngFolder + this.DataTitles[memberID] + ".png";
+            } else if (this.DataRepresentationTemplateNumber == 42) {
+              Bitmap_FileName = CcsdsFolder + this.DataTitles[memberID] + ".ccsds";
             }
 
             saveBytes(Bitmap_FileName, imageBytes);
@@ -9845,6 +9831,8 @@ public class App extends PApplet {
             byte[] buf = new byte[Bitmap_FileLength];
 
             raf.read(buf);
+            raf.close();
+
             g2j.decode(buf);
 
             _println("g2j.data.length", g2j.data.length);
