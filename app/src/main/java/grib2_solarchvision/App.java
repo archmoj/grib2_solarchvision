@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-import ucar.unidata.io.RandomAccessFile;
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
 
 import java.io.File;
@@ -9818,7 +9817,7 @@ public class App extends PApplet {
 
             _println("Openning:", Bitmap_FileName);
 
-            RandomAccessFile raf = new RandomAccessFile(Bitmap_FileName, "r");
+            byte[] buf = loadBytes(Bitmap_FileName);
 
             String[] argv = new String[4];
             argv[0] = "-rate";
@@ -9827,11 +9826,6 @@ public class App extends PApplet {
             argv[3] = "off";
 
             Grib2JpegDecoder g2j = new Grib2JpegDecoder(argv);
-
-            byte[] buf = new byte[Bitmap_FileLength];
-
-            raf.read(buf);
-            raf.close();
 
             g2j.decode(buf);
 
