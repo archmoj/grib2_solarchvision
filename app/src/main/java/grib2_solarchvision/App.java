@@ -1695,46 +1695,75 @@ public class App extends PApplet {
 
 
             textAlign(CENTER, CENTER);
-            for (int q = 0; q < LOCATIONS_NUMBER; q++) {
-              int scaleRank = PApplet.parseInt(LOCATIONS_INFO[q][5]);
 
-              float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
-              float lon = PApplet.parseFloat(LOCATIONS_INFO[q][4]);
+            float[] drawnX = new float[0];
+            float[] drawnY = new float[0];
 
-              float[] P = getIxIy(lon, lat);
+            for (int pass = 0; pass < 10; pass++) { // draw cities in order of scaleRank
+              for (int q = 0; q < LOCATIONS_NUMBER; q++) {
+                int scaleRank = PApplet.parseInt(LOCATIONS_INFO[q][5]);
+                if(scaleRank != pass) continue;
 
-              float ix = P[0];
-              float iy = P[1];
+                float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
+                float lon = PApplet.parseFloat(LOCATIONS_INFO[q][4]);
 
-              float x = ix * DATA_Viewport_Width / gridNx;
-              float y = (gridNy - 1 - iy) * DATA_Viewport_Height / gridNy;
+                float[] P = getIxIy(lon, lat);
 
-              x = (x - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
-              y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+                float ix = P[0];
+                float iy = P[1];
 
-              if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
-                float[] P2 = getIxIy(
-                  lon,
-                  lat + 0.1f // pick a point close to the city to calculate refScale
-                );
+                float x = ix * DATA_Viewport_Width / gridNx;
+                float y = (gridNy - 1 - iy) * DATA_Viewport_Height / gridNy;
 
-                float ix2 = P2[0];
-                float iy2 = P2[1];
+                x = (x - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
+                y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
 
-                float x2 = ix2 * DATA_Viewport_Width / gridNx;
-                float y2 = (gridNy - 1 - iy2) * DATA_Viewport_Height / gridNy;
+                if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
+                  float[] P2 = getIxIy(
+                    lon,
+                    lat + 0.1f // pick a point close to the city to calculate refScale
+                  );
 
-                x2 = (x2 - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
-                y2 = (y2 - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+                  float ix2 = P2[0];
+                  float iy2 = P2[1];
 
-                float refScale = pow(pow(x2 - x, 2) + pow(y2 - y, 2), 0.5f);
-                float rankEffect = 11 - scaleRank;
-                float text_size = 1.0f * rankEffect * refScale;
-                if (text_size < 16.0f) continue;
-                if (text_size > 24.0f) text_size = 24.0f;
-                textSize(text_size);
+                  float x2 = ix2 * DATA_Viewport_Width / gridNx;
+                  float y2 = (gridNy - 1 - iy2) * DATA_Viewport_Height / gridNy;
 
-                text(LOCATIONS_INFO[q][0], x, y);
+                  x2 = (x2 - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
+                  y2 = (y2 - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+
+                  float refScale = pow(pow(x2 - x, 2) + pow(y2 - y, 2), 0.5f);
+                  float rankEffect = 11 - scaleRank;
+                  float text_size = 8.0f * rankEffect * refScale;
+                  if (text_size < 16.0f) continue;
+                  if (text_size > 24.0f) text_size = 24.0f;
+
+                  boolean display_it = true;
+                  for (int i = 0; i < drawnX.length; i++) {
+                    float dist = pow(
+                      pow(drawnX[i] - x, 2) +
+                      pow(drawnY[i] - y, 2)
+                    , 0.5f);
+
+                    if (dist < 75) {
+                      display_it = false;
+                      break;
+                    }
+                  }
+
+                  if (display_it == true) {
+                    textSize(text_size);
+                    String label = LOCATIONS_INFO[q][0];
+                    text(label, x, y);
+
+                    float h2 = text_size / 2;
+                    float w2 = text_size * label.length() / 2;
+
+                    drawnX = (float[]) concat (drawnX, new float[] {x, x - h2, x - h2, x + h2, x + h2});
+                    drawnY = (float[]) concat (drawnY, new float[] {y, y - w2, y + w2, y - w2, y + w2});
+                  }
+                }
               }
             }
 
