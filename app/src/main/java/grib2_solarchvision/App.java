@@ -1697,22 +1697,9 @@ public class App extends PApplet {
             for (int q = 0; q < LOCATIONS_NUMBER; q++) {
               boolean display_it = true;
 
-              /*
-              if ((DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GEPS")) ||
-                  (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY01].equals("GDPS"))) {
-              }
-              else {
-                if ((LOCATIONS_INFO[q][2].equals("CAN")) ||
-                    (LOCATIONS_INFO[q][2].equals("USA"))) {
-                }
-                else {
-                  display_it = false;
-                }
-              }
-              */
+              int scaleRank = PApplet.parseInt(LOCATIONS_INFO[q][5]);
 
-              //if (float(LOCATIONS_INFO[q][5]) - 1 > DATA_Viewport_Zoom * 0.0025 * (gridNy * gridDy)) display_it = false;
-              if (PApplet.parseFloat(LOCATIONS_INFO[q][5]) - 1 > DATA_Viewport_Zoom * 0.0010f * (gridNy * gridDy)) display_it = false;
+              if (scaleRank - 1 > DATA_Viewport_Zoom * 0.0010f * (gridNy * gridDy)) display_it = false;
 
               if (display_it == true) {
                 float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
