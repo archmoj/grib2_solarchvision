@@ -1692,6 +1692,8 @@ public class App extends PApplet {
             noStroke();
             fill(0);
 
+
+
             textAlign(CENTER, CENTER);
             for (int q = 0; q < LOCATIONS_NUMBER; q++) {
               int scaleRank = PApplet.parseInt(LOCATIONS_INFO[q][5]);
@@ -1757,7 +1759,7 @@ public class App extends PApplet {
             float lon = P[0];
             float lat = P[1];
 
-            textSize(10);
+            textSize(20);
 
             textAlign(CENTER, BOTTOM);
             text(nf(lon, 0, 2) + "X" + nf(lat, 0, 2), mouseX, mouseY);
