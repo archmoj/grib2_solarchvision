@@ -1738,8 +1738,8 @@ public class App extends PApplet {
                   float refScale = pow(pow(x2 - x, 2) + pow(y2 - y, 2), 0.5f);
                   float rankEffect = pow(11 - scaleRank, 2);
                   float text_size = 1.0f * rankEffect * refScale;
-                  if (text_size < 12.0f) continue;
-                  if (text_size > 24.0f) text_size = 24.0f;
+                  if (text_size < 10.0f) continue;
+                  if (text_size > 20.0f) text_size = 20.0f;
 
                   String label = LOCATIONS_INFO[q][0];
                   float h = text_size;
