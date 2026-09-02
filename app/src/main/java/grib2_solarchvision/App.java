@@ -1696,8 +1696,10 @@ public class App extends PApplet {
 
             textAlign(CENTER, CENTER);
 
-            float[] drawnX = new float[0];
-            float[] drawnY = new float[0];
+            float[] drawnX1 = new float[0];
+            float[] drawnY1 = new float[0];
+            float[] drawnX2 = new float[0];
+            float[] drawnY2 = new float[0];
 
             for (int pass = 0; pass < 10; pass++) { // draw cities in order of scaleRank
               for (int q = 0; q < LOCATIONS_NUMBER; q++) {
@@ -1739,29 +1741,47 @@ public class App extends PApplet {
                   if (text_size < 16.0f) continue;
                   if (text_size > 24.0f) text_size = 24.0f;
 
-                  boolean display_it = true;
-                  for (int i = 0; i < drawnX.length; i++) {
-                    float dist = pow(
-                      pow(drawnX[i] - x, 2) +
-                      pow(drawnY[i] - y, 2)
-                    , 0.5f);
+                  String label = LOCATIONS_INFO[q][0];
+                  float h = text_size;
+                  float w = text_size * label.length();
 
-                    if (dist < 75) {
-                      display_it = false;
-                      break;
+                  // more spacing needed
+                  h *= 1.5f;
+                  w *= 1.5f;
+
+                  boolean display_it = true;
+                  for (int i = 0; i < drawnX1.length; i++) {
+                    for (int k = 0; k < 5; k++) {
+                      float testX =
+                        (k == 1) ? x - w / 2 :
+                        (k == 2) ? x - w / 2 :
+                        (k == 3) ? x + w / 2 :
+                        (k == 4) ? x + w / 2 :
+                        x;
+
+                      float testY =
+                        (k == 1) ? y - h / 2 :
+                        (k == 2) ? y - h / 2 :
+                        (k == 3) ? y + h / 2 :
+                        (k == 4) ? y + h / 2 :
+                        y;
+
+                      if(isInside(testX, testY, drawnX1[i], drawnY1[i], drawnX2[i], drawnY2[i]) == 1) {
+                        display_it = false;
+                        break;
+                      }
                     }
+                    if(display_it == false) break;
                   }
 
                   if (display_it == true) {
                     textSize(text_size);
-                    String label = LOCATIONS_INFO[q][0];
                     text(label, x, y);
 
-                    float h2 = text_size / 2;
-                    float w2 = text_size * label.length() / 2;
-
-                    drawnX = (float[]) concat (drawnX, new float[] {x, x - h2, x - h2, x + h2, x + h2});
-                    drawnY = (float[]) concat (drawnY, new float[] {y, y - w2, y + w2, y - w2, y + w2});
+                    drawnX1 = (float[]) concat (drawnX1, new float[] {x - w / 2});
+                    drawnY1 = (float[]) concat (drawnY1, new float[] {y - h / 2});
+                    drawnX2 = (float[]) concat (drawnX2, new float[] {x + w / 2});
+                    drawnY2 = (float[]) concat (drawnY2, new float[] {y + h / 2});
                   }
                 }
               }
