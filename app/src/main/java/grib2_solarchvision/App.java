@@ -1698,11 +1698,6 @@ public class App extends PApplet {
             for (int q = 0; q < LOCATIONS_NUMBER; q++) {
               int scaleRank = PApplet.parseInt(LOCATIONS_INFO[q][5]);
 
-              float text_size = 2.0f * (11 - scaleRank) * DATA_Viewport_Zoom;
-
-              if (text_size < 16.0f) continue;
-              if (text_size > 24.0f) text_size = 24.0f;
-
               float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
               float lon = PApplet.parseFloat(LOCATIONS_INFO[q][4]);
 
@@ -1718,7 +1713,27 @@ public class App extends PApplet {
               y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
 
               if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
+                float[] P2 = getIxIy(
+                  lon,
+                  lat + 0.1f // pick a point close to the city to calculate refScale
+                );
+
+                float ix2 = P2[0];
+                float iy2 = P2[1];
+
+                float x2 = ix2 * DATA_Viewport_Width / gridNx;
+                float y2 = (gridNy - 1 - iy2) * DATA_Viewport_Height / gridNy;
+
+                x2 = (x2 - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
+                y2 = (y2 - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+
+                float refScale = pow(pow(x2 - x, 2) + pow(y2 - y, 2), 0.5f);
+                float rankEffect = 11 - scaleRank;
+                float text_size = 1.0f * rankEffect * refScale;
+                if (text_size < 16.0f) continue;
+                if (text_size > 24.0f) text_size = 24.0f;
                 textSize(text_size);
+
                 text(LOCATIONS_INFO[q][0], x, y);
               }
             }
