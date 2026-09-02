@@ -1692,33 +1692,32 @@ public class App extends PApplet {
             noStroke();
             fill(0);
 
-            textSize(12.5f);
             textAlign(CENTER, CENTER);
             for (int q = 0; q < LOCATIONS_NUMBER; q++) {
-              boolean display_it = true;
-
               int scaleRank = PApplet.parseInt(LOCATIONS_INFO[q][5]);
 
-              if (scaleRank - 1 > DATA_Viewport_Zoom * 0.0010f * (gridNy * gridDy)) display_it = false;
+              float text_size = 2.0f * (11 - scaleRank) * DATA_Viewport_Zoom;
 
-              if (display_it == true) {
-                float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
-                float lon = PApplet.parseFloat(LOCATIONS_INFO[q][4]);
+              if (text_size < 16.0f) continue;
+              if (text_size > 24.0f) text_size = 24.0f;
 
-                float[] P = getIxIy(lon, lat);
+              float lat = PApplet.parseFloat(LOCATIONS_INFO[q][3]);
+              float lon = PApplet.parseFloat(LOCATIONS_INFO[q][4]);
 
-                float ix = P[0];
-                float iy = P[1];
+              float[] P = getIxIy(lon, lat);
 
-                float x = ix * DATA_Viewport_Width / gridNx;
-                float y = (gridNy - 1 - iy) * DATA_Viewport_Height / gridNy;
+              float ix = P[0];
+              float iy = P[1];
 
-                x = (x - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
-                y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+              float x = ix * DATA_Viewport_Width / gridNx;
+              float y = (gridNy - 1 - iy) * DATA_Viewport_Height / gridNy;
 
-                if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
-                  text(LOCATIONS_INFO[q][0], x, y);
-                }
+              x = (x - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
+              y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
+
+              if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
+                textSize(text_size);
+                text(LOCATIONS_INFO[q][0], x, y);
               }
             }
 
