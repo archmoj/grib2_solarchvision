@@ -1720,7 +1720,7 @@ public class App extends PApplet {
                 x = (x - DATA_Viewport_Width / 2) * DATA_Viewport_Zoom + DATA_Viewport_Width / 2 + DATA_Viewport_CenX;
                 y = (y - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
 
-                if (isInside (x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
+                if (isInside(x, y, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 1) {
                   float[] P2 = getIxIy(
                     lon,
                     lat + 0.1f // pick a point close to the city to calculate refScale
@@ -1736,18 +1736,18 @@ public class App extends PApplet {
                   y2 = (y2 - DATA_Viewport_Height / 2) * DATA_Viewport_Zoom + DATA_Viewport_Height / 2 + DATA_Viewport_CenY;
 
                   float refScale = pow(pow(x2 - x, 2) + pow(y2 - y, 2), 0.5f);
-                  float rankEffect = 11 - scaleRank;
-                  float text_size = 8.0f * rankEffect * refScale;
-                  if (text_size < 16.0f) continue;
+                  float rankEffect = pow(11 - scaleRank, 2);
+                  float text_size = 1.0f * rankEffect * refScale;
+                  if (text_size < 12.0f) continue;
                   if (text_size > 24.0f) text_size = 24.0f;
 
                   String label = LOCATIONS_INFO[q][0];
                   float h = text_size;
                   float w = text_size * label.length();
 
-                  // more spacing needed
+                  // adjust spacing needed
                   h *= 1.5f;
-                  w *= 1.5f;
+                  w *= 0.6f;
 
                   boolean display_it = true;
                   for (int i = 0; i < drawnX1.length; i++) {
@@ -1761,12 +1761,17 @@ public class App extends PApplet {
 
                       float testY =
                         (k == 1) ? y - h / 2 :
-                        (k == 2) ? y - h / 2 :
-                        (k == 3) ? y + h / 2 :
+                        (k == 2) ? y + h / 2 :
+                        (k == 3) ? y - h / 2 :
                         (k == 4) ? y + h / 2 :
                         y;
 
-                      if(isInside(testX, testY, drawnX1[i], drawnY1[i], drawnX2[i], drawnY2[i]) == 1) {
+                      if (isInside(testX, testY, 0, 0, DATA_Viewport_Width, DATA_Viewport_Height) == 0) {
+                        display_it = false;
+                        break;
+                      }
+
+                      if (isInside(testX, testY, drawnX1[i], drawnY1[i], drawnX2[i], drawnY2[i]) == 1) {
                         display_it = false;
                         break;
                       }
@@ -1775,6 +1780,10 @@ public class App extends PApplet {
                   }
 
                   if (display_it == true) {
+                    //fill(255);
+                    //rect(x - w / 2, y - h / 2, w, h);
+                    //fill(0);
+
                     textSize(text_size);
                     text(label, x, y);
 
