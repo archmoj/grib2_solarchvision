@@ -4502,15 +4502,15 @@ public class App extends PApplet {
                           String param = item.getString("param");
                           String levtype = item.getString("levtype");
 
-                          // println("param:", param);
-                          // println("levtype:", levtype);
+                          boolean foundParam = false;
+                          boolean foundLevel = false;
+                          if ((DATA_allLevels[levelID] == LEVEL_surface) && (levtype.equals("sfc"))) foundLevel = true;
 
-                          if ((param.equals("2t")) && (levtype.equals("sfc"))) {
+                          if ((DATA_allLayers[layerID] == LAYER_drybulb) && (param.equals("2t"))) foundParam = true;
+
+                          if (foundLevel && foundParam) {
                             _offset = item.getLong("_offset");
                             _length = item.getLong("_length");
-
-                            // println("_offset:", _offset);
-                            // println("_length:", _length);
                             break;
                           }
                         }
