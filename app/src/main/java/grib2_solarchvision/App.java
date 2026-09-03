@@ -1904,15 +1904,25 @@ public class App extends PApplet {
 
         noStroke();
         fill(255);
-        textSize(1.66f * MessageSize);
+        textSize(1.5f * MessageSize);
         textAlign(RIGHT, CENTER);
 
         String attribution = "Based on data of the ";
-        if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("ECMWF")) attribution += "European Centre for Medium-Range Weather Forecasts (ECMWF)";
+        String id = DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02];
+        if (id.equals("CMC")) attribution += "Canadian Meteorological Centre";
+        else if (id.equals("NOAA")) attribution += "National Centers for Environmental Prediction";
+        else if (id.equals("ECMWF")) attribution += "European Centre for Medium-Range Weather Forecasts (ECMWF)";
         else attribution += dataCentre;
 
         String title = allDataTitles[Current_timeID][Current_layerID][Current_levelID][Current_memberID];
-        if (title != null) attribution += " | " + title;
+        if (title != null) {
+          if(id.equals("NOAA")) {
+            // adjust long titles
+            title = title.substring(0, title.indexOf("&left"));
+          }
+
+          attribution += " | " + title;
+        }
 
         text(attribution, SOLARCHVISION_W_Pixel - 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
 
