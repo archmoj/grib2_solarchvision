@@ -1250,6 +1250,7 @@ public class App extends PApplet {
       }
       else if (DATA_Postprocessed == false) {
         if ((progressID >= 0) && (progressID < postprocessList.length)) {
+          SCALE_PERCENT_LAYERS_ECMWF();
           POST_PROCESS_WIND_AND_SOLAR(progressID);
         }
       }
@@ -4748,6 +4749,33 @@ public class App extends PApplet {
               gridMinute               [timeID][layerID][levelID][memberID] = gridMinute               [timeID][layerID_withTime][levelID][memberID];
               gridSecond               [timeID][layerID][levelID][memberID] = gridSecond               [timeID][layerID_withTime][levelID][memberID];
               gridForecastConvertedTime[timeID][layerID][levelID][memberID] = gridForecastConvertedTime[timeID][layerID_withTime][levelID][memberID];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  void SCALE_PERCENT_LAYERS_ECMWF () {
+    if(!dataCentre.equals("ECMWP")) return;
+
+    for (int layerID = 0; layerID < DATA_numLayers; layerID += 1) {
+      if (
+        (layerID == LAYER_cloudcover) ||
+        (layerID == LAYER_cloudhigh) ||
+        (layerID == LAYER_cloudmiddle) ||
+        (layerID == LAYER_cloudlow)
+        // TODO: Possibly add all the layers using (%)
+      ) {
+        for (int timeID = 0; timeID < DATA_numTimes; timeID += 1) {
+          for (int levelID = 0; levelID < DATA_numLevels; levelID += 1) {
+            for (int memberID = 0; memberID < DATA_numMembers; memberID += 1) {
+
+              for (int q = 0; q < gridNx * gridNy; q++) {
+                if (allDataValues[timeID][layerID][levelID][memberID][q] != FLOAT_undefined) {
+                  allDataValues[timeID][layerID][levelID][memberID][q] *= 100;
+                }
+              }
             }
           }
         }
