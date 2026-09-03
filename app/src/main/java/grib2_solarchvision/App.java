@@ -4506,7 +4506,15 @@ public class App extends PApplet {
                           boolean foundLevel = false;
                           if ((DATA_allLevels[levelID] == LEVEL_surface) && (levtype.equals("sfc"))) foundLevel = true;
 
+                          if ((DATA_allLayers[layerID] == LAYER_cloudcover) && (param.equals("tcc"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_precipitation) && (param.equals("tp"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_surfpressure) && (param.equals("sp"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_meanpressure) && (param.equals("msl"))) foundParam = true;
                           if ((DATA_allLayers[layerID] == LAYER_drybulb) && (param.equals("2t"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_dewpoint) && (param.equals("2d"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_relhum) && (param.equals("r"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_windU) && (param.equals("10u"))) foundParam = true;
+                          if ((DATA_allLayers[layerID] == LAYER_windV) && (param.equals("10v"))) foundParam = true;
 
                           if (foundLevel && foundParam) {
                             _offset = item.getLong("_offset");
@@ -10079,7 +10087,10 @@ switch (this.IdentificationOfCentre) {
             decoder.setInputMemory(inputMemory);
             decoder.setOutputMemory(outputMemory);
 
-            LibAec.aec_buffer_decode(decoder);
+            int err = LibAec.aec_buffer_decode(decoder);
+            if(err != 0) {
+              println("CCSDS decode error:", err);
+            }
 
             byte[] out = new byte[nBytes * this.Np];
             outputMemory.read(0, out, 0, out.length);
