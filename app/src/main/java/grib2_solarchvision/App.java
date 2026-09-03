@@ -6537,7 +6537,7 @@ public class App extends PApplet {
         if (SectionNumbers.length > 1) {
           _print("Identification of originating/generating centre: ");
           this.IdentificationOfCentre = U_NUMx2(SectionNumbers[6], SectionNumbers[7]);
-switch (this.IdentificationOfCentre) {
+          switch (this.IdentificationOfCentre) {
             case 0: dataCentre = "WMO Secretariat"; break;
             case 1: dataCentre = "Melbourne"; break;
             case 2: dataCentre = "Melbourne"; break;
