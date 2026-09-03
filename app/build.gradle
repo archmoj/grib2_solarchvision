@@ -13,6 +13,8 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+
+    maven { url 'https://artifacts.unidata.ucar.edu/repository/unidata-all/' }
 }
 
 dependencies {
@@ -26,6 +28,10 @@ dependencies {
 
     implementation 'org.processing:core:4.5.6'
     implementation 'org.processing:pdf:3.3.7'
+
+    implementation 'edu.ucar:libaec-jna:5.9.1'
+    implementation 'edu.ucar.unidata:libaec-native:1.1.7.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.13' // or slf4j-nop for zero output
 
     implementation files('libs/grib-4.3.jar')
     implementation files('libs/gifAnimation.jar')

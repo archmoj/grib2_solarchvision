@@ -15,10 +15,17 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
+import java.nio.ByteBuffer;
+import com.sun.jna.Memory;
+
+import edu.ucar.unidata.compression.jna.libaec.LibAec;
+import edu.ucar.unidata.compression.jna.libaec.LibAec.AecStream;
+
 import ucar.jpeg.jj2000.j2k.decoder.Grib2JpegDecoder;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9480,7 +9487,7 @@ switch (this.IdentificationOfCentre) {
             _println(CCSDS_BlockSize);
 
             _print("Reference sample interval:\t");
-            CCSDS_ReferenceSampleInterval = SectionNumbers[24];
+            CCSDS_ReferenceSampleInterval = U_NUMx2(SectionNumbers[24], SectionNumbers[25]);
             _println(CCSDS_ReferenceSampleInterval);
           }
           else if ((this.DataRepresentationTemplateNumber == 2) || // Grid point data - complex packing
@@ -10039,6 +10046,66 @@ switch (this.IdentificationOfCentre) {
               int pos = q * 3; // RGB
               int val = ((data[pos + 2] & 0xFF) << 16) | ((data[pos + 1] & 0xFF) << 8) | (data[pos] & 0xFF);
               this.DataValues[memberID][q] = ((val * BB) + RR) / DD;
+            }
+          } else if (this.DataRepresentationTemplateNumber == 42) { // Grid point data - CCSDS recommended lossless compression
+            _println("Openning:", Bitmap_FileName);
+
+            byte[] buf = loadBytes(Bitmap_FileName);
+
+            int nBytes = (this.NumberOfBitsUsedForEachPackedValue + 7) / 8;
+
+            Memory inputMemory = new Memory(Bitmap_FileLength);
+            Memory outputMemory = new Memory((long) nBytes * this.Np);
+
+            inputMemory.write(0, buf, 0, buf.length);
+
+            AecStream decoder = AecStream.create(
+              this.NumberOfBitsUsedForEachPackedValue,
+              CCSDS_BlockSize,
+              CCSDS_ReferenceSampleInterval,
+              CCSDS_CompressionOptionsMask
+            );
+
+            decoder.setInputMemory(inputMemory);
+            decoder.setOutputMemory(outputMemory);
+
+            LibAec.aec_buffer_decode(decoder);
+
+            byte[] out = new byte[nBytes * this.Np];
+            outputMemory.read(0, out, 0, out.length);
+
+            float BB = pow(2, this.BinaryScaleFactor);
+            float DD = pow(10, this.DecimalScaleFactor);
+            float RR = this.ReferenceValue;
+
+            ByteBuffer data = ByteBuffer.wrap(out);
+
+            if (Bitmap_Indicator == 0) { // A bit map applies to this product
+              for (int q = 0; q < this.Nx * this.Ny; q++) {
+                if (this.NullBitmapFlags[q] == 0) {
+                  this.DataValues[memberID][q] = FLOAT_undefined;
+                }
+                else {
+                  long value =
+                    (nBytes == 1) ? Byte.toUnsignedLong(data.get()) :
+                    (nBytes == 2) ? Short.toUnsignedLong(data.getShort()) :
+                    (nBytes == 4) ? Integer.toUnsignedLong(data.getInt()) :
+                    data.getLong();
+
+                  this.DataValues[memberID][q] = (RR + value * BB) / DD;
+                }
+              }
+            }
+            else {
+              for (int q = 0; q < this.Nx * this.Ny; q++) {
+                long value =
+                  (nBytes == 1) ? Byte.toUnsignedLong(data.get()) :
+                  (nBytes == 2) ? Short.toUnsignedLong(data.getShort()) :
+                  (nBytes == 4) ? Integer.toUnsignedLong(data.getInt()) :
+                  data.getLong();
+
+                this.DataValues[memberID][q] = (RR + value * BB) / DD;
+              }
             }
           }
         }
