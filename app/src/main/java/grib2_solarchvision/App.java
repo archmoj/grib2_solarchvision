@@ -576,6 +576,10 @@ public class App extends PApplet {
   static int[] DATA_allLayers = new int[0];
   static int[] DATA_allLevels = new int[0];
 
+  // cash for ECMWF index files
+  static String prev_indexLink = "";
+  static String[] prev_indexLines = new String[0];
+
   static void parseArgs(String[] args) {
     for (int i = 0 ; i < args.length ; i++) {
       String CAP_arg = args[i].toUpperCase();
@@ -4484,10 +4488,16 @@ public class App extends PApplet {
 
                     if (DATA_allDomains[Current_domainID][DOMAIN_PROPERTY02].equals("ECMWF")) {
                       String indexLink = grib2Link.replace(".grib2", ".index");
-                      println(indexLink);
 
-                      String[] lines = loadStrings(indexLink);
-                      String jsonString = "[" + join(lines, ", ") + "]";
+                      String[] indexLines = prev_indexLines;
+                      if(!prev_indexLink.equals(indexLink)) {
+                        prev_indexLink = indexLink;
+                        println(indexLink);
+                        indexLines = loadStrings(indexLink);
+                        prev_indexLines = indexLines;
+                      }
+
+                      String jsonString = "[" + join(indexLines, ", ") + "]";
 
                       JSONArray jsonArray = parseJSONArray(jsonString);
 
@@ -4530,6 +4540,8 @@ public class App extends PApplet {
                         long endByte = _offset + _length;
 
                         try {
+                          println("Requesting bytes from " + startByte + " to " + endByte);
+
                           HttpClient client = HttpClient.newHttpClient();
 
                           HttpRequest request = HttpRequest.newBuilder()
