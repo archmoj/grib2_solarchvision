@@ -1202,7 +1202,7 @@ public class App extends PApplet {
       text("SOLARCHVISION", width / 2, height / 2);
       fill(0);
       textSize(30);
-      text("GRIB2 DATA VISUALIZATION & ANALYSIS TOOL\ndeveloped by Mojtaba Samimi (© 2016-2026)", width / 2, height / 4);
+      text("GRIB2 Data Processing & Visualization\ndeveloped by Mojtaba Samimi (© 2016-2026)", width / 2, height / 4);
 
       noStroke();
       fill(255);
@@ -1903,9 +1903,9 @@ public class App extends PApplet {
 
         noStroke();
         fill(255);
-        textSize(2.0f * MessageSize);
+        textSize(1.75f * MessageSize);
         textAlign(LEFT, CENTER);
-        text("SOLARCHVISION-GRIB2 DATA VISUALIZATION:", 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
+        text("SOLARCHVISION-GRIB2 Data Processing & Visualization:", 10, SOLARCHVISION_A_Pixel + 0.5f * SOLARCHVISION_B_Pixel);
 
         noStroke();
         fill(255);
